@@ -5,11 +5,17 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
-
+	private Animator anim;
 	public Rigidbody rb;
+	private Vector3 vel;
 
-	public float MovementSpeedWalk = 200f;
-	public float MovementSpeedRun = 300f;
+	private bool facingRight;
+	private bool turning;
+
+	private int spaceHeld;
+
+	public float MovementSpeedWalk = 100f;
+	public float MovementSpeedRun = 200f;
 	public float MoveSpeedMax = 5f;
 	public float JumpHeight = 10f;
 	float MoveSpeed;
@@ -18,47 +24,52 @@ public class PlayerMovement : MonoBehaviour
 	// Update is called once per frame
 	void Start()
 	{
-		//Initializer
+		anim = GetComponent<Animator>();
+		vel = new Vector3 (0, 0, 0);
+		spaceHeld = 0;
+		facingRight = true;
+		turning = false;
 	}
 
+	void Turn() {
+		turning = true;
+		anim.SetTrigger("turn");
+	}
 
 	void FixedUpdate()
 	{
+		// Turn!
+		if (turning && anim.GetCurrentAnimatorStateInfo(0).IsName("stickman2")) {
+			Vector3 temp =  transform.localScale;
+			temp.x *= -1;
+			transform.localScale = temp;
+			turning = false;
+		}
 
-		MoveSpeed = rb.velocity.magnitude;
-		/*
-        if (Input.GetKey("d") && MoveSpeed < MoveSpeedMax)
-        {
-            rb.AddForce(MovementSpeedWalk * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-        };
+		// Update
+		Vector3 dir = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+		vel += (dir*MovementSpeedWalk - vel) * 10f  * Time.deltaTime;
+		transform.localPosition += vel * Time.deltaTime;
 
-        if (Input.GetKey("a") && MoveSpeed < MoveSpeedMax)
-        {
-            rb.AddForce(-MovementSpeedWalk * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
-        };
+		// Flip if we're heading left
+		if (vel.x>0 && facingRight) {
+			Turn();
+			facingRight = false;
 
-        if (Input.GetKey("w") && MoveSpeed < MoveSpeedMax)
-        {
-           // rb.AddForce(0, 0, MovementSpeedWalk * Time.deltaTime, ForceMode.VelocityChange);
-           transform.forward + MovementSpeedWalk;
-        }
+		} else if (vel.x<0 && !facingRight) {
+			Turn();
+			facingRight = true;
+		}
+		
+		// Toggle spacebar
+		if (Input.GetKey("space")) {
+			spaceHeld++;
+		} else {
+			spaceHeld = 0;
+		}
 
-        if (Input.GetKey("s") && MoveSpeed < MoveSpeedMax)
-        {
-            rb.AddForce(0, 0, -MovementSpeedWalk * Time.deltaTime, ForceMode.VelocityChange);
-        }
-        */
-
-		float h = Input.GetAxis("Horizontal") * MovementSpeedWalk * Time.deltaTime;
-		float v = Input.GetAxis("Vertical") * MovementSpeedWalk * Time.deltaTime;
-
-		//        _transform.localPosition += _transform.right * h;
-		//        _transform.localPosition += _transform.forward * v;
-
-		Vector3 RIGHT = transform.TransformDirection(Vector3.right);
-		Vector3 FORWARD = transform.TransformDirection(Vector3.forward);
-
-		transform.localPosition += RIGHT * h;
-		transform.localPosition += FORWARD * v;
+		if (spaceHeld == 1) {
+			print("Space!");
+		}
 	}
 }
