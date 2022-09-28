@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DialogueBox : MonoBehaviour
+public class TextBox : MonoBehaviour
 {
     private GameObject[] gameObjects;
 
@@ -9,20 +9,26 @@ public class DialogueBox : MonoBehaviour
     {
         gameObjects = GameObject.FindGameObjectsWithTag("TextBox");
         // text box is initially invisible
+        // TODO: currently does not work, but did earlier?
         ToggleTextBox();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        ToggleTextBox();
     }
 
+    /// <summary>
+    /// Toggles the text box on and off.
+    /// </summary>
     public void ToggleTextBox()
     {
-        foreach (GameObject gameObj in gameObjects)
-        {
-            gameObj.SetActive(!gameObj.activeSelf);
+        if (Input.GetKeyDown(KeyCode.E)) {
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.SetActive(!gameObject.activeSelf);
+            }
         }
     }
 }
