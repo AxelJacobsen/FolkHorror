@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 874fd4bed5b470146983c9bfd449496a
+guid: 54fc69a474931a94ea099c77bfc41c52
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -116,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: testspritesheet 1_0
+      name: goofus_0
       rect:
         serializedVersion: 2
         x: 0
@@ -130,14 +130,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 525e8b8261c07c949b32b1cfb7c1eba3
-      internalID: 1907974897
+      spriteID: d91ad19935af8024cbe3dbe9aa867c5a
+      internalID: 222041772
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: testspritesheet 1_1
+      name: goofus_1
       rect:
         serializedVersion: 2
         x: 32
@@ -151,14 +151,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad7751a3b0fc9d24b8d9f9b2b2a36eb0
-      internalID: 1880169437
+      spriteID: d22e43b540016f04da9279f3f1469da5
+      internalID: 553826923
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: testspritesheet 1_2
+      name: goofus_2
       rect:
         serializedVersion: 2
         x: 64
@@ -172,14 +172,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1160165a6a4fcf4b9ef925c1ba4009e
-      internalID: -305137184
+      spriteID: a8d84dacb53db3348bd052e00d8561e0
+      internalID: 1555115209
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: testspritesheet 1_3
+      name: goofus_3
       rect:
         serializedVersion: 2
         x: 96
@@ -193,14 +193,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 94c845e7f5cb9fd489ea89d3bc8d9f05
-      internalID: -221700487
+      spriteID: e6196c959a3ea724d80349b2ed124002
+      internalID: -1052294920
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: testspritesheet 1_4
+      name: goofus_4
       rect:
         serializedVersion: 2
         x: 128
@@ -214,14 +214,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 509a0f29c5d9de04481388ad5c3d7944
-      internalID: -1338354020
+      spriteID: 1f35c9c8b7c10bd40a1272e15c662734
+      internalID: 192594195
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: testspritesheet 1_5
+      name: goofus_5
       rect:
         serializedVersion: 2
         x: 160
@@ -235,14 +235,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b3acb0cfc5bc96c4f99ae84d013a7056
-      internalID: -143899416
+      spriteID: 37ba9ffc9db90df4099309620c575471
+      internalID: 46086574
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: testspritesheet 1_6
+      name: goofus_6
       rect:
         serializedVersion: 2
         x: 192
@@ -256,14 +256,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 48e7e085d8a1a2248bca9cd34b9bbaef
-      internalID: 221448973
+      spriteID: 54be79e37b548dd47ab91a9b5eaab150
+      internalID: 1558708640
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: testspritesheet 1_7
+      name: goofus_7
       rect:
         serializedVersion: 2
         x: 224
@@ -277,14 +277,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7648e02d0ae24574e9173635aa11787e
-      internalID: -869291417
+      spriteID: 8c62f3a3feb97df40a324eb2e116456b
+      internalID: -1327583647
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: testspritesheet 1_8
+      name: goofus_8
       rect:
         serializedVersion: 2
         x: 256
@@ -298,14 +298,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28a340d8a07c090499d81f81226b32c4
-      internalID: 291705751
+      spriteID: 01a7186325c1b654a88030a55314a9d7
+      internalID: -1272792347
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: testspritesheet 1_9
+      name: goofus_9
       rect:
         serializedVersion: 2
         x: 288
@@ -319,14 +319,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ff127c5dcdaadb14d9157e2be3a23e2c
-      internalID: -495961128
+      spriteID: c3de49422924a8b42b9ec3966a2311f4
+      internalID: -207616638
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: testspritesheet 1_10
+      name: goofus_10
       rect:
         serializedVersion: 2
         x: 320
@@ -340,14 +340,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebeb872ed2478d241910d6f15cfdb3fe
-      internalID: 919624515
+      spriteID: a7ef0719af34dc948b75f56243ab2c07
+      internalID: -1547266460
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: testspritesheet 1_11
+      name: goofus_11
       rect:
         serializedVersion: 2
         x: 352
@@ -361,14 +361,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: df8fd8a9d27c4264193d693d8903dfb1
-      internalID: 1659862761
+      spriteID: 326c4d6338359ac4db7f0f748f703b30
+      internalID: 539704781
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: testspritesheet 1_12
+      name: goofus_12
       rect:
         serializedVersion: 2
         x: 384
@@ -382,8 +382,155 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51289cf32a14f6445b6f723f1a3d0c43
-      internalID: -268648293
+      spriteID: 426d89d544dd841448624665cd50444e
+      internalID: 687566872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goofus_13
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15bcc6fdafed240419a0c68e241a0392
+      internalID: -1116976800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goofus_14
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08a50ec8053773546beca8c9f1255f52
+      internalID: 1264369649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goofus_15
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ad1aa3f98687de4fb6992af37bcd721
+      internalID: 197413828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goofus_16
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3877cb5295a61b04eb565a0c17cbabd1
+      internalID: 111561865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goofus_17
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f7b86a10db7bf848a4d8c2f460f1301
+      internalID: 2013060728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goofus_18
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5d9ff7e05b7b7c4fb8f5b0e6e759e4a
+      internalID: -2105361461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goofus_19
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a2cae70b53c6124b8ade2f4560d08c1
+      internalID: -500664684
       vertices: []
       indices: 
       edges: []
@@ -391,7 +538,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 03848f32d3d674944af674c1fa3ba868
+    spriteID: 1676778af3d3da5469ebb29d1046c01b
     internalID: 0
     vertices: []
     indices: 
@@ -399,19 +546,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      testspritesheet 1_1: 1880169437
-      testspritesheet 1_2: -305137184
-      testspritesheet 1_5: -143899416
-      testspritesheet 1_7: -869291417
-      testspritesheet 1_9: -495961128
-      testspritesheet 1_10: 919624515
-      testspritesheet 1_8: 291705751
-      testspritesheet 1_0: 1907974897
-      testspritesheet 1_3: -221700487
-      testspritesheet 1_11: 1659862761
-      testspritesheet 1_4: -1338354020
-      testspritesheet 1_6: 221448973
-      testspritesheet 1_12: -268648293
+      goofus_13: -1116976800
+      goofus_12: 687566872
+      goofus_15: 197413828
+      goofus_17: 2013060728
+      goofus_6: 1558708640
+      goofus_10: -1547266460
+      goofus_5: 46086574
+      goofus_11: 539704781
+      goofus_3: -1052294920
+      goofus_4: 192594195
+      goofus_18: -2105361461
+      goofus_9: -207616638
+      goofus_1: 553826923
+      goofus_2: 1555115209
+      goofus_16: 111561865
+      goofus_14: 1264369649
+      goofus_8: -1272792347
+      goofus_7: -1327583647
+      goofus_19: -500664684
+      goofus_0: 222041772
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
