@@ -6,7 +6,19 @@ public class PlayerController : Character
 {
 	// Private vars
 	private int spaceHeld;
+	private PlayerControls playerControls;
 
+	private void Awake() {
+		playerControls = new PlayerControls();
+	}
+
+	private void OnEnable() {
+		playerControls.Enable();
+	}
+
+	private void OnDisable() {
+		playerControls.Disable();
+	}
 	void Start()
 	{
 		base.Start();
@@ -20,7 +32,7 @@ public class PlayerController : Character
 		base.FixedUpdate();
 
 		// Toggle spacebar
-		if (Input.GetKey("space")) {
+		if ( playerControls.General.Attack.ReadValue<float>() == 1f ) {
 			spaceHeld++;
 		} else {
 			spaceHeld = 0;
@@ -33,7 +45,8 @@ public class PlayerController : Character
 		}
 
 		// Move
-		Vector3 dir = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
+		Vector2 joystick = playerControls.General.Move.ReadValue<Vector2>();
+		Vector3 dir = new Vector3 (joystick.x, 0, joystick.y).normalized;
 		rb.velocity += (dir*Speed - rb.velocity) * 10f  * Time.deltaTime;
 	}
 }
