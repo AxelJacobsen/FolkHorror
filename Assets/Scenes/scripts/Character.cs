@@ -17,7 +17,6 @@ public class Character : MonoBehaviour
 	protected Animator 		    anim;
 	protected SpriteRenderer    sr;
 	protected int			    health;
-	protected Vector3 		    vel;
 	protected bool 			    facingRight;
 	protected float 		    flashing;
     protected float             attackCooldown;
@@ -37,7 +36,6 @@ public class Character : MonoBehaviour
 
 		// Initialize vars
 		health = MaxHealth;
-		vel = new Vector3 (0, 0, 0);
 		facingRight = false;
 		flashing = 0;
 	}
@@ -100,7 +98,7 @@ public class Character : MonoBehaviour
 			Die();
 			return;
 		}
-		flashing = 1;
+		//flashing = 0.25f;
 	}
 
     /**
@@ -115,10 +113,12 @@ public class Character : MonoBehaviour
 
 		// If the target is invalid or out of range, return
 		if ( target == null ) return;
-		if ( (target.GetComponent<Rigidbody>().position - rb.position).magnitude > AttackRange ) return;
+        Rigidbody tRB = target.GetComponent<Rigidbody>();
+		if ( (tRB.position - rb.position).magnitude > AttackRange ) return;
 
-		// Damage target
+		// Damage target and knock them back
         target.GetComponent<Character>().Hurt(AttackDamage);
+        tRB.velocity += (tRB.position - rb.position).normalized * 50f;
     }
 
 	protected void FixedUpdate()
@@ -127,9 +127,9 @@ public class Character : MonoBehaviour
         if (attackCooldown > 0) attackCooldown -= Time.deltaTime;
 
 		// Flip sprite if we're changing direction
-		float 	max = Mathf.Max(vel.x, vel.z),
-				min = Mathf.Min(vel.x, vel.z);
-		int		walkDir = max > -min ? (vel.x > vel.z ? 3 : 0) : (vel.x < vel.z ? 2 : 1);
+		float 	max = Mathf.Max(rb.velocity.x, rb.velocity.z),
+				min = Mathf.Min(rb.velocity.x, rb.velocity.z);
+		int		walkDir = max > -min ? (rb.velocity.x > rb.velocity.z ? 3 : 0) : (rb.velocity.x < rb.velocity.z ? 2 : 1);
 		
 		if (walkDir == 2 && facingRight || walkDir == 3 && !facingRight) {
 			Vector3 tvec = transform.localScale;

@@ -34,7 +34,7 @@ public class PlayerController : Character
 
 		// Move
 		Vector3 dir = new Vector3 (Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
-		vel += (dir*Speed - vel) * 10f  * Time.deltaTime;
-		transform.localPosition += vel * Time.deltaTime;
+		rb.velocity += (dir*Speed - rb.velocity) * 10f  * Time.deltaTime;
+		transform.localPosition += rb.velocity * Time.deltaTime;
 	}
 }

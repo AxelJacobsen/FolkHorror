@@ -29,8 +29,7 @@ public class simpleEnemyAI : Character
 
             // If we're outside outside of range, move towards
             if (dir.magnitude > AttackRange) {
-                vel = dir.normalized * Time.deltaTime * Speed;
-                rb.position += vel;
+                rb.velocity += (dir.normalized * Speed - rb.velocity) * 10f  * Time.deltaTime;
 
             // If we're within range, attack
             } else {
