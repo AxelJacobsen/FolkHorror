@@ -9,14 +9,16 @@ public class TextBox : MonoBehaviour
     {
         gameObjects = GameObject.FindGameObjectsWithTag("TextBox");
         // text box is initially invisible
-        // TODO: currently does not work, but did earlier?
         ToggleTextBox();
     }
 
     // Update is called once per frame
     void Update()
     {
-        ToggleTextBox();
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            ToggleTextBox();
+        }
     }
 
     /// <summary>
@@ -24,11 +26,9 @@ public class TextBox : MonoBehaviour
     /// </summary>
     public void ToggleTextBox()
     {
-        if (Input.GetKeyDown(KeyCode.E)) {
-            foreach (GameObject gameObject in gameObjects)
-            {
-                gameObject.SetActive(!gameObject.activeSelf);
-            }
+        foreach (GameObject gameObject in gameObjects)
+        {
+            gameObject.SetActive(!gameObject.activeSelf);
         }
     }
 }
