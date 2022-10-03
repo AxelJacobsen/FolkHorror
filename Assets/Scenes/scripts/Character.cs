@@ -11,6 +11,10 @@ public class Character : MonoBehaviour
                     AttackRange = 3f;
 	public int		MaxHealth = 100,
                     AttackDamage = 50;
+	
+	[Header("Items")]
+	public Weapon				Weapon;
+	public List<Item>			Items;			// Potential pointer error? Check
 
 	// Private vars
 	protected Rigidbody 		rb;
@@ -34,7 +38,6 @@ public class Character : MonoBehaviour
 		sr = GetComponentInChildren<SpriteRenderer>();
 		if (sr == null) 	Debug.LogError("Character could not find its sprite renderer!");
 
-		// Initialize vars
 		health = MaxHealth;
 		facingRight = false;
 		flashing = 0;
@@ -107,6 +110,8 @@ public class Character : MonoBehaviour
      *  @param target - The target to attack.
      */
     protected void Attack(GameObject target) {
+		if (Weapon != null) Weapon.Drop();
+
         // Play animation
         anim.SetTrigger("attack");
         attackCooldown = 1f / AttackSpeed;

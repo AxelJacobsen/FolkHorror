@@ -40,12 +40,12 @@ public class simpleEnemyAI : Character
         }
     }
 
-    void OnDrawGizmosSelected() {
+/*     void OnDrawGizmosSelected() {
         // Draw attack range indicator
         if (AttackRange > 0f) {
             if (rb == null) rb = GetComponent<Rigidbody>();
             Gizmos.color = new Color(1f, 0.1f, 0.1f, 0.35f);
             Gizmos.DrawSphere(rb.position, AttackRange);
         } 
-    }
+    } */
 }
