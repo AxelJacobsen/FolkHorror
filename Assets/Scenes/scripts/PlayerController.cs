@@ -39,9 +39,8 @@ public class PlayerController : Character
 		}
 
 		// Attack
-		if (spaceHeld == 1 && attackCooldown <= 0f) {
-			GameObject 	target = GetClosestTarget("Enemy");
-			Attack(target);
+		if (spaceHeld == 1 && Weapon.CanAttack()) {
+			Attack(GameObject.FindGameObjectsWithTag("Enemy"));
 		}
 
 		// Move

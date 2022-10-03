@@ -9,10 +9,9 @@ public class Character : MonoBehaviour
 	public float 	Speed = 10f,
                     AttackSpeed = 0.5f,
                     AttackRange = 3f;
-	public int		MaxHealth = 100,
-                    AttackDamage = 50;
-	
-	[Header("Items")]
+    public int 		MaxHealth = 100;
+
+    [Header("Items")]
 	public Weapon				Weapon;
 	public List<Item>			Items;			// Potential pointer error? Check
 
@@ -23,7 +22,6 @@ public class Character : MonoBehaviour
 	protected int			    health;
 	protected bool 			    facingRight;
 	protected float 		    flashing;
-    protected float             attackCooldown;
 
 	protected void Start()
 	{
@@ -43,20 +41,16 @@ public class Character : MonoBehaviour
 		flashing = 0;
 	}
 
-    /**
-     *  Gets the closest GameObject with the given tag.
-     *
-     *  @param tag - The tag.
-     *  @return The closest GameObject with the tag.
-     */
-    protected GameObject GetClosestTarget(string tag) {
-        // Fetch all objects with the given tag
-        GameObject[] tObjects = GameObject.FindGameObjectsWithTag(tag);
-
+    /// <summary>
+    /// Gets the closest valid target.
+    /// </summary>
+    /// <param name="targets">An array containing the list of possible targets.</param>
+    /// <returns>The closest valid target in the list.</returns>
+    protected GameObject GetClosestTarget(GameObject[] targets) {
         // Iterate them, finding the closest
         float       minDistSqr = Mathf.Infinity;
         GameObject  retObj = null;
-        foreach (GameObject obj in tObjects) {
+        foreach (GameObject obj in targets) {
             // Check that the object is enabled, skip if it isn't
             if (!obj.GetComponent<Character>().enabled) continue;
 
@@ -80,21 +74,19 @@ public class Character : MonoBehaviour
         return retObj;
     }
 
-	/**
-	 *	Kills the Character.
-	 */
+	/// <summary>
+    /// Kills the character.
+    /// </summary>
 	void Die() {
         sr.color = new Color(0,0,0,0);
         this.enabled = false;
 	}
 
-	/**
-	 *	Hurts the Character.
-     *  If its health is reduced below zero, dies.
-     *  @see Die()
-	 *
-	 *	@param amount - The amount of health the Character will lose.
-	 */
+	/// <summary>
+    /// Hurts the character.
+    /// If its health is reduced below zero, kills it.
+    /// </summary>
+    /// <param name="amount">T</param>
 	public void Hurt(int amount) {
 		health -= amount;
 		if (health <= 0) {
@@ -104,33 +96,23 @@ public class Character : MonoBehaviour
 		//flashing = 0.25f;
 	}
 
-    /**
-     *  Attacks a target.
-     *
-     *  @param target - The target to attack.
-     */
-    protected void Attack(GameObject target) {
-		if (Weapon != null) Weapon.Drop();
+	/// <summary>
+    /// Makes the character attack with its weapon.
+    /// </summary>
+    /// <param name="targets">An array containing all possible targets.</param>
+    protected void Attack(GameObject[] targets) {
+		// Attacking with a weapon
+		if (Weapon != null) {
+            Weapon.Attack(targets);
 
-        // Play animation
-        anim.SetTrigger("attack");
-        attackCooldown = 1f / AttackSpeed;
-
-		// If the target is invalid or out of range, return
-		if ( target == null ) return;
-        Rigidbody tRB = target.GetComponent<Rigidbody>();
-		if ( (tRB.position - rb.position).magnitude > AttackRange ) return;
-
-		// Damage target and knock them back
-        target.GetComponent<Character>().Hurt(AttackDamage);
-        tRB.velocity += (tRB.position - rb.position).normalized * 50f;
+        // Attacking with no weapon
+        } else {
+			// ...
+		}
     }
 
 	protected void FixedUpdate()
 	{
-        // Count down attack timer
-        if (attackCooldown > 0) attackCooldown -= Time.deltaTime;
-
 		// Flip sprite if we're changing direction
 		float 	max = Mathf.Max(rb.velocity.x, rb.velocity.z),
 				min = Mathf.Min(rb.velocity.x, rb.velocity.z);

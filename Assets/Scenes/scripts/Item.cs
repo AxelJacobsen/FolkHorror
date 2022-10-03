@@ -34,7 +34,7 @@ public class Item : MonoBehaviour
 		if (anim == null) Debug.LogError("Pickup could not find its animator!");
     }
 
-    protected void Update()
+    protected void FixedUpdate()
     {
         // Count down pickupCooldown
         if (pickupCooldown > 0f) pickupCooldown -= Time.deltaTime;
@@ -55,9 +55,9 @@ public class Item : MonoBehaviour
         }
     }
 
-    /**
-     *  Causes the pickup to be picked up by the player.
-     */
+    /// <summary>
+    /// Causes the item to be picked up by the player.
+    /// </summary>
     protected virtual void PickUp() {
         // Mark the pickup as picked up
         equipped = true;
@@ -71,9 +71,9 @@ public class Item : MonoBehaviour
         transform.localScale    = Vector3.one;
     }
 
-    /**
-     *  Causes the pickup to be dropped by the player.
-     */
+    /// <summary>
+    /// Causes the item to be dropped.
+    /// </summary>
     public virtual void Drop() {
         // Mark the pickup as dropped
         equipped = false;

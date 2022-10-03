@@ -11,9 +11,6 @@ public class simpleEnemyAI : Character
     void Start()
     {
         base.Start();
-        
-        // Initialize vars
-        attackCooldown = 0f;
     }
 
     void FixedUpdate()
@@ -21,7 +18,10 @@ public class simpleEnemyAI : Character
         base.FixedUpdate();
 
         // Find a target
-        GameObject target = GetClosestTarget(targetObjectsWithTag);
+        GameObject[] targets = GameObject.FindGameObjectsWithTag(targetObjectsWithTag);
+        GameObject target = GetClosestTarget(targets);
+
+        // If it exists...
         if (target != null) {
             // Fetch its rigidbody and the direction towards it
             Rigidbody tRB = target.GetComponent<Rigidbody>();
@@ -32,20 +32,9 @@ public class simpleEnemyAI : Character
                 rb.velocity += (dir.normalized * Speed - rb.velocity) * 10f  * Time.deltaTime;
 
             // If we're within range, attack
-            } else {
-                if (attackCooldown <= 0) {
-                    Attack(target);
-                }
+            } else if (Weapon != null && Weapon.CanAttack()) {
+                Attack(targets);
             }
         }
     }
-
-/*     void OnDrawGizmosSelected() {
-        // Draw attack range indicator
-        if (AttackRange > 0f) {
-            if (rb == null) rb = GetComponent<Rigidbody>();
-            Gizmos.color = new Color(1f, 0.1f, 0.1f, 0.35f);
-            Gizmos.DrawSphere(rb.position, AttackRange);
-        } 
-    } */
 }
