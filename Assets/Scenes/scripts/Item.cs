@@ -44,7 +44,7 @@ public class Item : MonoBehaviour
             // ...
 
         // If not picked up yet...
-        } else if (pickupCooldown <= 0f) {
+        } else if (CanBePickedUp()) {
             // Attract the pickup if the player is close enough
             Vector3 dir   = _pRB.position - rb.position;
             float   dir_m = dir.magnitude;
@@ -53,6 +53,14 @@ public class Item : MonoBehaviour
             // Pick up the pickup if the player is close enough
             if (dir_m < PickupRange) PickUp();
         }
+    }
+
+    /// <summary>
+    /// Returns if the item can be picked up.
+    /// </summary>
+    /// <returns>True if the item is ready to be picked up right now.</returns>    
+    protected virtual bool CanBePickedUp() {
+        return pickupCooldown <= 0f; // Add exceptions later
     }
 
     /// <summary>

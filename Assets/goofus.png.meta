@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -546,7 +546,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      goofus_13: -1116976800
+      goofus_0: 222041772
       goofus_12: 687566872
       goofus_15: 197413828
       goofus_17: 2013060728
@@ -565,7 +565,7 @@ TextureImporter:
       goofus_8: -1272792347
       goofus_7: -1327583647
       goofus_19: -500664684
-      goofus_0: 222041772
+      goofus_13: -1116976800
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

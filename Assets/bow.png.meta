@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 19e67b82923db4d428a2e76d8ded2cf7
+guid: 56d408eeda5b7ad4582d70f1874935c9
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -116,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sword_0
+      name: bow_0
       rect:
         serializedVersion: 2
         x: 0
@@ -130,14 +130,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cdc3a0b498d03c94196b2c04e8dff39e
-      internalID: 490236734
+      spriteID: 286abb6eb9ba1c940a73769c7c7282b6
+      internalID: -1760006130
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sword_1
+      name: bow_1
       rect:
         serializedVersion: 2
         x: 32
@@ -151,14 +151,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6556999ae0d2ff548b04f802f47b1d17
-      internalID: 1722639559
+      spriteID: bd8829cca1732e845848a8697cc7b7eb
+      internalID: -1504167629
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: sword_2
+      name: bow_2
       rect:
         serializedVersion: 2
         x: 64
@@ -172,8 +172,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 38e85e602e332a840b5edfa10221377f
-      internalID: -685898787
+      spriteID: 31708a60af9b7d7439a8abc0c30ea62f
+      internalID: 1998111438
       vertices: []
       indices: 
       edges: []
@@ -181,7 +181,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 54797c6bda28274478c49b8acbac3268
+    spriteID: e934037a84a0dc04c878a13bbef3d7bf
     internalID: 0
     vertices: []
     indices: 
@@ -189,9 +189,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      sword_2: -685898787
-      sword_0: 490236734
-      sword_1: 1722639559
+      bow_1: -1504167629
+      bow_2: 1998111438
+      bow_0: -1760006130
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

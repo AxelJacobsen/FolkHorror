@@ -43,6 +43,11 @@ public class PlayerController : Character
 			Attack(GameObject.FindGameObjectsWithTag("Enemy"));
 		}
 
+		// Drop weapon (TEMP)
+		if (spaceHeld > 10) {
+            if (Weapon != null) Weapon.Drop();
+        }
+
 		// Move
 		Vector2 joystick = playerControls.General.Move.ReadValue<Vector2>();
 		Vector3 dir = new Vector3 (joystick.x, 0, joystick.y).normalized;

@@ -11,19 +11,28 @@ public class Weapon : Item
                     AttackSpeed = 0.5f;
     
     // Private vars
-    private float   attackCooldown;
+    protected float   AttackCooldown;
 
-    void Start()
+    protected void Start()
     {
         base.Start();
     }
 
-    void FixedUpdate()
+    protected void FixedUpdate()
     {
         base.FixedUpdate();
 
         // Count down attack timer
-        if (attackCooldown > 0) attackCooldown -= Time.deltaTime;
+        if (AttackCooldown > 0) AttackCooldown -= Time.deltaTime;
+    }
+
+    /// <summary>
+    /// Returns if the weapon can be picked up right now.
+    /// </summary>
+    /// <returns>True if the weapon can be equipped right now.</returns>
+    protected override bool CanBePickedUp()
+    {
+        return _Player.GetComponent<Character>().Weapon == null && base.CanBePickedUp();
     }
 
     /// <summary>
@@ -31,7 +40,7 @@ public class Weapon : Item
     /// </summary>
     /// <returns>True if the weapon is ready to attack.</returns>
     public bool CanAttack() {
-        return attackCooldown <= 0f;
+        return AttackCooldown <= 0f;
     }
 
     /// <summary>
@@ -56,13 +65,13 @@ public class Weapon : Item
     /// Attacks the targets which are in range.
     /// </summary>
     /// <param name="targets">An array containing every possible target.</param>    
-    public void Attack(GameObject[] targets) {
+    public virtual void Attack(GameObject[] targets) {
         // If the weapon is on cooldown, do nothing
-        if (attackCooldown > 0f) return;
+        if (AttackCooldown > 0f) return;
 
         // Otherwise, attack
         anim.SetTrigger("attack");
-        attackCooldown = 1f / AttackSpeed;
+        AttackCooldown = 1f / AttackSpeed;
 
         // Iterate all possible targets...
         foreach(GameObject target in targets) {
