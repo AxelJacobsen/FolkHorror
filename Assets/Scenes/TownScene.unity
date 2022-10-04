@@ -773,7 +773,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5d8c301aaff817e42b36ab6d15a5e14d, type: 2}
+  - {fileID: 2100000, guid: 68832f5236f936b4dbc44a3ae9e767dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -850,12 +850,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6b5495607092f244a9fafe151600366, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 1935761956}
-  MovementSpeedWalk: 25
-  MovementSpeedRun: 200
-  MoveSpeedMax: 5
-  JumpHeight: 10
-  JumpAllowed: 1
+  Speed: 10
+  AttackSpeed: 0.5
+  AttackRange: 3
+  MaxHealth: 100
+  Weapon: {fileID: 0}
+  Items: []
 --- !u!54 &1935761956
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -941,7 +941,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1935761959
