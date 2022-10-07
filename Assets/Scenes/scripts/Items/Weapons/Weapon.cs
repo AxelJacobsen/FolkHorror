@@ -74,7 +74,7 @@ public class Weapon : Item
         AttackCooldown = 1f / AttackSpeed;
 
         // Iterate all possible targets...
-        foreach(GameObject target in targets) {
+        /*foreach(GameObject target in targets) {
             // Return if it's invalid or out of range
             if ( target == null ) return;
             Rigidbody tRB = target.GetComponent<Rigidbody>();
@@ -83,6 +83,6 @@ public class Weapon : Item
             // Damage target and knock them back
             target.GetComponent<Character>().Hurt(AttackDamage);
             tRB.velocity += (tRB.position - rb.position).normalized * 50f;
-        }
+        }*/
     }
 }

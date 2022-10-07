@@ -8,21 +8,24 @@ public class Bow : Weapon
     public int ArrowsPerShot = 1;
 
     // Private vars
-    public GameObject  arrowPrototype;
+    public GameObject arrowPrototype;
 
-    protected void Start() {
+    protected void Start()
+    {
         base.Start();
         // Fetch components
         /*         arrow = GetComponent<Arrow>();
                 if (arrow == null) Debug.LogError("Bow could not find its arrow prototype!"); */
     }
 
-    protected void FixedUpdate() {
+    protected void FixedUpdate()
+    {
         base.FixedUpdate();
 
     }
 
-    public override void Attack(GameObject[] targets) {
+    public override void Attack(GameObject[] targets)
+    {
         // If the weapon is on cooldown, do nothing
         if (AttackCooldown > 0f) return;
 
