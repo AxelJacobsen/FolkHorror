@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - TextBox
   - Projectile
+  - Hitbox
   layers:
   - Default
   - TransparentFX

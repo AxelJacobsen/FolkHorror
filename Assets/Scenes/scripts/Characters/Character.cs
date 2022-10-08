@@ -46,7 +46,8 @@ public class Character : MonoBehaviour
     /// </summary>
     /// <param name="targets">An array containing the list of possible targets.</param>
     /// <returns>The closest valid target in the list.</returns>
-    protected GameObject GetClosestTarget(GameObject[] targets) {
+    protected GameObject GetClosestTarget(GameObject[] targets) 
+	{
         // Iterate them, finding the closest
         float       minDistSqr = Mathf.Infinity;
         GameObject  retObj = null;
@@ -77,7 +78,8 @@ public class Character : MonoBehaviour
 	/// <summary>
     /// Kills the character.
     /// </summary>
-	void Die() {
+	void Die() 
+	{
         sr.color = new Color(0,0,0,0);
         this.enabled = false;
 	}
@@ -87,7 +89,8 @@ public class Character : MonoBehaviour
     /// If its health is reduced below zero, kills it.
     /// </summary>
     /// <param name="amount">T</param>
-	public void Hurt(int amount) {
+	public void Hurt(int amount) 
+	{
 		health -= amount;
 		if (health <= 0) {
 			Die();
@@ -96,11 +99,18 @@ public class Character : MonoBehaviour
 		//flashing = 0.25f;
 	}
 
+	public void Knockback(Vector3 amount)
+    {
+		rb.velocity += amount;
+		// Apply stun?
+    }
+
 	/// <summary>
     /// Makes the character attack with its weapon.
     /// </summary>
     /// <param name="targets">An array containing all possible targets.</param>
-    protected void Attack(GameObject[] targets) {
+    protected void Attack(GameObject[] targets) 
+	{
 		// Attacking with a weapon
 		if (Weapon != null) {
             Weapon.Attack(targets);
