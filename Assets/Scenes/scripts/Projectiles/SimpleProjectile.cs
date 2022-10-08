@@ -37,8 +37,8 @@ public class SimpleProjectile : MonoBehaviour
     /// </summary>
     void Destroy()
     {
-        this.enabled = false;
         // Add some more effects here
+        Destroy(this.gameObject);
     }
 
     void OnTriggerEnter(Collider hit) 
@@ -56,16 +56,22 @@ public class SimpleProjectile : MonoBehaviour
         characterHit.Knockback(rb.velocity.normalized * Knockback);
         characterHit.Hurt(Damage);
 
-        // Pierce
-        if (Piercing > 0) Piercing--;
-        if (Piercing == 0) { Destroy(); return; }
 
         // Bounce
-        if (Bounces > 0)
+        if (Bounces != 0)
         {
-            Bounces--;
             Vector3 dir = (hitObj.transform.position - rb.position).normalized;
             rb.velocity = rb.velocity - 2f * (Vector3.Dot(rb.velocity, dir)) * dir;
+
+            Vector3 curAngEuler = rb.rotation.eulerAngles;
+            curAngEuler.y = Mathf.Atan2(rb.velocity.x, rb.velocity.z) * 180f / Mathf.PI + 90f;
+            rb.rotation = Quaternion.Euler(curAngEuler);
+            Bounces--;
+        } else 
+        {
+        // Pierce
+        if (Piercing == 0) {Destroy(); return; }
+        if (Piercing > 0) Piercing--;
         }
     }
 }
