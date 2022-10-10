@@ -6,7 +6,6 @@ public class Bow : Weapon
 {
     // Public vars
     public int          ArrowsPerShot = 1;
-    public LayerMask    AimLayer;
 
     // Private vars
     public GameObject arrowPrototype;
@@ -25,32 +24,29 @@ public class Bow : Weapon
 
     }
 
-    public override void Attack(GameObject[] targets)
+    public override void Attack(Vector3 aimPosition, string targetTag)
     {
         // If the weapon is on cooldown, do nothing
         if (AttackCooldown > 0f) return;
 
-        // Cast ray to find where the player wants to hit
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hitData;
-        Vector3 hitPoint = Vector3.zero;
-        if (Physics.Raycast(ray, out hitData, 1000, AimLayer)) hitPoint = hitData.point;
-
         // Shoot an arrow towards that point
-        Vector3 dir = (hitPoint - transform.position).normalized;
+        Vector3 dir = (aimPosition - transform.position).normalized;
         dir.y = 0;
-
         float   ang = Mathf.Atan2(dir.x, dir.z) * 180f / Mathf.PI;
 
-        print(ang);
-
+        // Instantiate arrow
         GameObject newArrow = Instantiate(arrowPrototype, transform.position, Quaternion.Euler(90, ang + 90f, 0) );
+
+        // Set script vars
+        SimpleProjectile script = newArrow.GetComponent<SimpleProjectile>();
+        script._TargetTag = targetTag;
+
+        // Set physical properties and activate
         newArrow.transform.localScale = new Vector3(10, 10, 10);
         newArrow.SetActive(true);
-
         newArrow.GetComponent<Rigidbody>().velocity = dir * 25f;
 
         // Set cooldown
-        base.Attack(targets);
+        base.Attack(aimPosition, targetTag);
     }
 }

@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-	// Public vars
-	[Header("Stats")]
-	public float 	Speed = 10f,
-                    AttackSpeed = 0.5f,
-                    AttackRange = 3f;
+    // Public vars
+    [Header("Stats")]
+    public float Speed = 10f,
+                    AttackSpeed = 0.5f;
     public int 		MaxHealth = 100;
 
     [Header("Items")]
@@ -40,40 +39,6 @@ public class Character : MonoBehaviour
 		facingRight = false;
 		flashing = 0;
 	}
-
-    /// <summary>
-    /// Gets the closest valid target.
-    /// </summary>
-    /// <param name="targets">An array containing the list of possible targets.</param>
-    /// <returns>The closest valid target in the list.</returns>
-    protected GameObject GetClosestTarget(GameObject[] targets) 
-	{
-        // Iterate them, finding the closest
-        float       minDistSqr = Mathf.Infinity;
-        GameObject  retObj = null;
-        foreach (GameObject obj in targets) {
-            // Check that the object is enabled, skip if it isn't
-            if (!obj.GetComponent<Character>().enabled) continue;
-
-            // Get the rigidbody of the current object, skip if it doesn't exist
-            Rigidbody tRB = obj.GetComponent<Rigidbody>();
-            if (tRB == null) continue;
-  
-            // Get the distance to that rigidbody, skip if it's greater or equal to the current min dist
-            Vector3 tp0 = tRB.position;
-            Vector3 tp1 = rb.position;
-            Vector3 dir = (tRB.position - rb.position);
-            float distSqr = Mathf.Pow(dir.x, 2) + Mathf.Pow(dir.y, 2);
-            if (distSqr >= minDistSqr) continue;
-            
-            // Set return obj and min dist to current
-            minDistSqr = distSqr;
-            retObj = obj;
-        }
-
-        // Return
-        return retObj;
-    }
 
 	/// <summary>
     /// Kills the character.
@@ -109,11 +74,11 @@ public class Character : MonoBehaviour
     /// Makes the character attack with its weapon.
     /// </summary>
     /// <param name="targets">An array containing all possible targets.</param>
-    protected void Attack(GameObject[] targets) 
+    protected void Attack(Vector3 aimPosition, string targetTag) 
 	{
 		// Attacking with a weapon
 		if (Weapon != null) {
-            Weapon.Attack(targets);
+            Weapon.Attack(aimPosition, targetTag);
 
         // Attacking with no weapon
         } else {

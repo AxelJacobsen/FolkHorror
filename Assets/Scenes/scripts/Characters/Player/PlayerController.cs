@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : Character
 {
+	// Public vars
+	public LayerMask    AimLayer;
+
 	// Private vars
 	private int spaceHeld;
 	private PlayerControls playerControls;
@@ -40,7 +43,13 @@ public class PlayerController : Character
 
 		// Attack
 		if (spaceHeld == 1 && Weapon.CanAttack()) {
-			Attack(GameObject.FindGameObjectsWithTag("Enemy"));
+			// Cast ray to find where the player wants to hit
+			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			RaycastHit hitData;
+			Vector3 hitPoint = Vector3.zero;
+			if (Physics.Raycast(ray, out hitData, 1000, AimLayer)) hitPoint = hitData.point;
+
+			Attack(hitPoint, "Enemy");
 		}
 
 		// Drop weapon (TEMP)
