@@ -44,7 +44,7 @@ public class Bow : Weapon
         // Set physical properties and activate
         newArrow.transform.localScale = new Vector3(10, 10, 10);
         newArrow.SetActive(true);
-        newArrow.GetComponent<Rigidbody>().velocity = dir * 25f;
+        newArrow.GetComponent<Rigidbody>().velocity = dir * 50f;
 
         // Set cooldown
         base.Attack(aimPosition, targetTag);
