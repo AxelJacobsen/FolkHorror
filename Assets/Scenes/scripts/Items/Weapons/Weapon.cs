@@ -7,8 +7,7 @@ public class Weapon : Item
     // Public vars
     [Header("Stats")]
     public int      AttackDamage = 25;
-    public float    AttackRange = 3f,
-                    AttackSpeed = 0.5f;
+    public float    AttackSpeed = 0.5f;
     
     // Private vars
     protected float   AttackCooldown;
@@ -44,6 +43,15 @@ public class Weapon : Item
     }
 
     /// <summary>
+    /// Checks if the weapon is in range to attack a given target.
+    /// </summary>
+    /// <param name="target">The target</param>
+    /// <returns>True if the weapon is in range to attack the given target.</returns>
+    public bool InRangeOf(GameObject target) {
+        return true;
+    }
+
+    /// <summary>
     /// Causes the weapon to be picked up by the player.
     /// </summary>
     protected override void PickUp() {
@@ -65,24 +73,12 @@ public class Weapon : Item
     /// Attacks the targets which are in range.
     /// </summary>
     /// <param name="targets">An array containing every possible target.</param>    
-    public virtual void Attack(GameObject[] targets) {
+    public virtual void Attack(Vector3 aimPosition, string targetTag) {
         // If the weapon is on cooldown, do nothing
         if (AttackCooldown > 0f) return;
 
         // Otherwise, attack
         anim.SetTrigger("attack");
         AttackCooldown = 1f / AttackSpeed;
-
-        // Iterate all possible targets...
-        foreach(GameObject target in targets) {
-            // Return if it's invalid or out of range
-            if ( target == null ) return;
-            Rigidbody tRB = target.GetComponent<Rigidbody>();
-            if ( (tRB.position - rb.position).magnitude > AttackRange ) return;
-
-            // Damage target and knock them back
-            target.GetComponent<Character>().Hurt(AttackDamage);
-            tRB.velocity += (tRB.position - rb.position).normalized * 50f;
-        }
     }
 }
