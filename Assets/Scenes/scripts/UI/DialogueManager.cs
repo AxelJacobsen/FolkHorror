@@ -11,7 +11,7 @@ public class DialogueManager : MonoBehaviour
 
     public string[] sentences;
     string currentText;
-    int index;
+    int currentSentence;
     bool isRunning;
 
     // Start is called before the first frame update
@@ -19,7 +19,7 @@ public class DialogueManager : MonoBehaviour
     {
         text.text = "";
         currentText = "";
-        index = -1;
+        currentSentence = -1;
         isRunning = false;
         ToggleTextBox();
     }
@@ -64,17 +64,17 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     void ChangeSentence()
     {
-        if (index >= sentences.Length - 1)
+        if (currentSentence >= sentences.Length - 1)
         {
-            index = -1;
+            currentSentence = -1;
         }
 
         // make text ready for typing
         text.text = "";
 
         // set new sentence
-        index++;
-        currentText = sentences[index];
+        currentSentence++;
+        currentText = sentences[currentSentence];
 
         // start typing effect
         isRunning = true;
