@@ -10,17 +10,16 @@ public class Character : CharacterStats
 	public List<Item>			Items;			// Potential pointer error? Check
 
 	// Private vars
+	protected CharacterStats	baseStats;
 	protected Rigidbody 		rb;
 	protected Animator 		    anim;
 	protected SpriteRenderer    sr;
-	protected int			    health;
 	protected bool 			    facingRight;
 	protected float 		    flashing;
 
 	protected void Start()
 	{
 		// Fetch components
-        //rb = GetComponentInChildren(typeof(Rigidbody)) as Rigidbody;
         rb = GetComponent<Rigidbody>();
 		if (rb == null) 	Debug.LogError("Character could not find its rigidbody!");
 
@@ -30,10 +29,34 @@ public class Character : CharacterStats
 		sr = GetComponentInChildren<SpriteRenderer>();
 		if (sr == null) 	Debug.LogError("Character could not find its sprite renderer!");
 
-		health = MaxHealth;
+		// Set base stats to be starting stats
+		baseStats = base.Copy();
+
 		facingRight = false;
 		flashing = 0;
 	}
+
+
+	public void UpdateStats()
+    {
+		// Gather a list of all stat-changes
+		List<AlterStats> alterStatsList = new List<AlterStats>();
+		foreach (Item item in Items)
+        {
+			if (item is Passiveitem)
+            {
+				Passiveitem passiveItem = (Passiveitem)item;
+				alterStatsList.Add(passiveItem.alterStats);
+            }
+        }
+
+		CharacterStats newStats = baseStats.CalculateStats(alterStatsList);
+		CharacterStats dmgtaken = this - (newStats - baseStats);
+		
+		// TODO: Add some kind of way to keep damage taken when equipping an item.
+
+		SetStats(newStats);
+    }
 
 	/// <summary>
     /// Kills the character.
@@ -46,13 +69,13 @@ public class Character : CharacterStats
 
 	/// <summary>
     /// Hurts the character.
-    /// If its health is reduced below zero, kills it.
+    /// If its Health is reduced below zero, kills it.
     /// </summary>
     /// <param name="amount">T</param>
 	public void Hurt(int amount) 
 	{
-		health -= amount;
-		if (health <= 0) {
+		Health -= amount;
+		if (Health <= 0) {
 			Die();
 			return;
 		}

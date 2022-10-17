@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
+using System;
 
 /// <summary>
 /// A function that alters stats, taking one as input and returning the updated version.
@@ -12,21 +14,72 @@ public delegate CharacterStats AlterStats(CharacterStats stats);
 /// </summary>
 public class CharacterStats : MonoBehaviour
 {
-    [Header("Stats")]
-    public float    Speed = 10f;
-    public int      MaxHealth = 100;
+    [field: SerializeField]
+    public float    Speed { get; set; }     = 10f;
+    [field: SerializeField]
+    public int      MaxHealth { get; set; } = 100;
+    [field: SerializeField]
+    public int      Health { get; set; }    = 100;
 
     /// <summary>
-    /// Calculates the difference in stats between this and other.
+    /// Creates a shallow copy of this.
     /// </summary>
-    /// <param name="other">The other set of stats.</param>
-    /// <returns>The difference in stats between this and other.</returns>
-    public CharacterStats CalculateDiff (CharacterStats other)
+    /// <returns>A shallow copy of this.</returns>
+    public CharacterStats Copy()
     {
-        CharacterStats delta = (CharacterStats)this.MemberwiseClone();
-        delta.Speed -= other.Speed;
-        delta.MaxHealth -= other.MaxHealth;
+        return (CharacterStats)this.MemberwiseClone();
+    }
+
+    /// <summary>
+    /// Takes two stats, returning a new one where each property is equal to math(firstStat, secondStat).
+    /// I.e.: math = (aField, bField) => aField + bField means adding every stat in a and b.
+    /// </summary>
+    /// <param name="a">The first statblock.</param>
+    /// <param name="b">The second statblock.</param>
+    /// <param name="math">A function taking two floats and returning a third.</param>
+    /// <returns>A statblock where each element corresponds to math(a.field, b.field).</returns>
+    private static CharacterStats aMathb(CharacterStats a, CharacterStats b, Func<float, float, float> math)
+    {
+        // Create a copy to work on
+        CharacterStats delta = a.Copy();
+
+        // Fetch properties and compare them
+        PropertyInfo[] properties = typeof(CharacterStats).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly);
+        foreach (var property in properties)
+        {
+            // Fetch properties from a and b
+            PropertyInfo prop = typeof(CharacterStats).GetProperty(property.Name);
+            object  aVal = prop.GetValue(a, null),
+                    bVal = prop.GetValue(b, null);
+
+            // Depending on a's type, convert to float and use math() to get the final value.
+            switch (aVal)
+            {
+                case float aFloat:
+                    prop.SetValue(delta, math(aFloat, (float)bVal), null);
+                    break;
+
+                case int aInt:
+                    prop.SetValue(delta, (int)math((float)aInt, (float)((int)bVal)), null);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        // Return
         return delta;
+    }
+
+    public static CharacterStats operator -(CharacterStats a, CharacterStats b)
+    {
+        return aMathb(a, b, (x,y) => x-y );
+    }
+
+    public static CharacterStats operator +(CharacterStats a, CharacterStats b)
+    {
+        return aMathb(a, b, (x, y) => x + y);
     }
 
     /// <summary>
@@ -36,12 +89,31 @@ public class CharacterStats : MonoBehaviour
     /// <returns>The updated stats.</returns>
     public CharacterStats CalculateStats(List<AlterStats> alterStatsList)
     {
-        CharacterStats postChange = (CharacterStats)this.MemberwiseClone();
+        // Create a copy to work on.
+        CharacterStats postChange = Copy();
+
+        // Apply each stat-altering function (in order) to the copy.
         foreach (AlterStats alterStats in alterStatsList)
         {
             postChange = alterStats(postChange);
         }
 
+        // Return
         return postChange;
+    }
+
+    /// <summary>
+    /// Sets these stats to be equal to the new stats.
+    /// </summary>
+    /// <param name="newStats">The new stats.</param>
+    protected void SetStats(CharacterStats newStats)
+    {
+        // Fetch properties and iterate them, setting each of this' to the newStat equivalent.
+        PropertyInfo[] properties = typeof(CharacterStats).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly);
+        foreach (var property in properties)
+        {
+            PropertyInfo prop = this.GetType().GetProperty(property.Name);
+            prop.SetValue(this, property.GetValue(newStats, null), null);
+        }
     }
 }

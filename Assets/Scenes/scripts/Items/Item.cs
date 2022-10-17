@@ -69,7 +69,9 @@ public class Item : MonoBehaviour
     protected virtual void PickUp() {
         // Mark the pickup as picked up
         equipped = true;
-        _Player.GetComponent<Character>().Items.Add(this);
+        Character _playerCharacter = _Player.GetComponent<Character>();
+        _playerCharacter.Items.Add(this);
+        _playerCharacter.UpdateStats();
 
         // Freeze and parent it
         rb.isKinematic = true;
@@ -85,7 +87,10 @@ public class Item : MonoBehaviour
     public virtual void Drop() {
         // Mark the pickup as dropped
         equipped = false;
-        _Player.GetComponent<Character>().Items.Remove(this);
+        Character _playerCharacter = _Player.GetComponent<Character>();
+        _playerCharacter.Items.Remove(this);
+        _playerCharacter.UpdateStats();
+
         pickupCooldown = 1f;
 
         // Unfreeze, unparent and throw it
