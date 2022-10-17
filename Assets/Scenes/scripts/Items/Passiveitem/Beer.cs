@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A simple passive item granting health at the cost of speed.
+/// </summary>
 public class Beer : Passiveitem
 {
     void Start()
@@ -12,7 +15,6 @@ public class Beer : Passiveitem
         {
             charstats.Speed -= 5f;
             charstats.MaxHealth += 5;
-            charstats.Health += 5;
             return charstats;
         };
     }

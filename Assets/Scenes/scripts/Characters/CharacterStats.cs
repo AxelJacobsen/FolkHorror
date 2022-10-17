@@ -10,7 +10,7 @@ using System;
 public delegate CharacterStats AlterStats(CharacterStats stats);
 
 /// <summary>
-/// A struct for keeping 
+/// A struct for storing and managing character stats.
 /// </summary>
 public class CharacterStats : MonoBehaviour
 {
@@ -18,8 +18,6 @@ public class CharacterStats : MonoBehaviour
     public float    Speed { get; set; }     = 10f;
     [field: SerializeField]
     public int      MaxHealth { get; set; } = 100;
-    [field: SerializeField]
-    public int      Health { get; set; }    = 100;
 
     /// <summary>
     /// Creates a shallow copy of this.

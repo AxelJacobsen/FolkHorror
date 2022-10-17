@@ -11,6 +11,7 @@ public class Character : CharacterStats
 
 	// Private vars
 	protected CharacterStats	baseStats;
+	protected int				Health;
 	protected Rigidbody 		rb;
 	protected Animator 		    anim;
 	protected SpriteRenderer    sr;
@@ -32,11 +33,14 @@ public class Character : CharacterStats
 		// Set base stats to be starting stats
 		baseStats = base.Copy();
 
+		Health = MaxHealth;
 		facingRight = false;
 		flashing = 0;
 	}
 
-
+	/// <summary>
+    /// Updates the player's stats with their current items.
+    /// </summary>
 	public void UpdateStats()
     {
 		// Gather a list of all stat-changes
@@ -51,10 +55,6 @@ public class Character : CharacterStats
         }
 
 		CharacterStats newStats = baseStats.CalculateStats(alterStatsList);
-		CharacterStats dmgtaken = this - (newStats - baseStats);
-		
-		// TODO: Add some kind of way to keep damage taken when equipping an item.
-
 		SetStats(newStats);
     }
 
