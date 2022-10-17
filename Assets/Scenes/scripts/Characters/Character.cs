@@ -7,7 +7,7 @@ public class Character : CharacterStats
 	// Public vars
     [Header("Items")]
 	public Weapon				Weapon;
-	public List<Item>			Items;			// Potential pointer error? Check
+	public List<Item>			Items;
 
 	// Private vars
 	protected CharacterStats	baseStats;
