@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    // Public vars
-    [Header("Stats")]
-    public float Speed = 10f,
-                    AttackSpeed = 0.5f;
+	// Public vars
+	[Header("Stats")]
+	public float	Speed = 10f;
     public int 		MaxHealth = 100;
 
     [Header("Items")]
