@@ -2,13 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : CharacterStats
 {
 	// Public vars
-	[Header("Stats")]
-	public float	Speed = 10f;
-    public int 		MaxHealth = 100;
-
     [Header("Items")]
 	public Weapon				Weapon;
 	public List<Item>			Items;			// Potential pointer error? Check
