@@ -53,8 +53,12 @@ public class PlayerController : Character
 		}
 
 		// Drop weapon (TEMP)
-		if (spaceHeld > 10) {
+		if (Input.GetKeyDown("space")) {
             if (Weapon != null) Weapon.Drop();
+			foreach (Item item in Items)
+            {
+				item.Drop();
+            }
         }
 
 		// Move
