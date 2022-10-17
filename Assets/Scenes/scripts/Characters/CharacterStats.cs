@@ -20,6 +20,18 @@ public class CharacterStats : MonoBehaviour
     public int      MaxHealth { get; set; } = 100;
 
     /// <summary>
+    /// Gets the class' properties (fields).
+    /// </summary>
+    /// <returns>An array containing the properties of this class, which aren't inherited and is public.</returns>
+    private PropertyInfo[] GetProps() {
+        return typeof(CharacterStats).GetProperties(
+            System.Reflection.BindingFlags.Public | 
+            System.Reflection.BindingFlags.Instance |
+            System.Reflection.BindingFlags.DeclaredOnly
+        );
+    }
+
+    /// <summary>
     /// Creates a shallow copy of this.
     /// </summary>
     /// <returns>A shallow copy of this.</returns>
@@ -42,7 +54,7 @@ public class CharacterStats : MonoBehaviour
         CharacterStats delta = a.Copy();
 
         // Fetch properties and compare them
-        PropertyInfo[] properties = typeof(CharacterStats).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly);
+        PropertyInfo[] properties = a.GetProps();
         foreach (var property in properties)
         {
             // Fetch properties from a and b
@@ -107,7 +119,7 @@ public class CharacterStats : MonoBehaviour
     protected void SetStats(CharacterStats newStats)
     {
         // Fetch properties and iterate them, setting each of this' to the newStat equivalent.
-        PropertyInfo[] properties = typeof(CharacterStats).GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.DeclaredOnly);
+        PropertyInfo[] properties = GetProps();
         foreach (var property in properties)
         {
             PropertyInfo prop = this.GetType().GetProperty(property.Name);
