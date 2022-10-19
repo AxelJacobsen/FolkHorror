@@ -2,28 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TreeSpawner : MonoBehaviour
+/// <summary>
+/// A simple class for spawning objects.
+/// </summary>
+public class ObjectSpawner : MonoBehaviour
 {
-    public GameObject treePrototype;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-            
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        
-    }
+    public GameObject Prototype;
 
     /// <summary>
-    /// Spawns a tree at the given position.
+    /// Spawns the prototype at a given position.
     /// </summary>
-    /// <param name="position"></param>
-    void SpawnTree(Vector3 position) {
-        GameObject newTree = Instantiate(treePrototype, position, Quaternion.Euler(45, 0, 0) );
+    /// <param name="position">The given position.</param>
+    public void SpawnObject(Vector3 position) {
+        GameObject newTree = Instantiate(Prototype, position, Quaternion.Euler(45, 0, 0) );
         newTree.SetActive(true);
     }
 }

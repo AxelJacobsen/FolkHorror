@@ -24,8 +24,6 @@ public class MapGenerator : MonoBehaviour {
 	[Range(0, 100)]
 	public int randomFillPercent;
 
-	public TerrainGenerator terraGen;
-
 	int[,] map;
 
 	void Start() {
@@ -71,9 +69,6 @@ public class MapGenerator : MonoBehaviour {
 				}
 			}
 		}
-
-		terraGen.GenerateTerrain(borderedMap);
-		//terraGen.RecieveRegions(GetRegions(1));
 
 		MeshGenerator meshGen = GetComponent<MeshGenerator>();
 		meshGen.GenerateMesh(borderedMap, 1, depth, false, false);

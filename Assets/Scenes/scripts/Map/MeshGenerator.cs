@@ -11,6 +11,8 @@ public class MeshGenerator : MonoBehaviour {
 	public MeshFilter bushCollide;
 	public MeshFilter bushTop;
 
+	private ObjectSpawner objSpawner;
+
 	public bool is2D;
 	private int wallHeight;
 	List<Vector3> vertices;
@@ -33,6 +35,10 @@ public class MeshGenerator : MonoBehaviour {
 		if (isBush) {
 			map = IsolateMapObjects(map, 10);
         }
+
+		objSpawner = GetComponent<ObjectSpawner>();
+		if (objSpawner == null) Debug.LogError("MeshGen couldnt find Object spawner!");
+
 		squareGrid = new SquareGrid(map, squareSize, useFloorHeight);
 
 		vertices = new List<Vector3>();
@@ -88,6 +94,19 @@ public class MeshGenerator : MonoBehaviour {
 		Mesh wallMesh = new Mesh();
 
 		foreach (List<int> outline in outlines) {
+
+			List<Vector2> polyList = new List<Vector2>();
+			foreach (int vertex in outline) {
+				polyList.Add(new Vector2(vertices[vertex].x, vertices[vertex].z));
+            }
+			Vector2[] poly = polyList.ToArray();
+
+			//Spawn trees
+			for (int t = 0; t<20; t++) {
+				Vector2 pos = Funcs.GetRandomPointInPolygon(poly);
+				objSpawner.SpawnObject(new Vector3 (pos.x,3.5f,pos.y));
+			}
+
 			for (int i = 0; i < outline.Count - 1; i++) {
 				int startIndex = wallVertices.Count;
 				wallVertices.Add(vertices[outline[i]]); // left
