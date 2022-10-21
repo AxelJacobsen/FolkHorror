@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using System.Reflection;
+
+
 public class PlayerController : Character
 {
 	// Public vars
@@ -48,7 +51,6 @@ public class PlayerController : Character
 			RaycastHit hitData;
 			Vector3 hitPoint = Vector3.zero;
 			if (Physics.Raycast(ray, out hitData, 1000, AimLayer)) hitPoint = hitData.point;
-
 			Attack(hitPoint, "Enemy");
 		}
 

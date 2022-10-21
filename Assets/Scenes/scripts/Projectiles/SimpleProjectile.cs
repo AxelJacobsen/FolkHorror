@@ -21,7 +21,8 @@ public class SimpleProjectile : MonoBehaviour
     public bool     Fades;
 
     [Header("Set by scripts")]
-    public string   _TargetTag;
+    public string       _TargetTag;
+    public GameObject   _CreatedBy;
 
     // Private vars
     private Rigidbody rb;
@@ -69,7 +70,11 @@ public class SimpleProjectile : MonoBehaviour
 
         // Apply stats on target
         characterHit.Knockback(rb.velocity.normalized * Knockback);
-        characterHit.Hurt(Damage);
+        characterHit.Hurt(_CreatedBy, Damage);
+
+        // Invoke items
+        Character createdByCharacterScript = _CreatedBy.GetComponent<Character>();
+        foreach (Item item in createdByCharacterScript.Items) { item.OnPlayerHit(hitObj); }
 
         // Bounce
         if (Bounces != 0 || Chains != 0)

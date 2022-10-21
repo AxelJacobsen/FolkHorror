@@ -6,9 +6,10 @@ public class Bow : Weapon
 {
     // Public vars
     public int          ArrowsPerShot = 1;
+    public GameObject   arrowPrototype;
 
     // Private vars
-    public GameObject arrowPrototype;
+
 
     protected void Start()
     {
@@ -40,6 +41,7 @@ public class Bow : Weapon
         // Set script vars
         SimpleProjectile script = newArrow.GetComponent<SimpleProjectile>();
         script._TargetTag = targetTag;
+        script._CreatedBy = _Player;
 
         // Set physical properties and activate
         newArrow.transform.localScale = new Vector3(10, 10, 10);

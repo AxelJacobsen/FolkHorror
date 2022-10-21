@@ -98,4 +98,9 @@ public class Item : MonoBehaviour
         transform.SetParent(null);
         rb.velocity = _pRB.velocity.normalized * (_pRB.velocity.magnitude + 5f);
     }
+
+    // Events
+    public virtual void OnPlayerAttack(Vector3 aimPosition, string targetTag){}
+    public virtual void OnPlayerHit(GameObject target){}
+    public virtual void OnPlayerGetHit(GameObject hitBy, int amount){}
 }

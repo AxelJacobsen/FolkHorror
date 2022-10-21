@@ -16,6 +16,7 @@ public class SimpleDamagefield : MonoBehaviour
     [Header("Set by scripts")]
     public Vector3  _KnockbackDir;
     public string   _TargetTag;
+    public GameObject   _CreatedBy;
 
     // Private vars
     private float livedFor;
@@ -58,6 +59,10 @@ public class SimpleDamagefield : MonoBehaviour
 
         // Apply effects on target
         characterHit.Knockback(_KnockbackDir * Knockback);
-        characterHit.Hurt(Damage);
+        characterHit.Hurt(_CreatedBy, Damage);
+
+        // Invoke items
+        Character createdByCharacterScript = _CreatedBy.GetComponent<Character>();
+        foreach (Item item in createdByCharacterScript.Items) { item.OnPlayerHit(hitObj); }
     }
 }
