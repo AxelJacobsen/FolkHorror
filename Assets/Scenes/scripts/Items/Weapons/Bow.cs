@@ -8,15 +8,9 @@ public class Bow : Weapon
     public int          ArrowsPerShot = 1;
     public GameObject   arrowPrototype;
 
-    // Private vars
-
-
     protected void Start()
     {
         base.Start();
-        // Fetch components
-        /*         arrow = GetComponent<Arrow>();
-                if (arrow == null) Debug.LogError("Bow could not find its arrow prototype!"); */
     }
 
     protected void FixedUpdate()

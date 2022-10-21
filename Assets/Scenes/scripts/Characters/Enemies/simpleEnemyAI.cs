@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A class for simple enemy AIs.
+/// </summary>
 public class simpleEnemyAI : Character
 {
     // Public vars

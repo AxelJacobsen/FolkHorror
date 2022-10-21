@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+/// <summary>
+/// Base class for projectiles.
+/// </summary>
 public class SimpleProjectile : MonoBehaviour
 {
     // Public vars
@@ -15,7 +18,6 @@ public class SimpleProjectile : MonoBehaviour
     public int      Chains,
                     Bounces,
                     Pierces;
-
 
     [Header("Visual")]
     public bool     Fades;

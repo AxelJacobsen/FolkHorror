@@ -14,8 +14,8 @@ public class SimpleDamagefield : MonoBehaviour
     public bool     fades;
 
     [Header("Set by scripts")]
-    public Vector3  _KnockbackDir;
-    public string   _TargetTag;
+    public Vector3      _KnockbackDir;
+    public string       _TargetTag;
     public GameObject   _CreatedBy;
 
     // Private vars
@@ -41,7 +41,6 @@ public class SimpleDamagefield : MonoBehaviour
         Lifetime -= Time.deltaTime;
         if (Lifetime <= 0f) Destroy();
     }
-
 
     void OnTriggerEnter(Collider hit) 
     {

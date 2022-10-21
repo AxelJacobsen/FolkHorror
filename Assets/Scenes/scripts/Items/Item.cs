@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Base class for items.
+/// </summary>
 public class Item : MonoBehaviour
 {
     // Public vars

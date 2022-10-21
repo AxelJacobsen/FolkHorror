@@ -85,6 +85,10 @@ public class Character : CharacterStats
 		//flashing = 0.25f;
 	}
 
+	/// <summary>
+    /// Knocks back the character.
+    /// </summary>
+    /// <param name="amount"></param>
 	public void Knockback(Vector3 amount)
     {
 		rb.velocity += amount;

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using System.Reflection;
-
-
+/// <summary>
+/// The playercontroller.
+/// </summary>
 public class PlayerController : Character
 {
 	// Public vars
-	public LayerMask    AimLayer;
+	public LayerMask AimLayer;
 
 	// Private vars
 	private int spaceHeld;
@@ -25,6 +25,7 @@ public class PlayerController : Character
 	private void OnDisable() {
 		playerControls.Disable();
 	}
+	
 	void Start()
 	{
 		base.Start();

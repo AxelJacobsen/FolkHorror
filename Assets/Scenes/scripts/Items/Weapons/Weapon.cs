@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Base class for weapons (ranger or melee).
+/// </summary>
 public class Weapon : Item
 {
     // Public vars
@@ -70,9 +73,10 @@ public class Weapon : Item
     }
 
     /// <summary>
-    /// Attacks the targets which are in range.
+    /// Attacks towards the given position, targetting only objects with the given tag.
     /// </summary>
-    /// <param name="targets">An array containing every possible target.</param>    
+    /// <param name="aimPosition">Position to attack towards.</param>
+    /// <param name="targetTag">Objects to target.</param> 
     public virtual void Attack(Vector3 aimPosition, string targetTag) {
         // If the weapon is on cooldown, do nothing
         if (AttackCooldown > 0f) return;
