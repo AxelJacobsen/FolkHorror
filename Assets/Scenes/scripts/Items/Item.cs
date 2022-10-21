@@ -20,12 +20,16 @@ public class Item : MonoBehaviour
     protected Animator  anim;
     protected bool      equipped = false;
     private float       pickupCooldown = 0f;
+    protected Character _playerCharacter;
 
     protected void Start()
     {
         // Fetch components
         _pRB = _Player.GetComponent<Rigidbody>();
         if (_pRB == null) Debug.LogError("Pickup could not find the player's rigidbody!");
+
+        _playerCharacter = _Player.GetComponent<Character>();
+        if (_playerCharacter == null) Debug.LogError("Pickup could not find the player's character script!");
 
         transform = GetComponent<Transform>();
 		if (transform == null) Debug.LogError("Pickup could not find its transform!");
@@ -72,7 +76,6 @@ public class Item : MonoBehaviour
     protected virtual void PickUp() {
         // Mark the pickup as picked up
         equipped = true;
-        Character _playerCharacter = _Player.GetComponent<Character>();
         _playerCharacter.Items.Add(this);
         _playerCharacter.UpdateStats();
 
@@ -104,6 +107,6 @@ public class Item : MonoBehaviour
 
     // Events
     public virtual void OnPlayerAttack(Vector3 aimPosition, string targetTag){}
-    public virtual void OnPlayerHit(GameObject target){}
+    public virtual void OnPlayerHit(GameObject target, int amount){}
     public virtual void OnPlayerGetHit(GameObject hitBy, int amount){}
 }

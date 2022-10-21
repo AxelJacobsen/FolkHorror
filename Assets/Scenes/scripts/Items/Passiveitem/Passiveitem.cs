@@ -26,7 +26,7 @@ public class Passiveitem : Item
 
     }
 
-    public override void OnPlayerHit(GameObject target){
+    public override void OnPlayerHit(GameObject target, int amount){
 
     }
 

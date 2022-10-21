@@ -71,8 +71,10 @@ public class Character : CharacterStats
     /// Hurts the character.
     /// If its Health is reduced below zero, kills it.
     /// </summary>
-    /// <param name="amount">T</param>
-	public void Hurt(GameObject caller, int amount) 
+    /// <param name="caller">The object which caused the player to be hurt.</param>
+    /// <param name="amount">The amount of damage the player takes.</param>
+    /// <return>The character's health after taking damage.</return>
+	public int Hurt(GameObject caller, int amount) 
 	{
 		// Invoke item triggers
 		foreach (Item item in Items) { item.OnPlayerGetHit(caller, amount); }
@@ -80,9 +82,20 @@ public class Character : CharacterStats
 		Health -= amount;
 		if (Health <= 0) {
 			Die();
-			return;
 		}
-		//flashing = 0.25f;
+        return Health;
+        //flashing = 0.25f;
+    }
+
+	/// <summary>
+    /// Heals the character.
+    /// </summary>
+    /// <param name="caller">The object which caused the player to be healed.</param>
+    /// <param name="amount">The amount of healing.</param>
+    /// <return>The character's health after healing.</return>
+	public int Heal(GameObject caller, int amount) {
+		Health += amount;
+		return Health;
 	}
 
 	/// <summary>

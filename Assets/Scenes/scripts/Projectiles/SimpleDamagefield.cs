@@ -62,6 +62,6 @@ public class SimpleDamagefield : MonoBehaviour
 
         // Invoke items
         Character createdByCharacterScript = _CreatedBy.GetComponent<Character>();
-        foreach (Item item in createdByCharacterScript.Items) { item.OnPlayerHit(hitObj); }
+        foreach (Item item in createdByCharacterScript.Items) { item.OnPlayerHit(hitObj, Damage); }
     }
 }
