@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The playercontroller.
+/// </summary>
 public class PlayerController : Character
 {
 	// Public vars
-	public LayerMask    AimLayer;
+	public LayerMask AimLayer;
 
 	// Private vars
 	private int spaceHeld;
@@ -22,6 +25,7 @@ public class PlayerController : Character
 	private void OnDisable() {
 		playerControls.Disable();
 	}
+	
 	void Start()
 	{
 		base.Start();
@@ -48,7 +52,6 @@ public class PlayerController : Character
 			RaycastHit hitData;
 			Vector3 hitPoint = Vector3.zero;
 			if (Physics.Raycast(ray, out hitData, 1000, AimLayer)) hitPoint = hitData.point;
-
 			Attack(hitPoint, "Enemy");
 		}
 

@@ -71,17 +71,37 @@ public class Character : CharacterStats
     /// Hurts the character.
     /// If its Health is reduced below zero, kills it.
     /// </summary>
-    /// <param name="amount">T</param>
-	public void Hurt(int amount) 
+    /// <param name="caller">The object which caused the player to be hurt.</param>
+    /// <param name="amount">The amount of damage the player takes.</param>
+    /// <return>The character's health after taking damage.</return>
+	public int Hurt(GameObject caller, int amount) 
 	{
+		// Invoke item triggers
+		foreach (Item item in Items) { item.OnPlayerGetHit(caller, amount); }
+
 		Health -= amount;
 		if (Health <= 0) {
 			Die();
-			return;
 		}
-		//flashing = 0.25f;
+        return Health;
+        //flashing = 0.25f;
+    }
+
+	/// <summary>
+    /// Heals the character.
+    /// </summary>
+    /// <param name="caller">The object which caused the player to be healed.</param>
+    /// <param name="amount">The amount of healing.</param>
+    /// <return>The character's health after healing.</return>
+	public int Heal(GameObject caller, int amount) {
+		Health += amount;
+		return Health;
 	}
 
+	/// <summary>
+    /// Knocks back the character.
+    /// </summary>
+    /// <param name="amount"></param>
 	public void Knockback(Vector3 amount)
     {
 		rb.velocity += amount;
@@ -92,10 +112,13 @@ public class Character : CharacterStats
     /// Makes the character attack with its weapon.
     /// </summary>
     /// <param name="targets">An array containing all possible targets.</param>
-    protected void Attack(Vector3 aimPosition, string targetTag) 
+    public void Attack(Vector3 aimPosition, string targetTag) 
 	{
-		// Attacking with a weapon
-		if (Weapon != null) {
+		// Invoke item triggers
+		foreach (Item item in Items) { item.OnPlayerAttack(aimPosition, targetTag); }
+
+        // Attacking with a weapon
+        if (Weapon != null) {
             Weapon.Attack(aimPosition, targetTag);
 
         // Attacking with no weapon
@@ -116,8 +139,6 @@ public class Character : CharacterStats
 			tvec.x *= -1;
 			transform.localScale = tvec;
 			facingRight = !facingRight;
-
-			//anim.SetInteger("walkDir", walkDir);
 		}
 
 		// Flash
@@ -134,4 +155,9 @@ public class Character : CharacterStats
 			sr.color = tCol;
 		}
 	}
+
+	// Item triggers
+	public virtual void OnPlayerAttack(Vector3 aimPosition, string targetTag){}
+    public virtual void OnPlayerHit(GameObject target){}
+    public virtual void OnPlayerGetHit(GameObject hitBy, int amount){}
 }

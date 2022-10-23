@@ -6,16 +6,11 @@ public class Bow : Weapon
 {
     // Public vars
     public int          ArrowsPerShot = 1;
-
-    // Private vars
-    public GameObject arrowPrototype;
+    public GameObject   arrowPrototype;
 
     protected void Start()
     {
         base.Start();
-        // Fetch components
-        /*         arrow = GetComponent<Arrow>();
-                if (arrow == null) Debug.LogError("Bow could not find its arrow prototype!"); */
     }
 
     protected void FixedUpdate()
@@ -40,6 +35,7 @@ public class Bow : Weapon
         // Set script vars
         SimpleProjectile script = newArrow.GetComponent<SimpleProjectile>();
         script._TargetTag = targetTag;
+        script._CreatedBy = _Player;
 
         // Set physical properties and activate
         newArrow.transform.localScale = new Vector3(10, 10, 10);
