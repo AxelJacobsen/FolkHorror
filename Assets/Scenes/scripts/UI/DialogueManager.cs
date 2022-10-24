@@ -10,26 +10,26 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI text;
 
     public string[] sentences;
-    string currentText;
-    int currentSentence;
-    bool isRunning;
+    public string currentText;
+    public int currentIndex;
+    public bool isRunning;
 
     // Start is called before the first frame update
     void Start()
     {
         text.text = "";
         currentText = "";
-        currentSentence = -1;
+        currentIndex = -1;
         isRunning = false;
-        ToggleTextBox();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        // first time the update loop is run
+        if (Input.GetKeyDown(KeyCode.E) && currentIndex == -1)
         {
-            ToggleTextBox();
+            ToggleTextBox(true);
         }
 
         if (Input.GetKeyDown(KeyCode.E) && textBox.gameObject.activeSelf)
@@ -51,30 +51,39 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    void OnDisable()
+    {
+        text.text = "";
+        currentText = "";
+        currentIndex = -1;
+        isRunning = false;
+        ToggleTextBox(false);
+    }
+
     /// <summary>
     /// Toggles the text box on and off.
     /// </summary>
-    void ToggleTextBox()
+    public void ToggleTextBox(bool state)
     {
-        textBox.gameObject.SetActive(!textBox.gameObject.activeSelf);
+        textBox.gameObject.SetActive(state);
     }
 
     /// <summary>
     /// Change which sentence is displayed as the text.
     /// </summary>
-    void ChangeSentence()
+    public void ChangeSentence()
     {
-        if (currentSentence >= sentences.Length - 1)
+        if (currentIndex >= sentences.Length - 1)
         {
-            currentSentence = -1;
+            currentIndex = -1;
         }
 
         // make text ready for typing
         text.text = "";
 
         // set new sentence
-        currentSentence++;
-        currentText = sentences[currentSentence];
+        currentIndex++;
+        currentText = sentences[currentIndex];
 
         // start typing effect
         isRunning = true;
@@ -84,7 +93,7 @@ public class DialogueManager : MonoBehaviour
     /// <summary>
     /// Change the page to be displayed from the current text.
     /// </summary>
-    void ChangePage()
+    public void ChangePage()
     {
         // remove used page from text
         text.text = text.text.Substring(text.firstOverflowCharacterIndex);
