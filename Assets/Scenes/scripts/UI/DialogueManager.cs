@@ -29,7 +29,6 @@ public class DialogueManager : MonoBehaviour
     void Update()
     {
         // first time the update loop is run
-        // TODO: fix this
         if (Input.GetKeyDown(KeyCode.E) && currentIndex == -1)
         {
             ToggleTextBox(true);
@@ -80,9 +79,11 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     public void ChangeSentence()
     {
+        // check if dialogue is complete
         if (currentIndex >= sentences.Length - 1)
         {
-            currentIndex = -1;
+            this.gameObject.SetActive(false);
+            return;
         }
 
         // make text ready for typing

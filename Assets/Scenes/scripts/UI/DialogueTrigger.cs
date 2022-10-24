@@ -8,25 +8,39 @@ public class DialogueTrigger : MonoBehaviour
     public TextMeshProUGUI infoText;
     public DialogueManager manager;
 
+    bool isRunning;
+
     // Start is called before the first frame update
     void Start()
     {
         infoText.gameObject.SetActive(false);
         manager.ToggleTextBox(false);
         manager.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        isRunning = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        print("Heiiiii");
         infoText.gameObject.SetActive(true);
         manager.gameObject.SetActive(true);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        // remove info text when dialogue is run for the first time
+        if (manager.textBox.IsActive() && !isRunning)
+        {
+            isRunning = true;
+            infoText.gameObject.SetActive(false);
+        }
+
+        // show info text again when the dialogue is complete
+        if (!manager.textBox.IsActive() && isRunning)
+        {
+            isRunning = false;
+            infoText.gameObject.SetActive(true);
+            manager.gameObject.SetActive(true);
+        }
     }
 
     private void OnTriggerExit(Collider other)
