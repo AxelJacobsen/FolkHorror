@@ -463,8 +463,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 0.9563376, z: 1}
+  m_Center: {x: 0, y: 0.021834293, z: 0}
 --- !u!1 &704799784
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,13 +497,11 @@ MonoBehaviour:
   textBox: {fileID: 1152558908}
   text: {fileID: 745311556}
   sentences:
-  - det var en gang... det var en gang... det var en gang... det var en gang...det
-    var en gang... det var en gang...det var en gang...det var en gang...det var
-    en gang...det var en gang...det var en gang...det var en gang... det var en gang...
-  - "snipp, snapp, snute, s\xE5 er eventyret ute..."
-  currentText: 
+  - hit or m,iss
+  - i guess they never miss hUH?
+  - you got a boyfriend i bet he doesnt kiss YA
+  - MWAAAH
   currentIndex: 0
-  isRunning: 0
 --- !u!4 &704799786
 Transform:
   m_ObjectHideFlags: 0
@@ -1129,7 +1127,6 @@ GameObject:
   - component: {fileID: 1996412759}
   - component: {fileID: 1996412758}
   - component: {fileID: 1996412757}
-  - component: {fileID: 1996412761}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1220,18 +1217,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1996412761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1996412756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55b30a1924e93ac48ae2ad912916dc3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2068299070
 GameObject:
   m_ObjectHideFlags: 0
