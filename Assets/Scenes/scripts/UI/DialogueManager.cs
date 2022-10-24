@@ -4,6 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class <c>DialogueManager</c> manages a dialogue interaction.
+/// </summary>
 public class DialogueManager : MonoBehaviour
 {
     public Image textBox;
@@ -77,7 +80,7 @@ public class DialogueManager : MonoBehaviour
     /// <summary>
     /// Change which sentence is displayed as the text.
     /// </summary>
-    public void ChangeSentence()
+    void ChangeSentence()
     {
         // check if dialogue is complete
         if (currentIndex >= sentences.Length - 1)
@@ -101,7 +104,7 @@ public class DialogueManager : MonoBehaviour
     /// <summary>
     /// Change the page to be displayed from the current text.
     /// </summary>
-    public void ChangePage()
+    void ChangePage()
     {
         // remove used page from text
         text.text = text.text.Substring(text.firstOverflowCharacterIndex);

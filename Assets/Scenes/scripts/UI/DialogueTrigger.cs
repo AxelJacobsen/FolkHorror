@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Class <c>DialogueTrigger</c> manages triggering of a dialogue interaction.
+/// </summary>
 public class DialogueTrigger : MonoBehaviour
 {
     public TextMeshProUGUI infoText;
