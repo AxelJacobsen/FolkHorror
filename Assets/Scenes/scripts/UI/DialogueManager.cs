@@ -10,9 +10,10 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI text;
 
     public string[] sentences;
-    public string currentText;
+    string currentText;
     public int currentIndex;
-    public bool isRunning;
+    bool isRunning;
+    bool reset;
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +22,14 @@ public class DialogueManager : MonoBehaviour
         currentText = "";
         currentIndex = -1;
         isRunning = false;
+        reset = true;
     }
 
     // Update is called once per frame
     void Update()
     {
         // first time the update loop is run
+        // TODO: fix this
         if (Input.GetKeyDown(KeyCode.E) && currentIndex == -1)
         {
             ToggleTextBox(true);
@@ -41,22 +44,26 @@ public class DialogueManager : MonoBehaviour
                 StopAllCoroutines();
                 text.text = currentText;
             }
-            else if (text.isTextOverflowing)
+            else if (text.isTextOverflowing && reset)
             {
                 ChangePage();
             } else
             {
                 ChangeSentence();
+                reset = true;
             }
         }
     }
 
+    // TODO: make a general function for resetting variables (used in Start as well)
     void OnDisable()
     {
+        StopAllCoroutines();
         text.text = "";
         currentText = "";
         currentIndex = -1;
         isRunning = false;
+        reset = false;
         ToggleTextBox(false);
     }
 
