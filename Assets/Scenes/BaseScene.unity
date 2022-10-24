@@ -526,7 +526,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 305200925}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0.06, y: 1.21, z: 9.21}
+  m_LocalPosition: {x: -58.369995, y: 1.21, z: 9.21}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -879,7 +879,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 676564484}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -7.56, y: 1.21, z: -19.6}
+  m_LocalPosition: {x: -65.99, y: 1.21, z: -19.6}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1066,7 +1066,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832003097}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -0.5, y: 0.62, z: 7.6}
+  m_LocalPosition: {x: -58.929996, y: 0.62, z: 7.6}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1207,7 +1207,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 869373751}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 36.75, y: 1.21, z: -15.51}
+  m_LocalPosition: {x: -21.679996, y: 1.21, z: -15.51}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2093,7 +2093,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1530835288}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -16.91, y: 1.21, z: -1.73}
+  m_LocalPosition: {x: -75.34, y: 1.21, z: -1.73}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2398,7 +2398,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975577270}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: -9.2, y: 0.62, z: -22.37}
+  m_LocalPosition: {x: -67.63, y: 0.62, z: -22.37}
   m_LocalScale: {x: 10, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2539,7 +2539,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989084730}
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 7.14, y: 1.21, z: -9.45}
+  m_LocalPosition: {x: -51.289997, y: 1.21, z: -9.45}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2590,8 +2590,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.27, z: 0.24}
-  m_Center: {x: 0.03, y: 0, z: 0}
+  m_Size: {x: 0.25, y: 0.22035673, z: 0.21964188}
+  m_Center: {x: 0.029999996, y: -0.004317153, z: -0.006464386}
 --- !u!1 &2044029809
 GameObject:
   m_ObjectHideFlags: 0
@@ -2606,6 +2606,7 @@ GameObject:
   - component: {fileID: 2044029814}
   - component: {fileID: 2044029815}
   - component: {fileID: 2044029816}
+  - component: {fileID: 2044029817}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2743,7 +2744,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2044029809}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2d3e6bb2b81fcc4390cbf1700452e2a, type: 3}
   m_Name: 
@@ -2751,6 +2752,24 @@ MonoBehaviour:
   FireParticleRedPrefab: {fileID: 7980522776474767222, guid: f79cc4d56ff765348bdeffc873a58f4a, type: 3}
   FireParticleYellowPrefab: {fileID: 769640920893023857, guid: 28f4925409159fe498531a43e47a7de9, type: 3}
   Rate: 25
+--- !u!114 &2044029817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044029809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1d76c66a1a39a74283a944697477833, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BloodParticleOuterPrefab: {fileID: 5616557134024420667, guid: 42ffd864900b94443b075a381b0b5ab5, type: 3}
+  BloodParticleInnerPrefab: {fileID: 5616557134024420667, guid: b4423912145435246bba33ee3b1d06b1, type: 3}
+  Rate: 10
+  MaxSize: 0.75
+  MinSize: 0.25
+  LifeTime: 2
 --- !u!1 &2104752665
 GameObject:
   m_ObjectHideFlags: 0
