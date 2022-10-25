@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ public class DialogueTrigger : MonoBehaviour
     public TextMeshProUGUI infoText;
     public DialogueManager manager;
 
+    public string filePath;
     bool isRunning;
 
     // Start is called before the first frame update
@@ -19,6 +21,7 @@ public class DialogueTrigger : MonoBehaviour
         infoText.gameObject.SetActive(false);
         manager.ToggleTextBox(false);
         manager.gameObject.SetActive(false);
+        manager.dialogue = DialogueReader.ImportXml<Dialogue>(filePath);
         isRunning = false;
     }
 

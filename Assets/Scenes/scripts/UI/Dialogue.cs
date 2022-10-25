@@ -15,11 +15,8 @@ public class Dialogue
     [XmlElement(ElementName = "name")]
     public string name;
 
-    [XmlElement(ElementName = "sentences")]
-    public string sentences;
-
-    [XmlArray("test"), XmlArrayItem("value")]
-    public string[] test;
+    [XmlArray("sentences"), XmlArrayItem("value")]
+    public string[] sentences;
 }
 
 
