@@ -11,8 +11,9 @@ public class DialogueManager : MonoBehaviour
 {
     public Image textBox;
     public TextMeshProUGUI text;
+    public TextMeshProUGUI name;
 
-    public string[] sentences;
+    public Dialogue dialogue;
     string currentText;
     public int currentIndex;
     bool isRunning;
@@ -22,6 +23,7 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         text.text = "";
+        name.text = "";
         currentText = "";
         currentIndex = -1;
         isRunning = false;
@@ -34,6 +36,7 @@ public class DialogueManager : MonoBehaviour
         // first time the update loop is run
         if (Input.GetKeyDown(KeyCode.E) && currentIndex == -1)
         {
+            name.text = dialogue.name;
             ToggleTextBox(true);
         }
 
@@ -83,7 +86,7 @@ public class DialogueManager : MonoBehaviour
     void ChangeSentence()
     {
         // check if dialogue is complete
-        if (currentIndex >= sentences.Length - 1)
+        if (currentIndex >= dialogue.sentences.Length - 1)
         {
             this.gameObject.SetActive(false);
             return;
@@ -94,7 +97,7 @@ public class DialogueManager : MonoBehaviour
 
         // set new sentence
         currentIndex++;
-        currentText = sentences[currentIndex];
+        currentText = dialogue.sentences[currentIndex];
 
         // start typing effect
         isRunning = true;
