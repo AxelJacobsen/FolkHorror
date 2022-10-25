@@ -22,6 +22,7 @@ public class DialogueManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dialogue = null;
         text.text = "";
         name.text = "";
         currentText = "";
@@ -33,6 +34,8 @@ public class DialogueManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (dialogue == null) return;
+
         // first time the update loop is run
         if (Input.GetKeyDown(KeyCode.E) && currentIndex == -1)
         {
@@ -77,6 +80,7 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     public void ToggleTextBox(bool state)
     {
+        if (textBox == null) return;
         textBox.gameObject.SetActive(state);
     }
 
