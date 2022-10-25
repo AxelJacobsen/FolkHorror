@@ -17,6 +17,7 @@ public class Character : CharacterStats
 	protected SpriteRenderer    sr;
 	protected bool 			    facingRight;
 	protected float 		    flashing;
+	protected Dictionary<string, (float, float)> effects = new Dictionary<string, (float, float)>(); // Buffs & Debuffs. Stored in the format "effectName" : (duration, intensity)
 
 	protected void Start()
 	{
@@ -127,6 +128,71 @@ public class Character : CharacterStats
 		}
     }
 
+	/// <summary>
+    /// Applies an effect to the character.
+    /// If the effect is already applied, the largest duration is used (old or new) and the intensity is added.
+    /// </summary>
+    /// <param name="effectName">The name of the effect.</param>
+    /// <param name="duration">The duration of the effect (in seconds).</param>
+    /// <param name="intensity">The intensity of the effect.</param>
+    /// <returns></returns>
+	public (float, float) ApplyEffect(string effectName, float duration, float intensity)
+    {
+		try
+        {
+			(float, float) value = effects[effectName];
+			effects[effectName] = (Mathf.Max(value.Item1, duration), value.Item2 + intensity);
+			return (effects[effectName].Item1, effects[effectName].Item2);
+		}
+		catch (KeyNotFoundException)
+        {
+			effects[effectName] = (duration, intensity);
+			return (duration, intensity);
+        }
+    }
+
+	/// <summary>
+	/// Handles a specific buff/debuff.
+	/// </summary>
+	/// <param name="kvp">The key-value-pair of the effect, found in the 'effects' dictionary.</param>
+    /// <returns>A tuple consisting of the newly updated (effectName, (duration, intensity)).</returns>
+	protected (string, (float, float)) HandleEffect(KeyValuePair<string, (float, float)> kvp)
+	{
+		string	effectName	 = kvp.Key;
+		float	duration	 = kvp.Value.Item1,
+				intensity	 = kvp.Value.Item2;
+		Effect	effectScript = null;
+
+		// Iterate all Effect components, looking for the one with matching name.
+		Effect[] effectScripts = GetComponents<Effect>();
+		foreach (Effect effectScript_t in effectScripts)
+		{
+			if (effectScript_t.EffectName == effectName)
+			{
+				effectScript = effectScript_t;
+				break;
+			}
+		}
+
+		// Count down effect duration and end the effect if it timed out.
+		duration -= Time.deltaTime;
+		if (duration <= 0)
+		{
+			if (effectScript != null) effectScript._Active = false;
+			return (null, (0, 0));
+		}
+
+		// Alter effect power based on intensity
+		if (effectScript != null)
+		{
+			if (!effectScript._Active) effectScript._Active = true;
+			effectScript.Rate = 5 * intensity;
+		}
+
+		// Update effect and return
+		return (effectName, (duration, intensity));
+	}
+
 	protected void FixedUpdate()
 	{
 		// Flip sprite if we're changing direction
@@ -154,6 +220,15 @@ public class Character : CharacterStats
 
 			sr.color = tCol;
 		}
+
+		// Effects (buffs/debuffs)
+		Dictionary<string, (float, float)> updatedEffects = new Dictionary<string, (float, float)>();
+		foreach (KeyValuePair<string, (float, float)> kvp in effects)
+        {
+			(string, (float, float)) updatedEffect = HandleEffect(kvp);
+			if (updatedEffect.Item1 != null) updatedEffects.Add(updatedEffect.Item1, updatedEffect.Item2);
+		}
+		effects = updatedEffects;
 	}
 
 	// Item triggers

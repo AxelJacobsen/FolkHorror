@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A class for spawning particles.
+/// </summary>
 public class Effect : MonoBehaviour
 {
     // Public vars
     [Header("Settings")]
+    public string EffectName;
     public GameObject[] ParticlePrefabs;
     public bool SpawnParticlesOnGroundOnly = false; // Spawn particles on the ground ONLY.
     public float Rate = 10,     // Particles per second.
@@ -18,6 +22,9 @@ public class Effect : MonoBehaviour
                     LifeTime = 2f;
     public Vector3  MinVelocity = new Vector3(-2, 1, 0) / 2f,
                     MaxVelocity = new Vector3(2, 2, 0) / 2f;
+
+    [Header("Set by scripts")]
+    public bool _Active = false;
 
     // Private vars
     private BoxCollider hitbox;
@@ -39,6 +46,9 @@ public class Effect : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        // Don't do anything if set to inactive
+        if (!_Active) return;
+
         // Increment timer
         timeSinceLastSpawn += Time.deltaTime;
 
