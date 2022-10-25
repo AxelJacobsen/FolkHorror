@@ -21,7 +21,7 @@ public class DialogueTrigger : MonoBehaviour
         infoText.gameObject.SetActive(false);
         manager.ToggleTextBox(false);
         manager.gameObject.SetActive(false);
-        manager.dialogue = DialogueReader.ImportXml<Dialogue>(filePath);
+        manager.dialogue = DialogueReader.ReadXML<Dialogue>(filePath);
         isRunning = false;
     }
 
