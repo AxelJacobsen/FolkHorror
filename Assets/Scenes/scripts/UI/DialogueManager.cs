@@ -14,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI name;
 
     public Dialogue dialogue;
+
     string currentText;
     public int currentIndex;
     bool isRunning;
@@ -23,11 +24,7 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
         dialogue = null;
-        text.text = "";
-        name.text = "";
-        currentText = "";
-        currentIndex = -1;
-        isRunning = false;
+        ResetVariables();
         reset = true;
     }
 
@@ -63,16 +60,24 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // TODO: make a general function for resetting variables (used in Start as well)
     void OnDisable()
     {
         StopAllCoroutines();
+        ResetVariables();
+        reset = false;
+        ToggleTextBox(false);
+    }
+
+    /// <summary>
+    /// Set variable to their default values.
+    /// </summary>
+    private void ResetVariables()
+    {
         text.text = "";
+        name.text = "";
         currentText = "";
         currentIndex = -1;
         isRunning = false;
-        reset = false;
-        ToggleTextBox(false);
     }
 
     /// <summary>

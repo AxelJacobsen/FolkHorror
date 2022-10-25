@@ -18,8 +18,7 @@ public class DialogueTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        infoText.gameObject.SetActive(false);
-        manager.ToggleTextBox(false);
+        ToggleInfoText(false);
         manager.gameObject.SetActive(false);
         manager.dialogue = DialogueReader.ReadXML<Dialogue>(filePath);
         isRunning = false;
@@ -27,7 +26,7 @@ public class DialogueTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        infoText.gameObject.SetActive(true);
+        ToggleInfoText(true);
         manager.gameObject.SetActive(true);
     }
 
@@ -37,21 +36,31 @@ public class DialogueTrigger : MonoBehaviour
         if (manager.textBox.IsActive() && !isRunning)
         {
             isRunning = true;
-            infoText.gameObject.SetActive(false);
+            ToggleInfoText(false);
         }
 
         // show info text again when the dialogue is complete
         if (!manager.textBox.IsActive() && isRunning)
         {
             isRunning = false;
-            infoText.gameObject.SetActive(true);
+            ToggleInfoText(true);
             manager.gameObject.SetActive(true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        infoText.gameObject.SetActive(false);
+        ToggleInfoText(false);
         manager.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Toggles info text on and off.
+    /// </summary>
+    /// <param name="state">New state of the game object</param>
+    void ToggleInfoText(bool state)
+    {
+        if (infoText == null) return;
+        infoText.gameObject.SetActive(state);
     }
 }
