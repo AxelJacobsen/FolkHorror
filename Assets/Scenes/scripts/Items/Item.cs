@@ -107,6 +107,6 @@ public class Item : MonoBehaviour
 
     // Events
     public virtual void OnPlayerAttack(Vector3 aimPosition, string targetTag){}
-    public virtual void OnPlayerHit(GameObject target, int amount){}
-    public virtual void OnPlayerGetHit(GameObject hitBy, int amount){}
+    public virtual void OnPlayerHit(GameObject target, float amount){}
+    public virtual void OnPlayerGetHit(GameObject hitBy, float amount){}
 }

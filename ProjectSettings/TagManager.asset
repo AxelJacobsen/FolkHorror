@@ -8,6 +8,7 @@ TagManager:
   - TextBox
   - Projectile
   - Hitbox
+  - EffectLoader
   layers:
   - Default
   - TransparentFX

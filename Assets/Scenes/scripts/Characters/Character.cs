@@ -11,7 +11,7 @@ public class Character : CharacterStats
 
 	// Private vars
 	protected CharacterStats	baseStats;
-	protected int				Health;
+	protected float				Health;
 	protected Rigidbody 		rb;
 	protected Animator 		    anim;
 	protected SpriteRenderer    sr;
@@ -80,7 +80,7 @@ public class Character : CharacterStats
     /// <param name="caller">The object which caused the player to be hurt.</param>
     /// <param name="amount">The amount of damage the player takes.</param>
     /// <return>The character's health after taking damage.</return>
-	public int Hurt(GameObject caller, int amount) 
+	public float Hurt(GameObject caller, float amount) 
 	{
 		// Invoke item triggers
 		foreach (Item item in Items) { item.OnPlayerGetHit(caller, amount); }
@@ -99,7 +99,7 @@ public class Character : CharacterStats
     /// <param name="caller">The object which caused the player to be healed.</param>
     /// <param name="amount">The amount of healing.</param>
     /// <return>The character's health after healing.</return>
-	public int Heal(GameObject caller, int amount) {
+	public float Heal(GameObject caller, float amount) {
 		Health += amount;
 		return Health;
 	}
@@ -142,7 +142,7 @@ public class Character : CharacterStats
 	private void applyTriggerEffect(OnTrigger trigger, float intensity) {
 		if (trigger == null) return;
         Hurt(gameObject, trigger.flatDamage * (int)(intensity * Time.deltaTime));
-		Hurt(gameObject, MaxHealth * trigger.percentDamage * (int)(intensity * Time.deltaTime) / 100);
+		Hurt(gameObject, trigger.percentDamage/100f * MaxHealth * intensity * Time.deltaTime);
 	}
 
 	/// <summary>
@@ -223,8 +223,8 @@ public class Character : CharacterStats
 
 	protected void FixedUpdate()
 	{
-		// Flip sprite if we're changing direction
-		float 	max = Mathf.Max(rb.velocity.x, rb.velocity.z),
+        // Flip sprite if we're changing direction
+        float 	max = Mathf.Max(rb.velocity.x, rb.velocity.z),
 				min = Mathf.Min(rb.velocity.x, rb.velocity.z);
 		int		walkDir = max > -min ? (rb.velocity.x > rb.velocity.z ? 3 : 0) : (rb.velocity.x < rb.velocity.z ? 2 : 1);
 		

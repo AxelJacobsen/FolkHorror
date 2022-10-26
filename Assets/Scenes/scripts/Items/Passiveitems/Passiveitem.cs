@@ -22,11 +22,11 @@ public class Passiveitem : Item
 
     }
 
-    public override void OnPlayerGetHit(GameObject hitBy, int amount) {
+    public override void OnPlayerGetHit(GameObject hitBy, float amount) {
 
     }
 
-    public override void OnPlayerHit(GameObject target, int amount){
+    public override void OnPlayerHit(GameObject target, float amount){
 
     }
 
