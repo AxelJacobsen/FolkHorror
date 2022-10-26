@@ -8,6 +8,7 @@ TagManager:
   - TextBox
   - Projectile
   - Hitbox
+  - MapGen
   layers:
   - Default
   - TransparentFX
