@@ -42,17 +42,6 @@ public class MapGenerator : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			GenerateMap();
 		}
-		/*if (Input.GetKeyDown(KeyCode.Keypad1)) {
-			MapGenerator saveMap = GetComponent<MapGenerator>();
-			string saveName = "SavedMap";
-			Transform selectedGameObject;
-			var mf = selectedGameObject.GetComponent<MeshFilter>();
-			if (mf) {
-				var savePath = "Assets/" + saveName + ".asset";
-				Debug.Log("Saved Mesh to:" + savePath);
-				AssetDatabase.CreateAsset(mf.mesh, savePath);
-			}
-		}*/
 	}
 	/*
 	 Handles all map generation from start to finish
