@@ -15,7 +15,8 @@ public class Character : CharacterStats
 	protected Rigidbody 		rb;
 	protected Animator 		    anim;
 	protected SpriteRenderer    sr;
-	protected bool 			    facingRight;
+    protected EffectDataLoader 	effectLoader;
+    protected bool 			    facingRight;
 	protected float 		    flashing;
 	protected Dictionary<string, (float, float)> effects = new Dictionary<string, (float, float)>(); // Buffs & Debuffs. Stored in the format "effectName" : (duration, intensity)
 
@@ -31,13 +32,17 @@ public class Character : CharacterStats
 		sr = GetComponentInChildren<SpriteRenderer>();
 		if (sr == null) 	Debug.LogError("Character could not find its sprite renderer!");
 
-		// Set base stats to be starting stats
-		baseStats = base.Copy();
+        GameObject effectLoaderObject = GameObject.FindGameObjectWithTag("EffectLoader");
+        effectLoader = effectLoaderObject.GetComponent<EffectDataLoader>();
+		if (effectLoader == null) Debug.LogError("Character could not find an effectloader!");
+
+        // Set base stats to be starting stats
+        baseStats = base.Copy();
 
 		Health = MaxHealth;
 		facingRight = false;
 		flashing = 0;
-	}
+    }
 
 	/// <summary>
     /// Updates the player's stats with their current items.
@@ -129,6 +134,18 @@ public class Character : CharacterStats
     }
 
 	/// <summary>
+    /// Applies an ontrigger-effect.
+    /// Used by ApplyEffect & HandleEffect.
+    /// </summary>
+    /// <param name="trigger">The trigger & its effects.</param>
+    /// <param name="intensity">The intensity</param>
+	private void applyTriggerEffect(OnTrigger trigger, float intensity) {
+		if (trigger == null) return;
+        Hurt(gameObject, trigger.flatDamage * (int)(intensity * Time.deltaTime));
+		Hurt(gameObject, MaxHealth * trigger.percentDamage * (int)(intensity * Time.deltaTime) / 100);
+	}
+
+	/// <summary>
     /// Applies an effect to the character.
     /// If the effect is already applied, the largest duration is used (old or new) and the intensity is added.
     /// </summary>
@@ -138,7 +155,7 @@ public class Character : CharacterStats
     /// <returns></returns>
 	public (float, float) ApplyEffect(string effectName, float duration, float intensity)
     {
-		try
+        try
         {
 			(float, float) value = effects[effectName];
 			effects[effectName] = (Mathf.Max(value.Item1, duration), value.Item2 + intensity);
@@ -146,7 +163,11 @@ public class Character : CharacterStats
 		}
 		catch (KeyNotFoundException)
         {
-			effects[effectName] = (duration, intensity);
+			// Apply "begin"-trigger effects
+			EffectData effectData = effectLoader.GetEffectData(effectName);
+			if (effectData != null) applyTriggerEffect(effectData.GetTrigger("begin"), intensity);
+			
+            effects[effectName] = (duration, intensity);
 			return (duration, intensity);
         }
     }
@@ -158,10 +179,11 @@ public class Character : CharacterStats
     /// <returns>A tuple consisting of the newly updated (effectName, (duration, intensity)).</returns>
 	protected (string, (float, float)) HandleEffect(KeyValuePair<string, (float, float)> kvp)
 	{
-		string	effectName	 = kvp.Key;
-		float	duration	 = kvp.Value.Item1,
-				intensity	 = kvp.Value.Item2;
-		Effect	effectScript = null;
+		string		effectName	 = kvp.Key;
+		float		duration	 = kvp.Value.Item1,
+					intensity	 = kvp.Value.Item2;
+		EffectData 	effectData 	 = effectLoader.GetEffectData(effectName);
+		Effect		effectScript = null;
 
 		// Iterate all Effect components, looking for the one with matching name.
 		Effect[] effectScripts = GetComponents<Effect>();
@@ -174,10 +196,13 @@ public class Character : CharacterStats
 			}
 		}
 
-		// Count down effect duration and end the effect if it timed out.
-		duration -= Time.deltaTime;
+        // Count down effect duration and end the effect if it timed out.
+        duration -= Time.deltaTime;
 		if (duration <= 0)
 		{
+			// Apply "end"-trigger effects
+			if (effectData != null) applyTriggerEffect(effectData.GetTrigger("end"), intensity);
+
 			if (effectScript != null) effectScript._Active = false;
 			return (null, (0, 0));
 		}
@@ -188,6 +213,9 @@ public class Character : CharacterStats
 			if (!effectScript._Active) effectScript._Active = true;
 			effectScript.Rate = 5 * intensity;
 		}
+
+		// Apply "during"-trigger effects
+		if (effectData != null) applyTriggerEffect(effectData.GetTrigger("during"), intensity);
 
 		// Update effect and return
 		return (effectName, (duration, intensity));
