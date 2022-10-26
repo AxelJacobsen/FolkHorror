@@ -2,34 +2,40 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
+
 
 public class MapGenerator : MonoBehaviour {
 
 	public int width;
 	public int height;
 	public int depth = 5;
-	public int bushSize = 2;
+	public int bushSize = 3;
 
 	public string seed;
 	public bool useRandomSeed;
 
 	public int smoothing = 5;
 	public int smoothingStrictness = 4;
+	public int borderSize = 2;
 
-	public int roomSizeThreshold = 50;
+	public int roomSizeThreshold = 100;
 	public int wallSizeThreshold = 50;
 
 	public bool process = true;
+	public bool generateObjects = true;
+	public bool loadFromFile = false;
 
 	[Range(0, 100)]
-	public int randomFillPercent;
+	public int randomFillPercent = 42;
 
-	public TerrainGenerator terraGen;
+	
 
 	int[,] map;
 
 	void Start() {
 		GenerateMap();
+		DontDestroyOnLoad(this);
 	}
 
 	void Update() {
@@ -37,31 +43,57 @@ public class MapGenerator : MonoBehaviour {
 			GenerateMap();
 		}
 	}
-
+	/*
+	 Handles all map generation from start to finish
+	 */
 	void GenerateMap() {
-		map = new int[width, height];
-		RandomFillMap();
 
+		
+		if (loadFromFile){
+			var inMap = Resources.Load<TextAsset>("Text/roundRoomMap");
+			string[] processedMap = inMap.text.Split("\n");
+			int yCount = 0;
+			int xCount = 0;
+			map = new int[processedMap[0].Length, processedMap.Length];
+			foreach (string yCoord in processedMap) {
+				xCount = 0;
+				foreach (char binaryMapData in yCoord) {
+					map[xCount, yCount] = Mathf.RoundToInt((float)Char.GetNumericValue(binaryMapData));
+					xCount++;
+				}
+				yCount++;
+			}
+			width  = xCount;
+			height = yCount;
+		} else {
+			//Original map initialized here
+			map = new int[width, height];
+			//Create initial noisemap (Big ol mess, unsusable)
+			RandomFillMap();
+		}
+		//Initialize secondary maps
+		int[,] borderedMap = new int[width + borderSize * 2, height + borderSize * 2];
+		int[,] invertedMap = new int[width + borderSize * 2, height + borderSize * 2];
+
+		//Groups the map using neighbour algorythm, (Usable almost immediately)
 		for (int i = 0; i < smoothing; i++) {
 			SmoothMap();
 		}
 
 		if (process) {
+			//Performs more advanced grouping and item generation
 			ProcessMap();
 		}
 
-
-		int borderSize = 1;
-		int[,] borderedMap = new int[width + borderSize * 2, height + borderSize * 2];
-		int[,] invertedMap = new int[width + borderSize * 2, height + borderSize * 2];
+		//Add border on borderedMap and create inveted map
 		for (int x = 0; x < borderedMap.GetLength(0); x++) {
 			for (int y = 0; y < borderedMap.GetLength(1); y++) {
-
 				if (x >= borderSize && x < width + borderSize && y >= borderSize && y < height + borderSize) {
 					borderedMap[x, y] = map[x - borderSize, y - borderSize];
 					if (borderedMap[x, y] != 0 && borderedMap[x, y] != 1) {
 						invertedMap[x, y] = 1;
-					} else {
+					}
+					else {
 						invertedMap[x, y] = 1 - borderedMap[x, y];
 					}
 				}
@@ -72,23 +104,18 @@ public class MapGenerator : MonoBehaviour {
 			}
 		}
 
-		terraGen.GenerateTerrain(borderedMap);
-		//terraGen.RecieveRegions(GetRegions(1));
-
 		MeshGenerator meshGen = GetComponent<MeshGenerator>();
 		meshGen.GenerateMesh(borderedMap, 1, depth, false, false);
 
-		FloorGen genFloor = GetComponent<FloorGen>();
+		MeshGenerator genFloor = GetComponent<MeshGenerator>();
 		meshGen.GenerateMesh(invertedMap, 1, depth, true, false);
 
 		MeshGenerator bushGen = GetComponent<MeshGenerator>();
 		bushGen.GenerateMesh(borderedMap, 1, bushSize, false, true);
-
 	}
 
 	void ProcessMap() {
 		List<List<Coord>> wallRegions = GetRegions(1);
-
 		foreach (List<Coord> wallRegion in wallRegions) {
 			if (wallRegion.Count < wallSizeThreshold) {
 				foreach (Coord tile in wallRegion) {
@@ -357,9 +384,9 @@ public class MapGenerator : MonoBehaviour {
 		int wallCount = 0;
 		for (int neighbourX = gridX - 1; neighbourX <= gridX + 1; neighbourX++) {
 			for (int neighbourY = gridY - 1; neighbourY <= gridY + 1; neighbourY++) {
-				if (IsInMapRange(neighbourX, neighbourY)) {
+				if (IsInMapRange(neighbourX , neighbourY)) {
 					if (neighbourX != gridX || neighbourY != gridY) {
-						wallCount += map[neighbourX, neighbourY];
+						wallCount += map[neighbourX ,  neighbourY];
 					}
 				}
 				else {
@@ -367,7 +394,6 @@ public class MapGenerator : MonoBehaviour {
 				}
 			}
 		}
-
 		return wallCount;
 	}
 
@@ -440,5 +466,4 @@ public class MapGenerator : MonoBehaviour {
 			return otherRoom.roomSize.CompareTo(roomSize);
 		}
 	}
-
 }

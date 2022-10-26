@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Funcs : MonoBehaviour
 {
-
     /// <summary>
     /// Gets the closest target to an object.
     /// </summary>
@@ -112,8 +112,9 @@ public class Funcs : MonoBehaviour
         // Generate a random point within the upper- and lower bound until it's within the polygon
         Vector2 retp    = new Vector2(0, 0);
         bool    retpSet = false;
-
+        int     timeOut = 100;
         while (!retpSet) {
+            if (timeOut-- < 0) { break; }
             retp.x = Random.Range(lowerbounds.x, upperbounds.x);
             retp.y = Random.Range(lowerbounds.y, upperbounds.y);
             if (IsInPolygon(poly, retp)) retpSet = true;

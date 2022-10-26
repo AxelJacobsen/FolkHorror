@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 
 public class MeshGenerator : MonoBehaviour {
 
@@ -11,7 +12,9 @@ public class MeshGenerator : MonoBehaviour {
 	public MeshFilter bushCollide;
 	public MeshFilter bushTop;
 
-	public bool is2D;
+	private ObjectSpawner objSpawner;
+
+	public bool generateObjects;
 	private int wallHeight;
 	List<Vector3> vertices;
 	List<int> triangles;
@@ -33,6 +36,10 @@ public class MeshGenerator : MonoBehaviour {
 		if (isBush) {
 			map = IsolateMapObjects(map, 10);
         }
+
+		objSpawner = GetComponent<ObjectSpawner>();
+		if (objSpawner == null) Debug.LogError("MeshGen couldnt find Object spawner!");
+
 		squareGrid = new SquareGrid(map, squareSize, useFloorHeight);
 
 		vertices = new List<Vector3>();
@@ -71,10 +78,7 @@ public class MeshGenerator : MonoBehaviour {
             }
 		}
 
-		if (is2D) {
-			Generate2DColliders();
-		}
-		else if (!is2D && !isFloor) {
+		if (!isFloor) {
 			CreateWallMesh(isBush);
 		}
 	}
@@ -86,8 +90,11 @@ public class MeshGenerator : MonoBehaviour {
 		List<Vector3> wallVertices = new List<Vector3>();
 		List<int> wallTriangles = new List<int>();
 		Mesh wallMesh = new Mesh();
-
+		int treeChance = 0;
 		foreach (List<int> outline in outlines) {
+			if (generateObjects) {
+				treeChance = SpawnObjectHandler(outline, treeChance, isBush);
+			}
 			for (int i = 0; i < outline.Count - 1; i++) {
 				int startIndex = wallVertices.Count;
 				wallVertices.Add(vertices[outline[i]]); // left
@@ -118,24 +125,29 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 
-	void Generate2DColliders() {
-
-		EdgeCollider2D[] currentColliders = gameObject.GetComponents<EdgeCollider2D>();
-		for (int i = 0; i < currentColliders.Length; i++) {
-			Destroy(currentColliders[i]);
+	int SpawnObjectHandler(List<int> outline, int treeChance, bool isBush) {
+		int renderObject = 0;
+		if (isBush) { renderObject = 1; }
+		List<Vector2> polyList = new List<Vector2>();
+		foreach (int vertex in outline) {
+			polyList.Add(new Vector2(vertices[vertex].x, vertices[vertex].z));
 		}
+		Vector2[] poly = polyList.ToArray();
 
-		CalculateMeshOutlines();
-
-		foreach (List<int> outline in outlines) {
-			EdgeCollider2D edgeCollider = gameObject.AddComponent<EdgeCollider2D>();
-			Vector2[] edgePoints = new Vector2[outline.Count];
-
-			for (int i = 0; i < outline.Count; i++) {
-				edgePoints[i] = new Vector2(vertices[outline[i]].x, vertices[outline[i]].z);
-			}
-			edgeCollider.points = edgePoints;
+		//Spawn trees
+		for (int o = 0; o < polyList.Count; o++) {
+			if (1000 < polyList.Count) { break; }
+			treeChance += Random.Range(1, 3);
+			if (treeChance < 10) { continue; }
+			objSpawner.SpawnObject(new Vector3(polyList[o].x, 0, polyList[o].y), renderObject);
+			treeChance = 0;
 		}
+		for (int t = 0; t < outline.Count * 2 / 5; t++) {
+			if (1000 < outline.Count) { break; }
+			Vector2 pos = Funcs.GetRandomPointInPolygon(poly);
+			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), renderObject);
+		}
+		return treeChance;
 	}
 
 	void TriangulateSquare(Square square) {
