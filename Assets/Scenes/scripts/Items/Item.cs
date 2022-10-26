@@ -9,10 +9,13 @@ public class Item : MonoBehaviour
 {
     // Public vars
     [Header("Vars")]
-    public GameObject   _Player;
+    public string       PickedUpByTag;
     public float        MagnetRange = 10f,
                         PickupRange = 3f;
 
+    [Header("Set by scripts")]
+    public GameObject  _Player;
+    
     // Private vars
     protected Rigidbody _pRB; // Player rigidbody
     protected Transform transform;
@@ -25,6 +28,9 @@ public class Item : MonoBehaviour
     protected void Start()
     {
         // Fetch components
+        _Player = GameObject.FindGameObjectWithTag(PickedUpByTag);
+        if (_Player == null) Debug.LogError("Pickup could not find the player!");
+
         _pRB = _Player.GetComponent<Rigidbody>();
         if (_pRB == null) Debug.LogError("Pickup could not find the player's rigidbody!");
 
@@ -107,6 +113,6 @@ public class Item : MonoBehaviour
 
     // Events
     public virtual void OnPlayerAttack(Vector3 aimPosition, string targetTag){}
-    public virtual void OnPlayerHit(GameObject target, int amount){}
-    public virtual void OnPlayerGetHit(GameObject hitBy, int amount){}
+    public virtual void OnPlayerHit(GameObject target, float amount){}
+    public virtual void OnPlayerGetHit(GameObject hitBy, float amount){}
 }

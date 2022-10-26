@@ -18,7 +18,7 @@ public class Heart : Item
 
     protected override void PickUp(){
         // Heal the player for a percent of their HP
-        int hp = _playerCharacter.Heal(_Player, _playerCharacter.MaxHealth / 4);
+        float hp = _playerCharacter.Heal(_Player, _playerCharacter.MaxHealth / 4f);
         print(hp);
         Destroy(this.gameObject);
     }
