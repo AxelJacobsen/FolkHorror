@@ -4,32 +4,40 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class <c>DialogueManager</c> manages a dialogue interaction.
+/// </summary>
 public class DialogueManager : MonoBehaviour
 {
     public Image textBox;
     public TextMeshProUGUI text;
+    public TextMeshProUGUI name;
 
-    public string[] sentences;
+    public Dialogue dialogue;
     string currentText;
-    int currentSentence;
+    public int currentIndex;
     bool isRunning;
+    bool reset;
 
     // Start is called before the first frame update
     void Start()
     {
         text.text = "";
+        name.text = "";
         currentText = "";
-        currentSentence = -1;
+        currentIndex = -1;
         isRunning = false;
-        ToggleTextBox();
+        reset = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        // first time the update loop is run
+        if (Input.GetKeyDown(KeyCode.E) && currentIndex == -1)
         {
-            ToggleTextBox();
+            name.text = dialogue.name;
+            ToggleTextBox(true);
         }
 
         if (Input.GetKeyDown(KeyCode.E) && textBox.gameObject.activeSelf)
@@ -41,22 +49,35 @@ public class DialogueManager : MonoBehaviour
                 StopAllCoroutines();
                 text.text = currentText;
             }
-            else if (text.isTextOverflowing)
+            else if (text.isTextOverflowing && reset)
             {
                 ChangePage();
             } else
             {
                 ChangeSentence();
+                reset = true;
             }
         }
+    }
+
+    // TODO: make a general function for resetting variables (used in Start as well)
+    void OnDisable()
+    {
+        StopAllCoroutines();
+        text.text = "";
+        currentText = "";
+        currentIndex = -1;
+        isRunning = false;
+        reset = false;
+        ToggleTextBox(false);
     }
 
     /// <summary>
     /// Toggles the text box on and off.
     /// </summary>
-    void ToggleTextBox()
+    public void ToggleTextBox(bool state)
     {
-        textBox.gameObject.SetActive(!textBox.gameObject.activeSelf);
+        textBox.gameObject.SetActive(state);
     }
 
     /// <summary>
@@ -64,17 +85,19 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     void ChangeSentence()
     {
-        if (currentSentence >= sentences.Length - 1)
+        // check if dialogue is complete
+        if (currentIndex >= dialogue.sentences.Length - 1)
         {
-            currentSentence = -1;
+            this.gameObject.SetActive(false);
+            return;
         }
 
         // make text ready for typing
         text.text = "";
 
         // set new sentence
-        currentSentence++;
-        currentText = sentences[currentSentence];
+        currentIndex++;
+        currentText = dialogue.sentences[currentIndex];
 
         // start typing effect
         isRunning = true;
