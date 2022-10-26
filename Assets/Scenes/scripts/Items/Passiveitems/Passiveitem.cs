@@ -17,4 +17,17 @@ public class Passiveitem : Item
     {
         base.FixedUpdate();
     }
+
+    public override void OnPlayerAttack(Vector3 aimPosition, string targetTag){
+
+    }
+
+    public override void OnPlayerGetHit(GameObject hitBy, float amount) {
+
+    }
+
+    public override void OnPlayerHit(GameObject target, float amount){
+
+    }
+
 }

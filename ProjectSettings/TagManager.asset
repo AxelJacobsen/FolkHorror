@@ -9,6 +9,8 @@ TagManager:
   - Projectile
   - Hitbox
   - MapGen
+  - EffectLoader
+  - SceneLoader
   layers:
   - Default
   - TransparentFX

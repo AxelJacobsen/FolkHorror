@@ -14,10 +14,9 @@ public delegate CharacterStats AlterStats(CharacterStats stats);
 /// </summary>
 public class CharacterStats : MonoBehaviour
 {
-    [field: SerializeField]
-    public float    Speed { get; set; }     = 10f;
-    [field: SerializeField]
-    public int      MaxHealth { get; set; } = 100;
+
+    [field: SerializeField] public float Speed      { get; set; }
+    [field: SerializeField] public float MaxHealth  { get; set; }
 
     /// <summary>
     /// Gets the class' properties (fields).
