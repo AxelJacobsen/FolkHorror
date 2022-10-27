@@ -21,12 +21,13 @@ public class DialogueTrigger : MonoBehaviour
     {
         ToggleInfoText(false);
         manager.gameObject.SetActive(false);
-        manager.dialogue = DialogueReader.ReadXML<Dialogue>(filePath);
         isRunning = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        manager.dialogue = DialogueReader.ReadXML<Dialogue>(filePath);
+
         if (onEnter)
         {
             manager.onEnter = true;
