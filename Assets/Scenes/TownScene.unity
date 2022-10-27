@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 84635110}
   - component: {fileID: 84635109}
   m_Layer: 5
-  m_Name: Info Text
+  m_Name: InfoText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 560342234}
   - component: {fileID: 560342235}
   m_Layer: 0
-  m_Name: Player Collider
+  m_Name: PlayerCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -633,7 +633,7 @@ MonoBehaviour:
   textBox: {fileID: 1152558908}
   text: {fileID: 745311556}
   name: {fileID: 514221809}
-  currentIndex: 0
+  onEnter: 0
 --- !u!4 &704799786
 Transform:
   m_ObjectHideFlags: 0
@@ -1069,7 +1069,7 @@ GameObject:
   - component: {fileID: 1704257747}
   - component: {fileID: 1704257748}
   m_Layer: 0
-  m_Name: Building Collider
+  m_Name: BuildingTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1117,6 +1117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   infoText: {fileID: 84635109}
   manager: {fileID: 704799785}
+  onEnter: 0
   filePath: Assets/Resources/Dialogue/npc1.xml
 --- !u!1 &1935761954
 GameObject:

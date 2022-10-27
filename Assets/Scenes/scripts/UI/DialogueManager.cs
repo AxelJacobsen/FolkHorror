@@ -12,11 +12,11 @@ public class DialogueManager : MonoBehaviour
     public Image textBox;
     public TextMeshProUGUI text;
     public TextMeshProUGUI name;
-
     public Dialogue dialogue;
+    public bool onEnter;
 
     string currentText;
-    public int currentIndex;
+    int currentIndex;
     bool isRunning;
     bool reset;
 
@@ -26,6 +26,15 @@ public class DialogueManager : MonoBehaviour
         dialogue = null;
         ResetVariables();
         reset = true;
+    }
+
+    private void OnEnable()
+    {
+        if (onEnter)
+        {
+            ToggleTextBox(true);
+            ChangeSentence();
+        }
     }
 
     // Update is called once per frame

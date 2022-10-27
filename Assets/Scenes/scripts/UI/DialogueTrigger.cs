@@ -11,6 +11,7 @@ public class DialogueTrigger : MonoBehaviour
 {
     public TextMeshProUGUI infoText;
     public DialogueManager manager;
+    public bool onEnter;    // whether or not the dialogue should start on enter or on enter AND click
 
     public string filePath;
     bool isRunning;
@@ -26,26 +27,37 @@ public class DialogueTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        ToggleInfoText(true);
+        if (onEnter)
+        {
+            manager.onEnter = true;
+        } else
+        {
+            manager.onEnter = false;
+            ToggleInfoText(true);
+        }
+
         manager.gameObject.SetActive(true);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        // remove info text when dialogue is run for the first time
-        if (manager.textBox.IsActive() && !isRunning)
+        if (!onEnter)
         {
-            isRunning = true;
-            ToggleInfoText(false);
-        }
+            // remove info text when dialogue is run for the first time
+            if (manager.textBox.IsActive() && !isRunning)
+            {
+                isRunning = true;
+                ToggleInfoText(false);
+            }
 
-        // show info text again when the dialogue is complete
-        if (!manager.textBox.IsActive() && isRunning)
-        {
-            isRunning = false;
-            ToggleInfoText(true);
-            manager.gameObject.SetActive(true);
-        }
+            // show info text again when the dialogue is complete
+            if (!manager.textBox.IsActive() && isRunning)
+            {
+                isRunning = false;
+                ToggleInfoText(true);
+                manager.gameObject.SetActive(true);
+            }
+        } 
     }
 
     private void OnTriggerExit(Collider other)
