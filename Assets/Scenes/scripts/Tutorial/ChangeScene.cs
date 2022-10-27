@@ -15,6 +15,9 @@ public class ChangeScene : MonoBehaviour
 
     public void NewScene()
     {
-        SceneManager.LoadScene("TownScene");
+        GameObject sceneLoaderObject = GameObject.FindGameObjectWithTag("SceneLoader");
+        SceneLoader sceneLoader = sceneLoaderObject.GetComponent<SceneLoader>();
+        sceneLoader.ChangeScene("TownScene");
+        //SceneManager.LoadScene("TownScene");
     }
 }

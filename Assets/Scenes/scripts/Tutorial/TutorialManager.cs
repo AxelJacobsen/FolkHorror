@@ -7,13 +7,14 @@ using UnityEngine;
 /// </summary>
 public class TutorialManager : MonoBehaviour
 {
-    public GameObject player;
+    public string     playerTag = "Player";
     public GameObject enemy;
     public GameObject textBox;
     public GameObject magicCube;
     public DialogueManager dialogueManager;
     public string filePath;
 
+    private GameObject player;
     bool taskWalk;
     bool taskWeapon;
     bool taskCombat;
@@ -22,6 +23,11 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Set the player's speed to zero
+        player = GameObject.FindGameObjectWithTag(playerTag);
+        if (player == null) Debug.Log("Tutorialmanager could not find the player!");
+        SetPlayerSpeed(0);
+
         // first part of the dialogue
         dialogueManager.dialogue = DialogueReader.ReadXML<Dialogue>(filePath + "/tutorial.xml");
         dialogueManager.onEnter = true;
