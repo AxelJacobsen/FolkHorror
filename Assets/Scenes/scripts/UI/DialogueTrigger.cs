@@ -11,6 +11,7 @@ public class DialogueTrigger : MonoBehaviour
 {
     public TextMeshProUGUI infoText;
     public DialogueManager manager;
+    public bool onEnter;    // whether or not the dialogue should start on enter or on enter AND click
 
     public string filePath;
     bool isRunning;
@@ -18,40 +19,61 @@ public class DialogueTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        infoText.gameObject.SetActive(false);
-        manager.ToggleTextBox(false);
+        ToggleInfoText(false);
         manager.gameObject.SetActive(false);
-        manager.dialogue = DialogueReader.ImportXml<Dialogue>(filePath);
         isRunning = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        infoText.gameObject.SetActive(true);
+        manager.dialogue = DialogueReader.ReadXML<Dialogue>(filePath);
+
+        if (onEnter)
+        {
+            manager.onEnter = true;
+        } else
+        {
+            manager.onEnter = false;
+            ToggleInfoText(true);
+        }
+
         manager.gameObject.SetActive(true);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        // remove info text when dialogue is run for the first time
-        if (manager.textBox.IsActive() && !isRunning)
+        if (!onEnter)
         {
-            isRunning = true;
-            infoText.gameObject.SetActive(false);
-        }
+            // remove info text when dialogue is run for the first time
+            if (manager.textBox.IsActive() && !isRunning)
+            {
+                isRunning = true;
+                ToggleInfoText(false);
+            }
 
-        // show info text again when the dialogue is complete
-        if (!manager.textBox.IsActive() && isRunning)
-        {
-            isRunning = false;
-            infoText.gameObject.SetActive(true);
-            manager.gameObject.SetActive(true);
-        }
+            // show info text again when the dialogue is complete
+            if (!manager.textBox.IsActive() && isRunning)
+            {
+                isRunning = false;
+                ToggleInfoText(true);
+                manager.gameObject.SetActive(true);
+            }
+        } 
     }
 
     private void OnTriggerExit(Collider other)
     {
-        infoText.gameObject.SetActive(false);
+        ToggleInfoText(false);
         manager.gameObject.SetActive(false);
+    }
+
+    /// <summary>
+    /// Toggles info text on and off.
+    /// </summary>
+    /// <param name="state">New state of the game object</param>
+    void ToggleInfoText(bool state)
+    {
+        if (infoText == null) return;
+        infoText.gameObject.SetActive(state);
     }
 }

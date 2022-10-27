@@ -12,32 +12,36 @@ public class DialogueManager : MonoBehaviour
     public Image textBox;
     public TextMeshProUGUI text;
     public TextMeshProUGUI name;
-
     public Dialogue dialogue;
+    public bool onEnter;
+
     string currentText;
-    public int currentIndex;
+    int currentIndex;
     bool isRunning;
     bool reset;
 
     // Start is called before the first frame update
     void Start()
     {
-        text.text = "";
-        name.text = "";
-        currentText = "";
-        currentIndex = -1;
-        isRunning = false;
+        ResetVariables();
         reset = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (dialogue == null) return;
+
         // first time the update loop is run
         if (Input.GetKeyDown(KeyCode.E) && currentIndex == -1)
         {
-            name.text = dialogue.name;
             ToggleTextBox(true);
+        } 
+        
+        if (onEnter && currentIndex == -1)
+        {
+            ToggleTextBox(true);
+            ChangeSentence();
         }
 
         if (Input.GetKeyDown(KeyCode.E) && textBox.gameObject.activeSelf)
@@ -60,16 +64,24 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    // TODO: make a general function for resetting variables (used in Start as well)
     void OnDisable()
     {
         StopAllCoroutines();
+        ResetVariables();
+        reset = false;
+        ToggleTextBox(false);
+    }
+
+    /// <summary>
+    /// Set variable to their default values.
+    /// </summary>
+    private void ResetVariables()
+    {
         text.text = "";
+        name.text = "";
         currentText = "";
         currentIndex = -1;
         isRunning = false;
-        reset = false;
-        ToggleTextBox(false);
     }
 
     /// <summary>
@@ -77,6 +89,7 @@ public class DialogueManager : MonoBehaviour
     /// </summary>
     public void ToggleTextBox(bool state)
     {
+        if (textBox == null) return;
         textBox.gameObject.SetActive(state);
     }
 

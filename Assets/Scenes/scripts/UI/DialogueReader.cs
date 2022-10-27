@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// Class <c>DialogueReader</c> reads dialogue from XML file.
 /// </summary>
-public class DialogueReader
+public class DialogueReader : MonoBehaviour
 {
     /// <summary>
     /// Reads XML files into an object.
