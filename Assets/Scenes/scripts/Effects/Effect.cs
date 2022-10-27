@@ -40,6 +40,7 @@ public class Effect : MonoBehaviour
                 if (hitbox != null) break;
             }
         }
+        if (hitbox == null) hitbox = GetComponent<BoxCollider>();
         if (hitbox == null) Debug.LogError("Effect could not find its child hitbox!");
     }
 
