@@ -13,11 +13,9 @@ public class PortalScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print("B!");
     }
 
     void OnTriggerEnter (Collider hit) {
-        print("A!");
         GameObject sceneLoaderObject = GameObject.FindGameObjectWithTag("SceneLoader");
         SceneLoader sceneLoader = sceneLoaderObject.GetComponent<SceneLoader>();
         sceneLoader.ChangeScene("BaseScene");
