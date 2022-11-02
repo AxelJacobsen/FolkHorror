@@ -34,12 +34,12 @@ public class MapGenerator : MonoBehaviour {
 	int[,] map;
 
 	void Start() {
+		SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGenScene"));
 		GenerateMap();
-		DontDestroyOnLoad(this);
 	}
 
 	void Update() {
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown(KeyCode.F5)) {
 			GenerateMap();
 		}
 	}
@@ -225,7 +225,7 @@ public class MapGenerator : MonoBehaviour {
 			DrawCircle(c, 5);
 		}
 	}
-
+	
 	void DrawCircle(Coord c, int r) {
 		for (int x = -r; x <= r; x++) {
 			for (int y = -r; y <= r; y++) {
