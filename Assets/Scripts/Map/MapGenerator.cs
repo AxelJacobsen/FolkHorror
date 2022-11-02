@@ -36,13 +36,12 @@ public class MapGenerator : MonoBehaviour {
 	void Start() {
 		SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGenScene"));
 		GenerateMap();
-		//DontDestroyOnLoad(this);
 	}
 
 	void Update() {
-		/*if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetKeyDown(KeyCode.F5)) {
 			GenerateMap();
-		}*/
+		}
 	}
 	/*
 	 Handles all map generation from start to finish

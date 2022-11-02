@@ -154,16 +154,11 @@ public class MeshGenerator : MonoBehaviour {
 		}
 
 		//Spawns entrance and exit
-		if (1000 < polyList.Count) { //JANKY JEG VET :^) SKAL FIKSE
+		if (1000 < polyList.Count) { //JANKY JEG VET :^) SKAL FIKSE og legge til limiter på spawn location
 			Vector2 pos;
-			//do {
-				pos = Funcs.GetRandomPointInPolygon(poly);
-			//} while (pos.x < width / 2 && pos.y < height / 2);
+			pos = Funcs.GetRandomPointInPolygon(poly);
 			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), 5);
-
-			//do {
-				pos = Funcs.GetRandomPointInPolygon(poly);
-			//} while (pos.x > width / 2 && pos.y > height / 2);
+			pos = Funcs.GetRandomPointInPolygon(poly);
 			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), 6);
 		}
 		return treeChance;

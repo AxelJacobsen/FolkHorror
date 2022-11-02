@@ -15,6 +15,7 @@ public class ChangeScene : MonoBehaviour
 
     public void NewScene()
     {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().Speed = 10f;
         GameObject sceneLoaderObject = GameObject.FindGameObjectWithTag("SceneLoader");
         SceneLoader sceneLoader = sceneLoaderObject.GetComponent<SceneLoader>();
         sceneLoader.ChangeScene("TownScene");
