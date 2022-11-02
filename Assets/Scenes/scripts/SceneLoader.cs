@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SceneLoader : MonoBehaviour
 {
-    public  string StartSceneName;
+    public string StartSceneName;
 
     void Start() {
         ChangeScene(StartSceneName);
@@ -24,7 +24,6 @@ public class SceneLoader : MonoBehaviour
             if (it.name != "NeverUnload")
                 SceneManager.UnloadSceneAsync(it);
         }
-
         // Load the scene
         SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
     }

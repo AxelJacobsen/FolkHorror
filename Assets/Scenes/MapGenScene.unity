@@ -580,7 +580,7 @@ SpriteRenderer:
   m_Size: {x: 5, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1526239338
@@ -771,7 +771,7 @@ MonoBehaviour:
   floor: {fileID: 1682062794}
   bushCollide: {fileID: 2072528489}
   bushTop: {fileID: 2033823802}
-  generateObjects: 0
+  generateObjects: 1
 --- !u!114 &1834882609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,9 +826,10 @@ MonoBehaviour:
   Tree: {fileID: 48608307}
   Bush: {fileID: 1526239336}
   Chest: {fileID: 0}
-  Exit: {fileID: 0}
   Grass: {fileID: 0}
   Rocks: {fileID: 0}
+  Exit: {fileID: 3608862243797036720, guid: 946b8b074365b5f4e9262703e8d40c6c, type: 3}
+  Entrance: {fileID: 3608862243797036720, guid: 946b8b074365b5f4e9262703e8d40c6c, type: 3}
 --- !u!1 &2033823799
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,7 +847,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2033823800
 Transform:
   m_ObjectHideFlags: 0
@@ -930,7 +931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2072528487
 Transform:
   m_ObjectHideFlags: 0

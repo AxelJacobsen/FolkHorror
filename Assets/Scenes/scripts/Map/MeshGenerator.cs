@@ -84,7 +84,6 @@ public class MeshGenerator : MonoBehaviour {
 	}
 
 	void CreateWallMesh(bool isBush) {
-
 		CalculateMeshOutlines();
 
 		List<Vector3> wallVertices = new List<Vector3>();
@@ -133,8 +132,8 @@ public class MeshGenerator : MonoBehaviour {
 			polyList.Add(new Vector2(vertices[vertex].x, vertices[vertex].z));
 		}
 		Vector2[] poly = polyList.ToArray();
-
-		//Spawn trees
+		int[] largestOutline = {0,0};
+		//Spawn along outline edge to secure border
 		for (int o = 0; o < polyList.Count; o++) {
 			if (1000 < polyList.Count) { break; }
 			treeChance += Random.Range(1, 3);
@@ -142,10 +141,30 @@ public class MeshGenerator : MonoBehaviour {
 			objSpawner.SpawnObject(new Vector3(polyList[o].x, 0, polyList[o].y), renderObject);
 			treeChance = 0;
 		}
+		//Spawn trees randomly inside border
 		for (int t = 0; t < outline.Count * 2 / 5; t++) {
+			//Stows largest Outline to spawn exit and entrance
+			if (largestOutline[0] < outline.Count) {
+				largestOutline[0] = outline.Count;
+				largestOutline[0] = t;
+			}
 			if (1000 < outline.Count) { break; }
 			Vector2 pos = Funcs.GetRandomPointInPolygon(poly);
 			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), renderObject);
+		}
+
+		//Spawns entrance and exit
+		if (1000 < polyList.Count) { //JANKY JEG VET :^) SKAL FIKSE
+			Vector2 pos;
+			//do {
+				pos = Funcs.GetRandomPointInPolygon(poly);
+			//} while (pos.x < width / 2 && pos.y < height / 2);
+			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), 5);
+
+			//do {
+				pos = Funcs.GetRandomPointInPolygon(poly);
+			//} while (pos.x > width / 2 && pos.y > height / 2);
+			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), 6);
 		}
 		return treeChance;
 	}
