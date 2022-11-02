@@ -46,7 +46,7 @@ public class PlayerController : Character
 		}
 
 		// Attack
-		if (spaceHeld == 1 && Weapon.CanAttack()) {
+		if (spaceHeld == 1 && Weapon != null && Weapon.CanAttack()) {
 			// Cast ray to find where the player wants to hit
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hitData;
