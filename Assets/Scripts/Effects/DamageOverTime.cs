@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// "Burning" effect
+/// Damage over time (flat or percent) effect
 /// </summary>
 [CreateAssetMenu(menuName = "Effects/DamageOverTime")]
 public class DamageOverTime : EffectData

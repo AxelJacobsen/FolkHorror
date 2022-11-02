@@ -9,15 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 329994d571293ad4da55411e25fed75c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c8e926c977a5584883b286e4a41fc0e, type: 3}
   m_Name: CharmedDefault
   m_EditorClassIdentifier: 
   BaseIntensity: 1
-  BaseDuration: 3
-  DamagePerSecond: 5
-  PercentPerSecond: 0
+  BaseDuration: 1
   effectEmitter: {fileID: 11400000, guid: f5babcf9abbac2f4dacdb60b3370f029, type: 2}
   _Creator: {fileID: 0}
   _Target: {fileID: 0}
-  _Intensity: 1
-  _Duration: 7.9999547
+  _Intensity: 0
+  _Duration: 0

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// "Burning" effect
+/// "Stun" effect
 /// </summary>
 [CreateAssetMenu(menuName = "Effects/Stun")]
 public class Stun : EffectData

@@ -42,6 +42,14 @@ public abstract class EffectData : ScriptableObject
     }
 
     /// <summary>
+    /// How the effect acts when reapplied.
+    /// </summary>
+    public virtual void OnReapply()
+    {
+
+    }
+
+    /// <summary>
     /// How the effect acts between start and end.
     /// </summary>
     /// <param name="deltaTime">Deltatime in seconds.</param>

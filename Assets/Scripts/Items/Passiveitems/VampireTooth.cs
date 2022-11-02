@@ -33,6 +33,6 @@ public class VampireTooth : Passiveitem
     public override void OnPlayerHit(GameObject target, float amount){
         _playerCharacter.Heal(_Player, amount / 2f);
         Character targetCharacterScript = target.GetComponent<Character>();
-        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(Bleed, gameObject);
+        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(Bleed, _Player);
     }
 }

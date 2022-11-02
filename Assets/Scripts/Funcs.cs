@@ -19,6 +19,9 @@ public class Funcs : MonoBehaviour
         float       minDistSqr = Mathf.Infinity;
         GameObject  retObj = null;
         foreach (GameObject obj in targets) {
+            // Check that the object is not the object we're referencing to
+            if (obj == to) continue;
+
             // Check that the object is enabled, skip if it isn't
             Character charScript = obj.GetComponent<Character>();
             if (charScript == null || !charScript.enabled) continue;

@@ -117,7 +117,8 @@ public class Character : CharacterStats
 		// Apply stun?
     }
 
-	public void Stun(float duration) {
+	public void Stun(float duration) 
+	{
         stunDuration += duration;
     }
 
@@ -159,6 +160,7 @@ public class Character : CharacterStats
 			if (effectData.GetType() == effectType) {
                 effectData._Duration = Mathf.Max(effectData._Duration, effect.BaseDuration);
                 effectData._Intensity += effect.BaseIntensity;
+                effectData.OnReapply();
                 return;
             }
 		}

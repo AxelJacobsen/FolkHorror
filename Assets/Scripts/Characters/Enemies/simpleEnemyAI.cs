@@ -11,14 +11,40 @@ public class simpleEnemyAI : Character
     [Header("Settings")]
     public string   targetObjectsWithTag = "Player";
 
+    // Private vars
+    private string  prevTargetTag = "";
+    private float   charmDuration = 0f;
+
     void Start()
     {
         base.Start();
     }
 
+    /// <summary>
+    /// Sets the AI's target tag to be something for a given amount of seconds.
+    /// </summary>
+    /// <param name="newTargetTag">The new target tag.</param>
+    /// <param name="duration">How long to wait before setting target tag back to original.</param>
+    public void Charm(string newTargetTag, float duration) 
+    {
+        if (charmDuration <= 0f) 
+            prevTargetTag = targetObjectsWithTag;
+
+        targetObjectsWithTag = newTargetTag;
+        charmDuration = duration;
+    }
+
     void FixedUpdate()
     {
         base.FixedUpdate();
+
+        // Count down charm duration and revert charm if it times out
+        charmDuration -= Time.deltaTime;
+        if (charmDuration <= 0f && prevTargetTag != "") 
+        {
+            targetObjectsWithTag = prevTargetTag;
+            prevTargetTag = "";
+        } 
 
         // Find a target
         GameObject[] targets = GameObject.FindGameObjectsWithTag(targetObjectsWithTag);
