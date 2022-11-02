@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 214306659}
   - component: {fileID: 214306658}
   - component: {fileID: 214306657}
+  - component: {fileID: 214306661}
   m_Layer: 0
   m_Name: vampiretooth
   m_TagString: Untagged
@@ -154,10 +155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd29363f0860fb4186151139169d226, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PickedUpByTag: Player
+  PickedUpByTag: Enemy
   MagnetRange: 10
   PickupRange: 3
   _Player: {fileID: 0}
+  Bleed: {fileID: 11400000, guid: 5de3c0a05c4ce194e938bfedafd6a742, type: 2}
 --- !u!54 &214306658
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -234,13 +236,33 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 214306656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 43.08, y: 1.88, z: 2.1}
+  m_LocalPosition: {x: -26.05, y: 1.88, z: -10.92}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &214306661
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214306656}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &322512810
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,9 +574,6 @@ GameObject:
   - component: {fileID: 1736656691}
   - component: {fileID: 1736656690}
   - component: {fileID: 1736656689}
-  - component: {fileID: 1736656688}
-  - component: {fileID: 1736656687}
-  - component: {fileID: 1736656686}
   - component: {fileID: 1736656685}
   m_Layer: 0
   m_Name: Enemy
@@ -580,82 +599,6 @@ MonoBehaviour:
   Weapon: {fileID: 0}
   Items: []
   targetObjectsWithTag: Player
---- !u!114 &1736656686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1736656684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f37774a5c4abb04aae971fa89aaf4ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EffectName: Bleeding
-  ParticlePrefabs:
-  - {fileID: 2412480617399345878, guid: 2cfbcc9d10a13684b9e2f2ab9e493191, type: 3}
-  SpawnParticlesOnGroundOnly: 1
-  Rate: 10
-  Wiggle: 0
-  WiggleSpeed: 0.5
-  MinSizeMultiplier: 0.3
-  MaxSizeMultiplier: 1
-  LifeTime: 3
-  MinVelocity: {x: 0, y: 0, z: 0}
-  MaxVelocity: {x: 0, y: 0, z: 0}
-  _Active: 0
---- !u!114 &1736656687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1736656684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f37774a5c4abb04aae971fa89aaf4ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EffectName: Charmed
-  ParticlePrefabs:
-  - {fileID: 7139786806343179634, guid: 9f69ed81c72ee4c46a85b7ef49ea1a3e, type: 3}
-  SpawnParticlesOnGroundOnly: 0
-  Rate: 10
-  Wiggle: 0.02
-  WiggleSpeed: 3
-  MinSizeMultiplier: 0.4
-  MaxSizeMultiplier: 0.8
-  LifeTime: 2
-  MinVelocity: {x: -1, y: 0.5, z: 0}
-  MaxVelocity: {x: 1, y: 1, z: 0}
-  _Active: 0
---- !u!114 &1736656688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1736656684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f37774a5c4abb04aae971fa89aaf4ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EffectName: Burning
-  ParticlePrefabs:
-  - {fileID: 769640920893023857, guid: 80b3f4f98f72e7c418b20c3e7b2df63a, type: 3}
-  - {fileID: 7980522776474767222, guid: 36ef822ccd812324eb820d45676acf8d, type: 3}
-  SpawnParticlesOnGroundOnly: 0
-  Rate: 25
-  Wiggle: 0.001
-  WiggleSpeed: 5
-  MinSizeMultiplier: 1
-  MaxSizeMultiplier: 3
-  LifeTime: 2
-  MinVelocity: {x: -0.5, y: 2, z: 0}
-  MaxVelocity: {x: 0.5, y: 1, z: 0}
-  _Active: 0
 --- !u!54 &1736656689
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -834,7 +777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6733002034635403457, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 56.61
+      value: -25.27
       objectReference: {fileID: 0}
     - target: {fileID: 6733002034635403457, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -842,7 +785,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6733002034635403457, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12.23
+      value: -14.3
       objectReference: {fileID: 0}
     - target: {fileID: 6733002034635403457, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -875,6 +818,18 @@ PrefabInstance:
     - target: {fileID: 6733002034635403458, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
       propertyPath: m_Name
       value: bow
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733002034635403468, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
+      propertyPath: AttackSpeed
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733002034635403468, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
+      propertyPath: PickedUpByTag
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6733002034744747896, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
+      propertyPath: Knockback
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}

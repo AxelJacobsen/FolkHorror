@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Reflection;
 
 public class Character : CharacterStats
 {
@@ -15,12 +16,14 @@ public class Character : CharacterStats
 	protected Rigidbody 		rb;
 	protected Animator 		    anim;
 	protected SpriteRenderer    sr;
-    protected EffectDataLoader 	effectLoader;
+    //protected EffectDataLoader 	effectLoader;
     protected bool 			    facingRight;
 	protected float 		    flashing;
-	protected Dictionary<string, (float, float)> effects = new Dictionary<string, (float, float)>(); // Buffs & Debuffs. Stored in the format "effectName" : (duration, intensity)
+	protected List<EffectData> 	effects = new List<EffectData>(); // Buffs & Debuffs
 
-	protected void Start()
+    protected float stunDuration = 0f;
+
+    protected void Start()
 	{
 		// Fetch components
         rb = GetComponent<Rigidbody>();
@@ -32,9 +35,9 @@ public class Character : CharacterStats
 		sr = GetComponentInChildren<SpriteRenderer>();
 		if (sr == null) 	Debug.LogError("Character could not find its sprite renderer!");
 
-        GameObject effectLoaderObject = GameObject.FindGameObjectWithTag("EffectLoader");
-        effectLoader = effectLoaderObject.GetComponent<EffectDataLoader>();
-		if (effectLoader == null) Debug.LogError("Character could not find an effectloader!");
+        //GameObject effectLoaderObject = GameObject.FindGameObjectWithTag("EffectLoader");
+        //effectLoader = effectLoaderObject.GetComponent<EffectDataLoader>();
+		//if (effectLoader == null) Debug.LogError("Character could not find an effectloader!");
 
         // Set base stats to be starting stats
         baseStats = base.Copy();
@@ -114,14 +117,21 @@ public class Character : CharacterStats
 		// Apply stun?
     }
 
+	public void Stun(float duration) {
+        stunDuration += duration;
+    }
+
 	/// <summary>
     /// Makes the character attack with its weapon.
     /// </summary>
     /// <param name="targets">An array containing all possible targets.</param>
     public void Attack(Vector3 aimPosition, string targetTag) 
 	{
-		// Invoke item triggers
-		foreach (Item item in Items) { item.OnPlayerAttack(aimPosition, targetTag); }
+		// If stunned, return
+		if (stunDuration > 0f) return;
+
+        // Invoke item triggers
+        foreach (Item item in Items) { item.OnPlayerAttack(aimPosition, targetTag); }
 
         // Attacking with a weapon
         if (Weapon != null) {
@@ -134,95 +144,49 @@ public class Character : CharacterStats
     }
 
 	/// <summary>
-    /// Applies an ontrigger-effect.
-    /// Used by ApplyEffect & HandleEffect.
-    /// </summary>
-    /// <param name="trigger">The trigger & its effects.</param>
-    /// <param name="intensity">The intensity</param>
-	private void applyTriggerEffect(OnTrigger trigger, float intensity) {
-		if (trigger == null) return;
-        Hurt(gameObject, trigger.flatDamage * (int)(intensity * Time.deltaTime));
-		Hurt(gameObject, trigger.percentDamage/100f * MaxHealth * intensity * Time.deltaTime);
-	}
-
-	/// <summary>
     /// Applies an effect to the character.
-    /// If the effect is already applied, the largest duration is used (old or new) and the intensity is added.
+    /// If the effect is already applied, the largest duration is used (old or new) and the intensity is added. <summary>
     /// </summary>
-    /// <param name="effectName">The name of the effect.</param>
-    /// <param name="duration">The duration of the effect (in seconds).</param>
-    /// <param name="intensity">The intensity of the effect.</param>
-    /// <returns></returns>
-	public (float, float) ApplyEffect(string effectName, float duration, float intensity)
+    /// <param name="effect">The effect to apply.</param>
+    /// <param name="creator">Its creator - whichever gameObject placed the effect onto this.</param>	
+	public void ApplyEffect(EffectData effect, GameObject creator)
     {
-        try
-        {
-			(float, float) value = effects[effectName];
-			effects[effectName] = (Mathf.Max(value.Item1, duration), value.Item2 + intensity);
-			return (effects[effectName].Item1, effects[effectName].Item2);
+        // Check if the effect is already applied
+        System.Type effectType = effect.GetType();
+        foreach (EffectData effectData in effects) {
+
+			// If so, set duration to max(previous, new) and add intensity.
+			if (effectData.GetType() == effectType) {
+                effectData._Duration = Mathf.Max(effectData._Duration, effect.BaseDuration);
+                effectData._Intensity += effect.BaseIntensity;
+                return;
+            }
 		}
-		catch (KeyNotFoundException)
-        {
-			// Apply "begin"-trigger effects
-			EffectData effectData = effectLoader.GetEffectData(effectName);
-			if (effectData != null) applyTriggerEffect(effectData.GetTrigger("begin"), intensity);
-			
-            effects[effectName] = (duration, intensity);
-			return (duration, intensity);
-        }
+
+		// Otherwise, add the new effect.
+        effect._Creator = creator;
+        effect._Target 	= gameObject;
+        effect._Intensity = effect.BaseIntensity;
+		effect._Duration = effect.BaseDuration;
+        effect.OnBegin();
+        effects.Add(effect);
     }
 
-	/// <summary>
-	/// Handles a specific buff/debuff.
-	/// </summary>
-	/// <param name="kvp">The key-value-pair of the effect, found in the 'effects' dictionary.</param>
-    /// <returns>A tuple consisting of the newly updated (effectName, (duration, intensity)).</returns>
-	protected (string, (float, float)) HandleEffect(KeyValuePair<string, (float, float)> kvp)
+	protected void Move(Vector3 velocity) 
 	{
-		string		effectName	 = kvp.Key;
-		float		duration	 = kvp.Value.Item1,
-					intensity	 = kvp.Value.Item2;
-		EffectData 	effectData 	 = effectLoader.GetEffectData(effectName);
-		Effect		effectScript = null;
+		// If we're stunned, don't move
+		if (stunDuration > 0f) return;
 
-		// Iterate all Effect components, looking for the one with matching name.
-		Effect[] effectScripts = GetComponents<Effect>();
-		foreach (Effect effectScript_t in effectScripts)
-		{
-			if (effectScript_t.EffectName == effectName)
-			{
-				effectScript = effectScript_t;
-				break;
-			}
-		}
-
-        // Count down effect duration and end the effect if it timed out.
-        duration -= Time.deltaTime;
-		if (duration <= 0)
-		{
-			// Apply "end"-trigger effects
-			if (effectData != null) applyTriggerEffect(effectData.GetTrigger("end"), intensity);
-
-			if (effectScript != null) effectScript._Active = false;
-			return (null, (0, 0));
-		}
-
-		// Alter effect power based on intensity
-		if (effectScript != null)
-		{
-			if (!effectScript._Active) effectScript._Active = true;
-			effectScript.Rate = 5 * intensity;
-		}
-
-		// Apply "during"-trigger effects
-		if (effectData != null) applyTriggerEffect(effectData.GetTrigger("during"), intensity);
-
-		// Update effect and return
-		return (effectName, (duration, intensity));
-	}
+		// Otherwise, update velocity
+        rb.velocity += velocity;
+    }
 
 	protected void FixedUpdate()
 	{
+		// Stun
+		if (stunDuration > 0f)
+			stunDuration -= Time.deltaTime;
+
         // Flip sprite if we're changing direction
         float 	max = Mathf.Max(rb.velocity.x, rb.velocity.z),
 				min = Mathf.Min(rb.velocity.x, rb.velocity.z);
@@ -249,14 +213,28 @@ public class Character : CharacterStats
 			sr.color = tCol;
 		}
 
-		// Effects (buffs/debuffs)
-		Dictionary<string, (float, float)> updatedEffects = new Dictionary<string, (float, float)>();
-		foreach (KeyValuePair<string, (float, float)> kvp in effects)
-        {
-			(string, (float, float)) updatedEffect = HandleEffect(kvp);
-			if (updatedEffect.Item1 != null) updatedEffects.Add(updatedEffect.Item1, updatedEffect.Item2);
-		}
-		effects = updatedEffects;
+        // Handle effects
+        List<EffectData> effectsEnded = new List<EffectData>();
+        foreach (EffectData effect in effects) 
+		{
+			// Check if the effect has expired
+            effect._Duration -= Time.deltaTime;
+            if (effect._Duration <= 0f)
+            {
+                effectsEnded.Add(effect);
+                continue;
+            }
+
+            // Apply during-effect
+            effect.During(Time.deltaTime);
+        }
+
+		// Delete effects that have timed out
+		foreach (EffectData effectEnded in effectsEnded) 
+		{
+            effectEnded.OnEnd();
+            effects.Remove(effectEnded);
+        }
 	}
 
 	// Item triggers

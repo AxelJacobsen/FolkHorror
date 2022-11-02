@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f37774a5c4abb04aae971fa89aaf4ba, type: 3}
+  m_Name: BurningDefaultEmitter
+  m_EditorClassIdentifier: 
+  _Hitbox: {fileID: 0}
+  _Active: 0
+  ParticlePrefabs:
+  - {fileID: 7980522776474767222, guid: 36ef822ccd812324eb820d45676acf8d, type: 3}
+  - {fileID: 769640920893023857, guid: 80b3f4f98f72e7c418b20c3e7b2df63a, type: 3}
+  SpawnParticlesOnGroundOnly: 0
+  Rate: 100
+  Wiggle: 0.01
+  WiggleSpeed: 0.5
+  MinSizeMultiplier: 1
+  MaxSizeMultiplier: 2
+  LifeTime: 2
+  MinVelocity: {x: -0.1, y: 2, z: 0}
+  MaxVelocity: {x: 0.1, y: 8, z: 0}

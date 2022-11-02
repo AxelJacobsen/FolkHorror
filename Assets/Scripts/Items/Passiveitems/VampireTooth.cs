@@ -7,6 +7,8 @@ using UnityEngine;
 /// </summary>
 public class VampireTooth : Passiveitem
 {
+    public EffectData Bleed;
+
     void Start()
     {
         base.Start();
@@ -31,6 +33,6 @@ public class VampireTooth : Passiveitem
     public override void OnPlayerHit(GameObject target, float amount){
         _playerCharacter.Heal(_Player, amount / 2f);
         Character targetCharacterScript = target.GetComponent<Character>();
-        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect("Bleeding", 3, 1);
+        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(Bleed, gameObject);
     }
 }

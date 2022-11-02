@@ -67,6 +67,6 @@ public class PlayerController : Character
 		// Move
 		Vector2 joystick = playerControls.General.Move.ReadValue<Vector2>();
 		Vector3 dir = new Vector3 (joystick.x, 0, joystick.y).normalized;
-		rb.velocity += (dir*Speed - rb.velocity) * 10f  * Time.deltaTime;
-	}
+        Move((dir * Speed - rb.velocity) * 10f * Time.deltaTime);
+    }
 }

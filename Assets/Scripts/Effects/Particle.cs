@@ -13,7 +13,10 @@ public class Particle : MonoBehaviour
                     _SizeMultiplier,
                     _Wiggle,
                     _WiggleSpeed,
-                    _WiggleOffset;
+                    _WiggleOffset,
+                    _SpinRadius,
+                    _SpinSpeed,
+                    _SpinOffset;
     public Vector3  _Vel;
 
     // Private vars
@@ -22,6 +25,7 @@ public class Particle : MonoBehaviour
     private Vector3 baseSize,
                     basePos;
     private Color   baseColor;
+    private Vector3 spinShift;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +52,10 @@ public class Particle : MonoBehaviour
         // Update position
         Vector3 wiggleShift = new Vector3(_Wiggle * Mathf.Sin((transform.position.y - basePos.y) * _WiggleSpeed + _WiggleOffset), 0, 0);
         transform.position += _Vel * Time.deltaTime + wiggleShift;
+
+        if (spinShift != null) transform.position -= spinShift;
+        spinShift = new Vector3(Mathf.Sin(livedFor * _SpinSpeed + _SpinOffset), 0, Mathf.Cos(livedFor * _SpinSpeed + _SpinOffset)) * _SpinRadius;
+        transform.position += spinShift;
 
         // Update size and color
         transform.localScale = baseSize * _SizeMultiplier * (1f - (livedFor / _LifeTime));

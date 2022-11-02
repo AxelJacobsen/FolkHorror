@@ -5,16 +5,22 @@ using UnityEngine;
 /// <summary>
 /// A class for spawning particles.
 /// </summary>
-public class Effect : MonoBehaviour
+[CreateAssetMenu(menuName = "Effects/EffectEmitter")]
+public class EffectEmitter : ScriptableObject
 {
     // Public vars
+    [Header("Set by scripts")]
+    public BoxCollider  _Hitbox;
+    public bool         _Active = false;
+
     [Header("Settings")]
-    public string EffectName;
     public GameObject[] ParticlePrefabs;
     public bool SpawnParticlesOnGroundOnly = false; // Spawn particles on the ground ONLY.
     public float Rate = 10,     // Particles per second.
                  Wiggle = 0.1f,
-                 WiggleSpeed = 0.5f;
+                 WiggleSpeed = 0.5f,
+                 SpinRadius = 0f,
+                 SpinSpeed = 0f;
 
     [Header("Particle settings")]
     public float    MinSizeMultiplier = 1f,
@@ -23,35 +29,16 @@ public class Effect : MonoBehaviour
     public Vector3  MinVelocity = new Vector3(-2, 1, 0) / 2f,
                     MaxVelocity = new Vector3(2, 2, 0) / 2f;
 
-    [Header("Set by scripts")]
-    public bool _Active = false;
-
     // Private vars
-    private BoxCollider hitbox;
     private float timeSinceLastSpawn = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // Fetch components
-        foreach (Transform child in transform) {
-            if (child.gameObject.tag == "Hitbox") {
-                hitbox = child.gameObject.GetComponent<BoxCollider>();
-                if (hitbox != null) break;
-            }
-        }
-        if (hitbox == null) hitbox = GetComponent<BoxCollider>();
-        if (hitbox == null) Debug.LogError("Effect could not find its child hitbox!");
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
+    public void Emit(float deltaTime)
     {
         // Don't do anything if set to inactive
         if (!_Active) return;
 
         // Increment timer
-        timeSinceLastSpawn += Time.deltaTime;
+        timeSinceLastSpawn += deltaTime;
 
         // If timer exceeds waiting-time...
         float amountPerSec = 1f / Rate;
@@ -76,6 +63,9 @@ public class Effect : MonoBehaviour
                     pScript._Wiggle = Wiggle;
                     pScript._WiggleSpeed = WiggleSpeed;
                     pScript._WiggleOffset = wiggleOffset;
+                    pScript._SpinRadius = SpinRadius;
+                    pScript._SpinSpeed = SpinSpeed;
+                    pScript._SpinOffset = Random.Range(0, 360);
                 }
 
                 timeSinceLastSpawn -= amountPerSec;
@@ -92,8 +82,8 @@ public class Effect : MonoBehaviour
     /// <returns>A random, valid, spawnpoint for a particle.</returns>
     private (Vector3, Quaternion) GetSpawnTransform() {
         // Get a random position in the hitbox
-        Vector3 min = hitbox.bounds.min,
-                max = hitbox.bounds.max,
+        Vector3 min = _Hitbox.bounds.min,
+                max = _Hitbox.bounds.max,
                 pos = new Vector3(Random.Range(min.x, max.x), Random.Range(min.y, max.y), Random.Range(min.z, max.z));
 
         // Get an angle

@@ -32,8 +32,7 @@ public class simpleEnemyAI : Character
                 // Fetch its rigidbody and the direction towards it
                 Rigidbody tRB = target.GetComponent<Rigidbody>();
                 Vector3 dir = tRB.transform.position - rb.position;
-
-                rb.velocity += (dir.normalized * Speed - rb.velocity) * 2f * Time.deltaTime;
+                Move((dir.normalized * Speed - rb.velocity) * 2f * Time.deltaTime);
 
             // If we're within range, attack
             } else if (Weapon != null) {

@@ -30,6 +30,6 @@ public class Coal : Passiveitem
     /// </summary>
     public override void OnPlayerHit(GameObject target, float amount){
         Character targetCharacterScript = target.GetComponent<Character>();
-        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect("Burning", 3, 1);
+        //if (targetCharacterScript != null) targetCharacterScript.ApplyEffect("Burning", 3, 1);
     }
 }

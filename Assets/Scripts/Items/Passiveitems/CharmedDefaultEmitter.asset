@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f37774a5c4abb04aae971fa89aaf4ba, type: 3}
+  m_Name: CharmedDefaultEmitter
+  m_EditorClassIdentifier: 
+  _Hitbox: {fileID: 0}
+  _Active: 0
+  ParticlePrefabs:
+  - {fileID: 7139786806343179634, guid: 9f69ed81c72ee4c46a85b7ef49ea1a3e, type: 3}
+  SpawnParticlesOnGroundOnly: 0
+  Rate: 10
+  Wiggle: 0.005
+  WiggleSpeed: 0.2
+  MinSizeMultiplier: 0.3
+  MaxSizeMultiplier: 0.6
+  LifeTime: 3
+  MinVelocity: {x: -0.1, y: 1, z: 0}
+  MaxVelocity: {x: 0.1, y: 2, z: 0}
