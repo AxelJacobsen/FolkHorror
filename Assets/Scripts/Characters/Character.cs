@@ -104,8 +104,8 @@ public class Character : CharacterStats
     /// <param name="amount">The amount of healing.</param>
     /// <return>The character's health after healing.</return>
 	public float Heal(GameObject caller, float amount) {
-		Health += amount;
-		return Health;
+		if (Health < MaxHealth) Health = Mathf.Min(Health+amount, MaxHealth);
+        return Health;
 	}
 
 	/// <summary>

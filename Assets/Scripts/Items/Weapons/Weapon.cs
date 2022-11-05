@@ -9,8 +9,9 @@ public class Weapon : Item
 {
     // Public vars
     [Header("Stats")]
-    public int      AttackDamage = 25;
-    public float    AttackSpeed = 0.5f;
+    public float    AttackDamage = 25;
+    public float    Knockback    = 25;
+    public float    AttackSpeed  = 0.5f;
     
     // Private vars
     protected float   AttackCooldown;

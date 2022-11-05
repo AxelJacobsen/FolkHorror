@@ -461,7 +461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6733002034744747896, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
       propertyPath: Damage
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6733002034744747896, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
       propertyPath: Knockback
@@ -1428,7 +1428,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6733002034744747896, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
       propertyPath: Damage
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6733002034744747896, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
       propertyPath: Knockback
