@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// A simple passive item granting health at the cost of speed.
+/// A simple passive item granting health.
 /// </summary>
-public class Beer : Passiveitem
+public class Oatmeal : Passiveitem
 {
     void Start()
     {
@@ -13,8 +13,7 @@ public class Beer : Passiveitem
 
         alterStats = charstats =>
         {
-            charstats.Speed /= 1.5f;
-            charstats.MaxHealth *= 2f;
+            charstats.MaxHealth += 25f;
             return charstats;
         };
     }
