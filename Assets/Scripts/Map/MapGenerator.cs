@@ -98,25 +98,35 @@ public class MapGenerator : MonoBehaviour {
 					}
 				}
 				else {
-					borderedMap[x, y] = 1;
+					borderedMap[x, y] = 20;
 					invertedMap[x, y] = 0;
 				}
 			}
 		}
-
+		
 		MeshGenerator meshGen = GetComponent<MeshGenerator>();
-		meshGen.GenerateMesh(borderedMap, 1, depth, false, false);
-
-		MeshGenerator genFloor = GetComponent<MeshGenerator>();
-		meshGen.GenerateMesh(invertedMap, 1, depth, true, false);
+		meshGen.GenerateMesh(borderedMap, 1, depth, 0);
 
 		MeshGenerator bushGen = GetComponent<MeshGenerator>();
-		bushGen.GenerateMesh(borderedMap, 1, bushSize, false, true);
+		bushGen.GenerateMesh(borderedMap, 1, bushSize, 1);
+		
+		MeshGenerator outerGen = GetComponent<MeshGenerator>();
+		outerGen.GenerateMesh(borderedMap, 1, depth, 2);
+
+		MeshGenerator genFloor = GetComponent<MeshGenerator>();
+		genFloor.GenerateMesh(invertedMap, 1, depth, 3);
 	}
 
 	void ProcessMap() {
 		List<List<Coord>> wallRegions = GetRegions(1);
+		bool first = true;
 		foreach (List<Coord> wallRegion in wallRegions) {
+			if (first) {
+				first = false;
+				foreach (Coord tile in wallRegion) {
+					map[tile.tileX, tile.tileY] = 20;
+				}
+			}
 			if (wallRegion.Count < wallSizeThreshold) {
 				foreach (Coord tile in wallRegion) {
 					map[tile.tileX, tile.tileY] = 10;
