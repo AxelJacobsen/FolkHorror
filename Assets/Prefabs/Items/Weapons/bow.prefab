@@ -140,9 +140,11 @@ MonoBehaviour:
   MagnetRange: 10
   PickupRange: 3
   _Player: {fileID: 0}
-  AttackDamage: 10
-  AttackSpeed: 5
-  ArrowsPerShot: 1
+  AttackDamage: 25
+  Knockback: 25
+  AttackSpeed: 1
+  ArrowsPerShot: 5
+  DegSpread: 15
   arrowPrototype: {fileID: 6733002034744747903}
 --- !u!1 &6733002034744747903
 GameObject:
@@ -272,12 +274,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34ffec58b399dd46a2e52326a0f6d42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 10
-  Knockback: 25
+  DamageMultiplier: 1
+  KnockbackMultiplier: 1
   Lifetime: 10
-  Chains: -1
+  Chains: 0
   Bounces: 0
   Pierces: 0
-  Fades: 0
   _TargetTag: 
   _CreatedBy: {fileID: 0}
+  _DamageFromWeapon: 0
+  _KnockbackFromWeapon: 0

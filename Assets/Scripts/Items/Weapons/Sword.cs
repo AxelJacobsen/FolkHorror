@@ -33,9 +33,11 @@ public class Sword : Weapon
 
         // Set script vars
         SimpleDamagefield script = newArch.GetComponent<SimpleDamagefield>();
-        script._KnockbackDir = dir;
-        script._TargetTag    = targetTag;
-        script._CreatedBy    = _Player;
+        script._KnockbackDir        = dir;
+        script._TargetTag           = targetTag;
+        script._CreatedBy           = _Player;
+        script._DamageFromWeapon    = AttackDamage;
+        script._KnockbackFromWeapon = Knockback;
 
         // Set physical properties and activate
         newArch.transform.localScale = new Vector3(10, 10, 10);

@@ -10,21 +10,20 @@ public class SimpleProjectile : MonoBehaviour
 {
     // Public vars
     [Header("Stats")]
-    public int      Damage;
-    public float    Knockback,
-                    Lifetime;
+    public float    DamageMultiplier    = 1f;
+    public float    KnockbackMultiplier = 1f;
+    public float    Lifetime            = 10f;
 
     [Header("Effects")]
-    public int      Chains,
-                    Bounces,
-                    Pierces;
-
-    [Header("Visual")]
-    public bool     Fades;
+    public int      Chains  = 0;
+    public int      Bounces = 0;
+    public int      Pierces = 0;
 
     [Header("Set by scripts")]
     public string       _TargetTag;
     public GameObject   _CreatedBy;
+    public float        _DamageFromWeapon;
+    public float        _KnockbackFromWeapon;
 
     // Private vars
     private Rigidbody rb;
@@ -71,12 +70,12 @@ public class SimpleProjectile : MonoBehaviour
         if (rb == null) { return; }
 
         // Apply stats on target
-        characterHit.Knockback(rb.velocity.normalized * Knockback);
-        characterHit.Hurt(_CreatedBy, Damage);
+        characterHit.Knockback(rb.velocity.normalized * _KnockbackFromWeapon * KnockbackMultiplier);
+        characterHit.Hurt(_CreatedBy, _DamageFromWeapon * DamageMultiplier);
 
         // Invoke items
         Character createdByCharacterScript = _CreatedBy.GetComponent<Character>();
-        foreach (Item item in createdByCharacterScript.Items) { item.OnPlayerHit(hitObj, Damage); }
+        foreach (Item item in createdByCharacterScript.Items) { item.OnPlayerHit(hitObj, _DamageFromWeapon * DamageMultiplier); }
 
         // Bounce
         if (Bounces != 0 || Chains != 0)

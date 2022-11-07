@@ -3,20 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// A simple passive item granting health at the cost of speed.
+/// A passive item applying burn on hit.
 /// </summary>
-public class Coal : Passiveitem
+public class Ashes : Passiveitem
 {
+    public EffectData BurnEffect;
+
     void Start()
     {
         base.Start();
-
-        alterStats = charstats =>
-        {
-            charstats.Speed *= 1.5f;
-            charstats.MaxHealth /= 2;
-            return charstats;
-        };
     }
 
     // Update is called once per frame
@@ -26,10 +21,10 @@ public class Coal : Passiveitem
     }
 
     /// <summary>
-    /// Heal when hitting an enemy.
+    /// Burn enemies on-hit.
     /// </summary>
     public override void OnPlayerHit(GameObject target, float amount){
         Character targetCharacterScript = target.GetComponent<Character>();
-        //if (targetCharacterScript != null) targetCharacterScript.ApplyEffect("Burning", 3, 1);
+        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(BurnEffect, _Player);
     }
 }

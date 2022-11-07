@@ -24,8 +24,10 @@ public class DamageOverTime : EffectData
         Character targetCharacterScript = _Target.GetComponent<Character>();
         if (targetCharacterScript != null) 
         {
-            if (DamagePerSecond != 0f) targetCharacterScript.Hurt(_Creator, DamagePerSecond * deltaTime * _Intensity);
-            if (PercentPerSecond != 0f) targetCharacterScript.Hurt(_Creator, targetCharacterScript.MaxHealth / 100f * PercentPerSecond * deltaTime * _Intensity);
+            if (DamagePerSecond > 0f)       targetCharacterScript.Hurt(_Creator, DamagePerSecond * deltaTime * _Intensity);
+            else if (DamagePerSecond < 0f)  targetCharacterScript.Heal(_Creator, -DamagePerSecond * deltaTime * _Intensity);
+            if (PercentPerSecond > 0f )     targetCharacterScript.Hurt(_Creator, targetCharacterScript.MaxHealth / 100f * PercentPerSecond * deltaTime * _Intensity);
+            else if (PercentPerSecond < 0f )targetCharacterScript.Heal(_Creator, -targetCharacterScript.MaxHealth / 100f * PercentPerSecond * deltaTime * _Intensity);
         }
     }
 
