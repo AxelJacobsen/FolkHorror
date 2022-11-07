@@ -59,7 +59,8 @@ public class Character : CharacterStats
 			if (item is Passiveitem)
             {
 				Passiveitem passiveItem = (Passiveitem)item;
-				alterStatsList.Add(passiveItem.alterStats);
+				if (passiveItem.alterStats != null)
+					alterStatsList.Add(passiveItem.alterStats);
             }
         }
 
@@ -103,8 +104,8 @@ public class Character : CharacterStats
     /// <param name="amount">The amount of healing.</param>
     /// <return>The character's health after healing.</return>
 	public float Heal(GameObject caller, float amount) {
-		Health += amount;
-		return Health;
+		if (Health < MaxHealth) Health = Mathf.Min(Health+amount, MaxHealth);
+        return Health;
 	}
 
 	/// <summary>
@@ -153,11 +154,10 @@ public class Character : CharacterStats
 	public void ApplyEffect(EffectData effect, GameObject creator)
     {
         // Check if the effect is already applied
-        System.Type effectType = effect.GetType();
         foreach (EffectData effectData in effects) {
 
 			// If so, set duration to max(previous, new) and add intensity.
-			if (effectData.GetType() == effectType) {
+			if (effectData.name == effect.name) {
                 effectData._Duration = Mathf.Max(effectData._Duration, effect.BaseDuration);
                 effectData._Intensity += effect.BaseIntensity;
                 effectData.OnReapply();

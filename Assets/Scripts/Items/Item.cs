@@ -17,13 +17,14 @@ public class Item : MonoBehaviour
     public GameObject  _Player;
     
     // Private vars
-    protected Rigidbody _pRB; // Player rigidbody
-    protected Transform transform;
-    protected Rigidbody rb;
-    protected Animator  anim;
-    protected bool      equipped = false;
+    protected Rigidbody      _pRB; // Player rigidbody
+    protected Rigidbody      rb;
+    protected Animator       anim;
+    protected SpriteRenderer sr;
+    protected bool           equipped = false;
+    protected Character      _playerCharacter;
+
     private float       pickupCooldown = 0f;
-    protected Character _playerCharacter;
 
     protected void Start()
     {
@@ -37,14 +38,15 @@ public class Item : MonoBehaviour
         _playerCharacter = _Player.GetComponent<Character>();
         if (_playerCharacter == null) Debug.LogError("Pickup could not find the player's character script!");
 
-        transform = GetComponent<Transform>();
-		if (transform == null) Debug.LogError("Pickup could not find its transform!");
-
         rb = GetComponent<Rigidbody>();
 		if (rb == null) Debug.LogError("Pickup could not find its rigidbody!");
 
         anim = GetComponent<Animator>();
-		if (anim == null) Debug.LogError("Pickup could not find its animator!");
+		if (anim == null) Debug.LogWarning("Pickup could not find its animator!");
+
+        sr = GetComponent<SpriteRenderer>();
+        if (sr == null) Debug.LogError("Pickup could not find its spriterenderer!");
+
     }
 
     protected void FixedUpdate()
@@ -85,8 +87,9 @@ public class Item : MonoBehaviour
         _playerCharacter.Items.Add(this);
         _playerCharacter.UpdateStats();
 
-        // Freeze and parent it
+        // Freeze, parent and make it invisible
         rb.isKinematic = true;
+        Color src_t = sr.color; src_t.a = 0; sr.color = src_t;
         transform.SetParent(_Player.transform);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(Vector3.zero);
@@ -105,8 +108,9 @@ public class Item : MonoBehaviour
 
         pickupCooldown = 1f;
 
-        // Unfreeze, unparent and throw it
+        // Unfreeze, unparent, throw it and make it visible
         rb.isKinematic = false;
+        Color src_t = sr.color; src_t.a = 255; sr.color = src_t;
         transform.SetParent(null);
         rb.velocity = _pRB.velocity.normalized * (_pRB.velocity.magnitude + 5f);
     }
