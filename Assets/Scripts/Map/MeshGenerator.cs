@@ -56,26 +56,29 @@ public class MeshGenerator : MonoBehaviour {
 		mesh.triangles = triangles.ToArray();
 		mesh.RecalculateNormals();
 
-		int tileAmount = 10;
+		int tileAmountX = map.GetLength(0)/10,
+			tileAmountY = map.GetLength(1)/10;
 		Vector2[] uvs = new Vector2[vertices.Count];
 		for (int i = 0; i < vertices.Count; i++) {
-			float percentX = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize, map.GetLength(0) / 2 * squareSize, vertices[i].x) * tileAmount;
-			float percentY = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize, map.GetLength(0) / 2 * squareSize, vertices[i].z) * tileAmount;
+			float percentX = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize, map.GetLength(0) / 2 * squareSize, vertices[i].x) * tileAmountX;
+			float percentY = Mathf.InverseLerp(-map.GetLength(1) / 2 * squareSize, map.GetLength(1) / 2 * squareSize, vertices[i].z) * tileAmountY;
 			uvs[i] = new Vector2(percentX, percentY);
 		}
 		mesh.uv = uvs;
 
-		if (meshType == 3) {
-			floor.mesh = mesh;
-			MeshCollider floorCollider = floor.gameObject.GetComponent<MeshCollider>();
-			floorCollider.sharedMesh = mesh;
-		} else {
-			CreateWallMesh(meshType);
+		switch (meshType) {
+			case 2: 
+				{ 
+					outerRoof.mesh = mesh; CreateWallMesh(meshType); 
+				} break;
+			case 3: 
+				{
+					floor.mesh = mesh;
+					MeshCollider floorCollider = floor.gameObject.GetComponent<MeshCollider>();
+					floorCollider.sharedMesh = mesh;
+				} break;
+			default: CreateWallMesh(meshType); break;
 		}
-
-		if (meshType == 2) {
-			outerRoof.mesh = mesh;
-        }
 	}
 
 	void CreateWallMesh(int meshType) {
@@ -397,7 +400,6 @@ public class MeshGenerator : MonoBehaviour {
 			int nodeCountY = map.GetLength(1);
 			float mapWidth = nodeCountX * squareSize;
 			float mapHeight = nodeCountY * squareSize;
-
 			ControlNode[,] controlNodes = new ControlNode[nodeCountX, nodeCountY];
 			for (int x = 0; x < nodeCountX; x++) {
 				for (int y = 0; y < nodeCountY; y++) {
