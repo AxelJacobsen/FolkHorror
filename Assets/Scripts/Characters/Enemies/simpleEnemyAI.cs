@@ -60,8 +60,6 @@ public class simpleEnemyAI : Character
                 Vector3 dir = tRB.transform.position - rb.position;
                 Move((dir.normalized * Speed - rb.velocity) * 2f * Time.deltaTime);
 
-                SteerableRoll(dir);
-
             // If we're within range, attack
             } else if (Weapon != null) {
                 Attack(target.transform.position, targetObjectsWithTag);

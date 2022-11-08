@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb798fb98473e574fa7c795d228f4d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartSceneName: TutorialScene
+  StartSceneName: TownScene
 --- !u!4 &1767235275
 Transform:
   m_ObjectHideFlags: 0

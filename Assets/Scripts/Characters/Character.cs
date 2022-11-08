@@ -11,7 +11,7 @@ public class Character : CharacterStats
 	public List<Item>			Items;
 
 	[Header("Walking/jogging")]
-	public float 				WalkAcceleration = 6f;
+	public float 				WalkAcceleration = 10f;
 
 	[Header("Rolling")]
 	public float 				RollDuration = 0.2f;
