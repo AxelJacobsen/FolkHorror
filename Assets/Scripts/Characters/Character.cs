@@ -10,6 +10,16 @@ public class Character : CharacterStats
 	public Weapon				Weapon;
 	public List<Item>			Items;
 
+	[Header("Walking/jogging")]
+	public float 				WalkAcceleration = 6f;
+
+	[Header("Rolling")]
+	public float 				RollDuration = 0.2f;
+	public float				RollCooldown = 1.5f;
+	public float				RollSpeed 	 = 50f;
+	public float 				RollAcceleration = 3f;
+	public EffectEmitter		DustEffectEmitter;
+
 	// Private vars
 	protected CharacterStats	baseStats;
 	protected float				Health;
@@ -21,11 +31,20 @@ public class Character : CharacterStats
 	protected float 		    flashing;
 	protected List<EffectData> 	effects = new List<EffectData>(); // Buffs & Debuffs
 
-    protected float stunDuration = 0f;
+	protected bool	stunnedThisUpdate = false;
+    protected float stunDuration = 0f,
+                    rollTimer = 0f,
+                    rollTimerCD = 0f;
+
+    protected Vector3 walkDir = new Vector3(0,0,0);
+	protected Vector3 rollDir = new Vector3(0,0,0);
+
+    protected BoxCollider hitbox;
+    protected EffectEmitter myDustEffectEmitter;
 
     protected void Start()
 	{
-		// Fetch components
+        // Fetch components
         rb = GetComponent<Rigidbody>();
 		if (rb == null) 	Debug.LogError("Character could not find its rigidbody!");
 
@@ -35,9 +54,25 @@ public class Character : CharacterStats
 		sr = GetComponentInChildren<SpriteRenderer>();
 		if (sr == null) 	Debug.LogError("Character could not find its sprite renderer!");
 
-        //GameObject effectLoaderObject = GameObject.FindGameObjectWithTag("EffectLoader");
-        //effectLoader = effectLoaderObject.GetComponent<EffectDataLoader>();
-		//if (effectLoader == null) Debug.LogError("Character could not find an effectloader!");
+		// Fetch hitbox and apply it to emitter
+        foreach (Transform child in transform) {
+            if (child.gameObject.tag != "Hitbox") continue;
+            BoxCollider childBoxCollider = child.gameObject.GetComponent<BoxCollider>();
+            if (childBoxCollider == null) continue;
+            hitbox = childBoxCollider;
+            break;
+        }
+
+        if (hitbox == null) hitbox = GetComponent<BoxCollider>();
+        if (hitbox == null) Debug.LogError("Character could not find its hitbox!");
+
+        // Dynamically create a copy of the given scriptableObject (dustemitter) which belongs to ONLY US
+        myDustEffectEmitter = Instantiate(DustEffectEmitter);
+
+        myDustEffectEmitter._Hitbox = hitbox;
+        myDustEffectEmitter._Active = true;
+        myDustEffectEmitter.SizeFunc = f => f*0.7f + 0.3f;
+        myDustEffectEmitter.AlphaFunc = f => 0.5f - f*0.5f;
 
         // Set base stats to be starting stats
         baseStats = base.Copy();
@@ -118,9 +153,15 @@ public class Character : CharacterStats
 		// Apply stun?
     }
 
+	/// <summary>
+    /// Stuns the character.
+    /// Also cancels rolls.
+    /// </summary>
+    /// <param name="duration">How long to stun the character for.</param>
 	public void Stun(float duration) 
 	{
         stunDuration += duration;
+		rollTimer = 0f;
     }
 
 	/// <summary>
@@ -174,27 +215,96 @@ public class Character : CharacterStats
         effects.Add(effect);
     }
 
+	/// <summary>
+    /// Moves the character, applying a given velocity to their current one.
+    /// </summary>
+    /// <param name="velocity">The velocity to add to the player.</param>
 	protected void Move(Vector3 velocity) 
 	{
-		// If we're stunned, don't move
+		// If we're stunned, don't change velocity
 		if (stunDuration > 0f) return;
 
-		// Otherwise, update velocity
-        rb.velocity += velocity;
+		// Otherwise, update movedir
+        walkDir = velocity;
+    }
+
+	/// <summary>
+    /// Checks if the character can roll right now.
+    /// </summary>
+    /// <returns>True if the player can roll right now.</returns>
+	public bool CanRoll() 
+	{
+		// If we're stunned, don't roll
+		if (stunDuration > 0f) return false;
+		return rollTimerCD <= 0f;
+    }
+
+	/// <summary>
+    /// Rolls in a given direction.
+    /// </summary>
+    /// <param name="currentDirection">The direction we're trying to roll in now.</param>
+    /// <returns>True if we're rolling, false otherwise.</returns>
+	protected bool SteerableRoll(Vector3 currentDirection) 
+	{
+		// If we're not rolling and can roll, start rolling.
+		if (rollTimer <= 0f && CanRoll()) {
+			rollTimer = RollDuration;
+            rollDir = currentDirection;
+        }
+
+		// If we're not rolling, return false (not rolling)
+		if (rollTimer <= 0f) return false;
+
+        // Set direction
+        rollDir += (currentDirection - rollDir) * RollAcceleration * Time.deltaTime;
+
+        return true;
     }
 
 	protected void FixedUpdate()
 	{
-		// Stun
-		if (stunDuration > 0f)
-			stunDuration -= Time.deltaTime;
+        // Stun timer
+        if (stunDuration > 0f)
+        {
+            stunnedThisUpdate = true;
+            stunDuration -= Time.deltaTime;
+        }
+
+        // Roll timers
+        if (rollTimer > 0f)
+        {
+            rollTimer -= Time.deltaTime;
+			// Start cooldown if we just ticked down to <0
+			if (rollTimer <= 0f) rollTimerCD = RollCooldown;
+        }
+        if (rollTimerCD > 0f) rollTimerCD -= Time.deltaTime;
+
+		// Movement - stunned
+		if (stunnedThisUpdate) 
+		{
+            rb.velocity -= rb.velocity * 3f * Time.deltaTime;
+        }
+		// Movement - rolling
+		else if (rollTimer > 0f) 
+		{
+            if (myDustEffectEmitter != null)
+                myDustEffectEmitter.Emit(Time.deltaTime);	
+
+            rb.velocity = rollDir.normalized * RollSpeed;
+        }
+		// Movement - walking
+		else
+		{
+            rb.velocity += (walkDir * Speed - rb.velocity) * WalkAcceleration * Time.deltaTime;
+            walkDir = Vector3.zero;
+        }
 
         // Flip sprite if we're changing direction
         float 	max = Mathf.Max(rb.velocity.x, rb.velocity.z),
 				min = Mathf.Min(rb.velocity.x, rb.velocity.z);
-		int		walkDir = max > -min ? (rb.velocity.x > rb.velocity.z ? 3 : 0) : (rb.velocity.x < rb.velocity.z ? 2 : 1);
+		int		curDir = max > -min ? (rb.velocity.x > rb.velocity.z ? 3 : 0) : (rb.velocity.x < rb.velocity.z ? 2 : 1);
 		
-		if (walkDir == 2 && facingRight || walkDir == 3 && !facingRight) {
+		if (curDir == 2 && facingRight || curDir == 3 && !facingRight) {
 			Vector3 tvec = transform.localScale;
 			tvec.x *= -1;
 			transform.localScale = tvec;
@@ -237,7 +347,10 @@ public class Character : CharacterStats
             effectEnded.OnEnd();
             effects.Remove(effectEnded);
         }
-	}
+
+        // Remove this-update-effects
+        stunnedThisUpdate = false;
+    }
 
 	// Item triggers
 	public virtual void OnPlayerAttack(Vector3 aimPosition, string targetTag){}

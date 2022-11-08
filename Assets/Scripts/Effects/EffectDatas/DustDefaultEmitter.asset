@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f37774a5c4abb04aae971fa89aaf4ba, type: 3}
-  m_Name: BleedingDefaultEmitter
+  m_Name: DustDefaultEmitter
   m_EditorClassIdentifier: 
   _Hitbox: {fileID: 0}
   _Active: 1
   ParticlePrefabs:
-  - {fileID: 2412480617399345878, guid: 2cfbcc9d10a13684b9e2f2ab9e493191, type: 3}
-  Rate: 8
+  - {fileID: 2302411892920357542, guid: e49ae0b3fd3d57b4f82d3c063c8013ce, type: 3}
+  Rate: 150
   Wiggle: 0
   WiggleSpeed: 0
   SpinRadius: 0
   SpinSpeed: 0
   SpawnParticlesOnGroundOnly: 1
-  MinSizeMultiplier: 0.25
-  MaxSizeMultiplier: 0.75
-  LifeTime: 3
-  MinVelocity: {x: 0, y: 0, z: 0}
-  MaxVelocity: {x: 0, y: 0, z: 0}
-  AngleOverride: {x: 90, y: 0, z: 0}
+  MinSizeMultiplier: 0.2
+  MaxSizeMultiplier: 1.5
+  LifeTime: 1
+  MinVelocity: {x: -1, y: 0.1, z: 0}
+  MaxVelocity: {x: 1, y: 0.5, z: 0}
+  AngleOverride: {x: 45, y: 0, z: 0}

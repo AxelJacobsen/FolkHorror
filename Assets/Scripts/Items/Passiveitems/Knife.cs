@@ -8,10 +8,13 @@ using UnityEngine;
 public class Knife : Passiveitem
 {
     public EffectData BleedEffect;
+    public EffectData myBleedEffect;
 
     void Start()
     {
         base.Start();
+
+        myBleedEffect = Instantiate(BleedEffect);
     }
 
     // Update is called once per frame
@@ -25,6 +28,6 @@ public class Knife : Passiveitem
     /// </summary>
     public override void OnPlayerHit(GameObject target, float amount){
         Character targetCharacterScript = target.GetComponent<Character>();
-        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(BleedEffect, _Player);
+        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(myBleedEffect, _Player);
     }
 }

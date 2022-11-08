@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// A class for particles.
@@ -9,15 +10,17 @@ public class Particle : MonoBehaviour
 {
     // Public vars
     [Header("Set by scripts")]
-    public float    _LifeTime,
-                    _SizeMultiplier,
-                    _Wiggle,
-                    _WiggleSpeed,
-                    _WiggleOffset,
-                    _SpinRadius,
-                    _SpinSpeed,
-                    _SpinOffset;
-    public Vector3  _Vel;
+    public float                _LifeTime;
+    public float                _SizeMultiplier;
+    public Func<float, float>   _SizeFunc;
+    public Func<float, float>   _AlphaFunc;
+    public float                _Wiggle;
+    public float                _WiggleSpeed;
+    public float                _WiggleOffset;
+    public float                _SpinRadius;
+    public float                _SpinSpeed;
+    public float                _SpinOffset;
+    public Vector3              _Vel;
 
     // Private vars
     private SpriteRenderer sr;
@@ -58,9 +61,9 @@ public class Particle : MonoBehaviour
         transform.position += spinShift;
 
         // Update size and color
-        transform.localScale = baseSize * _SizeMultiplier * (1f - (livedFor / _LifeTime));
+        transform.localScale = baseSize * _SizeMultiplier * _SizeFunc(livedFor / _LifeTime);
         Color col = baseColor;
-        col.a = baseColor.a * (1f - (livedFor / _LifeTime));
+        col.a *= _AlphaFunc(livedFor / _LifeTime);
         sr.color = col;
     }
 }
