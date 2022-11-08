@@ -14,7 +14,8 @@ public class PortalScript : MonoBehaviour
         //If this is an entrance marker then find player and teleport them to the entrance
         if (isEntrance) {
             GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-            playerObject.transform.position = transform.position;
+            Vector3 newPos = new Vector3(transform.position.x, playerObject.transform.position.y, transform.position.z);
+            playerObject.transform.position = newPos;
         }
 
         if (resetSpeed)
