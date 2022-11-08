@@ -6,11 +6,11 @@ using UnityEditor;
 public class MeshGenerator : MonoBehaviour {
 
 	public SquareGrid squareGrid;
-	public MeshFilter walls;
-	public MeshFilter cave;
+	public MeshFilter treeWall;
 	public MeshFilter floor;
 	public MeshFilter bushCollide;
-	public MeshFilter bushTop;
+	public MeshFilter outerWall;
+	public MeshFilter outerRoof;
 
 	private ObjectSpawner objSpawner;
 
@@ -23,19 +23,19 @@ public class MeshGenerator : MonoBehaviour {
 	List<List<int>> outlines = new List<List<int>>();
 	HashSet<int> checkedVertices = new HashSet<int>();
 
-
-	public void GenerateMesh(int[,] map, float squareSize, int depth, bool isFloor, bool isBush) {
+	// meshType 0 = standard, 1 = bush, 2 = outerwall , 3 = floor
+	public void GenerateMesh(int[,] map, float squareSize, int depth, int meshType) {
 		wallHeight = depth;
 		triangleDictionary.Clear();
 		outlines.Clear();
 		checkedVertices.Clear();
 		int useFloorHeight = depth;
-		if (isFloor) {
-			useFloorHeight = 0;
+		switch (meshType) {
+			case 1: map = IsolateMapObjects(map, 10); break;
+			case 2: map = IsolateMapObjects(map, 20); break;
+			case 3: useFloorHeight = 0; break;
+			default: break;
 		}
-		if (isBush) {
-			map = IsolateMapObjects(map, 10);
-        }
 
 		objSpawner = GetComponent<ObjectSpawner>();
 		if (objSpawner == null) Debug.LogError("MeshGen couldnt find Object spawner!");
@@ -56,34 +56,32 @@ public class MeshGenerator : MonoBehaviour {
 		mesh.triangles = triangles.ToArray();
 		mesh.RecalculateNormals();
 
-		int tileAmount = 10;
+		int tileAmountX = map.GetLength(0)/10,
+			tileAmountY = map.GetLength(1)/10;
 		Vector2[] uvs = new Vector2[vertices.Count];
 		for (int i = 0; i < vertices.Count; i++) {
-			float percentX = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize, map.GetLength(0) / 2 * squareSize, vertices[i].x) * tileAmount;
-			float percentY = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize, map.GetLength(0) / 2 * squareSize, vertices[i].z) * tileAmount;
+			float percentX = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize, map.GetLength(0) / 2 * squareSize, vertices[i].x) * tileAmountX;
+			float percentY = Mathf.InverseLerp(-map.GetLength(1) / 2 * squareSize, map.GetLength(1) / 2 * squareSize, vertices[i].z) * tileAmountY;
 			uvs[i] = new Vector2(percentX, percentY);
 		}
 		mesh.uv = uvs;
 
-		if (isFloor) {
-			floor.mesh = mesh;
-			MeshCollider floorCollider = floor.gameObject.GetComponent<MeshCollider>();
-			floorCollider.sharedMesh = mesh;
-		}
-		else {
-			if (!isBush) {
-				cave.mesh = mesh;
-			} else {
-				bushTop.mesh = mesh;
-            }
-		}
-
-		if (!isFloor) {
-			CreateWallMesh(isBush);
+		switch (meshType) {
+			case 2: 
+				{ 
+					outerRoof.mesh = mesh; CreateWallMesh(meshType); 
+				} break;
+			case 3: 
+				{
+					floor.mesh = mesh;
+					MeshCollider floorCollider = floor.gameObject.GetComponent<MeshCollider>();
+					floorCollider.sharedMesh = mesh;
+				} break;
+			default: CreateWallMesh(meshType); break;
 		}
 	}
 
-	void CreateWallMesh(bool isBush) {
+	void CreateWallMesh(int meshType) {
 		CalculateMeshOutlines();
 
 		List<Vector3> wallVertices = new List<Vector3>();
@@ -92,7 +90,7 @@ public class MeshGenerator : MonoBehaviour {
 		int treeChance = 0;
 		foreach (List<int> outline in outlines) {
 			if (generateObjects) {
-				treeChance = SpawnObjectHandler(outline, treeChance, isBush);
+				treeChance = SpawnObjectHandler(outline, treeChance, meshType);
 			}
 			for (int i = 0; i < outline.Count - 1; i++) {
 				int startIndex = wallVertices.Count;
@@ -113,32 +111,46 @@ public class MeshGenerator : MonoBehaviour {
 		wallMesh.vertices = wallVertices.ToArray();
 		wallMesh.triangles = wallTriangles.ToArray();
 
-		if (isBush) {
-			bushCollide.mesh = wallMesh;
-			MeshCollider bushCrash = bushCollide.gameObject.GetComponent<MeshCollider>();
-			bushCrash.sharedMesh = wallMesh;
-		} else {
-			walls.mesh = wallMesh;
-			MeshCollider wallCollider = walls.gameObject.GetComponent<MeshCollider>();
-			wallCollider.sharedMesh = wallMesh;
+
+		switch (meshType) {
+			case 0: {	//treewalls
+						treeWall.mesh = wallMesh;
+						MeshCollider wallCollider = treeWall.gameObject.GetComponent<MeshCollider>();
+						wallCollider.sharedMesh = wallMesh;
+					} break;
+			case 1: {	//spawnbushes
+						bushCollide.mesh = wallMesh;
+						MeshCollider bushCrash = bushCollide.gameObject.GetComponent<MeshCollider>();
+						bushCrash.sharedMesh = wallMesh;
+					} break;
+			case 2: {   //spawn outerwall 
+						outerWall.mesh = wallMesh;
+						MeshCollider outerWallCollider = outerWall.gameObject.GetComponent<MeshCollider>();
+						outerWallCollider.sharedMesh = wallMesh;
+					} break;
+			default: {
+						print("Uses default");
+						treeWall.mesh = wallMesh;
+						MeshCollider wallCollider = treeWall.gameObject.GetComponent<MeshCollider>();
+						wallCollider.sharedMesh = wallMesh;
+					} break;
 		}
 	}
 
-	int SpawnObjectHandler(List<int> outline, int treeChance, bool isBush) {
-		int renderObject = 0;
-		if (isBush) { renderObject = 1; }
+	int SpawnObjectHandler(List<int> outline, int treeChance, int spawnObject) {
 		List<Vector2> polyList = new List<Vector2>();
 		foreach (int vertex in outline) {
 			polyList.Add(new Vector2(vertices[vertex].x, vertices[vertex].z));
 		}
 		Vector2[] poly = polyList.ToArray();
 		int[] largestOutline = {0,0};
+		if (spawnObject != 1) { spawnObject = 0; }
 		//Spawn along outline edge to secure border
 		for (int o = 0; o < polyList.Count; o++) {
 			if (1000 < polyList.Count) { break; }
 			treeChance += Random.Range(1, 3);
 			if (treeChance < 10) { continue; }
-			objSpawner.SpawnObject(new Vector3(polyList[o].x, 0, polyList[o].y), renderObject);
+			objSpawner.SpawnObject(new Vector3(polyList[o].x, 0, polyList[o].y), spawnObject);
 			treeChance = 0;
 		}
 		//Spawn trees randomly inside border
@@ -150,7 +162,7 @@ public class MeshGenerator : MonoBehaviour {
 			}
 			if (1000 < outline.Count) { break; }
 			Vector2 pos = Funcs.GetRandomPointInPolygon(poly);
-			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), renderObject);
+			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), spawnObject);
 		}
 
 		//Spawns entrance and exit
@@ -339,14 +351,16 @@ public class MeshGenerator : MonoBehaviour {
 	}
 
 	int[,] IsolateMapObjects(int[,] inMap, int objectIdentifier) {
+		int[,] outMap = new int[inMap.GetLength(0), inMap.GetLength(1)];
 		for (int x = 0; x < inMap.GetLength(0); x++) {
 			for (int y = 0; y < inMap.GetLength(1); y++) {
 				if (inMap[x, y] == objectIdentifier) {
-					inMap[x, y] = 1;
-				} else { inMap[x, y] = 0; }
+					outMap[x, y] = 1;
+					
+				} else { outMap[x, y] = 0; }
 			}
 		}
-		return inMap;
+		return outMap;
 	}
 
 	struct Triangle {
@@ -386,7 +400,6 @@ public class MeshGenerator : MonoBehaviour {
 			int nodeCountY = map.GetLength(1);
 			float mapWidth = nodeCountX * squareSize;
 			float mapHeight = nodeCountY * squareSize;
-
 			ControlNode[,] controlNodes = new ControlNode[nodeCountX, nodeCountY];
 			for (int x = 0; x < nodeCountX; x++) {
 				for (int y = 0; y < nodeCountY; y++) {

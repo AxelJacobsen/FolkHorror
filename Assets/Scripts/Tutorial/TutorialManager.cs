@@ -10,7 +10,7 @@ public class TutorialManager : MonoBehaviour
     public string     playerTag = "Player";
     public GameObject enemy;
     public GameObject textBox;
-    public GameObject magicCube;
+    public GameObject portal;
     public DialogueManager dialogueManager;
     public string filePath;
 
@@ -29,11 +29,11 @@ public class TutorialManager : MonoBehaviour
         SetPlayerSpeed(0);
 
         // first part of the dialogue
-        dialogueManager.dialogue = DialogueReader.ReadXML<Dialogue>(filePath + "/tutorial.xml");
+        dialogueManager.dialogue = DialogueReader.ReadXML<Dialogue>(filePath + "/tutorial-movement.xml");
         dialogueManager.onEnter = true;
         dialogueManager.gameObject.SetActive(true);
 
-        magicCube.SetActive(false);
+        portal.SetActive(false);
 
         taskWalk = false;
         taskWeapon = false;
@@ -64,19 +64,19 @@ public class TutorialManager : MonoBehaviour
             else if (taskCube)
             {
                 SetPlayerSpeed(10f);
-                magicCube.SetActive(true);
+                portal.SetActive(true);
             }
         }
         
         // freeze the player while they go through the dialogue
         if (!taskWeapon && player.GetComponent<PlayerController>().Weapon != null)
         {
-            NewDialogue("/tutorial2.xml");
+            NewDialogue("/tutorial-combat.xml");
             taskWeapon = true;
         } 
         else if (!taskCube && taskCombat && !enemy.GetComponent<Character>().enabled)
         {
-            NewDialogue("/tutorial3.xml");
+            NewDialogue("/tutorial-portal.xml");
             taskCube = true;
         }
     }

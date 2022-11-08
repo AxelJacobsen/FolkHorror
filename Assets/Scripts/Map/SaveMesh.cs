@@ -24,7 +24,7 @@ public class SaveMesh : MonoBehaviour
         var mf = selectedGameObject.GetComponent<MeshFilter>();
         if (mf)
         {
-            var savePath = "Assets/Scenes/scripts/Map" + saveName + ".asset";
+            var savePath = "Assets/Scripts/Map" + saveName + ".asset";
             Debug.Log("Saved Mesh to:" + savePath);
             AssetDatabase.CreateAsset(mf.mesh, savePath);
         }
