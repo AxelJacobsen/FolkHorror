@@ -8,10 +8,13 @@ using UnityEngine;
 public class Ashes : Passiveitem
 {
     public EffectData BurnEffect;
+    public EffectData myBurnEffect;
 
     void Start()
     {
         base.Start();
+
+        myBurnEffect = Instantiate(BurnEffect);
     }
 
     // Update is called once per frame
@@ -25,6 +28,6 @@ public class Ashes : Passiveitem
     /// </summary>
     public override void OnPlayerHit(GameObject target, float amount){
         Character targetCharacterScript = target.GetComponent<Character>();
-        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(BurnEffect, _Player);
+        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(myBurnEffect, _Player);
     }
 }

@@ -52,13 +52,15 @@ public class simpleEnemyAI : Character
 
         // If it exists...
         if (target != null) {
-            // If we're outside outside of range, move towards
-            if (Weapon == null || !Weapon.InRangeOf(target) || !Weapon.CanAttack()) {
 
+            // If we're outside outside of range, move towards
+            if (Weapon == null || !Weapon.InRangeOf(target) || !Weapon.CanAttack()) {                
                 // Fetch its rigidbody and the direction towards it
                 Rigidbody tRB = target.GetComponent<Rigidbody>();
                 Vector3 dir = tRB.transform.position - rb.position;
                 Move((dir.normalized * Speed - rb.velocity) * 2f * Time.deltaTime);
+
+                SteerableRoll(dir);
 
             // If we're within range, attack
             } else if (Weapon != null) {

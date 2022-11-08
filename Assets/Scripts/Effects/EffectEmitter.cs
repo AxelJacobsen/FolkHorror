@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 /// <summary>
 /// A class for spawning particles.
@@ -15,19 +16,22 @@ public class EffectEmitter : ScriptableObject
 
     [Header("Settings")]
     public GameObject[] ParticlePrefabs;
-    public bool SpawnParticlesOnGroundOnly = false; // Spawn particles on the ground ONLY.
-    public float Rate = 10,     // Particles per second.
-                 Wiggle = 0.1f,
-                 WiggleSpeed = 0.5f,
-                 SpinRadius = 0f,
-                 SpinSpeed = 0f;
+    public float Rate = 10; // Particles per second.
+    public float Wiggle = 0.1f;
+    public float WiggleSpeed = 0.5f;
+    public float SpinRadius = 0f;
+    public float SpinSpeed = 0f;
+    public bool  SpawnParticlesOnGroundOnly = false; // Spawn particles on the ground ONLY.
 
     [Header("Particle settings")]
-    public float    MinSizeMultiplier = 1f,
-                    MaxSizeMultiplier = 2f,
-                    LifeTime = 2f;
-    public Vector3  MinVelocity = new Vector3(-2, 1, 0) / 2f,
-                    MaxVelocity = new Vector3(2, 2, 0) / 2f;
+    public float    MinSizeMultiplier = 1f;
+    public float    MaxSizeMultiplier = 2f;
+    public float    LifeTime = 2f;
+    public Vector3  MinVelocity = new Vector3(-2, 1, 0) / 2f;
+    public Vector3  MaxVelocity = new Vector3(2, 2, 0) / 2f;
+    public Vector3  AngleOverride;
+    public Func<float, float> SizeFunc = (f => 1f - f);
+    public Func<float, float> AlphaFunc = (f => 1f - f);
 
     // Private vars
     private float timeSinceLastSpawn = 0;
@@ -47,7 +51,7 @@ public class EffectEmitter : ScriptableObject
             // ...for each particle that needs to be spawned...
             while (timeSinceLastSpawn > amountPerSec) {
                 (Vector3, Quaternion) t = GetSpawnTransform();
-                float wiggleOffset = Random.Range(0, 360);
+                float wiggleOffset = UnityEngine.Random.Range(0, 360);
 
                 // (And each particle in the particlePrefabs-array)
                 foreach(GameObject particlePrefab in ParticlePrefabs) {
@@ -55,17 +59,19 @@ public class EffectEmitter : ScriptableObject
                     GameObject particle = Instantiate(particlePrefab, t.Item1, t.Item2);
 
                     Particle pScript = particle.GetComponent<Particle>();
-                    pScript._SizeMultiplier = Random.Range(MinSizeMultiplier, MaxSizeMultiplier);
+                    pScript._SizeMultiplier = UnityEngine.Random.Range(MinSizeMultiplier, MaxSizeMultiplier);
                     pScript._LifeTime = LifeTime;
-                    pScript._Vel = new Vector3( Random.Range(MinVelocity.x, MaxVelocity.x),
-                                                Random.Range(MinVelocity.y, MaxVelocity.y),
-                                                Random.Range(MinVelocity.z, MaxVelocity.z) );
+                    pScript._Vel = new Vector3( UnityEngine.Random.Range(MinVelocity.x, MaxVelocity.x),
+                                                UnityEngine.Random.Range(MinVelocity.y, MaxVelocity.y),
+                                                UnityEngine.Random.Range(MinVelocity.z, MaxVelocity.z) );
                     pScript._Wiggle = Wiggle;
                     pScript._WiggleSpeed = WiggleSpeed;
                     pScript._WiggleOffset = wiggleOffset;
                     pScript._SpinRadius = SpinRadius;
                     pScript._SpinSpeed = SpinSpeed;
-                    pScript._SpinOffset = Random.Range(0, 360);
+                    pScript._SpinOffset = UnityEngine.Random.Range(0, 360);
+                    pScript._SizeFunc = SizeFunc;
+                    pScript._AlphaFunc = AlphaFunc;
                 }
 
                 timeSinceLastSpawn -= amountPerSec;
@@ -84,7 +90,11 @@ public class EffectEmitter : ScriptableObject
         // Get a random position in the hitbox
         Vector3 min = _Hitbox.bounds.min,
                 max = _Hitbox.bounds.max,
-                pos = new Vector3(Random.Range(min.x, max.x), Random.Range(min.y, max.y), Random.Range(min.z, max.z));
+                pos = new Vector3(
+                    UnityEngine.Random.Range(min.x, max.x), 
+                    UnityEngine.Random.Range(min.y, max.y), 
+                    UnityEngine.Random.Range(min.z, max.z) 
+                );
 
         // Get an angle
         Quaternion ang = Quaternion.Euler(0, 0, 0);
@@ -92,9 +102,7 @@ public class EffectEmitter : ScriptableObject
         // Set z=0 if particles are only meant to spawn on the ground
         if (SpawnParticlesOnGroundOnly) {
             pos.y = min.y;
-            Vector3 angAsVec = ang.eulerAngles;
-            angAsVec.x = 90;
-            ang = Quaternion.Euler(angAsVec);
+            if (AngleOverride != null) ang = Quaternion.Euler(AngleOverride);
         }
 
         // Return
