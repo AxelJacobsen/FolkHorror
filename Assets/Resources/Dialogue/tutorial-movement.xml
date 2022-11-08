@@ -1,0 +1,8 @@
+<dialogue>
+    <name>Movement</name>
+    <sentences>
+        <value>Welcome to the tutorial!</value>
+        <value>Use WASD, arrow keys or joystick to walk around</value>
+        <value>Pick up the sword to continue</value>
+    </sentences>
+</dialogue>
