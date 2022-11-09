@@ -1096,13 +1096,15 @@ MonoBehaviour:
   Weapon: {fileID: 0}
   Items: []
   WalkAcceleration: 6
-  RollDuration: 0.2
-  RollCooldown: 1.5
-  RollSpeed: 50
-  RollAcceleration: 3
+  RollDuration: 2
+  RollCooldown: 3
+  RollSpeed: 30
+  RollAcceleration: 1.3
   DustEffectEmitter: {fileID: 11400000, guid: f8f2cf0d8206a15438a1ede9c2133bcb, type: 2}
   TargetObjectsWithTag: Player
-  VisionRange: 15
+  VisionRange: 500
+  StampedeWithinRange: 25
+  StampedeMaxDamage: 0
 --- !u!1001 &1784701717
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1398,7 +1400,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4268143483448351362, guid: d70823903f97f964fb1fa84c39b13ecf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -41.51
+      value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 4268143483448351362, guid: d70823903f97f964fb1fa84c39b13ecf, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1406,7 +1408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4268143483448351362, guid: d70823903f97f964fb1fa84c39b13ecf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.6
+      value: -11.56
       objectReference: {fileID: 0}
     - target: {fileID: 4268143483448351362, guid: d70823903f97f964fb1fa84c39b13ecf, type: 3}
       propertyPath: m_LocalRotation.w
