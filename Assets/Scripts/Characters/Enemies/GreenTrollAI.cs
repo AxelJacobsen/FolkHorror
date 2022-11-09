@@ -17,7 +17,8 @@ public class GreenTrollAI : BaseEnemyAI
 
     // Private vars
     private float   RunAwayTimer = 0f,
-                    RunAwayCooldownTimer = 0f;
+                    RunAwayCooldownTimer = 0f,
+                    RunAwayTimer2 = 0f;
 
     protected override void OnStart()
     {
@@ -41,15 +42,19 @@ public class GreenTrollAI : BaseEnemyAI
         directionToEnemy.y = 0;
         directionToEnemy = directionToEnemy.normalized;
 
-        // If we're too close, run away
-        if (distanceToEnemy <= RunAwayRange)
+        // If we're in run-mode...
+        if (RunAwayTimer2 > 0f)
         {
-            if (RunAwayTimer >= 0f || RunAwayCooldownTimer <= 0f)
-            {
-                Move((-directionToEnemy * Speed * RunAwaySpeedMult - rb.velocity) * WalkAcceleration * Time.deltaTime);
-                if (RunAwayCooldownTimer <= 0f && RunAwayTimer <= 0f)
-                    RunAwayTimer = RunAwayMaxSeconds;
-            }
+            Move((-directionToEnemy * Speed * RunAwaySpeedMult - rb.velocity) * WalkAcceleration * Time.deltaTime);
+            if (RunAwayCooldownTimer <= 0f && RunAwayTimer <= 0f)
+                RunAwayTimer = RunAwayMaxSeconds;
+            return;
+        }
+
+        // If we're too close, start running
+        if (distanceToEnemy <= RunAwayRange && RunAwayTimer <= 0f && RunAwayCooldownTimer <= 0f)
+        {
+            RunAwayTimer2 = 1f;
             return;
         }
 
@@ -70,12 +75,13 @@ public class GreenTrollAI : BaseEnemyAI
         base.OnFixedUpdate();
 
         // Count down run-timers
-        if (RunAwayTimer >= 0f)
+        if (RunAwayTimer2 > 0f) RunAwayTimer2 -= Time.deltaTime;
+        if (RunAwayTimer > 0f)
         {
             RunAwayTimer -= Time.deltaTime;
             if (RunAwayTimer <= 0f)
                 RunAwayCooldownTimer = RunAwayMaxSeconds;
         }
-        if (RunAwayCooldownTimer >= 0f) RunAwayCooldownTimer -= Time.deltaTime;
+        if (RunAwayCooldownTimer > 0f) RunAwayCooldownTimer -= Time.deltaTime;
     }
 }

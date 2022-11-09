@@ -28,6 +28,6 @@ public class Knife : Passiveitem
     /// </summary>
     public override void OnPlayerHit(GameObject target, float amount){
         Character targetCharacterScript = target.GetComponent<Character>();
-        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(myBleedEffect, _Player);
+        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(myBleedEffect, user);
     }
 }

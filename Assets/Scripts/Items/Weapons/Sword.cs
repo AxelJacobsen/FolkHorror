@@ -35,7 +35,7 @@ public class Sword : Weapon
         SimpleDamagefield script = newArch.GetComponent<SimpleDamagefield>();
         script._KnockbackDir        = dir;
         script._TargetTag           = targetTag;
-        script._CreatedBy           = _Player;
+        script._CreatedBy           = user;
         script._DamageFromWeapon    = AttackDamage;
         script._KnockbackFromWeapon = Knockback;
 

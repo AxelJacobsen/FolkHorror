@@ -54,6 +54,9 @@ public class NisseAI : BaseEnemyAI
                 BaseEnemyAI objAIScript = obj.GetComponent<BaseEnemyAI>();
                 if (objAIScript == null || obj == gameObject) continue;
 
+                // Skip if the AI isn't an ally to us
+                if (objAIScript.TargetObjectsWithTag != TargetObjectsWithTag) continue;
+
                 // Skip if the object is outside of alert range
                 // (And check if it's the closest ally outside of range, in which case set it to be our destination)
                 float distToObj = Vector3.Distance(obj.transform.position, transform.position);

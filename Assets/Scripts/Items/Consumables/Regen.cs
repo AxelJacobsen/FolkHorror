@@ -25,7 +25,7 @@ public class Regen : Item
     /// </summary>
     protected override void PickUp()
     {
-        _playerCharacter.ApplyEffect(RegenEffect, _Player);
+        userCharScript.ApplyEffect(RegenEffect, user);
         Destroy(this.gameObject);
     }
 }

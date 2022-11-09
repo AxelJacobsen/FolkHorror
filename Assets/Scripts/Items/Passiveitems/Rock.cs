@@ -29,6 +29,6 @@ public class Rock : Passiveitem
     /// </summary>
     public override void OnPlayerHit(GameObject target, float amount){
         Character targetCharacterScript = target.GetComponent<Character>();
-        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(myStunEffect, _Player);
+        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(myStunEffect, user);
     }
 }

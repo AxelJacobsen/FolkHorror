@@ -35,7 +35,7 @@ public class BaseEnemyAI : Character
 
     protected override void OnStart()
     {
-
+        
     }
 
     /// <summary>
