@@ -26,7 +26,6 @@ public abstract class Character : CharacterStats
 	protected Rigidbody 		rb;
 	protected Animator 		    anim;
 	protected SpriteRenderer    sr;
-    //protected EffectDataLoader 	effectLoader;
     protected bool 			    facingRight;
 	protected float 		    flashing;
 	protected List<EffectData> 	effects = new List<EffectData>(); // Buffs & Debuffs
@@ -131,8 +130,10 @@ public abstract class Character : CharacterStats
     /// <return>The character's health after taking damage.</return>
 	public float Hurt(GameObject caller, float amount) 
 	{
-		// Invoke item triggers
-		foreach (Item item in Items) { item.OnPlayerGetHit(caller, amount); }
+        anim.SetTrigger("Hurt");
+
+        // Invoke item triggers
+        foreach (Item item in Items) { item.OnPlayerGetHit(caller, amount); }
 
 		Health -= amount;
 		if (Health <= 0) {
@@ -180,6 +181,8 @@ public abstract class Character : CharacterStats
     /// <param name="targets">An array containing all possible targets.</param>
     public void Attack(Vector3 aimPosition, string targetTag) 
 	{
+        anim.SetTrigger("Attack");
+
 		// If stunned, return
 		if (stunDuration > 0f) return;
 
@@ -231,6 +234,9 @@ public abstract class Character : CharacterStats
     /// <param name="velocity">The velocity to add to the player.</param>
 	protected void Move(Vector3 velocity) 
 	{
+        anim.SetBool("Walking", true);
+        anim.SetBool("Running", false);
+
 		// If we're stunned, don't change velocity
 		if (stunDuration > 0f) return;
 
@@ -256,6 +262,9 @@ public abstract class Character : CharacterStats
     /// <returns>True if we're rolling, false otherwise.</returns>
 	protected bool SteerableRoll(Vector3 currentDirection) 
 	{
+        anim.SetBool("Running", true);
+        anim.SetBool("Walking", false);
+
 		// If we're not rolling and can roll, start rolling.
 		if (rollTimer <= 0f && CanRoll()) {
 			rollTimer = RollDuration;
@@ -315,7 +324,7 @@ public abstract class Character : CharacterStats
 				min = Mathf.Min(rb.velocity.x, rb.velocity.z);
 		int		curDir = max > -min ? (rb.velocity.x > rb.velocity.z ? 3 : 0) : (rb.velocity.x < rb.velocity.z ? 2 : 1);
 		
-		if (curDir == 2 && facingRight || curDir == 3 && !facingRight) {
+		if (curDir == 2 && !facingRight || curDir == 3 && facingRight) {
 			Vector3 tvec = transform.localScale;
 			tvec.x *= -1;
 			transform.localScale = tvec;

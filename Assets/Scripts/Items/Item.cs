@@ -13,40 +13,77 @@ public class Item : MonoBehaviour
     public float        MagnetRange = 10f,
                         PickupRange = 3f;
 
-    [Header("Set by scripts")]
-    public GameObject  _Player;
     
     // Private vars
-    protected Rigidbody      _pRB; // Player rigidbody
+    protected GameObject     user;
+    protected Character      userCharScript;
+    protected Rigidbody      userRigidbody;
     protected Rigidbody      rb;
     protected Animator       anim;
     protected SpriteRenderer sr;
     protected bool           equipped = false;
-    protected Character      _playerCharacter;
-
-    private float       pickupCooldown = 0f;
+    private float            pickupCooldown = 0f;
 
     protected void Start()
     {
-        // Fetch components
-        _Player = GameObject.FindGameObjectWithTag(PickedUpByTag);
-        if (_Player == null) Debug.LogError("Pickup could not find the player!");
+        user = lookForUser();
+        if (user == null) Debug.LogError("Item could not find a user!");
+        reconfigure();
+    }
 
-        _pRB = _Player.GetComponent<Rigidbody>();
-        if (_pRB == null) Debug.LogError("Pickup could not find the player's rigidbody!");
+    /// <summary>
+    /// Reconfigures the item's variables.
+    /// Assumes a valid user has been set.
+    /// </summary>
+    protected void reconfigure()
+    {
+        userCharScript = user.GetComponent<Character>();
+        if (userCharScript == null) Debug.LogError("Item could not find its user's character script!");
 
-        _playerCharacter = _Player.GetComponent<Character>();
-        if (_playerCharacter == null) Debug.LogError("Pickup could not find the player's character script!");
+        userRigidbody = user.GetComponent<Rigidbody>();
+        if (userRigidbody == null) Debug.LogError("Item could not find its user's rigidbody!");
 
         rb = GetComponent<Rigidbody>();
-		if (rb == null) Debug.LogError("Pickup could not find its rigidbody!");
+		if (rb == null) Debug.LogError("Item could not find its rigidbody!");
 
         anim = GetComponent<Animator>();
-		if (anim == null) Debug.LogWarning("Pickup could not find its animator!");
+		if (anim == null) Debug.LogWarning("Item could not find its animator!");
 
         sr = GetComponent<SpriteRenderer>();
-        if (sr == null) Debug.LogError("Pickup could not find its spriterenderer!");
+        if (sr == null) Debug.LogError("Item could not find its spriterenderer!");
+    }
 
+    /// <summary>
+    /// Returns the closest, valid user.
+    /// </summary>
+    /// <returns>The closest, valid user. If there is none, null.</returns>
+    protected GameObject lookForUser()
+    {
+        // Fetch closest, valid user
+        GameObject[] gObjs = GameObject.FindGameObjectsWithTag(PickedUpByTag);
+        float       minDistSqr = Mathf.Infinity;
+        GameObject  closestObj = null;
+        foreach (GameObject obj in gObjs)
+        {
+            // Fetch character script, skip if its null.
+            Character objCharScript = obj.GetComponent<Character>();
+            if (objCharScript == null) continue;
+
+            // If this obj can't pick up this item, skip.
+            if (this.GetType() == typeof(Weapon) && objCharScript.Weapon != null)
+                continue;
+
+            // Check if this obj is closer than the prev
+            float distSqr = Vector3.Distance(obj.transform.position, transform.position);
+            if (distSqr < minDistSqr)
+            {
+                closestObj = obj;
+                minDistSqr = distSqr;
+            }
+        }
+
+        // Return
+        return closestObj;
     }
 
     protected void FixedUpdate()
@@ -61,7 +98,7 @@ public class Item : MonoBehaviour
         // If not picked up yet...
         } else if (CanBePickedUp()) {
             // Attract the pickup if the player is close enough
-            Vector3 dir   = _pRB.position - rb.position;
+            Vector3 dir   = user.transform.position - transform.position;
             float   dir_m = dir.magnitude;
             if (dir_m < MagnetRange) rb.velocity += dir / (Mathf.Pow(dir_m/5f, 2) + 1f) * 50f * Time.deltaTime;
 
@@ -84,13 +121,13 @@ public class Item : MonoBehaviour
     protected virtual void PickUp() {
         // Mark the pickup as picked up
         equipped = true;
-        _playerCharacter.Items.Add(this);
-        _playerCharacter.UpdateStats();
+        userCharScript.Items.Add(this);
+        userCharScript.UpdateStats();
 
         // Freeze, parent and make it invisible
         rb.isKinematic = true;
         Color src_t = sr.color; src_t.a = 0; sr.color = src_t;
-        transform.SetParent(_Player.transform);
+        transform.SetParent(user.transform);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(Vector3.zero);
         transform.localScale    = Vector3.one;
@@ -102,9 +139,8 @@ public class Item : MonoBehaviour
     public virtual void Drop() {
         // Mark the pickup as dropped
         equipped = false;
-        Character _playerCharacter = _Player.GetComponent<Character>();
-        _playerCharacter.Items.Remove(this);
-        _playerCharacter.UpdateStats();
+        userCharScript.Items.Remove(this);
+        userCharScript.UpdateStats();
 
         pickupCooldown = 1f;
 
@@ -112,7 +148,8 @@ public class Item : MonoBehaviour
         rb.isKinematic = false;
         Color src_t = sr.color; src_t.a = 255; sr.color = src_t;
         transform.SetParent(null);
-        rb.velocity = _pRB.velocity.normalized * (_pRB.velocity.magnitude + 5f);
+        
+        rb.velocity = userRigidbody.velocity.normalized * (userRigidbody.velocity.magnitude + 5f);
     }
 
     // Events

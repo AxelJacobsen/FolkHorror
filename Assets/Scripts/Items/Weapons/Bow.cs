@@ -40,7 +40,7 @@ public class Bow : Weapon
             // Set script vars
             SimpleProjectile script = newArrow.GetComponent<SimpleProjectile>();
             script._TargetTag           = targetTag;
-            script._CreatedBy           = _Player;
+            script._CreatedBy           = user;
             script._DamageFromWeapon    = AttackDamage;
             script._KnockbackFromWeapon = Knockback;
 
