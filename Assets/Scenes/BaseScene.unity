@@ -974,7 +974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1736656689
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1178,38 +1178,14 @@ GameObject:
   - component: {fileID: 2020078233}
   - component: {fileID: 2020078232}
   - component: {fileID: 2020078231}
-  - component: {fileID: 2020078230}
+  - component: {fileID: 2020078235}
   m_Layer: 0
   m_Name: Enemy (1)
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &2020078230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2020078229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d90974279fb1b3843b555686fe735801, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 3
-  <MaxHealth>k__BackingField: 100
-  Weapon: {fileID: 0}
-  Items: []
-  WalkAcceleration: 6
-  RollDuration: 2
-  RollCooldown: 1
-  RollSpeed: 50
-  RollAcceleration: 0.7
-  DustEffectEmitter: {fileID: 11400000, guid: f8f2cf0d8206a15438a1ede9c2133bcb, type: 2}
-  TargetObjectsWithTag: Player
-  VisionRange: 10
+  m_IsActive: 1
 --- !u!54 &2020078231
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1314,6 +1290,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!114 &2020078235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020078229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49aea1ce6a493334d8b4b06d13c1f281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Speed>k__BackingField: 15
+  <MaxHealth>k__BackingField: 100
+  Weapon: {fileID: 0}
+  Items: []
+  WalkAcceleration: 10
+  RollDuration: 0.2
+  RollCooldown: 1.5
+  RollSpeed: 50
+  RollAcceleration: 3
+  DustEffectEmitter: {fileID: 11400000, guid: f8f2cf0d8206a15438a1ede9c2133bcb, type: 2}
+  TargetObjectsWithTag: Player
+  VisionRange: 500
+  AttackRange: 25
+  RunAwaySpeedMult: 2
+  RunAwayRange: 10
+  RunAwayMaxSeconds: 3
+  RunAwayCooldown: 5
 --- !u!1001 &311919352962496132
 PrefabInstance:
   m_ObjectHideFlags: 0
