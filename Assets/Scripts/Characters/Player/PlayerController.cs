@@ -27,15 +27,13 @@ public class PlayerController : Character
 		playerControls.Disable();
 	}
 	
-	void Start()
+	protected override void OnStart()
 	{
-		base.Start();
+		
 	}
 
-	void FixedUpdate()
+	protected override void OnFixedUpdate()
 	{
-		base.FixedUpdate();
-
 		// Toggle spacebar
 		if ( playerControls.General.Attack.ReadValue<float>() == 1f ) {
 			attackHeld++;

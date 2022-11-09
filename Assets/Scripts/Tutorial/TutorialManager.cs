@@ -57,7 +57,7 @@ public class TutorialManager : MonoBehaviour
             else if (!taskCombat && taskWeapon)
             {
                 SetPlayerSpeed(10f);
-                enemy.GetComponent<simpleEnemyAI>().Speed = 8f;
+                enemy.GetComponent<BaseEnemyAI>().Speed = 8f;
                 taskCombat = true;
             }
             // touch the cube to start the game

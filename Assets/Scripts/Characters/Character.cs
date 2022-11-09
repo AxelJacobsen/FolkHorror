@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 
-public class Character : CharacterStats
+public abstract class Character : CharacterStats
 {
 	// Public vars
     [Header("Items")]
@@ -42,7 +42,8 @@ public class Character : CharacterStats
     protected BoxCollider hitbox;
     protected EffectEmitter myDustEffectEmitter;
 
-    protected void Start()
+    protected abstract void OnStart();
+    void Start()
 	{
         // Fetch components
         rb = GetComponent<Rigidbody>();
@@ -80,6 +81,9 @@ public class Character : CharacterStats
 		Health = MaxHealth;
 		facingRight = false;
 		flashing = 0;
+
+        // Call children's start
+        OnStart();
     }
 
 	/// <summary>
@@ -261,7 +265,8 @@ public class Character : CharacterStats
         return true;
     }
 
-	protected void FixedUpdate()
+    protected abstract void OnFixedUpdate();
+    protected void FixedUpdate()
 	{
         // Stun timer
         if (stunDuration > 0f)
@@ -350,6 +355,9 @@ public class Character : CharacterStats
 
         // Remove this-update-effects
         stunnedThisUpdate = false;
+
+        // Call children's FixedUpdate...
+        OnFixedUpdate();
     }
 
 	// Item triggers
