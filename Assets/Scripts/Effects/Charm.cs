@@ -11,7 +11,7 @@ public class Charm : EffectData
     private void applyCharm() 
     {
         // Fetch AI script and return if it isn't found
-        simpleEnemyAI targetAIscript = _Target.GetComponent<simpleEnemyAI>();
+        BaseEnemyAI targetAIscript = _Target.GetComponent<BaseEnemyAI>();
         if (targetAIscript == null) return;
 
         // Charm

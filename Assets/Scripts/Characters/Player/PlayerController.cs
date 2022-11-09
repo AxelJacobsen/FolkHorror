@@ -11,10 +11,11 @@ public class PlayerController : Character
 	public LayerMask AimLayer;
 
 	// Private vars
-	private int spaceHeld;
+	private int attackHeld = 0;
 	private PlayerControls playerControls;
+    private bool tryRolling = false;
 
-	private void Awake() {
+    private void Awake() {
 		playerControls = new PlayerControls();
 	}
 
@@ -26,27 +27,22 @@ public class PlayerController : Character
 		playerControls.Disable();
 	}
 	
-	void Start()
+	protected override void OnStart()
 	{
-		base.Start();
-
-		// Initialize vars
-		spaceHeld = 0;
+		
 	}
 
-	void FixedUpdate()
+	protected override void OnFixedUpdate()
 	{
-		base.FixedUpdate();
-
 		// Toggle spacebar
 		if ( playerControls.General.Attack.ReadValue<float>() == 1f ) {
-			spaceHeld++;
+			attackHeld++;
 		} else {
-			spaceHeld = 0;
+			attackHeld = 0;
 		}
 
 		// Attack
-		if (spaceHeld == 1 && Weapon != null && Weapon.CanAttack()) {
+		if (attackHeld == 1 && Weapon != null && Weapon.CanAttack()) {
 			// Cast ray to find where the player wants to hit
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hitData;
@@ -55,18 +51,17 @@ public class PlayerController : Character
 			Attack(hitPoint, "Enemy");
 		}
 
-		// Drop weapon (TEMP)
-		if (Input.GetKeyDown("space")) {
-            if (Weapon != null) Weapon.Drop();
-			foreach (Item item in Items)
-            {
-				item.Drop();
-            }
-        }
-
 		// Move
 		Vector2 joystick = playerControls.General.Move.ReadValue<Vector2>();
 		Vector3 dir = new Vector3 (joystick.x, 0, joystick.y).normalized;
-        Move((dir * Speed - rb.velocity) * 10f * Time.deltaTime);
+
+		if (playerControls.General.Roll.ReadValue<float>() == 1f || tryRolling) 
+		{
+            tryRolling = SteerableRoll(dir);
+        }
+		else 
+		{
+        	Move(dir);
+		}
     }
 }

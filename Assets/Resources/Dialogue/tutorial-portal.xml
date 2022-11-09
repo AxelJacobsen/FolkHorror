@@ -1,0 +1,7 @@
+<dialogue>
+    <name>Portal</name>
+    <sentences>
+        <value>Good job! You have completed the tutorial</value>
+        <value>Go through the portal to start the adventure</value>
+    </sentences>
+</dialogue>

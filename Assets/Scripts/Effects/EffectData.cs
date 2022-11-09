@@ -20,25 +20,31 @@ public abstract class EffectData : ScriptableObject
     public float        _Intensity,
                         _Duration;
 
+    // Private vars
+    private EffectEmitter myEffectEmitter;
+
     /// <summary>
     /// How the effect acts when first applied.
     /// (Re-applying the effect while it's already running won't trigger this.)
     /// </summary>
     public virtual void OnBegin() 
     {
+        // Create a copy of effectEmitter dynamically
+        myEffectEmitter = Instantiate(effectEmitter);
+
         // Fetch hitbox
         foreach (Transform child in _Target.transform) {
             if (child.gameObject.tag != "Hitbox") continue;
             BoxCollider childBoxCollider = child.gameObject.GetComponent<BoxCollider>();
             if (childBoxCollider == null) continue;
-            effectEmitter._Hitbox = childBoxCollider;
+            myEffectEmitter._Hitbox = childBoxCollider;
             break;
         }
-        if (effectEmitter._Hitbox == null) effectEmitter._Hitbox = _Target.GetComponent<BoxCollider>();
-        if (effectEmitter._Hitbox == null) Debug.LogError("Effect could not find its target's hitbox!");
+        if (myEffectEmitter._Hitbox == null) myEffectEmitter._Hitbox = _Target.GetComponent<BoxCollider>();
+        if (myEffectEmitter._Hitbox == null) Debug.LogError("Effect could not find its target's hitbox!");
 
         // Set active
-        effectEmitter._Active = true;
+        myEffectEmitter._Active = true;
     }
 
     /// <summary>
@@ -55,7 +61,7 @@ public abstract class EffectData : ScriptableObject
     /// <param name="deltaTime">Deltatime in seconds.</param>
     public virtual void During(float deltaTime) 
     {
-        effectEmitter.Emit(deltaTime);
+        myEffectEmitter.Emit(deltaTime);
     }
 
     /// <summary>
@@ -63,6 +69,6 @@ public abstract class EffectData : ScriptableObject
     /// </summary>
     public virtual void OnEnd() 
     {
-        effectEmitter._Active = false;
+        myEffectEmitter._Active = false;
     }
 }
