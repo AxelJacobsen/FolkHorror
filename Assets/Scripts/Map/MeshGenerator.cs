@@ -88,9 +88,11 @@ public class MeshGenerator : MonoBehaviour {
 		List<int> wallTriangles = new List<int>();
 		Mesh wallMesh = new Mesh();
 		int treeChance = 0;
+		bool first = true;
 		foreach (List<int> outline in outlines) {
 			if (generateObjects) {
-				treeChance = SpawnObjectHandler(outline, treeChance, meshType);
+				treeChance = SpawnObjectHandler(outline, treeChance, meshType, first);
+				if (first) { first = false; }
 			}
 			for (int i = 0; i < outline.Count - 1; i++) {
 				int startIndex = wallVertices.Count;
@@ -137,8 +139,9 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 
-	int SpawnObjectHandler(List<int> outline, int treeChance, int spawnObject) {
+	int SpawnObjectHandler(List<int> outline, int treeChance, int spawnObject, bool isFirst) {
 		List<Vector2> polyList = new List<Vector2>();
+
 		foreach (int vertex in outline) {
 			polyList.Add(new Vector2(vertices[vertex].x, vertices[vertex].z));
 		}
@@ -147,7 +150,7 @@ public class MeshGenerator : MonoBehaviour {
 		if (spawnObject != 1) { spawnObject = 0; }
 		//Spawn along outline edge to secure border
 		for (int o = 0; o < polyList.Count; o++) {
-			if (1000 < polyList.Count) { break; }
+			if (isFirst) { break; }
 			treeChance += Random.Range(1, 3);
 			if (treeChance < 10) { continue; }
 			objSpawner.SpawnObject(new Vector3(polyList[o].x, 0, polyList[o].y), spawnObject);
@@ -160,13 +163,13 @@ public class MeshGenerator : MonoBehaviour {
 				largestOutline[0] = outline.Count;
 				largestOutline[0] = t;
 			}
-			if (1000 < outline.Count) { break; }
+			if (isFirst) { break; }
 			Vector2 pos = Funcs.GetRandomPointInPolygon(poly);
 			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), spawnObject);
 		}
 
 		//Spawns entrance and exit
-		if (1000 < polyList.Count) { //JANKY JEG VET :^) SKAL FIKSE og legge til limiter på spawn location
+		if (isFirst) { //JANKY JEG VET :^) SKAL FIKSE og legge til limiter på spawn location
 			Vector2 pos;
 			pos = Funcs.GetRandomPointInPolygon(poly);
 			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), 5);

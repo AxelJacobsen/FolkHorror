@@ -40,7 +40,7 @@ public class MapGenerator : MonoBehaviour {
 	int[,] map;
 
 	void Start() {
-		SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGenScene"));
+		//SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGenScene"));
 		//New entrypoint for map generation, handles loading data from file
 		PreMapGen();
 	}
@@ -111,10 +111,11 @@ public class MapGenerator : MonoBehaviour {
 		width = parsedData[13];*/
 	}
 
-	/*
-	 Handles all map generation from start to finish
-	 */
+	/// <summary>
+    /// Handles all map generation
+    /// </summary>
 	void GenerateMap() {
+		SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGenScene"));
 		if (loadSpecificMapFromFile) {
 			//Loads the map from file
 			LoadMapFromFile();
