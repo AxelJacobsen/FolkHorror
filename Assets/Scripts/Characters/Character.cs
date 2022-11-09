@@ -85,6 +85,12 @@ public abstract class Character : CharacterStats
         OnStart();
     }
 
+    /// <summary>
+    /// Gets Character's current health
+    /// </summary>
+    /// <returns>Current health as float</returns>
+    public float GetCurrentHealth() { return Health; }
+
 	/// <summary>
     /// Updates the player's stats with their current items.
     /// </summary>

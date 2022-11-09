@@ -138,7 +138,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1834882605}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1816414021243991409, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
       propertyPath: m_Name
@@ -150,11 +150,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1816414021243991423, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1816414021243991423, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.04
+      value: 30.54
       objectReference: {fileID: 0}
     - target: {fileID: 1816414021243991423, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
       propertyPath: m_LocalPosition.y
@@ -399,11 +399,6 @@ MonoBehaviour:
   saveKey: 293
   saveName: SavedWalls
   selectedGameObject: {fileID: 560582375}
---- !u!4 &826441309 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1816414021243991423, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
-  m_PrefabInstance: {fileID: 173171428}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1117103597
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,11 +493,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!4 &1339806632 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1816414021243991423, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
-  m_PrefabInstance: {fileID: 1942238834}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1518150448
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,10 +754,8 @@ Transform:
   - {fileID: 538208512}
   - {fileID: 48608309}
   - {fileID: 1526239338}
-  - {fileID: 826441309}
-  - {fileID: 1339806632}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1834882608
 MonoBehaviour:
@@ -812,7 +800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   width: 200
-  height: 100
+  height: 300
   depth: 5
   bushSize: 3
   seed: 
@@ -823,8 +811,8 @@ MonoBehaviour:
   roomSizeThreshold: 100
   wallSizeThreshold: 50
   loadSpecificMapFromFile: 0
-  saveAsPremade: 1
-  saveFileName: testForrest1
+  saveAsPremade: 0
+  saveFileName: testForrest2
   randomFillPercent: 43
 --- !u!114 &1834882611
 MonoBehaviour:
@@ -850,7 +838,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1834882605}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1816414021243991409, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
       propertyPath: m_Name
@@ -862,11 +850,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1816414021243991423, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1816414021243991423, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1816414021243991423, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.54
+      value: 31.04
       objectReference: {fileID: 0}
     - target: {fileID: 1816414021243991423, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
       propertyPath: m_LocalPosition.y
