@@ -534,11 +534,11 @@ RectTransform:
   m_Father: {fileID: 1152558907}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -425, y: 24}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 5, y: -5}
   m_SizeDelta: {x: 200, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!1 &660198703
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,11 +574,11 @@ RectTransform:
   m_Father: {fileID: 1996412760}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -382, y: 255}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 24, y: -24}
   m_SizeDelta: {x: 200, y: 30}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0, y: 1}
 --- !u!114 &660198705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1342,7 +1342,6 @@ MonoBehaviour:
   PickedUpByTag: Player
   MagnetRange: 10
   PickupRange: 3
-  _Player: {fileID: 0}
   AttackDamage: 25
   Knockback: 25
   AttackSpeed: 0.5
@@ -1655,7 +1654,15 @@ MonoBehaviour:
   <MaxHealth>k__BackingField: 100
   Weapon: {fileID: 0}
   Items: []
-  targetObjectsWithTag: Player
+  WalkAcceleration: 10
+  RollDuration: 0.2
+  RollCooldown: 1.5
+  RollSpeed: 50
+  RollAcceleration: 3
+  DustEffectEmitter: {fileID: 0}
+  TargetObjectsWithTag: Player
+  VisionRange: 10
+  behavior: 0
 --- !u!95 &2107634077
 Animator:
   serializedVersion: 4
