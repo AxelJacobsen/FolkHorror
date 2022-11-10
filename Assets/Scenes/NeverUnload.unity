@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -800,7 +800,6 @@ GameObject:
   - component: {fileID: 2044029810}
   - component: {fileID: 2044029814}
   - component: {fileID: 2044029815}
-  - component: {fileID: 2044029816}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -938,31 +937,6 @@ MonoBehaviour:
   AimLayer:
     serializedVersion: 2
     m_Bits: 2147483647
---- !u!114 &2044029816
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2044029809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6b5495607092f244a9fafe151600366, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 10
-  <MaxHealth>k__BackingField: 100
-  Weapon: {fileID: 0}
-  Items: []
-  WalkAcceleration: 10
-  RollDuration: 0.2
-  RollCooldown: 1.5
-  RollSpeed: 50
-  RollAcceleration: 3
-  DustEffectEmitter: {fileID: 0}
-  AimLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &2060306343
 GameObject:
   m_ObjectHideFlags: 0
