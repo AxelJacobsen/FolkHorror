@@ -9,17 +9,6 @@ public class Bow : Weapon
     public float        DegSpread     = 15f;
     public GameObject   arrowPrototype;
 
-    protected void Start()
-    {
-        base.Start();
-    }
-
-    protected void FixedUpdate()
-    {
-        base.FixedUpdate();
-
-    }
-
     public override void Attack(Vector3 aimPosition, string targetTag)
     {
         // If the weapon is on cooldown, do nothing

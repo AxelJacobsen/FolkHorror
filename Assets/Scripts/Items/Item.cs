@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Base class for items.
 /// </summary>
-public class Item : MonoBehaviour
+public abstract class Item : MonoBehaviour
 {
     // Public vars
     [Header("Vars")]
@@ -24,11 +24,14 @@ public class Item : MonoBehaviour
     protected bool           equipped = false;
     private float            pickupCooldown = 0f;
 
+    protected abstract void OnStart();
     protected void Start()
     {
         user = lookForUser();
         if (user == null) Debug.LogError("Item could not find a user!");
         reconfigure();
+
+        OnStart();
     }
 
     /// <summary>
@@ -42,6 +45,7 @@ public class Item : MonoBehaviour
 
         userRigidbody = user.GetComponent<Rigidbody>();
         if (userRigidbody == null) Debug.LogError("Item could not find its user's rigidbody!");
+
 
         rb = GetComponent<Rigidbody>();
 		if (rb == null) Debug.LogError("Item could not find its rigidbody!");
@@ -86,6 +90,7 @@ public class Item : MonoBehaviour
         return closestObj;
     }
 
+    protected abstract void OnFixedUpdate();
     protected void FixedUpdate()
     {
         // Count down pickupCooldown
@@ -105,6 +110,8 @@ public class Item : MonoBehaviour
             // Pick up the pickup if the player is close enough
             if (dir_m < PickupRange) PickUp();
         }
+
+        OnFixedUpdate();
     }
 
     /// <summary>

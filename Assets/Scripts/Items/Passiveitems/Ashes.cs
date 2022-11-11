@@ -10,17 +10,11 @@ public class Ashes : Passiveitem
     public EffectData BurnEffect;
     public EffectData myBurnEffect;
 
-    void Start()
+    protected override void OnStart() 
     {
-        base.Start();
+        base.OnStart();
 
         myBurnEffect = Instantiate(BurnEffect);
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        base.FixedUpdate();
     }
 
     /// <summary>

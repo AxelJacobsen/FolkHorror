@@ -10,18 +10,12 @@ public class Rock : Passiveitem
     public EffectData StunEffect;
     private EffectData myStunEffect;
 
-    void Start()
+    protected override void OnStart() 
     {
-        base.Start();
+        base.OnStart();
 
         // Create a copy of StunEffect dynamically
         myStunEffect = Instantiate(StunEffect);
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        base.FixedUpdate();
     }
 
     /// <summary>
