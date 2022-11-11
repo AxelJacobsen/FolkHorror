@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Reflection;
 
 public abstract class Character : CharacterStats
 {
@@ -9,24 +7,32 @@ public abstract class Character : CharacterStats
     [Header("Items")]
 	public Weapon				Weapon;
 	public List<Item>			Items;
-
-	[Header("Walking/jogging")]
+   
+    [Header("Walking/jogging")]
 	public float 				WalkAcceleration = 10f;
+    [SerializeField] protected AudioClip walkSound;
 
-	[Header("Rolling")]
+
+    [Header("Rolling")]
 	public float 				RollDuration = 0.2f;
 	public float				RollCooldown = 1.5f;
 	public float				RollSpeed 	 = 50f;
 	public float 				RollAcceleration = 3f;
 	public EffectEmitter		DustEffectEmitter;
+    [SerializeField] private AudioClip 
+                                onRollClip;
+    // Private vars
 
-	// Private vars
-	protected CharacterStats	baseStats;
+
+
+    protected CharacterStats	baseStats;
+
+    [Header("Drops")]
+    public GameObject[]         DropsOnDeath;
 	protected float				Health;
 	protected Rigidbody 		rb;
 	protected Animator 		    anim;
 	protected SpriteRenderer    sr;
-    //protected EffectDataLoader 	effectLoader;
     protected bool 			    facingRight;
 	protected float 		    flashing;
 	protected List<EffectData> 	effects = new List<EffectData>(); // Buffs & Debuffs
@@ -41,6 +47,8 @@ public abstract class Character : CharacterStats
 
     protected BoxCollider hitbox;
     protected EffectEmitter myDustEffectEmitter;
+
+    private bool dead = false;
 
     protected abstract void OnStart();
     void Start()
@@ -86,6 +94,12 @@ public abstract class Character : CharacterStats
         OnStart();
     }
 
+    /// <summary>
+    /// Gets Character's current health
+    /// </summary>
+    /// <returns>Current health as float</returns>
+    public float GetCurrentHealth() { return Health; }
+
 	/// <summary>
     /// Updates the player's stats with their current items.
     /// </summary>
@@ -112,9 +126,16 @@ public abstract class Character : CharacterStats
     /// </summary>
 	void Die() 
 	{
-        sr.color = new Color(0,0,0,0);
-        this.enabled = false;
-	}
+        if (dead) return;
+        else dead = true;
+
+        foreach (GameObject obj in DropsOnDeath)
+        {
+            GameObject drop = Instantiate(obj, transform.position, Quaternion.identity);
+        }
+
+        Destroy(gameObject);
+    }
 
 	/// <summary>
     /// Hurts the character.
@@ -125,8 +146,10 @@ public abstract class Character : CharacterStats
     /// <return>The character's health after taking damage.</return>
 	public float Hurt(GameObject caller, float amount) 
 	{
-		// Invoke item triggers
-		foreach (Item item in Items) { item.OnPlayerGetHit(caller, amount); }
+        anim.SetTrigger("Hurt");
+
+        // Invoke item triggers
+        foreach (Item item in Items) { item.OnPlayerGetHit(caller, amount); }
 
 		Health -= amount;
 		if (Health <= 0) {
@@ -174,6 +197,8 @@ public abstract class Character : CharacterStats
     /// <param name="targets">An array containing all possible targets.</param>
     public void Attack(Vector3 aimPosition, string targetTag) 
 	{
+        anim.SetTrigger("Attack");
+
 		// If stunned, return
 		if (stunDuration > 0f) return;
 
@@ -225,11 +250,15 @@ public abstract class Character : CharacterStats
     /// <param name="velocity">The velocity to add to the player.</param>
 	protected void Move(Vector3 velocity) 
 	{
+        anim.SetBool("Walking", true);
+        anim.SetBool("Running", false);
+
 		// If we're stunned, don't change velocity
 		if (stunDuration > 0f) return;
 
 		// Otherwise, update movedir
         walkDir = velocity;
+
     }
 
 	/// <summary>
@@ -250,10 +279,16 @@ public abstract class Character : CharacterStats
     /// <returns>True if we're rolling, false otherwise.</returns>
 	protected bool SteerableRoll(Vector3 currentDirection) 
 	{
+        anim.SetBool("Running", true);
+        anim.SetBool("Walking", false);
+
 		// If we're not rolling and can roll, start rolling.
 		if (rollTimer <= 0f && CanRoll()) {
 			rollTimer = RollDuration;
             rollDir = currentDirection;
+
+            SoundManager.Instance.PlaySound(onRollClip);
+
         }
 
 		// If we're not rolling, return false (not rolling)
@@ -302,6 +337,7 @@ public abstract class Character : CharacterStats
 		{
             rb.velocity += (walkDir * Speed - rb.velocity) * WalkAcceleration * Time.deltaTime;
             walkDir = Vector3.zero;
+   
         }
 
         // Flip sprite if we're changing direction
@@ -309,7 +345,7 @@ public abstract class Character : CharacterStats
 				min = Mathf.Min(rb.velocity.x, rb.velocity.z);
 		int		curDir = max > -min ? (rb.velocity.x > rb.velocity.z ? 3 : 0) : (rb.velocity.x < rb.velocity.z ? 2 : 1);
 		
-		if (curDir == 2 && facingRight || curDir == 3 && !facingRight) {
+		if (curDir == 2 && !facingRight || curDir == 3 && facingRight) {
 			Vector3 tvec = transform.localScale;
 			tvec.x *= -1;
 			transform.localScale = tvec;

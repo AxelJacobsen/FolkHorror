@@ -10,17 +10,11 @@ public class Ashes : Passiveitem
     public EffectData BurnEffect;
     public EffectData myBurnEffect;
 
-    void Start()
+    protected override void OnStart() 
     {
-        base.Start();
+        base.OnStart();
 
         myBurnEffect = Instantiate(BurnEffect);
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        base.FixedUpdate();
     }
 
     /// <summary>
@@ -28,6 +22,6 @@ public class Ashes : Passiveitem
     /// </summary>
     public override void OnPlayerHit(GameObject target, float amount){
         Character targetCharacterScript = target.GetComponent<Character>();
-        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(myBurnEffect, _Player);
+        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(myBurnEffect, user);
     }
 }

@@ -10,17 +10,11 @@ public class Knife : Passiveitem
     public EffectData BleedEffect;
     public EffectData myBleedEffect;
 
-    void Start()
+    protected override void OnStart() 
     {
-        base.Start();
+        base.OnStart();
 
         myBleedEffect = Instantiate(BleedEffect);
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        base.FixedUpdate();
     }
 
     /// <summary>
@@ -28,6 +22,6 @@ public class Knife : Passiveitem
     /// </summary>
     public override void OnPlayerHit(GameObject target, float amount){
         Character targetCharacterScript = target.GetComponent<Character>();
-        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(myBleedEffect, _Player);
+        if (targetCharacterScript != null) targetCharacterScript.ApplyEffect(myBleedEffect, user);
     }
 }

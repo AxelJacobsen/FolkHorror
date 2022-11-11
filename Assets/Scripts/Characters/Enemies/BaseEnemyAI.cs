@@ -10,11 +10,12 @@ public class BaseEnemyAI : Character
     /// <summary>
     /// An enum describing the behavioral states a normal enemy can have.
     /// </summary>
-    protected enum Behavior
+    public enum Behavior
     {
         Idle,
         Wander,
-        Aggressive
+        Aggressive,
+        Investigating
     }
 
     // Public vars
@@ -26,16 +27,15 @@ public class BaseEnemyAI : Character
     private string      prevTargetTag = "";
     private float       charmDuration = 0f;
     
-    protected Behavior    behavior;
+    public Behavior     behavior;
 
     private Vector3     waypoint;
     private float       waypointTimer = 0f;
     private float       waypointCooldown = 3f;
 
-
     protected override void OnStart()
     {
-
+        
     }
 
     /// <summary>
@@ -50,6 +50,32 @@ public class BaseEnemyAI : Character
 
         TargetObjectsWithTag = newTargetTag;
         charmDuration = duration;
+    }
+
+    /// <summary>
+    /// Starts investigating a position, if not occupied with something else.
+    /// </summary>
+    /// <param name="position">The position to investigate.</param>
+    /// <returns>False if AI was occupied and could not start investigating.</returns>
+    public bool StartInvestigating(Vector3 position)
+    {
+        if (behavior == Behavior.Aggressive || behavior == Behavior.Investigating)
+            return false;
+
+        waypoint = position;
+        behavior = Behavior.Investigating;
+        return true;
+    }
+
+    /// <summary>
+    /// Sets waypoint.
+    /// </summary>
+    /// <param name="waypoint">The waypoint.</param>
+    /// <param name="cooldown">How much cooldown to add.</param>
+    public void SetWaypoint(Vector3 waypoint, float cooldown)
+    {
+        this.waypoint = waypoint;
+        waypointTimer += cooldown;
     }
 
     /// <summary>
@@ -113,9 +139,9 @@ public class BaseEnemyAI : Character
             return;
 
         // Otherwise, walk towards the waypoint
-        Vector3 dir = (waypoint - transform.position).normalized;
-        dir.y = 0;
-        Move((dir.normalized * Speed / 2f - rb.velocity) * WalkAcceleration * Time.deltaTime);
+        Vector3 vec = (waypoint - transform.position);
+        vec.y = 0;
+        Move((vec.normalized * Speed / 2f - rb.velocity) * WalkAcceleration * Time.deltaTime);
     }
 
     /// <summary>
@@ -129,6 +155,23 @@ public class BaseEnemyAI : Character
         {
             behavior = Behavior.Idle;
             return;
+        }
+    }
+
+    /// <summary>
+    /// Defines how the AI acts when investigating.
+    /// </summary>
+    protected virtual void Investigate()
+    {
+        // Move towards the point of investigation
+        Vector3 vec = waypoint - transform.position;
+        vec.y = 0;
+        Move((vec.normalized * Speed - rb.velocity) * WalkAcceleration * Time.deltaTime);
+
+        // If we're at the point to investigate but nothing else happens, change back to wander
+        if (vec.magnitude <= 5f)
+        {
+            behavior = Behavior.Wander;
         }
     }
 
@@ -162,26 +205,14 @@ public class BaseEnemyAI : Character
                 Aggressive(target);
                 break;
 
+            case Behavior.Investigating:
+                Investigate();
+                break;
+
             default:
                 // Switch to idle if unknown state
                 behavior = Behavior.Idle;
                 break;
         }
-
-
-        /* if (target != null) {
-
-            // If we're outside outside of range, move towards
-            if (Weapon == null || !Weapon.InRangeOf(target) || !Weapon.CanAttack()) {                
-                // Fetch its rigidbody and the direction towards it
-                Rigidbody tRB = target.GetComponent<Rigidbody>();
-                Vector3 dir = tRB.transform.position - rb.position;
-                Move((dir.normalized * Speed - rb.velocity) * 2f * Time.deltaTime);
-
-            // If we're within range, attack
-            } else if (Weapon != null) {
-                Attack(target.transform.position, targetObjectsWithTag);
-            }
-        } */
     }
 }

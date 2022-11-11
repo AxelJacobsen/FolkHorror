@@ -16,15 +16,13 @@ public class Weapon : Item
     // Private vars
     protected float   AttackCooldown;
 
-    protected void Start()
+    protected override void OnStart()
     {
-        base.Start();
+        
     }
 
-    protected void FixedUpdate()
+    protected override void OnFixedUpdate()
     {
-        base.FixedUpdate();
-
         // Count down attack timer
         if (AttackCooldown > 0) AttackCooldown -= Time.deltaTime;
     }
@@ -35,7 +33,7 @@ public class Weapon : Item
     /// <returns>True if the weapon can be equipped right now.</returns>
     protected override bool CanBePickedUp()
     {
-        return _Player.GetComponent<Character>().Weapon == null && base.CanBePickedUp();
+        return user.GetComponent<Character>().Weapon == null && base.CanBePickedUp();
     }
 
     /// <summary>
@@ -61,7 +59,7 @@ public class Weapon : Item
     protected override void PickUp() {
         base.PickUp();
 
-        _Player.GetComponent<Character>().Weapon = this;
+        userCharScript.Weapon = this;
     }
 
     /// <summary>
@@ -70,7 +68,7 @@ public class Weapon : Item
     public override void Drop() {
         base.Drop();
 
-        _Player.GetComponent<Character>().Weapon = null;
+        userCharScript.Weapon = null;
     }
 
     /// <summary>

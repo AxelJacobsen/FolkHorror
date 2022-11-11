@@ -10,14 +10,14 @@ public class Regen : Item
     [Header("Effect")]
     public EffectData RegenEffect;
 
-    void Start()
+    protected override void OnStart() 
     {
-        base.Start();
+
     }
 
-    void FixedUpdate() 
+    protected override void OnFixedUpdate() 
     {
-        base.FixedUpdate();
+        
     }
 
     /// <summary>
@@ -25,7 +25,7 @@ public class Regen : Item
     /// </summary>
     protected override void PickUp()
     {
-        _playerCharacter.ApplyEffect(RegenEffect, _Player);
+        userCharScript.ApplyEffect(RegenEffect, user);
         Destroy(this.gameObject);
     }
 }

@@ -30,6 +30,8 @@ public class SimpleProjectile : MonoBehaviour
     private float livedFor;
     private List<GameObject> chainTargets;
 
+    [SerializeField] private AudioClip onHitSound;
+
     void Start() 
     {
         // Fetch vars
@@ -69,9 +71,16 @@ public class SimpleProjectile : MonoBehaviour
         // Check if the projectile rigidbody is initialized. If not, return.
         if (rb == null) { return; }
 
+        // Play Sound
+        SoundManager.Instance.PlaySound(onHitSound);
+
+
         // Apply stats on target
         characterHit.Knockback(rb.velocity.normalized * _KnockbackFromWeapon * KnockbackMultiplier);
         characterHit.Hurt(_CreatedBy, _DamageFromWeapon * DamageMultiplier);
+
+        // If target was killed, return
+        if (hitObj == null) return;
 
         // Invoke items
         Character createdByCharacterScript = _CreatedBy.GetComponent<Character>();

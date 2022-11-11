@@ -7,16 +7,6 @@ public class Sword : Weapon
     // Public vars
     public GameObject archPrototype;
 
-    void Start()
-    {
-        base.Start();
-    }
-
-    void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
-
     public override void Attack(Vector3 aimPosition, string targetTag)
     {
         // If the weapon is on cooldown, do nothing
@@ -35,7 +25,7 @@ public class Sword : Weapon
         SimpleDamagefield script = newArch.GetComponent<SimpleDamagefield>();
         script._KnockbackDir        = dir;
         script._TargetTag           = targetTag;
-        script._CreatedBy           = _Player;
+        script._CreatedBy           = user;
         script._DamageFromWeapon    = AttackDamage;
         script._KnockbackFromWeapon = Knockback;
 

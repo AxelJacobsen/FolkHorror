@@ -139,7 +139,6 @@ MonoBehaviour:
   PickedUpByTag: Player
   MagnetRange: 10
   PickupRange: 3
-  _Player: {fileID: 0}
   AttackDamage: 25
   Knockback: 25
   AttackSpeed: 1
@@ -159,6 +158,7 @@ GameObject:
   - component: {fileID: 6733002034744747898}
   - component: {fileID: 6733002034744747899}
   - component: {fileID: 6733002034744747896}
+  - component: {fileID: 1766764322037760603}
   m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
@@ -284,3 +284,19 @@ MonoBehaviour:
   _CreatedBy: {fileID: 0}
   _DamageFromWeapon: 0
   _KnockbackFromWeapon: 0
+  onHitSound: {fileID: 8300000, guid: 85ac2945c78dba94ba3e0a82c430ab61, type: 3}
+--- !u!114 &1766764322037760603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6733002034744747903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff236750eabe5d478ebfb63442a2b46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_clips:
+  - {fileID: 8300000, guid: d67befa73243fb941adda2a159a42a49, type: 3}
+  - {fileID: 8300000, guid: a122c3eb2d99a104986947c28ddcc895, type: 3}

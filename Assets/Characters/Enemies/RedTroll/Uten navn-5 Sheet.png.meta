@@ -1,0 +1,1663 @@
+fileFormatVersion: 2
+guid: 7a7cbaca49df28f43acb0653d162474d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 0
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b58daf3b25864243a68bfeff62c6c03
+      internalID: -1510136053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 7192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 791685972a6b85c4c938a36340579cfc
+      internalID: 452507217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 7192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41feafd442cfaa147a3dd87fd7be4a21
+      internalID: 1074746790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 7192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb857990dfd307a4a8ae2682c9f10889
+      internalID: 855813968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 6400
+        y: 7192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9e27f3085dbd8247920efbc75838c1b
+      internalID: 1921594438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 8000
+        y: 7192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dad3ffda6551b9e47ab34d8815487c91
+      internalID: 659780213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 9600
+        y: 7192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7603a7e22a99e2e418711c7e9789994d
+      internalID: 412366861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 11200
+        y: 7192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6689c212e7486a64593f6e9ea7836cd2
+      internalID: 366683963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 12800
+        y: 7192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63630a994aef20f40afa68f5f017bee5
+      internalID: 1777465925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 14400
+        y: 7192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f61d9bf7a424bb44892a1ca6a5dd7b3
+      internalID: -791972309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7fb183f871740f41a69fe18831f90ca
+      internalID: 2052891385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 6192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecf663b82500b5149b6596c0dccd5e8f
+      internalID: -186074940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 6192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccf5ce18a93937742aebc25744c8edb8
+      internalID: 2124004344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_13
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 6192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 113b58cae471e6448bbb5c962578174a
+      internalID: -423217583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_14
+      rect:
+        serializedVersion: 2
+        x: 6400
+        y: 6192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a9fd922d7ca6ca49801cc93c5c32e90
+      internalID: 2024730810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 8000
+        y: 6192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 784f20909fedce74a8ba030ade421119
+      internalID: 234322205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 9600
+        y: 6192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35f85c798b52255469bb46a7df74e794
+      internalID: -181635156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 11200
+        y: 6192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73509252c76debb47a3e3a96dfc13737
+      internalID: 962328321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_18
+      rect:
+        serializedVersion: 2
+        x: 12800
+        y: 6192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 464a9e96435c3fb4e828803a6e665114
+      internalID: -703855952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_19
+      rect:
+        serializedVersion: 2
+        x: 14400
+        y: 6192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 136f232317f0a5e42871377c125f2ac8
+      internalID: 2083180583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f67336d29e1f784aa6d5b0b10a4f417
+      internalID: 627414472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 5192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cec26a10686bf954a8b38c7df758f174
+      internalID: -1260517081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_22
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 5192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2ee0bbf07d4a9141890c13352b7d0c3
+      internalID: -1418450938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_23
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 5192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84057672693a9dc46a86c56e2f39d5d8
+      internalID: -655308430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_24
+      rect:
+        serializedVersion: 2
+        x: 6400
+        y: 5192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a37a4f1bda5d8a47ad88f4404f9b3ad
+      internalID: -982460936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_25
+      rect:
+        serializedVersion: 2
+        x: 8000
+        y: 5192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a6a0c5c56396c14c95e1d07e45b0389
+      internalID: 559143026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_26
+      rect:
+        serializedVersion: 2
+        x: 9600
+        y: 5192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cff12eff5cdd104a88a6c6ac2a10991
+      internalID: -1108639539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_27
+      rect:
+        serializedVersion: 2
+        x: 11200
+        y: 5192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac20eefb59c1d0b4cb6e8a9979e098f3
+      internalID: -1660811780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_28
+      rect:
+        serializedVersion: 2
+        x: 12800
+        y: 5192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9104b4efec776174aabfe62bab30c038
+      internalID: -2098982053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_29
+      rect:
+        serializedVersion: 2
+        x: 14400
+        y: 5192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f902ab0b0d5bceb4b8faee552bdb6a63
+      internalID: -539719218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d829ae64724c9dd45967c307e90b816a
+      internalID: 295546457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_31
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 4192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80c202085544e8a4c967cd8812128216
+      internalID: -1790377248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_32
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 4192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f32b16c72e00d34b93885b9d002f4ba
+      internalID: -824172788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_33
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 4192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99db04fe7a384444faf983c8b09cc7ce
+      internalID: -1912437926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_34
+      rect:
+        serializedVersion: 2
+        x: 6400
+        y: 4192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c08d501d5757f6d458dceb532c4aa983
+      internalID: 539474770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_35
+      rect:
+        serializedVersion: 2
+        x: 8000
+        y: 4192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb4281f3bd94c94418de4af114dda300
+      internalID: -1770257264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_36
+      rect:
+        serializedVersion: 2
+        x: 9600
+        y: 4192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 522859f11b3cbd741b5b66cfc7303870
+      internalID: -573362863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_37
+      rect:
+        serializedVersion: 2
+        x: 11200
+        y: 4192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e552e516d9ab6340a51f64f66a2a580
+      internalID: -1277181600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_38
+      rect:
+        serializedVersion: 2
+        x: 12800
+        y: 4192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 477df5df8637f8f4687db3eac43c0f7b
+      internalID: -1531454306
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_39
+      rect:
+        serializedVersion: 2
+        x: 14400
+        y: 4192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c95b284b2d520c6489f06418476b8c5a
+      internalID: -1201210158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f64dc8d87ac475469e8ff20ad2642df
+      internalID: 212562909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_41
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 3192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdd5e69f692e5504ab8ec4bebe2f6625
+      internalID: 280881347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_42
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 3192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71372319cf3b2b248893ccbb2fc30776
+      internalID: -1756524683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_43
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 3192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43220272e788a904a8cccdde20e56f8e
+      internalID: 1543099834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_44
+      rect:
+        serializedVersion: 2
+        x: 6400
+        y: 3192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a489e014b7527d4b8207286d79036cc
+      internalID: -1349446161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_45
+      rect:
+        serializedVersion: 2
+        x: 8000
+        y: 3192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6c6139cf832535448cfbd0266713459
+      internalID: -1255585628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_46
+      rect:
+        serializedVersion: 2
+        x: 9600
+        y: 3192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3af5ab5ec26d2e42be66103f700f26b
+      internalID: -1899188102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_47
+      rect:
+        serializedVersion: 2
+        x: 11200
+        y: 3192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 490389b05ce782d47b5b45ebfd1a7765
+      internalID: 2114423533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_48
+      rect:
+        serializedVersion: 2
+        x: 12800
+        y: 3192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33f65dca8e3da284bac286e62a4ac6c9
+      internalID: -1413810598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_49
+      rect:
+        serializedVersion: 2
+        x: 14400
+        y: 3192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39e2a10030d2b5c40b8586d20c3cf9ad
+      internalID: 727905540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e105fad6c5242741994c7cfe3c23fae
+      internalID: 543068359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_51
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 2192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0185e7c48375fba4f90a45bba8a86442
+      internalID: -1844426143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_52
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 2192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29f99b8900d2a19408142fc3c367c069
+      internalID: -935403194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_53
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 2192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3247313b64b3b144c83e9785580cbb75
+      internalID: -235656696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_54
+      rect:
+        serializedVersion: 2
+        x: 6400
+        y: 2192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41d84baaf75ac8f41ba01acddfe04c53
+      internalID: 673443915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_55
+      rect:
+        serializedVersion: 2
+        x: 8000
+        y: 2192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03eb9c098a782d0448da58638c62386e
+      internalID: -1512013180
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_56
+      rect:
+        serializedVersion: 2
+        x: 9600
+        y: 2192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cbca31768dfa074092d8cee837536fc
+      internalID: -1342855561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_57
+      rect:
+        serializedVersion: 2
+        x: 11200
+        y: 2192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bde3d04923a73044aff43f132e455b9
+      internalID: -1281946311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_58
+      rect:
+        serializedVersion: 2
+        x: 12800
+        y: 2192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e836677c0324786478a28dad5f583f04
+      internalID: 1270949440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_59
+      rect:
+        serializedVersion: 2
+        x: 14400
+        y: 2192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdcfc7f6c136dcd4dab35e6e71b7275a
+      internalID: -980153663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b81fb231b751f3c4198afcc3c2fd6129
+      internalID: 588808669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_61
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 1192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af566082d2c72ef42928688bc64b8c6d
+      internalID: -493205023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_62
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 1192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25c51978aa8ba9148b3bd6106059aa1e
+      internalID: -1795974690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_63
+      rect:
+        serializedVersion: 2
+        x: 4800
+        y: 1192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62896f68f580a3e439945d974b24c207
+      internalID: -488744798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_64
+      rect:
+        serializedVersion: 2
+        x: 6400
+        y: 1192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ff9741e49f973245804dd3c8767531d
+      internalID: -1351784247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_65
+      rect:
+        serializedVersion: 2
+        x: 8000
+        y: 1192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f38603be5cdac284b905f627a831f1cb
+      internalID: 994975019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_66
+      rect:
+        serializedVersion: 2
+        x: 9600
+        y: 1192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd447d8a00fe4a346afaa6c33086bb3b
+      internalID: -463370446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_67
+      rect:
+        serializedVersion: 2
+        x: 11200
+        y: 1192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b39e8b0b05df42c44b6557907f13f2bb
+      internalID: 801173532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_68
+      rect:
+        serializedVersion: 2
+        x: 12800
+        y: 1192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b25b20a06369687478e9a2ff04f64c21
+      internalID: -649292902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Uten navn-5 Sheet_69
+      rect:
+        serializedVersion: 2
+        x: 14400
+        y: 1192
+        width: 1600
+        height: 1000
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3e62f0e0ab4afe439e38bf9a4ad0d36
+      internalID: -258411468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 27a90c4997ded9740a5558a7905f91b4
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Uten navn-5 Sheet_51: -1844426143
+      Uten navn-5 Sheet_6: 412366861
+      Uten navn-5 Sheet_37: -1277181600
+      Uten navn-5 Sheet_26: -1108639539
+      Uten navn-5 Sheet_10: 2052891385
+      Uten navn-5 Sheet_34: 539474770
+      Uten navn-5 Sheet_62: -1795974690
+      Uten navn-5 Sheet_63: -488744798
+      Uten navn-5 Sheet_47: 2114423533
+      Uten navn-5 Sheet_23: -655308430
+      Uten navn-5 Sheet_27: -1660811780
+      Uten navn-5 Sheet_21: -1260517081
+      Uten navn-5 Sheet_67: 801173532
+      Uten navn-5 Sheet_2: 1074746790
+      Uten navn-5 Sheet_44: -1349446161
+      Uten navn-5 Sheet_49: 727905540
+      Uten navn-5 Sheet_59: -980153663
+      Uten navn-5 Sheet_41: 280881347
+      Uten navn-5 Sheet_18: -703855952
+      Uten navn-5 Sheet_66: -463370446
+      Uten navn-5 Sheet_5: 659780213
+      Uten navn-5 Sheet_36: -573362863
+      Uten navn-5 Sheet_43: 1543099834
+      Uten navn-5 Sheet_0: -1510136053
+      Uten navn-5 Sheet_29: -539719218
+      Uten navn-5 Sheet_12: 2124004344
+      Uten navn-5 Sheet_57: -1281946311
+      Uten navn-5 Sheet_1: 452507217
+      Uten navn-5 Sheet_16: -181635156
+      Uten navn-5 Sheet_69: -258411468
+      Uten navn-5 Sheet_52: -935403194
+      Uten navn-5 Sheet_8: 1777465925
+      Uten navn-5 Sheet_28: -2098982053
+      Uten navn-5 Sheet_11: -186074940
+      Uten navn-5 Sheet_39: -1201210158
+      Uten navn-5 Sheet_13: -423217583
+      Uten navn-5 Sheet_48: -1413810598
+      Uten navn-5 Sheet_31: -1790377248
+      Uten navn-5 Sheet_24: -982460936
+      Uten navn-5 Sheet_7: 366683963
+      Uten navn-5 Sheet_32: -824172788
+      Uten navn-5 Sheet_50: 543068359
+      Uten navn-5 Sheet_42: -1756524683
+      Uten navn-5 Sheet_38: -1531454306
+      Uten navn-5 Sheet_56: -1342855561
+      Uten navn-5 Sheet_46: -1899188102
+      Uten navn-5 Sheet_58: 1270949440
+      Uten navn-5 Sheet_3: 855813968
+      Uten navn-5 Sheet_54: 673443915
+      Uten navn-5 Sheet_55: -1512013180
+      Uten navn-5 Sheet_61: -493205023
+      Uten navn-5 Sheet_30: 295546457
+      Uten navn-5 Sheet_20: 627414472
+      Uten navn-5 Sheet_45: -1255585628
+      Uten navn-5 Sheet_19: 2083180583
+      Uten navn-5 Sheet_22: -1418450938
+      Uten navn-5 Sheet_14: 2024730810
+      Uten navn-5 Sheet_65: 994975019
+      Uten navn-5 Sheet_15: 234322205
+      Uten navn-5 Sheet_9: -791972309
+      Uten navn-5 Sheet_40: 212562909
+      Uten navn-5 Sheet_64: -1351784247
+      Uten navn-5 Sheet_17: 962328321
+      Uten navn-5 Sheet_68: -649292902
+      Uten navn-5 Sheet_33: -1912437926
+      Uten navn-5 Sheet_53: -235656696
+      Uten navn-5 Sheet_60: 588808669
+      Uten navn-5 Sheet_35: -1770257264
+      Uten navn-5 Sheet_4: 1921594438
+      Uten navn-5 Sheet_25: 559143026
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
