@@ -147,6 +147,7 @@ MonoBehaviour:
   RollSpeed: 50
   RollAcceleration: 3
   DustEffectEmitter: {fileID: 11400000, guid: f8f2cf0d8206a15438a1ede9c2133bcb, type: 2}
+  onRollClip: {fileID: 8300000, guid: 0bddee2e251158e42af7a6a58b731c2b, type: 3}
   DropsOnDeath:
   - {fileID: 1435871890072793254, guid: 898160b2ac796bf4ca19a21cec683a24, type: 3}
   TargetObjectsWithTag: Player
