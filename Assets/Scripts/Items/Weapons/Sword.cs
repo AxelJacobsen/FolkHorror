@@ -7,16 +7,6 @@ public class Sword : Weapon
     // Public vars
     public GameObject archPrototype;
 
-    void Start()
-    {
-        base.Start();
-    }
-
-    void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
-
     public override void Attack(Vector3 aimPosition, string targetTag)
     {
         // If the weapon is on cooldown, do nothing

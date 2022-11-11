@@ -73,6 +73,9 @@ public class SimpleProjectile : MonoBehaviour
         characterHit.Knockback(rb.velocity.normalized * _KnockbackFromWeapon * KnockbackMultiplier);
         characterHit.Hurt(_CreatedBy, _DamageFromWeapon * DamageMultiplier);
 
+        // If target was killed, return
+        if (hitObj == null) return;
+
         // Invoke items
         Character createdByCharacterScript = _CreatedBy.GetComponent<Character>();
         foreach (Item item in createdByCharacterScript.Items) { item.OnPlayerHit(hitObj, _DamageFromWeapon * DamageMultiplier); }

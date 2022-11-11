@@ -7,9 +7,9 @@ using UnityEngine;
 /// </summary>
 public class Beer : Passiveitem
 {
-    void Start()
+    protected override void OnStart() 
     {
-        base.Start();
+        base.OnStart();
 
         alterStats = charstats =>
         {
@@ -17,11 +17,5 @@ public class Beer : Passiveitem
             charstats.MaxHealth *= 2f;
             return charstats;
         };
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        base.FixedUpdate();
     }
 }

@@ -10,14 +10,14 @@ public class Regen : Item
     [Header("Effect")]
     public EffectData RegenEffect;
 
-    void Start()
+    protected override void OnStart() 
     {
-        base.Start();
+
     }
 
-    void FixedUpdate() 
+    protected override void OnFixedUpdate() 
     {
-        base.FixedUpdate();
+        
     }
 
     /// <summary>

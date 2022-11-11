@@ -7,20 +7,14 @@ using UnityEngine;
 /// </summary>
 public class Oatmeal : Passiveitem
 {
-    void Start()
+    protected override void OnStart() 
     {
-        base.Start();
+        base.OnStart();
 
         alterStats = charstats =>
         {
             charstats.MaxHealth += 25f;
             return charstats;
         };
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        base.FixedUpdate();
     }
 }

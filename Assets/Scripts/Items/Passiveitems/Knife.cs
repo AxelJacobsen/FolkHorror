@@ -10,17 +10,11 @@ public class Knife : Passiveitem
     public EffectData BleedEffect;
     public EffectData myBleedEffect;
 
-    void Start()
+    protected override void OnStart() 
     {
-        base.Start();
+        base.OnStart();
 
         myBleedEffect = Instantiate(BleedEffect);
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        base.FixedUpdate();
     }
 
     /// <summary>
