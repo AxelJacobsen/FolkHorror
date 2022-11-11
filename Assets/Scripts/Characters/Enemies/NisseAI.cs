@@ -19,7 +19,7 @@ public class NisseAI : BaseEnemyAI
     private GameObject  runAndScreamTowards;
     private float       runTowardsDist = Mathf.Infinity,
                         screamingTimer = 0f;
-
+    [SerializeField] private AudioClip onScreamClip;
     protected override void OnStart()
     {
         base.OnStart();
@@ -72,6 +72,7 @@ public class NisseAI : BaseEnemyAI
                     continue;
                 }
 
+
                 // Alert them
                 objAIScript.StartInvestigating(enemyLastSeen);
             }
@@ -89,7 +90,7 @@ public class NisseAI : BaseEnemyAI
 
             Vector3 dir;
             // If there's no new allies to alert, run away from the enemy
-            if (runTowardsDist == Mathf.Infinity) { dir = transform.position - enemyLastSeen; dir.y = 0; }
+            if (runTowardsDist == Mathf.Infinity) { dir = transform.position - enemyLastSeen; dir.y = 0; StartCoroutine(SoundManager.Instance.InterruptAfter(.2f)); }
 
             // Otherwise, run towards allies to alert
             else { dir = runAndScreamTowards.transform.position - transform.position; dir.y = 0; }
@@ -105,7 +106,9 @@ public class NisseAI : BaseEnemyAI
             // Start screaming
             screamingTimer = StopScreamingAfterSeconds;
             runAndScreamTowards = null;
-            runTowardsDist = Mathf.Infinity;        
+            runTowardsDist = Mathf.Infinity;
+            // Play Sound
+            SoundManager.Instance.PlaySound(onScreamClip);
         }
     }
 
