@@ -7,9 +7,9 @@ using UnityEngine;
 /// </summary>
 public class Feather : Passiveitem
 {
-    void Start()
+    protected override void OnStart() 
     {
-        base.Start();
+        base.OnStart();
 
         alterStats = charstats =>
         {
@@ -17,11 +17,5 @@ public class Feather : Passiveitem
             charstats.MaxHealth /= 1.5f;
             return charstats;
         };
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        base.FixedUpdate();
     }
 }

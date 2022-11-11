@@ -148,6 +148,8 @@ MonoBehaviour:
   RollAcceleration: 0.7
   DustEffectEmitter: {fileID: 11400000, guid: f8f2cf0d8206a15438a1ede9c2133bcb, type: 2}
   onRollClip: {fileID: 8300000, guid: 6d936d60b9db75149af378b358a2202f, type: 3}
+  DropsOnDeath:
+  - {fileID: 1435871890072793254, guid: 898160b2ac796bf4ca19a21cec683a24, type: 3}
   TargetObjectsWithTag: Player
   VisionRange: 40
   behavior: 0

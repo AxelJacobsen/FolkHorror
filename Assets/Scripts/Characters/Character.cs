@@ -24,7 +24,11 @@ public abstract class Character : CharacterStats
     // Private vars
 
 
+
     protected CharacterStats	baseStats;
+
+    [Header("Drops")]
+    public GameObject[]         DropsOnDeath;
 	protected float				Health;
 	protected Rigidbody 		rb;
 	protected Animator 		    anim;
@@ -43,6 +47,8 @@ public abstract class Character : CharacterStats
 
     protected BoxCollider hitbox;
     protected EffectEmitter myDustEffectEmitter;
+
+    private bool dead = false;
 
     protected abstract void OnStart();
     void Start()
@@ -120,9 +126,16 @@ public abstract class Character : CharacterStats
     /// </summary>
 	void Die() 
 	{
-        sr.color = new Color(0,0,0,0);
-        this.enabled = false;
-	}
+        if (dead) return;
+        else dead = true;
+
+        foreach (GameObject obj in DropsOnDeath)
+        {
+            GameObject drop = Instantiate(obj, transform.position, Quaternion.identity);
+        }
+
+        Destroy(gameObject);
+    }
 
 	/// <summary>
     /// Hurts the character.

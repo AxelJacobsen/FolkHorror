@@ -10,17 +10,11 @@ public class Harp : Passiveitem
     public EffectData CharmEffect;
     public EffectData myCharmEffect;
 
-    void Start()
+    protected override void OnStart() 
     {
-        base.Start();
+        base.OnStart();
 
         myCharmEffect = Instantiate(CharmEffect);
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        base.FixedUpdate();
     }
 
     /// <summary>

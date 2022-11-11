@@ -16,15 +16,13 @@ public class Weapon : Item
     // Private vars
     protected float   AttackCooldown;
 
-    protected void Start()
+    protected override void OnStart()
     {
-        base.Start();
+        
     }
 
-    protected void FixedUpdate()
+    protected override void OnFixedUpdate()
     {
-        base.FixedUpdate();
-
         // Count down attack timer
         if (AttackCooldown > 0) AttackCooldown -= Time.deltaTime;
     }

@@ -38,7 +38,9 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
+
   m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -726,7 +728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb798fb98473e574fa7c795d228f4d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartSceneName: TutorialScene
+  StartSceneName: BaseScene
 --- !u!4 &1767235275
 Transform:
   m_ObjectHideFlags: 0
@@ -934,6 +936,7 @@ MonoBehaviour:
   RollSpeed: 50
   RollAcceleration: 3
   DustEffectEmitter: {fileID: 11400000, guid: f8f2cf0d8206a15438a1ede9c2133bcb, type: 2}
+  DropsOnDeath: []
   AimLayer:
     serializedVersion: 2
     m_Bits: 2147483647

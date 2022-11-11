@@ -6,16 +6,15 @@ public class Passiveitem : Item
 {
     // Public vars
     public AlterStats alterStats;
-    
-    void Start()
-    {
-        base.Start();
-	}
 
-    // Update is called once per frame
-    void FixedUpdate()
+    protected override void OnStart()
     {
-        base.FixedUpdate();
+
+    }
+
+    protected override void OnFixedUpdate()
+    {
+        
     }
 
     public override void OnPlayerAttack(Vector3 aimPosition, string targetTag){
