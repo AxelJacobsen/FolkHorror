@@ -141,6 +141,7 @@ MonoBehaviour:
   Weapon: {fileID: 0}
   Items: []
   WalkAcceleration: 10
+  walkSound: {fileID: 8300000, guid: 0c9056e0e221e6d409d72736f66d49f4, type: 3}
   RollDuration: 0.2
   RollCooldown: 1.5
   RollSpeed: 50

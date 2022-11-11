@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Reflection;
 
 public abstract class Character : CharacterStats
 {
@@ -9,22 +7,28 @@ public abstract class Character : CharacterStats
     [Header("Items")]
 	public Weapon				Weapon;
 	public List<Item>			Items;
-
-	[Header("Walking/jogging")]
+   
+    [Header("Walking/jogging")]
 	public float 				WalkAcceleration = 10f;
+    [SerializeField] protected AudioClip walkSound;
 
-	[Header("Rolling")]
+
+    [Header("Rolling")]
 	public float 				RollDuration = 0.2f;
 	public float				RollCooldown = 1.5f;
 	public float				RollSpeed 	 = 50f;
 	public float 				RollAcceleration = 3f;
 	public EffectEmitter		DustEffectEmitter;
+    [SerializeField] private AudioClip 
+                                onRollClip;
+    // Private vars
+
+
+
+    protected CharacterStats	baseStats;
 
     [Header("Drops")]
     public GameObject[]         DropsOnDeath;
-
-	// Private vars
-	protected CharacterStats	baseStats;
 	protected float				Health;
 	protected Rigidbody 		rb;
 	protected Animator 		    anim;
@@ -254,6 +258,7 @@ public abstract class Character : CharacterStats
 
 		// Otherwise, update movedir
         walkDir = velocity;
+
     }
 
 	/// <summary>
@@ -281,6 +286,9 @@ public abstract class Character : CharacterStats
 		if (rollTimer <= 0f && CanRoll()) {
 			rollTimer = RollDuration;
             rollDir = currentDirection;
+
+            SoundManager.Instance.PlaySound(onRollClip);
+
         }
 
 		// If we're not rolling, return false (not rolling)
@@ -329,6 +337,7 @@ public abstract class Character : CharacterStats
 		{
             rb.velocity += (walkDir * Speed - rb.velocity) * WalkAcceleration * Time.deltaTime;
             walkDir = Vector3.zero;
+   
         }
 
         // Flip sprite if we're changing direction

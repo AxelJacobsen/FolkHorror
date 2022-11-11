@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4268143481791810941}
   - component: {fileID: 4268143481791810940}
   - component: {fileID: 4268143481791810938}
+  - component: {fileID: 7532414318291886528}
   m_Layer: 0
   m_Name: BloodyArch
   m_TagString: Untagged
@@ -111,13 +112,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3f406b4d373f084bb047088d01d4864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 90
-  Knockback: 100
+  DamageMultiplier: 1
+  KnockbackMultiplier: 1
   Lifetime: 1
-  fades: 0
   _KnockbackDir: {x: 0, y: 0, z: 0}
   _TargetTag: 
   _CreatedBy: {fileID: 0}
+  _DamageFromWeapon: 0
+  _KnockbackFromWeapon: 0
+--- !u!114 &7532414318291886528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4268143481791810177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ff236750eabe5d478ebfb63442a2b46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_clips:
+  - {fileID: 8300000, guid: d67befa73243fb941adda2a159a42a49, type: 3}
+  - {fileID: 8300000, guid: aca6e2c5dfde7f24ab5fbd46016d0ca4, type: 3}
 --- !u!1 &4268143483448351366
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +274,7 @@ MonoBehaviour:
   PickedUpByTag: Player
   MagnetRange: 10
   PickupRange: 3
-  _Player: {fileID: 0}
   AttackDamage: 25
+  Knockback: 25
   AttackSpeed: 0.5
   archPrototype: {fileID: 4268143481791810177}

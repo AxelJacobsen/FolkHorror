@@ -11,7 +11,7 @@ public class RedTrollAI : BaseEnemyAI
     [Header("Red troll AI settings")]
     public float    StampedeWithinRange = 25f;
     public float    StampedeMaxDamage   = 30f;
-
+   
     protected override void OnStart()
     {
         base.OnStart();
@@ -50,6 +50,7 @@ public class RedTrollAI : BaseEnemyAI
                 float mult = Vector3.Dot(rb.velocity.normalized, directionToEnemy);
                 enemyCharacterScript.Hurt(gameObject, mult * StampedeMaxDamage);
             }
+
         }
 
         // If we're not rolling
