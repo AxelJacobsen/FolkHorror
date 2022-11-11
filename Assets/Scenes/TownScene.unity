@@ -225,7 +225,7 @@ MonoBehaviour:
   infoText: {fileID: 84635109}
   manager: {fileID: 704799785}
   onEnter: 0
-  filePath: Assets/Resources/Dialogue/npc2.xml
+  filePath: Dialogue/npc2
 --- !u!1 &84635107
 GameObject:
   m_ObjectHideFlags: 0
@@ -1207,7 +1207,7 @@ MonoBehaviour:
   infoText: {fileID: 84635109}
   manager: {fileID: 704799785}
   onEnter: 0
-  filePath: Assets/Resources/Dialogue/npc1.xml
+  filePath: Dialogue/npc1
 --- !u!1001 &1760606109
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -26,7 +26,7 @@ public class DialogueTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        manager.dialogue = DialogueReader.ReadXML<Dialogue>(filePath);
+        manager.dialogue = DialogueReader.LoadXML<Dialogue>(filePath);
 
         if (onEnter)
         {

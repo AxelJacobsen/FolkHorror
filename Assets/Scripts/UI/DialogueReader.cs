@@ -10,20 +10,23 @@ using UnityEngine;
 public class DialogueReader : MonoBehaviour
 {
     /// <summary>
-    /// Reads XML files into an object.
-    /// Code taken from: https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/serialization/how-to-read-object-data-from-an-xml-file
+    /// Load XML files into an object.
     /// </summary>
-    /// <typeparam name="T">Object the XML content is added to</typeparam>
-    /// <param name="path">Path of the XML file</param>
+    /// <param name="fileName">Name of the XML file</param>
     /// <returns>Object with values</returns>
-    public static T ReadXML<T>(string path)
+    public static T LoadXML<T>(string fileName)
     {
-        System.Xml.Serialization.XmlSerializer reader = 
-            new System.Xml.Serialization.XmlSerializer(typeof(T));
-        System.IO.StreamReader file = new System.IO.StreamReader(path);
-        T obj = (T)reader.Deserialize(file);
-        file.Close();
+        TextAsset textAsset = (TextAsset)Resources.Load(fileName);
+        XmlDocument doc = new XmlDocument();
+        doc.LoadXml(textAsset.text);
+        return DeserializeXmlDocument<T>(doc);
+    }
 
-        return obj;
+    public static T DeserializeXmlDocument<T>(XmlDocument doc)
+    {
+        XmlReader reader = new XmlNodeReader(doc);
+        var serializer = new XmlSerializer(typeof(T));
+        T result = (T)serializer.Deserialize(reader);
+        return result;
     }
 }
