@@ -55,13 +55,13 @@ public abstract class Character : CharacterStats
 	{
         // Fetch components
         rb = GetComponent<Rigidbody>();
-		if (rb == null) 	Debug.LogError("Character could not find its rigidbody!");
+		if (rb == null) 	Debug.LogError(gameObject.name + "(Character) could not find its rigidbody!");
 
 		anim = GetComponent<Animator>();
-		if (anim == null) 	Debug.LogError("Character could not find its animator!");
+		if (anim == null) 	Debug.LogError(gameObject.name + "(Character) could not find its animator!");
 
 		sr = GetComponentInChildren<SpriteRenderer>();
-		if (sr == null) 	Debug.LogError("Character could not find its sprite renderer!");
+		if (sr == null) 	Debug.LogError(gameObject.name + "(Character) could not find its sprite renderer!");
 
 		// Fetch hitbox and apply it to emitter
         foreach (Transform child in transform) {
@@ -73,7 +73,7 @@ public abstract class Character : CharacterStats
         }
 
         if (hitbox == null) hitbox = GetComponent<BoxCollider>();
-        if (hitbox == null) Debug.LogError("Character could not find its hitbox!");
+        if (hitbox == null) Debug.LogError(gameObject.name + "(Character) could not find its hitbox!");
 
         // Dynamically create a copy of the given scriptableObject (dustemitter) which belongs to ONLY US
         myDustEffectEmitter = Instantiate(DustEffectEmitter);

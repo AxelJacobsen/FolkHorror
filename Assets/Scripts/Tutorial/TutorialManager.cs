@@ -68,8 +68,13 @@ public class TutorialManager : MonoBehaviour
                         currentTask.isCompleted = true;
                     break;
                 case TaskType.enemy:
-                    enemy.GetComponent<Character>().Speed = 8f;
+                    if (enemy == null)
+                    {
+                        currentTask.isCompleted = true;
+                        break;
+                    }
 
+                    enemy.GetComponent<Character>().Speed = 8f;
                     if (!enemy.GetComponent<Character>().enabled)
                         currentTask.isCompleted = true;
                     break;
