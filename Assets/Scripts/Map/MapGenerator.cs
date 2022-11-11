@@ -40,7 +40,7 @@ public class MapGenerator : MonoBehaviour {
 	int[,] map;
 
 	void Start() {
-		//SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGenScene"));
+		SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGenScene"));
 		//New entrypoint for map generation, handles loading data from file
 		PreMapGen();
 	}
@@ -61,9 +61,10 @@ public class MapGenerator : MonoBehaviour {
 		} else { LoadMapSettings(); }
 		GenerateMap();
 	}
-	/*
-		Saves the current map settings to .txt file
-	 */
+	
+	/// <summary>
+    /// Stores current map settings to txt file with publicly set variable
+    /// </summary>
 	void SaveMapSettings() {
 		StringBuilder mapData = new StringBuilder();
 		mapData.Append(width + "\n" + height + "\n" + depth + "\n" + bushSize + "\n");
@@ -76,13 +77,17 @@ public class MapGenerator : MonoBehaviour {
 
 		System.IO.File.WriteAllText(string.Format("Assets/Resources/MapTemplates/{0}.txt", saveFileName), mapData.ToString());
 	}
-	/*
-		Loads settings from desired file
-	 */
+	
+	/// <summary>
+    /// Loads a map based on what template is currently wanted
+    /// </summary>
 	void LoadMapSettings() {
 		//Will grab current stage depth and mapType from player
 		string currentMap = "testForrest1";
 		var mapData = Resources.Load<TextAsset>(string.Format("MapTemplates/{0}", currentMap));
+
+		//If there isnt a template with the desired name, just use whatever is default atm
+		if (mapData == null) return;
 		string[] splitData = mapData.text.Split("\n");
 		int[] parsedData = new int[splitData.Length];
 		for (int i = 0; i < splitData.Length; i++) {
@@ -115,7 +120,6 @@ public class MapGenerator : MonoBehaviour {
     /// Handles all map generation
     /// </summary>
 	void GenerateMap() {
-		SceneManager.SetActiveScene(SceneManager.GetSceneByName("MapGenScene"));
 		if (loadSpecificMapFromFile) {
 			//Loads the map from file
 			LoadMapFromFile();
@@ -123,12 +127,11 @@ public class MapGenerator : MonoBehaviour {
 			//Original map initialized here
 			map = new int[width, height];
 			//Create initial noisemap (Big ol mess, unsusable)
-			RandomFillMap();
+			RandomFillMap();        
 		}
 		//Initialize secondary maps
 		int[,] borderedMap = new int[width + borderSize * 2, height + borderSize * 2];
 		int[,] invertedMap = new int[width + borderSize * 2, height + borderSize * 2];
-
 		//Groups the map using neighbour algorythm, (Usable almost immediately)
 		for (int i = 0; i < smoothing; i++) {
 			SmoothMap();
@@ -140,18 +143,12 @@ public class MapGenerator : MonoBehaviour {
 		//Add border on borderedMap and create inveted map
 		for (int x = 0; x < borderedMap.GetLength(0); x++) {
 			for (int y = 0; y < borderedMap.GetLength(1); y++) {
+				invertedMap[x, y] = 1;
 				if (x >= borderSize && x < width + borderSize && y >= borderSize && y < height + borderSize) {
 					borderedMap[x, y] = map[x - borderSize, y - borderSize];
-					if (borderedMap[x, y] != 0 && borderedMap[x, y] != 1) {
-						invertedMap[x, y] = 1;
-					}
-					else {
-						invertedMap[x, y] = 1 - borderedMap[x, y];
-					}
 				}
 				else {
 					borderedMap[x, y] = 20;
-					invertedMap[x, y] = 1;
 				}
 			}
 		}
@@ -169,9 +166,10 @@ public class MapGenerator : MonoBehaviour {
 		MeshGenerator genFloor = GetComponent<MeshGenerator>();
 		genFloor.GenerateMesh(invertedMap, 1, depth, 3);
 	}
-	/*
-		Process map marks trees bushes as well as defining rooms and ensuring they are connected 
-	 */
+
+	/// <summary>
+	/// Process map marks trees bushes as well as defining rooms and ensuring they are connected 
+	/// </summary>
 	void ProcessMap() {
 		List<List<Coord>> wallRegions = GetRegions(1);
 		bool first = true;
@@ -208,9 +206,12 @@ public class MapGenerator : MonoBehaviour {
 
 		ConnectClosestRooms(survivingRooms);
 	}
-	/*
-		Connects a room to its closest neighbour
-	 */
+
+	/// <summary>
+	/// Connects a room to its closest neighbour
+	/// </summary>
+	/// <param name="allRooms"></param>
+	/// <param name="forceAccessibilityFromMainRoom"></param>
 	void ConnectClosestRooms(List<Room> allRooms, bool forceAccessibilityFromMainRoom = false) {
 
 		List<Room> roomListA = new List<Room>();
@@ -282,10 +283,15 @@ public class MapGenerator : MonoBehaviour {
 			ConnectClosestRooms(allRooms, true);
 		}
 	}
-	/*
-		Creates a path from one room to another using a straight line and drawing circles along it
-	 
-	 */
+
+
+	/// <summary>
+	/// Creates a path from one room to another using a straight line and drawing circles along it
+	/// </summary>
+	/// <param name="roomA"></param>
+	/// <param name="roomB"></param>
+	/// <param name="tileA"></param>
+	/// <param name="tileB"></param>
 	void CreatePassage(Room roomA, Room roomB, Coord tileA, Coord tileB) {
 		Room.ConnectRooms(roomA, roomB);
 		//Debug.DrawLine (CoordToWorldPoint (tileA), CoordToWorldPoint (tileB), Color.green, 100);
@@ -295,9 +301,13 @@ public class MapGenerator : MonoBehaviour {
 			DrawCircle(c, 5);
 		}
 	}
-	/*
-		Draws circles along a line to create a path
-	 */
+
+
+	/// <summary>
+	/// Draws circles along a line to create a path
+	/// </summary>
+	/// <param name="c"></param>
+	/// <param name="r"></param>
 	void DrawCircle(Coord c, int r) {
 		for (int x = -r; x <= r; x++) {
 			for (int y = -r; y <= r; y++) {
@@ -311,10 +321,14 @@ public class MapGenerator : MonoBehaviour {
 			}
 		}
 	}
-	/*
-		 Creates a list of coordinates that draw a line from one point to another
-		 Used to connect rooms
-	 */
+
+	/// <summary>
+	/// Creates a list of coordinates that draw a line from one point to another
+	/// Used to connect rooms
+	/// </summary>
+	/// <param name="from"></param>
+	/// <param name="to"></param>
+	/// <returns></returns>
 	List<Coord> GetLine(Coord from, Coord to) {
 		List<Coord> line = new List<Coord>();
 
@@ -365,16 +379,22 @@ public class MapGenerator : MonoBehaviour {
 
 		return line;
 	}
-	/*
-	 Converts a Coord object to in game coordinate
-	 */
+
+	/// <summary>
+	/// Converts a Coord object to in game coordinate
+	/// </summary>
+	/// <param name="tile"></param>
+	/// <returns></returns>
 	Vector3 CoordToWorldPoint(Coord tile) {
 		return new Vector3(-width / 2 + .5f + tile.tileX, 2, -height / 2 + .5f + tile.tileY);
 	}
-	/*
-		Gets a list of all regions of a given type
-		@see	GetRegionTiles(int,int);
-	 */
+
+	/// <summary>
+	/// Gets a list of all regions of a given type
+	/// @see GetRegionTiles(int, int);
+	/// </summary>
+	/// <param name="tileType"></param>
+	/// <returns></returns>
 	List<List<Coord>> GetRegions(int tileType) {
 		List<List<Coord>> regions = new List<List<Coord>>();
 		int[,] mapFlags = new int[width, height];
@@ -394,10 +414,15 @@ public class MapGenerator : MonoBehaviour {
 
 		return regions;
 	}
-	/*
-		Gets all tiles within a "region" in a given type,
-		For example a section of connected wall
-	 */
+
+
+	/// <summary>
+	/// Gets all tiles within a "region" in a given type,
+	/// For example a section of connected wall
+	/// </summary>
+	/// <param name="startX"></param>
+	/// <param name="startY"></param>
+	/// <returns></returns>
 	List<Coord> GetRegionTiles(int startX, int startY) {
 		List<Coord> tiles = new List<Coord>();
 		int[,] mapFlags = new int[width, height];
@@ -424,16 +449,20 @@ public class MapGenerator : MonoBehaviour {
 		}
 		return tiles;
 	}
-	/*
-		Ensures a given coordinate is on the map
-	*/
+
+	/// <summary>
+	/// Ensures a given coordinate is on the map
+	/// </summary>
+	/// <param name="x"></param>
+	/// <param name="y"></param>
+	/// <returns></returns>
 	bool IsInMapRange(int x, int y) {
 		return x >= 0 && x < width && y >= 0 && y < height;
 	}
 
-	/*
-		Creates a random noisemap in the map variable
-	 */
+	/// <summary>
+	/// Creates a random noisemap in the map variable
+	/// </summary>
 	void RandomFillMap() {
 		//Uses current time as seed
 		if (useRandomSeed) {
@@ -454,9 +483,11 @@ public class MapGenerator : MonoBehaviour {
 			}
 		}
 	}
-	/*
-		SmoothMap groups walls depending on the ammount of neighbouring walls
-	 */
+
+
+	/// <summary>
+	/// SmoothMap groups walls depending on the ammount of neighbouring walls
+	/// </summary>
 	void SmoothMap() {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -469,10 +500,15 @@ public class MapGenerator : MonoBehaviour {
 			}
 		}
 	}
-	/*
-	 Checks how many walls are in a 3x3 grid around any given point,
-	 Map boundaries er automatically walls
-	 */
+
+
+	/// <summary>
+	/// Checks how many walls are in a 3x3 grid around any given point,
+	/// Map boundaries er automatically walls
+	/// </summary>
+	/// <param name="gridX"></param>
+	/// <param name="gridY"></param>
+	/// <returns></returns>
 	int GetSurroundingWallCount(int gridX, int gridY) {
 		int wallCount = 0;
 		for (int neighbourX = gridX - 1; neighbourX <= gridX + 1; neighbourX++) {
@@ -490,9 +526,9 @@ public class MapGenerator : MonoBehaviour {
 		return wallCount;
 	}
 
-	/*
-		Loads the map from a custom binary file, only used to create then export specific meshes
-	 */
+	/// <summary>
+	/// Loads the map from a custom binary file, only used to create then export specific meshes
+	/// </summary>
 	void LoadMapFromFile() {
 		var inMap = Resources.Load<TextAsset>("Text/roundRoomMap");
 		string[] processedMap = inMap.text.Split("\n");
@@ -510,9 +546,10 @@ public class MapGenerator : MonoBehaviour {
 		width = xCount;
 		height = yCount;
 	}
-	/*
-		Coord struct is effectively an int variation of a Vec2 
-	 */
+
+	/// <summary>
+	/// Coord struct is effectively an int variation of a Vec2 
+	/// </summary>
 	struct Coord {
 		public int tileX;
 		public int tileY;
@@ -523,10 +560,11 @@ public class MapGenerator : MonoBehaviour {
 		}
 	}
 
-	/*
-		The room class is used to store information about all rooms,
-		as well as comparing rooms using internal functions
-	 */
+	
+	/// <summary>
+    /// The room class is used to store information about all rooms,
+	///	as well as comparing rooms using internal functions
+	/// </summary>
 	class Room : IComparable<Room> {
 		public List<Coord> tiles;
 		public List<Coord> edgeTiles;
@@ -556,9 +594,10 @@ public class MapGenerator : MonoBehaviour {
 				}
 			}
 		}
-		/*
-			Iterates all connected rooms and sets that they are connected to the main room if they arent allready
-		 */
+
+		/// <summary>
+		/// Iterates all connected rooms and sets that they are connected to the main room if they arent allready
+		/// </summary>
 		public void SetAccessibleFromMainRoom() {
 			if (!isAccessibleFromMainRoom) {
 				isAccessibleFromMainRoom = true;
@@ -567,9 +606,12 @@ public class MapGenerator : MonoBehaviour {
 				}
 			}
 		}
-		/*
-			Sets both provided rooms as connected to eachother
-		 */
+
+		/// <summary>
+		/// Sets both provided rooms as connected to eachother
+		/// </summary>
+		/// <param name="roomA"></param>
+		/// <param name="roomB"></param>
 		public static void ConnectRooms(Room roomA, Room roomB) {
 			if (roomA.isAccessibleFromMainRoom) {
 				roomB.SetAccessibleFromMainRoom();
@@ -580,15 +622,21 @@ public class MapGenerator : MonoBehaviour {
 			roomA.connectedRooms.Add(roomB);
 			roomB.connectedRooms.Add(roomA);
 		}
-		/*
-			Checks if a room is connected to a given room
-		 */
+
+		/// <summary>
+		/// Checks if a room is connected to a given room
+		/// </summary>
+		/// <param name="otherRoom"></param>
+		/// <returns></returns>
 		public bool IsConnected(Room otherRoom) {
 			return connectedRooms.Contains(otherRoom);
 		}
-		/*
-			Compares the size of two rooms
-		 */
+
+		/// <summary>
+		/// Compares the size of two rooms
+		/// </summary>
+		/// <param name="otherRoom"></param>
+		/// <returns></returns>
 		public int CompareTo(Room otherRoom) {
 			return otherRoom.roomSize.CompareTo(roomSize);
 		}

@@ -45,6 +45,37 @@ public class Funcs : MonoBehaviour
     }
 
     /// <summary>
+    /// Checks if any given GameObjects are within a certain radius of a coordinate
+    /// </summary>
+    /// <param name="targets">List of targets, each having a rigidbody and Character component.</param>
+    /// <param name="center">The object to measure distance from.</param>
+    /// <param name="radius">distance required between center and nearest object.</param>
+    /// <returns>The closest valid target to the object.</returns>
+    static public (Vector2, bool) CheckForIntersect(GameObject[] targets, Vector3 center, int radius) {
+        Vector3 dir = new Vector3 (0,0,0 );
+        // Iterate them, finding the closest
+        float minDistSqr = Mathf.Infinity;
+        foreach (GameObject obj in targets) {
+            // Get the distance to that rigidbody, skip if it's greater or equal to the current min dist
+            Vector3 tDir = (obj.transform.position - center);
+            float distSqr = tDir.magnitude;
+            if (distSqr >= minDistSqr) continue;
+
+            // Set return obj and min dist to current
+            minDistSqr = distSqr;
+            dir = tDir;
+        }
+
+        // Return
+        if (minDistSqr < radius) {
+            //Returns a vector to move center away from nearest object
+            return (-dir, true);
+        }
+        return (new Vector2 (dir.x,dir.z), false);
+    }
+
+
+    /// <summary>
     /// Checks if a point is within a polygon.
     /// Taken from: https://stackoverflow.com/a/7123291
     /// Credit goes to https://stackoverflow.com/users/42845/keith.
@@ -93,10 +124,134 @@ public class Funcs : MonoBehaviour
         return inside;
     }
 
+
+    /// <summary>
+    /// Gets a random point in a given polygon
+    /// </summary>
+    /// <param name="poly">The polygon where the point is to be placed</param>
+    /// <returns>The point in the polygon as a Vector2</returns>
     public static Vector2 GetRandomPointInPolygon(Vector2[] poly) {
         // Get lower- and upper bound of polygon
         Vector2 lowerbounds = new Vector2(0,0),
                 upperbounds = new Vector2(0,0);
+        (lowerbounds, upperbounds) = GetPolyBounds(poly);
+
+        // Return if upper- and lower bounds are the same
+        if (lowerbounds == upperbounds) return new Vector2(0,0);
+        
+        // Generate a random point within the upper- and lower bound until it's within the polygon
+        Vector2 retp    = new Vector2(0, 0);
+        bool    retpSet = false;
+        int     timeOut = 200;
+        while (!retpSet) {
+            if (timeOut-- < 0) { break; }
+            retp.x = Random.Range(lowerbounds.x, upperbounds.x);
+            retp.y = Random.Range(lowerbounds.y, upperbounds.y);
+            if (IsInPolygon(poly, retp)) {
+                retpSet = true;
+            }
+        }
+        // Return
+        return retp;
+    }
+
+
+    /// <summary>
+    /// A function to force two things to spawn in the rooms far corners,
+    /// currently only used for portals
+    /// </summary>
+    /// <param name="poly"></param>
+    /// <returns>Returns coordinates for the two objects</returns>
+    public static (Vector2, Vector2) ForceFarSpawn(Vector2[] poly) {
+        //Fetch polygon bounds
+        Vector2 lowerbounds = new Vector2(0, 0),
+                upperbounds = new Vector2(0, 0);
+        (lowerbounds, upperbounds) = GetPolyBounds(poly);
+        //Bring in outer limit to reduce chance of hitting outerwall
+        lowerbounds -= lowerbounds / 10;
+        upperbounds -= upperbounds / 10;
+        int corner = Random.Range(0, 3);
+        Vector2 newLowBound, newUpBound;
+        Vector2[] triangPoly;
+        //Gets one of the cornerboxes based on what corner was picked
+        (newLowBound, newUpBound) = GetCornerBoxes(lowerbounds, upperbounds, corner);
+        Vector2 firstPoint = FindPointInCornerBox(newLowBound, newUpBound, poly);
+        //Changes to the corner opposite to the initial corner
+        switch (corner) {
+            case 0: corner = 2; break;
+            case 1: corner = 3; break;
+            case 2: corner = 0; break;
+            case 3: corner = 1; break;
+            default: break;
+        }
+        //Gets the second cornerbox
+        (newLowBound, newUpBound) = GetCornerBoxes(lowerbounds, upperbounds, corner);
+        Vector2 secondPoint = FindPointInCornerBox(newLowBound, newUpBound, poly);
+        //Return
+        return (firstPoint, secondPoint);
+    }
+
+
+    /// <summary>
+    /// Finds the coordinates of a box in the corners of the map based on the corner int given
+    /// </summary>
+    /// <param name="lowerbounds"></param>
+    /// <param name="upperbounds"></param>
+    /// <param name="corner"></param>
+    /// <returns>Returns upper and lowerbounds of a cornerbox</returns>
+    private static (Vector2, Vector2) GetCornerBoxes(Vector2 lowerbounds, Vector2 upperbounds, int corner) {
+        Vector2 outLowerBounds = lowerbounds,
+                outUpperBounds = upperbounds;
+        switch (corner) {
+            case 0:
+                outLowerBounds.y = outUpperBounds.y/2;
+                outUpperBounds.x = outLowerBounds.x/2;
+                break;
+
+            case 1:
+                outLowerBounds.x = outUpperBounds.x / 2;
+                outLowerBounds.y = outUpperBounds.y / 2;
+                break;
+            case 2:
+                outLowerBounds.x = outUpperBounds.x / 2;
+                outUpperBounds.y = outLowerBounds.y / 2;
+                break;
+
+            case 3:
+                outUpperBounds.x = outLowerBounds.x/2;
+                outUpperBounds.y = outLowerBounds.y/2;
+                break;
+            default: break;
+        }
+        return (outLowerBounds, outUpperBounds );
+    }
+
+    /// <summary>
+    /// Finds a coordinate thats within a given polygon and a box
+    /// </summary>
+    /// <param name="boxLowerBounds"></param>
+    /// <param name="boxUpperBounds"></param>
+    /// <param name="poly"></param>
+    /// <returns></returns>
+    private static Vector2 FindPointInCornerBox(Vector2 boxLowerBounds, Vector2 boxUpperBounds, Vector2[] poly) {
+        Vector2 outPoint = new Vector2(0, 0);
+        int timeOut = 20;
+        do {
+            outPoint.x = Random.Range(boxLowerBounds.x, boxUpperBounds.x);
+            outPoint.y = Random.Range(boxLowerBounds.y, boxUpperBounds.y);
+            timeOut--;
+        } while (!IsInPolygon(poly, outPoint) && 0<timeOut);
+        return outPoint;
+    }
+
+    /// <summary>
+    /// Gets the upper and lower limits of a given polygon
+    /// </summary>
+    /// <param name="poly"></param>
+    /// <returns>returns upper and lower coordinates of a given polygon</returns>
+    private static (Vector2, Vector2) GetPolyBounds(Vector2[] poly) {
+        Vector2 lowerbounds = new Vector2(0, 0),
+                upperbounds = new Vector2(0, 0);
         bool    lowerboundsSet = false,
                 upperboundsSet = false;
 
@@ -108,22 +263,6 @@ public class Funcs : MonoBehaviour
             if (!lowerboundsSet) lowerboundsSet = true;
             if (!upperboundsSet) upperboundsSet = true;
         }
-
-        // Return if upper- and lower bounds are the same
-        if (lowerbounds == upperbounds) return new Vector2(0,0);
-
-        // Generate a random point within the upper- and lower bound until it's within the polygon
-        Vector2 retp    = new Vector2(0, 0);
-        bool    retpSet = false;
-        int     timeOut = 100;
-        while (!retpSet) {
-            if (timeOut-- < 0) { break; }
-            retp.x = Random.Range(lowerbounds.x, upperbounds.x);
-            retp.y = Random.Range(lowerbounds.y, upperbounds.y);
-            if (IsInPolygon(poly, retp)) retpSet = true;
-        }
-
-        // Return
-        return retp;
+        return (lowerbounds, upperbounds);
     }
 }

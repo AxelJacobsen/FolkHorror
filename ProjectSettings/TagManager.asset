@@ -11,6 +11,7 @@ TagManager:
   - MapGen
   - EffectLoader
   - SceneLoader
+  - Solid Object
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ public class MeshGenerator : MonoBehaviour {
 
 	private ObjectSpawner objSpawner;
 
+	public int portalRadius = 2;
 	public bool generateObjects;
 	private int wallHeight;
 	List<Vector3> vertices;
@@ -23,7 +24,13 @@ public class MeshGenerator : MonoBehaviour {
 	List<List<int>> outlines = new List<List<int>>();
 	HashSet<int> checkedVertices = new HashSet<int>();
 
-	// meshType 0 = standard, 1 = bush, 2 = outerwall , 3 = floor
+	/// <summary>
+	/// Handles all mesh and object generation using lower functions
+	/// </summary>
+	/// <param name="map">Input map to create mesh of</param>
+	/// <param name="squareSize">size of a single square tile</param>
+	/// <param name="depth">Height of the tree or bush being generated</param>
+	/// <param name="meshType">meshType 0 = standard, 1 = bush, 2 = outerwall , 3 = floor</param>
 	public void GenerateMesh(int[,] map, float squareSize, int depth, int meshType) {
 		wallHeight = depth;
 		triangleDictionary.Clear();
@@ -81,6 +88,10 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+    /// Creates a wall
+    /// </summary>
+    /// <param name="meshType"></param>
 	void CreateWallMesh(int meshType) {
 		CalculateMeshOutlines();
 
@@ -88,7 +99,9 @@ public class MeshGenerator : MonoBehaviour {
 		List<int> wallTriangles = new List<int>();
 		Mesh wallMesh = new Mesh();
 		int treeChance = 0;
-		bool first = true;
+		bool first = false;
+		if (meshType == 2) { first = true; }
+
 		foreach (List<int> outline in outlines) {
 			if (generateObjects) {
 				treeChance = SpawnObjectHandler(outline, treeChance, meshType, first);
@@ -169,14 +182,41 @@ public class MeshGenerator : MonoBehaviour {
 		}
 
 		//Spawns entrance and exit
-		if (isFirst) { //JANKY JEG VET :^) SKAL FIKSE og legge til limiter på spawn location
-			Vector2 pos;
-			pos = Funcs.GetRandomPointInPolygon(poly);
-			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), 5);
-			pos = Funcs.GetRandomPointInPolygon(poly);
-			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), 6);
+		if (isFirst) {
+			Vector2 pos1 = new Vector2(0, 0),
+					pos2 = new Vector2(0, 0);
+			(pos1, pos2) = Funcs.ForceFarSpawn(poly);
+			GameObject[] trees = GameObject.FindGameObjectsWithTag("Solid Object");
+			objSpawner.SpawnObject(new Vector3(pos1.x, 0, pos1.y), 5);
+			//Moves a portal away if its stuck in trees
+			MovePortal(trees, "Exit");
+			
+			objSpawner.SpawnObject(new Vector3(pos2.x, 0, pos2.y), 6);
+			MovePortal(trees, "Entrance");
 		}
 		return treeChance;
+	}
+	/// <summary>
+    /// Checks for the nearest tree and moves the portal away if its too close
+    /// </summary>
+    /// <param name="trees">List of all trees</param>
+    /// <param name="newName">The portals new name</param>
+	private void MovePortal(GameObject[] trees, string newName) {
+		GameObject portal = GameObject.Find("Portal(Clone)");
+		portal.name = newName;
+		Vector2 moveAwayVec = new Vector2(0,0);
+		bool intersects = true;
+		int timeOut = 100;
+		do {
+			(moveAwayVec, intersects) = Funcs.CheckForIntersect(trees, portal.transform.position, portalRadius);
+			if (intersects) {
+				//Extend vector from nearest tree to be demanded radius
+				moveAwayVec = moveAwayVec.normalized * portalRadius;
+				//Apply the new vector to the portal excluding the Y axis
+				portal.transform.position = new Vector3(portal.transform.position.x + moveAwayVec.x, portal.transform.position.y, portal.transform.position.z + moveAwayVec.y);
+			}
+			timeOut--;
+		} while (intersects && 0<timeOut);
 	}
 
 	void TriangulateSquare(Square square) {
