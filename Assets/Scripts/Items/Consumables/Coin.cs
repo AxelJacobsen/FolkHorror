@@ -7,6 +7,10 @@ using UnityEngine;
 /// </summary>
 public class Coin : Item
 {
+    // Public vars
+    [Header("Sounds")]
+    [SerializeField] protected AudioClip CoinHitFloorSound;
+
     // Private vars
     private float   floorY = 0;
     private bool    floorYSet = false;
@@ -47,7 +51,16 @@ public class Coin : Item
     /// </summary>
     protected override void PickUp()
     {
+        OnPickup();
         Destroy(this.gameObject);
+    }
+
+    /// <summary>
+    /// What happens when the coin hits the floor.
+    /// </summary>
+    protected virtual void OnHitFloor()
+    {
+        SoundManager.Instance.PlaySound(CoinHitFloorSound);
     }
 
     /// <summary>
@@ -76,6 +89,7 @@ public class Coin : Item
                 transform.position = p;
 
                 floorYSet = false;
+                OnHitFloor();
             }
             // Add artificial gravity if we're falling
             else

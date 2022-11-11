@@ -141,13 +141,17 @@ MonoBehaviour:
   Weapon: {fileID: 0}
   Items: []
   WalkAcceleration: 1.4
-  walkSound: {fileID: 8300000, guid: 0c9056e0e221e6d409d72736f66d49f4, type: 3}
   RollDuration: 3
   RollCooldown: 6
   RollSpeed: 17
   RollAcceleration: 0.7
   DustEffectEmitter: {fileID: 11400000, guid: f8f2cf0d8206a15438a1ede9c2133bcb, type: 2}
-  onRollClip: {fileID: 8300000, guid: 6d936d60b9db75149af378b358a2202f, type: 3}
+  WalkSound: {fileID: 0}
+  RollSound: {fileID: 8300000, guid: 0bddee2e251158e42af7a6a58b731c2b, type: 3}
+  HurtSound: {fileID: 8300000, guid: 9b6b65324b866ce4fb9d6fa44d3a8d1c, type: 3}
+  StunSound: {fileID: 8300000, guid: 023ab59d457e85c4499d9932d968210d, type: 3}
+  DeathSound: {fileID: 0}
+  AttackSound: {fileID: 0}
   DropsOnDeath:
   - {fileID: 1435871890072793254, guid: 898160b2ac796bf4ca19a21cec683a24, type: 3}
   TargetObjectsWithTag: Player

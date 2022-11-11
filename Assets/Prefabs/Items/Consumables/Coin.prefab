@@ -138,3 +138,5 @@ MonoBehaviour:
   PickedUpByTag: Player
   MagnetRange: 7
   PickupRange: 3
+  PickupSound: {fileID: 8300000, guid: b763e6d216a68c94d96b7027e7f07e1d, type: 3}
+  CoinHitFloorSound: {fileID: 8300000, guid: cd9c554e8ae8a914390d6326e90853f6, type: 3}

@@ -101,8 +101,9 @@ MonoBehaviour:
   PickedUpByTag: Player
   MagnetRange: 10
   PickupRange: 3
-  _Player: {fileID: 0}
+  PickupSound: {fileID: 8300000, guid: 98ddc3f2890cbaa4f8133b4b306a9339, type: 3}
   BurnEffect: {fileID: 11400000, guid: 54189c211fe9424489fa7cc350b41ec5, type: 2}
+  myBurnEffect: {fileID: 0}
 --- !u!54 &-5945923345928787359
 Rigidbody:
   m_ObjectHideFlags: 0

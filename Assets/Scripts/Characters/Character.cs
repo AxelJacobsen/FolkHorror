@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A class for handling any type of <c>Character</c>.
+/// </summary>
 public abstract class Character : CharacterStats
 {
 	// Public vars
@@ -10,7 +13,6 @@ public abstract class Character : CharacterStats
    
     [Header("Walking/jogging")]
 	public float 				WalkAcceleration = 10f;
-    [SerializeField] protected AudioClip walkSound;
 
 
     [Header("Rolling")]
@@ -19,12 +21,16 @@ public abstract class Character : CharacterStats
 	public float				RollSpeed 	 = 50f;
 	public float 				RollAcceleration = 3f;
 	public EffectEmitter		DustEffectEmitter;
-    [SerializeField] private AudioClip 
-                                onRollClip;
+
+    [Header("Sounds")]
+    [SerializeField] protected AudioClip WalkSound;
+    [SerializeField] protected AudioClip RollSound;
+    [SerializeField] protected AudioClip HurtSound;
+    [SerializeField] protected AudioClip StunSound;
+    [SerializeField] protected AudioClip DeathSound;
+    [SerializeField] protected AudioClip AttackSound;
+
     // Private vars
-
-
-
     protected CharacterStats	baseStats;
 
     [Header("Drops")]
@@ -49,6 +55,11 @@ public abstract class Character : CharacterStats
     protected EffectEmitter myDustEffectEmitter;
 
     private bool dead = false;
+    private float   onRollTimer = 0f,
+                    onHurtTimer = 0f,
+                    onAttackTimer = 0f,
+                    onDieTimer = 0f,
+                    onStunTimer = 0f;
 
     protected abstract void OnStart();
     void Start()
@@ -134,6 +145,7 @@ public abstract class Character : CharacterStats
             GameObject drop = Instantiate(obj, transform.position, Quaternion.identity);
         }
 
+        OnDie();
         Destroy(gameObject);
     }
 
@@ -155,6 +167,8 @@ public abstract class Character : CharacterStats
 		if (Health <= 0) {
 			Die();
 		}
+
+        OnHurt();
         return Health;
         //flashing = 0.25f;
     }
@@ -189,6 +203,8 @@ public abstract class Character : CharacterStats
 	{
         stunDuration += duration;
 		rollTimer = 0f;
+
+        OnStun();
     }
 
 	/// <summary>
@@ -197,10 +213,10 @@ public abstract class Character : CharacterStats
     /// <param name="targets">An array containing all possible targets.</param>
     public void Attack(Vector3 aimPosition, string targetTag) 
 	{
-        anim.SetTrigger("Attack");
-
 		// If stunned, return
 		if (stunDuration > 0f) return;
+
+        anim.SetTrigger("Attack");
 
         // Invoke item triggers
         foreach (Item item in Items) { item.OnPlayerAttack(aimPosition, targetTag); }
@@ -213,6 +229,8 @@ public abstract class Character : CharacterStats
         } else {
 			// ...
 		}
+
+        OnAttack();
     }
 
 	/// <summary>
@@ -258,7 +276,6 @@ public abstract class Character : CharacterStats
 
 		// Otherwise, update movedir
         walkDir = velocity;
-
     }
 
 	/// <summary>
@@ -287,8 +304,7 @@ public abstract class Character : CharacterStats
 			rollTimer = RollDuration;
             rollDir = currentDirection;
 
-            SoundManager.Instance.PlaySound(onRollClip);
-
+            OnRoll();
         }
 
 		// If we're not rolling, return false (not rolling)
@@ -319,6 +335,13 @@ public abstract class Character : CharacterStats
         }
         if (rollTimerCD > 0f) rollTimerCD -= Time.deltaTime;
 
+        // Other timers
+        onRollTimer     -= Time.deltaTime;
+        onHurtTimer     -= Time.deltaTime;
+        onAttackTimer   -= Time.deltaTime;
+        onDieTimer      -= Time.deltaTime;
+        onStunTimer     -= Time.deltaTime;
+
 		// Movement - stunned
 		if (stunnedThisUpdate) 
 		{
@@ -337,7 +360,6 @@ public abstract class Character : CharacterStats
 		{
             rb.velocity += (walkDir * Speed - rb.velocity) * WalkAcceleration * Time.deltaTime;
             walkDir = Vector3.zero;
-   
         }
 
         // Flip sprite if we're changing direction
@@ -400,4 +422,11 @@ public abstract class Character : CharacterStats
 	public virtual void OnPlayerAttack(Vector3 aimPosition, string targetTag){}
     public virtual void OnPlayerHit(GameObject target){}
     public virtual void OnPlayerGetHit(GameObject hitBy, int amount){}
+
+    // Sound triggers
+    protected virtual void OnRoll()  { if (onRollTimer <= 0f)   { SoundManager.Instance.PlaySound(RollSound); onRollTimer = 1f; } }
+    protected virtual void OnHurt()  { if (onHurtTimer <= 0f)   { SoundManager.Instance.PlaySound(HurtSound); onHurtTimer = 1f; }}
+    protected virtual void OnAttack(){ if (onAttackTimer <= 0f) { SoundManager.Instance.PlaySound(AttackSound); onAttackTimer = 1f; }}
+    protected virtual void OnDie()   { if (onDieTimer <= 0f)    { SoundManager.Instance.PlaySound(DeathSound); onDieTimer = 1f; }}
+    protected virtual void OnStun()  { if (onStunTimer <= 0f)   { SoundManager.Instance.PlaySound(StunSound); onStunTimer = 1f; }}
 }

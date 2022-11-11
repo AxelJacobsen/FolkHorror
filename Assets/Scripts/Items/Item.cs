@@ -8,11 +8,13 @@ using UnityEngine;
 public abstract class Item : MonoBehaviour
 {
     // Public vars
-    [Header("Vars")]
+    [Header("Settings")]
     public string       PickedUpByTag;
     public float        MagnetRange = 10f,
                         PickupRange = 3f;
 
+    [Header("Sounds")]
+    [SerializeField] protected AudioClip PickupSound;
     
     // Private vars
     protected GameObject     user;
@@ -138,6 +140,8 @@ public abstract class Item : MonoBehaviour
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.Euler(Vector3.zero);
         transform.localScale    = Vector3.one;
+
+        OnPickup();
     }
 
     /// <summary>
@@ -163,4 +167,5 @@ public abstract class Item : MonoBehaviour
     public virtual void OnPlayerAttack(Vector3 aimPosition, string targetTag){}
     public virtual void OnPlayerHit(GameObject target, float amount){}
     public virtual void OnPlayerGetHit(GameObject hitBy, float amount){}
+    public virtual void OnPickup(){SoundManager.Instance.PlaySound(PickupSound);}
 }
