@@ -6,9 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/NeverUnload.unity
+    guid: 39827bbd53be39444ab800febdb08e58
+  - enabled: 1
     path: Assets/Scenes/TutorialScene.unity
     guid: e3ced7c9c42f2f444b2b66e727c528a7
   - enabled: 1
     path: Assets/Scenes/TownScene.unity
     guid: ddacb2521d42b424d966627d3b6a03a0
+  - enabled: 1
+    path: Assets/Scenes/MapGenScene.unity
+    guid: 8c2b14a7bf2bee64b9048b765f20713c
+  - enabled: 1
+    path: Assets/Scenes/RoundRoomScene.unity
+    guid: 1ca979de9212c99448140d1f5a08d62a
+  - enabled: 1
+    path: Assets/Scenes/ForrestBossArena.unity
+    guid: 80c5559f445407d4b83b7178d3a3095b
+  - enabled: 0
+    path: Assets/Scenes/BaseScene.unity
+    guid: 2260a02442a28154da3948b7b0069aac
   m_configObjects: {}

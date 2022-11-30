@@ -17,6 +17,7 @@ public class ObjectSpawner : MonoBehaviour
     public GameObject Rocks;    //4
     public GameObject Exit;     //5
     public GameObject Entrance; //6
+    public GameObject Item; //7
 
     /// <summary>
     /// Spawns the prototype at a given position.
@@ -24,7 +25,7 @@ public class ObjectSpawner : MonoBehaviour
     /// <param name="position">The given position.</param>
     public void SpawnObject(Vector3 position, int renderIndex) {
         if (renderIndex == -1) { return; }
-        List<GameObject> renderList = new List<GameObject>() { Tree, Bush, Chest, Grass, Rocks, Exit, Entrance };
+        List<GameObject> renderList = new List<GameObject>() { Tree, Bush, Chest, Grass, Rocks, Exit, Entrance, Item};
         GameObject renderObject = renderList[renderIndex];
         SpriteRenderer sprite = renderObject.GetComponent<SpriteRenderer>();
         position.y += ((sprite.bounds.size.y) / 2 )* Mathf.Sin(45)*(0.83f);

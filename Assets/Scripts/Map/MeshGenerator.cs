@@ -75,8 +75,8 @@ public class MeshGenerator : MonoBehaviour {
 
 		switch (meshType) {
 			case 2: 
-				{ 
-					outerRoof.mesh = mesh; CreateWallMesh(meshType); 
+				{
+					outerRoof.mesh = mesh; CreateWallMesh(map, squareSize, meshType); 
 				} break;
 			case 3: 
 				{
@@ -84,7 +84,7 @@ public class MeshGenerator : MonoBehaviour {
 					MeshCollider floorCollider = floor.gameObject.GetComponent<MeshCollider>();
 					floorCollider.sharedMesh = mesh;
 				} break;
-			default: CreateWallMesh(meshType); break;
+			default: CreateWallMesh(map, squareSize, meshType); break;
 		}
 	}
 
@@ -92,7 +92,7 @@ public class MeshGenerator : MonoBehaviour {
     /// Creates a wall
     /// </summary>
     /// <param name="meshType"></param>
-	void CreateWallMesh(int meshType) {
+	void CreateWallMesh(int[,] map, float squareSize, int meshType) {
 		CalculateMeshOutlines();
 
 		List<Vector3> wallVertices = new List<Vector3>();
@@ -125,8 +125,36 @@ public class MeshGenerator : MonoBehaviour {
 		}
 		wallMesh.vertices = wallVertices.ToArray();
 		wallMesh.triangles = wallTriangles.ToArray();
+		wallMesh.RecalculateNormals();
+		int tileAmount = wallHeight / 10;
+		/*
+		Vector2[] uvs = new Vector2[wallVertices.Count];
+		for (int i = 0; i < wallVertices.Count; i++) {
+
+			// Get current primitive and its corners
+			int curPrimitive = i / 4;
+			Vector3[] corners = new Vector3[4];
+			for (int j=0; j<4; j++) {
+				corners[j] = wallVertices[curPrimitive + j];
+            }
+
+			float	localX = Vector3.Dot(wallVertices[i] - corners[0], (corners[1] - corners[0]).normalized),
+					localY = Vector3.Dot(wallVertices[i] - corners[0], (corners[2] - corners[0]).normalized);
+
+			// Calculate which plane we're on
+			//Vector3 primitiveNormal = Vector3.Cross(corners[1] - corners[0], corners[2] - corners[0]).normalized;
+
+			// Get relative bounds
 
 
+			float percentX = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize, map.GetLength(0) / 2 * squareSize, wallVertices[i].x * squareSize);
+			float percentY = Mathf.InverseLerp(-map.GetLength(1) / 2 * squareSize, map.GetLength(1) / 2 * squareSize, wallVertices[i].y * squareSize);
+			//uvs[i] = new Vector2(percentX, percentY);
+			uvs[i] = new Vector2(localX, localY);
+			wallMesh.uv = uvs;
+		}
+		wallMesh.uv = uvs;
+		*/
 		switch (meshType) {
 			case 0: {	//treewalls
 						treeWall.mesh = wallMesh;
@@ -184,8 +212,10 @@ public class MeshGenerator : MonoBehaviour {
 		//Spawns entrance and exit
 		if (isFirst) {
 			Vector2 pos1 = new Vector2(0, 0),
-					pos2 = new Vector2(0, 0);
-			(pos1, pos2) = Funcs.ForceFarSpawn(poly);
+					pos2 = new Vector2(0, 0),
+					pLowBound = new Vector2(0, 0),
+					pUpBound = new Vector2(0, 0);
+			(pos1, pos2, pLowBound, pUpBound) = Funcs.ForceFarSpawn(poly);
 			GameObject[] trees = GameObject.FindGameObjectsWithTag("Solid Object");
 			objSpawner.SpawnObject(new Vector3(pos1.x, 0, pos1.y), 5);
 			//Moves a portal away if its stuck in trees
@@ -193,6 +223,15 @@ public class MeshGenerator : MonoBehaviour {
 			
 			objSpawner.SpawnObject(new Vector3(pos2.x, 0, pos2.y), 6);
 			MovePortal(trees, "Entrance");
+
+			//Default to center to avoid dumb issues
+			Vector2 eSpawnPoint = new Vector2(0, 0);
+			for (int e = 0; e < 10; e++) {
+				eSpawnPoint = Funcs.FindPointOutsidePlayerSpawn(pLowBound, pUpBound, poly);
+				int enemyType = Random.Range(2, 4);
+				objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), enemyType);
+				objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), 7);
+			}
 		}
 		return treeChance;
 	}

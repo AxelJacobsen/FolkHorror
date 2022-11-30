@@ -726,7 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb798fb98473e574fa7c795d228f4d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartSceneName: MapGenScene
+  StartSceneName: TutorialScene
 --- !u!4 &1767235275
 Transform:
   m_ObjectHideFlags: 0
@@ -929,15 +929,19 @@ MonoBehaviour:
   Weapon: {fileID: 0}
   Items: []
   WalkAcceleration: 6
+  walkSound: {fileID: 0}
   RollDuration: 0.2
   RollCooldown: 1.5
   RollSpeed: 50
   RollAcceleration: 3
   DustEffectEmitter: {fileID: 11400000, guid: f8f2cf0d8206a15438a1ede9c2133bcb, type: 2}
+  onRollClip: {fileID: 0}
   DropsOnDeath: []
   AimLayer:
     serializedVersion: 2
     m_Bits: 2147483647
+  currentStage: 0
+  currentBiome: 
 --- !u!1 &2060306343
 GameObject:
   m_ObjectHideFlags: 0

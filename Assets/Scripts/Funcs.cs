@@ -162,7 +162,7 @@ public class Funcs : MonoBehaviour
     /// </summary>
     /// <param name="poly"></param>
     /// <returns>Returns coordinates for the two objects</returns>
-    public static (Vector2, Vector2) ForceFarSpawn(Vector2[] poly) {
+    public static (Vector2, Vector2, Vector2, Vector2) ForceFarSpawn(Vector2[] poly) {
         //Fetch polygon bounds
         Vector2 lowerbounds = new Vector2(0, 0),
                 upperbounds = new Vector2(0, 0);
@@ -172,7 +172,6 @@ public class Funcs : MonoBehaviour
         upperbounds -= upperbounds / 10;
         int corner = Random.Range(0, 3);
         Vector2 newLowBound, newUpBound;
-        Vector2[] triangPoly;
         //Gets one of the cornerboxes based on what corner was picked
         (newLowBound, newUpBound) = GetCornerBoxes(lowerbounds, upperbounds, corner);
         Vector2 firstPoint = FindPointInCornerBox(newLowBound, newUpBound, poly);
@@ -188,7 +187,7 @@ public class Funcs : MonoBehaviour
         (newLowBound, newUpBound) = GetCornerBoxes(lowerbounds, upperbounds, corner);
         Vector2 secondPoint = FindPointInCornerBox(newLowBound, newUpBound, poly);
         //Return
-        return (firstPoint, secondPoint);
+        return (firstPoint, secondPoint, newLowBound, newUpBound);
     }
 
 
@@ -241,6 +240,25 @@ public class Funcs : MonoBehaviour
             outPoint.y = Random.Range(boxLowerBounds.y, boxUpperBounds.y);
             timeOut--;
         } while (!IsInPolygon(poly, outPoint) && 0<timeOut);
+        return outPoint;
+    }
+
+    public static Vector2 FindPointOutsidePlayerSpawn(Vector2 boxLowerBounds, Vector2 boxUpperBounds, Vector2[] poly) {
+        Vector2 outPoint = new Vector2(0, 0);
+        //Fetch polygon bounds
+        Vector2 lowerbounds = new Vector2(0, 0),
+                upperbounds = new Vector2(0, 0);
+        (lowerbounds, upperbounds) = GetPolyBounds(poly);
+        int timeOut = 20;
+        do {
+            outPoint.x = Random.Range(lowerbounds.x, upperbounds.x);
+            outPoint.y = Random.Range(lowerbounds.y, upperbounds.y);
+            timeOut--;
+            if ((boxLowerBounds.x < outPoint.x && outPoint.x < boxUpperBounds.x) &&
+                (boxLowerBounds.y < outPoint.y && outPoint.y < boxUpperBounds.y)) {
+                continue;
+            }
+        } while (!IsInPolygon(poly, outPoint) && 0 < timeOut);
         return outPoint;
     }
 

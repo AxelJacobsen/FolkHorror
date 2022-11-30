@@ -23,6 +23,7 @@ public class MapGenerator : MonoBehaviour {
 	public int borderSize = 2;
 	public int roomSizeThreshold = 100;
 	public int wallSizeThreshold = 50;
+	public int bossLevel = 10;
 
 	[Header("Load specific binary map")]
 	public bool loadSpecificMapFromFile = false;
@@ -32,6 +33,7 @@ public class MapGenerator : MonoBehaviour {
 
 	[Header("Map settings file")]
 	public string saveFileName;
+	public string binaryMapFileName;
 
 	[Header("Map density")]
 	[Range(0, 100)]
@@ -82,8 +84,20 @@ public class MapGenerator : MonoBehaviour {
     /// Loads a map based on what template is currently wanted
     /// </summary>
 	void LoadMapSettings() {
-		//Will grab current stage depth and mapType from player
-		string currentMap = "testForrest1";
+		//Grabs current stage depth and mapType from player
+		GameObject player = GameObject.FindGameObjectWithTag("Player");
+		PlayerController playerData = player.GetComponent<PlayerController>();
+		int curStage = playerData.currentStage;
+		string curBiome = playerData.currentBiome;
+		string currentMap = curBiome + curStage;
+		if (curStage == bossLevel){
+			//Swap to boss scene
+			binaryMapFileName = curBiome + "BossArena";
+			GameObject sceneLoaderObject = GameObject.FindGameObjectWithTag("SceneLoader");
+			SceneLoader sceneLoader = sceneLoaderObject.GetComponent<SceneLoader>();
+			sceneLoader.ChangeScene(binaryMapFileName);
+			return;
+		}
 		var mapData = Resources.Load<TextAsset>(string.Format("MapTemplates/{0}", currentMap));
 
 		//If there isnt a template with the desired name, just use whatever is default atm
@@ -94,7 +108,6 @@ public class MapGenerator : MonoBehaviour {
 			if (splitData[i] != "") {
 				parsedData[i] = Int32.Parse(splitData[i]);
 			} else { parsedData[i] = 0; }
-			
 		}
 		//Sets all data after reading it
 		int cur = 0;
@@ -140,11 +153,11 @@ public class MapGenerator : MonoBehaviour {
 		//Performs more advanced grouping and item generation
 		ProcessMap();
 
-		//Add border on borderedMap and create inveted map
+		//Add border on borderedMap and create invreted map
 		for (int x = 0; x < borderedMap.GetLength(0); x++) {
 			for (int y = 0; y < borderedMap.GetLength(1); y++) {
 				invertedMap[x, y] = 1;
-				if (x >= borderSize && x < width + borderSize && y >= borderSize && y < height + borderSize) {
+				if (x >= borderSize && x < width && y >= borderSize && y < height) {
 					borderedMap[x, y] = map[x - borderSize, y - borderSize];
 				}
 				else {
@@ -186,7 +199,7 @@ public class MapGenerator : MonoBehaviour {
 				}
 			}
 		}
-
+		if (loadSpecificMapFromFile) return;
 		List<List<Coord>> roomRegions = GetRegions(0);
 		List<Room> survivingRooms = new List<Room>();
 
@@ -530,21 +543,22 @@ public class MapGenerator : MonoBehaviour {
 	/// Loads the map from a custom binary file, only used to create then export specific meshes
 	/// </summary>
 	void LoadMapFromFile() {
-		var inMap = Resources.Load<TextAsset>("Text/roundRoomMap");
+		var inMap = Resources.Load<TextAsset>("Text/"+binaryMapFileName);
+		if (inMap == null) return;
 		string[] processedMap = inMap.text.Split("\n");
 		int yCount = 0;
 		int xCount = 0;
 		map = new int[processedMap[0].Length, processedMap.Length];
-		foreach (string yCoord in processedMap) {
+		for (int y = 0; y < processedMap.Length; y++) {
 			xCount = 0;
-			foreach (char binaryMapData in yCoord) {
+			foreach (var binaryMapData in processedMap[y]) {
 				map[xCount, yCount] = Mathf.RoundToInt((float)Char.GetNumericValue(binaryMapData));
 				xCount++;
 			}
 			yCount++;
 		}
-		width = xCount;
-		height = yCount;
+		width = processedMap[0].Length;
+		height = processedMap.Length;
 	}
 
 	/// <summary>
