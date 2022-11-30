@@ -139,6 +139,7 @@ MonoBehaviour:
   PickedUpByTag: Player
   MagnetRange: 10
   PickupRange: 3
+  PickupSound: {fileID: 0}
   AttackDamage: 25
   Knockback: 25
   AttackSpeed: 1
@@ -299,4 +300,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_clips:
   - {fileID: 8300000, guid: d67befa73243fb941adda2a159a42a49, type: 3}
-  - {fileID: 8300000, guid: a122c3eb2d99a104986947c28ddcc895, type: 3}

@@ -33,6 +33,7 @@ public class Weapon : Item
     /// <returns>True if the weapon can be equipped right now.</returns>
     protected override bool CanBePickedUp()
     {
+        if (user == null) return false;
         return user.GetComponent<Character>().Weapon == null && base.CanBePickedUp();
     }
 

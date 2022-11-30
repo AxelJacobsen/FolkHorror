@@ -1,7 +1,7 @@
 <dialogue>
     <name>Combat</name>
     <sentences>
-        <value>Use left click to attack with the sword</value>
+        <value>Use left click to attack with the bow</value>
         <value>Kill the enemy to continue</value>
     </sentences>
 </dialogue>

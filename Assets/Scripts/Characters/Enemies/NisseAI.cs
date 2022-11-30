@@ -108,7 +108,8 @@ public class NisseAI : BaseEnemyAI
             runAndScreamTowards = null;
             runTowardsDist = Mathf.Infinity;
             // Play Sound
-            SoundManager.Instance.PlaySound(onScreamClip);
+            AudioSource sound = SoundManager.Instance.PlaySound(onScreamClip);
+            sound.volume = 0.1f;
         }
     }
 

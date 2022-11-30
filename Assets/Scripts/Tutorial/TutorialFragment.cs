@@ -22,7 +22,7 @@ public class TutorialFragment
     public TutorialFragment(TaskType taskType, string fileName)
     {
         this.taskType = taskType;
-        dialogue = DialogueReader.ReadXML<Dialogue>(fileName);
+        dialogue = DialogueReader.LoadXML<Dialogue>(fileName);
         isCompleted = false;
         isStarted = false;
     }

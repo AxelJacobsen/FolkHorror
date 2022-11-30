@@ -133,8 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_clips:
-  - {fileID: 8300000, guid: d67befa73243fb941adda2a159a42a49, type: 3}
-  - {fileID: 8300000, guid: aca6e2c5dfde7f24ab5fbd46016d0ca4, type: 3}
+  - {fileID: 8300000, guid: d3da974e1125baa46ac9ed5e298f635e, type: 3}
 --- !u!1 &4268143483448351366
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,6 +273,7 @@ MonoBehaviour:
   PickedUpByTag: Player
   MagnetRange: 10
   PickupRange: 3
+  PickupSound: {fileID: 0}
   AttackDamage: 25
   Knockback: 25
   AttackSpeed: 0.5

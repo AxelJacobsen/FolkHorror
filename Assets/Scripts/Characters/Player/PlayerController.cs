@@ -40,7 +40,7 @@ public class PlayerController : Character
 		// Toggle spacebar
 		if ( playerControls.General.Attack.ReadValue<float>() == 1f ) {
 			attackHeld++;
-		} else {
+        } else {
 			attackHeld = 0;
 		}
 

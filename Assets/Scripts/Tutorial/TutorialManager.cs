@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -16,33 +14,38 @@ public class TutorialManager : MonoBehaviour
     public GameObject textBox;
 
     private TutorialFragment currentTask;
-    private readonly Queue<TutorialFragment> tasks = new();
+    private Queue<TutorialFragment> tasks = new();
     private GameObject player;
     
     // Start is called before the first frame update
     void Start()
     {
+        portal.SetActive(false);
         // Set the player's speed to zero
-        player = GameObject.FindGameObjectWithTag(playerTag);
-        if (player == null) Debug.Log("Tutorialmanager could not find the player!");
-        player.GetComponent<Character>().Speed = 0f;
 
         // create tasks for the player to complete
-        tasks.Enqueue(new TutorialFragment(TaskType.sword, filePath + "/tutorial-movement.xml"));
-        tasks.Enqueue(new TutorialFragment(TaskType.enemy, filePath + "/tutorial-combat.xml"));
-        tasks.Enqueue(new TutorialFragment(TaskType.portal, filePath + "/tutorial-portal.xml"));
-        currentTask = tasks.Dequeue();
+        tasks.Enqueue(new TutorialFragment(TaskType.sword, "Dialogue/tutorial-movement"));
+        tasks.Enqueue(new TutorialFragment(TaskType.enemy, "Dialogue/tutorial-combat"));
+        tasks.Enqueue(new TutorialFragment(TaskType.portal, "Dialogue/tutorial-portal"));
+        currentTask = tasks.Dequeue(); 
 
         // first part of the dialogue
+        dialogueManager.dialogue = currentTask.dialogue;
         dialogueManager.onEnter = true;
         dialogueManager.gameObject.SetActive(true);
 
-        portal.SetActive(false);
+        player = GameObject.FindGameObjectWithTag(playerTag);
+        if (player == null) Debug.Log("Tutorialmanager could not find the player!");
+        //player.GetComponent<Character>().Speed = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (tasks == null) return;
+        if (dialogueManager == null) return;
+        if (currentTask == null) return;
+
         // start new task if the current one is completed
         if (currentTask.isCompleted == true)
         {
@@ -68,8 +71,13 @@ public class TutorialManager : MonoBehaviour
                         currentTask.isCompleted = true;
                     break;
                 case TaskType.enemy:
-                    enemy.GetComponent<Character>().Speed = 8f;
+                    if (enemy == null)
+                    {
+                        currentTask.isCompleted = true;
+                        break;
+                    }
 
+                    enemy.GetComponent<Character>().Speed = 8f;
                     if (!enemy.GetComponent<Character>().enabled)
                         currentTask.isCompleted = true;
                     break;
