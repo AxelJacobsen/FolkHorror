@@ -27,7 +27,7 @@ public class PortalScript : MonoBehaviour
 
     void OnTriggerEnter (Collider hit) {
         //If it its an exit then teleport the player to the next stage on touch
-        if (isEntrance) return;
+        if (isEntrance || hit.transform.parent.tag != "Player") return;
         ChangeScene();
     }
 

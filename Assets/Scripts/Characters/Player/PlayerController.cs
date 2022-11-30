@@ -9,6 +9,9 @@ public class PlayerController : Character
 {
 	// Public vars
 	public LayerMask AimLayer;
+	public int currentStage = 0;
+	public string currentBiome = "";
+
 
 	// Private vars
 	private int attackHeld = 0;

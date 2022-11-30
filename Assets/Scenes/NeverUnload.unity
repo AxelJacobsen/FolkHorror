@@ -1052,6 +1052,7 @@ MonoBehaviour:
   Weapon: {fileID: 0}
   Items: []
   WalkAcceleration: 6
+  walkSound: {fileID: 0}
   RollDuration: 0.2
   RollCooldown: 1.5
   RollSpeed: 50
@@ -1067,6 +1068,8 @@ MonoBehaviour:
   AimLayer:
     serializedVersion: 2
     m_Bits: 2147483647
+  currentStage: 0
+  currentBiome: 
 --- !u!1 &2060306343
 GameObject:
   m_ObjectHideFlags: 0

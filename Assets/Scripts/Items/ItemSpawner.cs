@@ -18,12 +18,13 @@ public class ItemSpawner : MonoBehaviour {
 
     public bool spawnItem = false;
     private int weightTest = 0;
-
+    public bool isEnemyItem = false;
     private GameObject spawnedItem;
 
     void Start() {
         HandleItem(weightTest);
     }
+
     void Update() {
         if (Input.GetKeyDown(KeyCode.F4)) {
             weightTest++;
@@ -37,6 +38,10 @@ public class ItemSpawner : MonoBehaviour {
         if (spawnItem) {
             Destroy(spawnedItem);
             spawnedItem = Instantiate(pickedItem, transform.position, Quaternion.Euler(45, 0, 0));
+            if (isEnemyItem) {
+                Weapon itemComp = spawnedItem.GetComponent<Weapon>();
+                itemComp.PickedUpByTag = "Enemy";
+            }
             spawnedItem.SetActive(true);
         }
     }
