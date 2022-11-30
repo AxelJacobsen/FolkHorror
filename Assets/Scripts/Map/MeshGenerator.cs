@@ -14,6 +14,19 @@ public class MeshGenerator : MonoBehaviour {
 
 	private ObjectSpawner objSpawner;
 
+	[Header("Map Objects")]
+	public GameObject Tree;
+	public GameObject Bush;
+	public List<GameObject> Generic;
+
+	[Header("Enemies")]
+	public List<GameObject> Enemies;
+	public GameObject EnemyWeapon;
+
+	[Header("Portals")]
+	public GameObject Entrance;
+	public GameObject Exit;
+
 	public int portalRadius = 2;
 	public bool generateObjects;
 	private int wallHeight;
@@ -186,15 +199,16 @@ public class MeshGenerator : MonoBehaviour {
 		foreach (int vertex in outline) {
 			polyList.Add(new Vector2(vertices[vertex].x, vertices[vertex].z));
 		}
+		GameObject mapObject = Tree;
 		Vector2[] poly = polyList.ToArray();
 		int[] largestOutline = {0,0};
-		if (spawnObject != 1) { spawnObject = 0; }
+		if (spawnObject == 1) { mapObject = Bush; }
 		//Spawn along outline edge to secure border
 		for (int o = 0; o < polyList.Count; o++) {
 			if (isFirst) { break; }
 			treeChance += Random.Range(1, 3);
 			if (treeChance < 10) { continue; }
-			objSpawner.SpawnObject(new Vector3(polyList[o].x, 0, polyList[o].y), spawnObject);
+			objSpawner.SpawnObject(new Vector3(polyList[o].x, 0, polyList[o].y), mapObject);
 			treeChance = 0;
 		}
 		//Spawn trees randomly inside border
@@ -206,7 +220,7 @@ public class MeshGenerator : MonoBehaviour {
 			}
 			if (isFirst) { break; }
 			Vector2 pos = Funcs.GetRandomPointInPolygon(poly);
-			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), spawnObject);
+			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), mapObject);
 		}
 
 		//Spawns entrance and exit
@@ -217,20 +231,20 @@ public class MeshGenerator : MonoBehaviour {
 					pUpBound = new Vector2(0, 0);
 			(pos1, pos2, pLowBound, pUpBound) = Funcs.ForceFarSpawn(poly);
 			GameObject[] trees = GameObject.FindGameObjectsWithTag("Solid Object");
-			objSpawner.SpawnObject(new Vector3(pos1.x, 0, pos1.y), 5);
+			objSpawner.SpawnObject(new Vector3(pos1.x, 0, pos1.y), Exit);
 			//Moves a portal away if its stuck in trees
 			MovePortal(trees, "Exit");
 			
-			objSpawner.SpawnObject(new Vector3(pos2.x, 0, pos2.y), 6);
+			objSpawner.SpawnObject(new Vector3(pos2.x, 0, pos2.y), Entrance);
 			MovePortal(trees, "Entrance");
 
 			//Default to center to avoid dumb issues
 			Vector2 eSpawnPoint = new Vector2(0, 0);
 			for (int e = 0; e < 10; e++) {
 				eSpawnPoint = Funcs.FindPointOutsidePlayerSpawn(pLowBound, pUpBound, poly);
-				int enemyType = Random.Range(2, 4);
-				objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), enemyType);
-				objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), 7);
+				int enemyType = Random.Range(0, Enemies.Count);
+				objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), Enemies[enemyType]);
+				objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), EnemyWeapon);
 			}
 		}
 		return treeChance;
