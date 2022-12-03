@@ -54,7 +54,7 @@ public abstract class Character : CharacterStats
     protected BoxCollider hitbox;
     protected EffectEmitter myDustEffectEmitter;
 
-    private bool dead = false;
+    public bool dead = false;
     private float   onRollTimer = 0f,
                     onHurtTimer = 0f,
                     onAttackTimer = 0f,
@@ -135,7 +135,7 @@ public abstract class Character : CharacterStats
 	/// <summary>
     /// Kills the character.
     /// </summary>
-	void Die() 
+	public virtual void Die() 
 	{
         if (dead) return;
         else dead = true;
@@ -156,7 +156,7 @@ public abstract class Character : CharacterStats
     /// <param name="caller">The object which caused the player to be hurt.</param>
     /// <param name="amount">The amount of damage the player takes.</param>
     /// <return>The character's health after taking damage.</return>
-	public float Hurt(GameObject caller, float amount) 
+	public virtual float Hurt(GameObject caller, float amount) 
 	{
         anim.SetTrigger("Hurt");
 
