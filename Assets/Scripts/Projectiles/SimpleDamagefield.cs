@@ -58,4 +58,12 @@ public class SimpleDamagefield : MonoBehaviour
         Character createdByCharacterScript = _CreatedBy.GetComponent<Character>();
         foreach (Item item in createdByCharacterScript.Items) { item.OnPlayerHit(hitObj, _DamageFromWeapon * DamageMultiplier); }
     }
+
+    void OnDestroy()
+    {
+        // Simply unparent sound effects rather than destroying them
+        foreach (Transform child in transform) 
+            if (child.gameObject.tag == "Sound")
+                child.parent = null;
+    }
 }
