@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1584,6 +1584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2035273371}
   - component: {fileID: 2035273372}
+  - component: {fileID: 2035273373}
   m_Layer: 0
   m_Name: hitbox
   m_TagString: Hitbox
@@ -1619,6 +1620,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.15556978, y: 0.22035673, z: 0.121960856}
   m_Center: {x: -0.006911999, y: -0.004317153, z: -0.035139095}
+--- !u!136 &2035273373
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2035273370}
+  m_Material: {fileID: 13400000, guid: ded831de9ae01f145a72ceeed78e8f5b, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 4
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2044029809
 GameObject:
   m_ObjectHideFlags: 0
@@ -1761,7 +1776,6 @@ MonoBehaviour:
   Weapon: {fileID: 0}
   Items: []
   WalkAcceleration: 6
-  walkSound: {fileID: 0}
   RollDuration: 0.2
   RollCooldown: 1.5
   RollSpeed: 50
@@ -1779,6 +1793,7 @@ MonoBehaviour:
     m_Bits: 2147483647
   currentStage: 0
   currentBiome: 
+  respawnLocation: TownScene
 --- !u!1 &2060306343
 GameObject:
   m_ObjectHideFlags: 0
