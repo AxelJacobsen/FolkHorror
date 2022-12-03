@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class <c>PauseController</c> controls pausing of the game.
+/// </summary>
 public class PauseController : MonoBehaviour
 {
     public static bool isPaused;

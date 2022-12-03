@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class <c>MenuController</c> control the game menu.
+/// </summary>
 public class MenuController : MonoBehaviour
 {
     public GameObject menu;
-
     private bool isOpen;
 
     // Start is called before the first frame update
@@ -33,5 +35,13 @@ public class MenuController : MonoBehaviour
                 PauseController.ResumeGame();
             }
         }
+    }
+
+    /// <summary>
+    /// Quit the game.
+    /// </summary>
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

@@ -1222,8 +1222,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 389454749}
-        m_TargetAssemblyTypeName: QuitController, Assembly-CSharp
+      - m_Target: {fileID: 389454747}
+        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
