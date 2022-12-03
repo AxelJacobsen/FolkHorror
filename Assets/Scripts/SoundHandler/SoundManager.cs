@@ -169,7 +169,7 @@ public class SoundManager : MonoBehaviour
         // ...and remove them.
         foreach ((AudioSource, Audio) removeSource in removeSources) {
             soundSources[removeSource.Item2].Remove(removeSource.Item1);
-            Destroy(removeSource.Item1);
+            Destroy(removeSource.Item1.gameObject);
         }
     }
 }
