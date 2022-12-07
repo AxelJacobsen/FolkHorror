@@ -26,6 +26,7 @@ public class DialogueTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.transform.parent == null || !other.transform.parent.gameObject.CompareTag("Player")) return;
         manager.dialogue = DialogueReader.LoadXML<Dialogue>(filePath);
 
         if (onEnter)
