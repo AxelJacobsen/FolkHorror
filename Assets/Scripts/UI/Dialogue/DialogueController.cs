@@ -12,7 +12,7 @@ public class DialogueController : MonoBehaviour
     public Image textBox;
     public TextMeshProUGUI infoText;
     public Dialogue dialogue;
-    public bool autoStart;
+    public bool autoStart = false;
 
     private DialogueManagerNew manager;
     private int currentIndex;

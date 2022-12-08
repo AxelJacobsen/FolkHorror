@@ -11,13 +11,15 @@ using UnityEngine.UI;
 public class DialogueTriggerNew : MonoBehaviour
 {
     public string filePath;
+    public DialogueController controller;
 
-    private DialogueController controller;
+    //private DialogueController controller;
     private Dialogue dialogue;
 
     private void Start()
     {
-        controller = FindObjectOfType<DialogueController>();
+        //controller = FindObjectOfType<DialogueController>();
+        //if (controller == null) print("DialogueTriggerNew couldn't find the controller");
         controller.gameObject.SetActive(false);
     }
 
