@@ -150,7 +150,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40690627}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!124 &40690629
 Behaviour:
   m_ObjectHideFlags: 0
@@ -1632,6 +1632,7 @@ GameObject:
   - component: {fileID: 2044029810}
   - component: {fileID: 2044029814}
   - component: {fileID: 2044029815}
+  - component: {fileID: 2044029816}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1761,7 +1762,6 @@ MonoBehaviour:
   Weapon: {fileID: 0}
   Items: []
   WalkAcceleration: 6
-  walkSound: {fileID: 0}
   RollDuration: 0.2
   RollCooldown: 1.5
   RollSpeed: 50
@@ -1779,6 +1779,14 @@ MonoBehaviour:
     m_Bits: 2147483647
   currentStage: 0
   currentBiome: 
+--- !u!81 &2044029816
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044029809}
+  m_Enabled: 1
 --- !u!1 &2060306343
 GameObject:
   m_ObjectHideFlags: 0

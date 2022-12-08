@@ -60,7 +60,7 @@ public class Coin : Item
     /// </summary>
     protected virtual void OnHitFloor()
     {
-        SoundManager.Instance.PlaySound(CoinHitFloorSound);
+        SoundManager.Instance.PlaySound(CoinHitFloorSound, gameObject.transform);
     }
 
     /// <summary>

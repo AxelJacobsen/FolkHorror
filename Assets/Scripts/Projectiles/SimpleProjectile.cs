@@ -72,8 +72,7 @@ public class SimpleProjectile : MonoBehaviour
         if (rb == null) { return; }
 
         // Play Sound
-        SoundManager.Instance.PlaySound(onHitSound);
-
+        SoundManager.Instance.PlaySound(onHitSound, hitObj.transform);
 
         // Apply stats on target
         characterHit.Knockback(rb.velocity.normalized * _KnockbackFromWeapon * KnockbackMultiplier);
