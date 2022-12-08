@@ -9,6 +9,9 @@ using UnityEngine.UI;
 /// </summary>
 public class DialogueInteraction : MonoBehaviour
 {
+    public static bool isActive;
+
+    public Canvas canvas;
     public Image textBox;
     public TextMeshProUGUI infoText;
     public Dialogue dialogue;
@@ -16,22 +19,30 @@ public class DialogueInteraction : MonoBehaviour
 
     private DialogueController controller;
     private int currentIndex;
+    private bool menuIsOpen;
 
     // Start is called before the first frame update
     void Start()
     {
         controller = FindObjectOfType<DialogueController>();
         currentIndex = 0;
+        isActive = autoStart;
+        menuIsOpen = false;
     }
 
     private void OnEnable()
     {
-        ToggleInfoText(true);
+        isActive = autoStart;
+        menuIsOpen = false;
+        if (!autoStart) ToggleInfoText(true);
     }
 
     private void OnDisable()
     {
+        PauseController.ResumeGame();
         currentIndex = 0;
+        isActive = false;
+        menuIsOpen = false;
         ToggleTextBox(false);
         ToggleInfoText(false);
     }
@@ -39,11 +50,37 @@ public class DialogueInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PauseController.isPaused) return;
+        // if the game is paused AND a dialogue is not currently happening
+        if (PauseController.isPaused && !isActive) return;
 
+        // what happens when the player opens the menu mid dialogue
+        if (MenuController.isOpen && !autoStart)
+        {
+            // finish the dialogue, and reset
+            ResetDialogue();
+            isActive = false;
+            return;
+        }
+        else if (MenuController.isOpen && autoStart)
+        {
+            // pause the dialogue and hide the text box
+            menuIsOpen = true;
+            canvas.gameObject.SetActive(false);
+            return;
+        }
+
+        // if menu is opened in auto start dialogue, this continues the dialogue when the menu is closed again
+        if (menuIsOpen)
+        {
+            canvas.gameObject.SetActive(true);
+            menuIsOpen = false;
+        }
+      
         // dialogue should start on its own, not by the player pressing E
         if (autoStart && currentIndex == 0) 
         {
+            isActive = true;
+            PauseController.PauseGame();
             ToggleTextBox(true);
             ToggleInfoText(false);
             controller.StartDialogue(dialogue.name, dialogue.sentences[0]);
@@ -55,16 +92,17 @@ public class DialogueInteraction : MonoBehaviour
             // reset the dialogue if the last sentence is completed
             if (currentIndex >= dialogue.sentences.Count && !controller.isRunning)
             {
+                PauseController.ResumeGame();
+                isActive = false;
+
+                ResetDialogue();
+
                 // if the dialogue cannot be restarted
                 if (autoStart)
                 {
-                    ResetDialogue();
                     this.gameObject.SetActive(false);
-                    return;
                 }
 
-                // ... or when it can be restarted
-                ResetDialogue();
                 return;
             };
 
@@ -73,6 +111,8 @@ public class DialogueInteraction : MonoBehaviour
             {
                 ToggleTextBox(true);
                 ToggleInfoText(false);
+                isActive = true;
+                PauseController.PauseGame();
             }
 
             // managing of the dialogue

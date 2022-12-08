@@ -7,8 +7,9 @@ using UnityEngine;
 /// </summary>
 public class MenuController : MonoBehaviour
 {
+    public static bool isOpen;
+
     public GameObject menu;
-    private bool isOpen;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,7 @@ public class MenuController : MonoBehaviour
             {
                 PauseController.PauseGame();
             }
-            else
+            else if (!DialogueInteraction.isActive)
             {
                 PauseController.ResumeGame();
             }

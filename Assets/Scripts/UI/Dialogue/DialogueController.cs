@@ -66,7 +66,7 @@ public class DialogueController : MonoBehaviour
         {
             text.text += c;
 
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSecondsRealtime(0.05f);
         }
         isRunning = false;
     }
