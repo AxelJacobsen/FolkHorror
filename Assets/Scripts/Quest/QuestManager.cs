@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Xml.Serialization;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,13 +25,14 @@ public static class ButtonExtension
 /// </summary>
 public class QuestManager : MonoBehaviour
 {
+    public static List<Quest> quests;
+    public static List<Quest> changedQuests = new();    // used to indicate change in quests
+
     public Canvas questCanvas;
     public GameObject questPrefab;
     public GameObject questList;
     public GameObject questOverview;
-    public List<Quest> quests;
 
-    private List<Quest> activeQuests;
     private List<GameObject> questPrefabs = new();
     private GameObject currentQuest;
     private bool isOpen;
@@ -37,15 +40,7 @@ public class QuestManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject obj;
-        for (int i = 0; i < quests.Count; i++)
-        {
-            obj = Instantiate(questPrefab, questList.transform);
-            obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = quests[i].title;
-            obj.GetComponent<Button>().AddEventLIstener(i, OnQuestClick);
-            questPrefabs.Add(obj);
-        }
-
+        quests = new();
         questCanvas.gameObject.SetActive(false);
         isOpen = false;
     }
@@ -53,6 +48,16 @@ public class QuestManager : MonoBehaviour
     private void Update()
     {
         if (PauseController.isPaused && !isOpen) return;
+
+        // modify list of quests if a change has been made
+        if (changedQuests.Count > 0)
+        {
+            DeselectQuest();
+            foreach (Quest q in changedQuests)
+                ModifyQuest(q);
+            changedQuests.Clear();
+            return;
+        }
 
         // menu is opened, which makes the quest UI close
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -62,6 +67,7 @@ public class QuestManager : MonoBehaviour
             questCanvas.gameObject.SetActive(false);
         }
 
+        // manage quest UI
         if (Input.GetKeyDown(KeyCode.Q))
         {
             isOpen = !isOpen;
@@ -78,14 +84,48 @@ public class QuestManager : MonoBehaviour
         }
     }
 
-    private void DeselectQuest()
+    /// <summary>
+    /// Modify the changed quest. 
+    /// </summary>
+    /// <param name="changedQuest">The quest to be modified</param>
+    private void ModifyQuest(Quest changedQuest)
     {
-        if (currentQuest == null) return;
-        currentQuest.GetComponent<Image>().color = new Color(106f / 255f, 123f / 255f, 100f / 255f);    // TODO: add colors to its own file
-        questOverview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
-        questOverview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+        // check if the changed quest is already in the list of enabled quests
+        if (quests.Contains(changedQuest))
+        {
+            // if it is, make it inactive
+            int index = quests.FindIndex(q => q.title.Equals(changedQuest.title));
+            questPrefabs[index].GetComponent<Image>().color = new Color(76f / 255f, 82f / 255f, 81f / 255f);
+            questPrefabs[index].GetComponent<Button>().onClick.RemoveAllListeners();
+        }
+        else
+        {
+            // if it is not, add it to the list and instantiate a new prefab
+            quests.Add(changedQuest);
+            GameObject obj;
+            obj = Instantiate(questPrefab, questList.transform);
+            obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = quests[quests.Count - 1].title;
+            obj.GetComponent<Button>().AddEventLIstener(quests.Count - 1, OnQuestClick);
+            questPrefabs.Add(obj);
+        }
     }
 
+    /// <summary>
+    /// Deselects the current quest.
+    /// </summary>
+    private void DeselectQuest()
+    {
+        if (currentQuest != null)
+            currentQuest.GetComponent<Image>().color = new Color(106f / 255f, 123f / 255f, 100f / 255f);
+        questOverview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+        questOverview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+        currentQuest = null;
+    }
+
+    /// <summary>
+    /// Handles quest on click by making it the currently active quest.
+    /// </summary>
+    /// <param name="index">Index of the clicked quest</param>
     private void OnQuestClick(int index)
     {
         DeselectQuest();
@@ -97,5 +137,6 @@ public class QuestManager : MonoBehaviour
         // update the overview
         questOverview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = quests[index].title;
         questOverview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = quests[index].description;
+
     }
 }
