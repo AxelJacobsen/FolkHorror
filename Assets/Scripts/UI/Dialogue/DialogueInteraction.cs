@@ -39,6 +39,8 @@ public class DialogueInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseController.isPaused) return;
+
         // dialogue should start on its own, not by the player pressing E
         if (autoStart && currentIndex == 0) 
         {

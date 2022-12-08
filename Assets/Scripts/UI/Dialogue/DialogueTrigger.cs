@@ -13,13 +13,10 @@ public class DialogueTrigger : MonoBehaviour
     public string filePath;
     public DialogueInteraction dialogueInteraction;
 
-    //private DialogueController controller;
     private Dialogue dialogue;
 
-    private void Start()
+    void Start()
     {
-        //controller = FindObjectOfType<DialogueController>();
-        //if (controller == null) print("DialogueTriggerNew couldn't find the controller");
         dialogueInteraction.gameObject.SetActive(false);
     }
 
