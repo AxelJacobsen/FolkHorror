@@ -2,116 +2,72 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
-/// Class <c>DialogueController</c> controls the user interaction of a dialogue interaction.
+/// Class <c>DialogueManagerNew</c> contains functionality to start, continue and complete a dialogue.
 /// </summary>
 public class DialogueController : MonoBehaviour
 {
-    public Image textBox;
-    public TextMeshProUGUI infoText;
-    public Dialogue dialogue;
-    public bool autoStart = false;
+    public TextMeshProUGUI title;
+    public TextMeshProUGUI text;
+    public bool isRunning;
 
-    private DialogueManagerNew manager;
-    private int currentIndex;
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        manager = FindObjectOfType<DialogueManagerNew>();
-        currentIndex = 0;
+        isRunning = false;
     }
 
-    private void OnEnable()
+    public void Reset()
     {
-        ToggleInfoText(true);
+        title.text = "";
+        text.text = "";
+        isRunning = false;
     }
 
-    private void OnDisable()
+    /// <summary>
+    /// Starts a dialogue interaction.
+    /// </summary>
+    /// <param name="title">The title of the dialogue</param>
+    /// <param name="sentence">The first sentence in the dialogue</param>
+    public void StartDialogue(string title, string sentence)
     {
-        currentIndex = 0;
-        ToggleTextBox(false);
-        ToggleInfoText(false);
+        this.title.text = title;
+        ChangeSentence(sentence);
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// Finishes a sentence.
+    /// </summary>
+    /// <param name="sentence">The sentence to be finished</param>
+    public void FinishSentence(string sentence)
     {
-        // dialogue should start on its own, not by the player pressing E
-        if (autoStart && currentIndex == 0) 
+        isRunning = false;
+        StopAllCoroutines();
+        text.text = sentence;
+    }
+
+    /// <summary>
+    /// Starts typing out a new sentence.
+    /// </summary>
+    /// <param name="sentence">The sentence to be typed out</param>
+    private void ChangeSentence(string sentence)
+    {
+        text.text = "";
+        StartCoroutine(IterateSentence(sentence));
+    }
+
+    /// <summary>
+    /// Write every letter in a sentence with a delay.
+    /// </summary>
+    private IEnumerator IterateSentence(string sentence)
+    {
+        isRunning = true;
+        foreach (char c in sentence)
         {
-            ToggleTextBox(true);
-            ToggleInfoText(false);
-            manager.StartDialogue(dialogue.name, dialogue.sentences[0]);
-            currentIndex++;
+            text.text += c;
+
+            yield return new WaitForSeconds(0.05f);
         }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            // reset the dialogue if the last sentence is completed
-            if (currentIndex >= dialogue.sentences.Count && !manager.isRunning)
-            {
-                // if the dialogue cannot be restarted
-                if (autoStart)
-                {
-                    ResetDialogue();
-                    this.gameObject.SetActive(false);
-                    return;
-                }
-
-                // ... or when it can be restarted
-                ResetDialogue();
-                return;
-            };
-
-            // open text box and turn off info text when the dialogue is started
-            if (!autoStart && (currentIndex == 0 && !manager.isRunning))
-            {
-                ToggleTextBox(true);
-                ToggleInfoText(false);
-            }
-
-            // managing of the dialogue
-            if (!manager.isRunning)
-            {
-                manager.StartDialogue(dialogue.name, dialogue.sentences[currentIndex]);
-                currentIndex++;
-            } else if (manager.isRunning)
-            {
-                manager.FinishSentence(dialogue.sentences[currentIndex-1]);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Resets dialogue and making it ready for a new round.
-    /// </summary>
-    private void ResetDialogue()
-    {
-        manager.Reset();
-        currentIndex = 0;
-        ToggleTextBox(false);
-        ToggleInfoText(true);
-    }
-
-    /// <summary>
-    /// Toggles the text box on and off.
-    /// </summary>
-    public void ToggleTextBox(bool state)
-    {
-        if (textBox == null) return;
-        textBox.gameObject.SetActive(state);
-    }
-
-    /// <summary>
-    /// Toggles info text on and off.
-    /// </summary>
-    /// <param name="state">New state of the game object</param>
-    void ToggleInfoText(bool state)
-    {
-        if (infoText == null) return;
-        infoText.gameObject.SetActive(state);
+        isRunning = false;
     }
 }

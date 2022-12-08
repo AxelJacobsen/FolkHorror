@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 501350912}
   - component: {fileID: 501350911}
   m_Layer: 0
-  m_Name: DialogueManager
+  m_Name: DialogueController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -878,7 +878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   filePath: Dialogue/npc2
-  controller: {fileID: 1906704503}
+  dialogueInteraction: {fileID: 1906704503}
 --- !u!1 &1468754337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,7 +1274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   filePath: Dialogue/npc1
-  controller: {fileID: 1906704503}
+  dialogueInteraction: {fileID: 1906704503}
 --- !u!1001 &1760606109
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1355,7 +1355,7 @@ GameObject:
   - component: {fileID: 1906704504}
   - component: {fileID: 1906704503}
   m_Layer: 0
-  m_Name: DialogueController
+  m_Name: DialogueInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

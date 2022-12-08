@@ -1372,7 +1372,6 @@ MonoBehaviour:
   filePath: Assets/Resources/Dialogue
   enemy: {fileID: 384566823}
   portal: {fileID: 1162964308}
-  textBox: {fileID: 1152558906}
 --- !u!4 &1784098789
 Transform:
   m_ObjectHideFlags: 0
@@ -1502,7 +1501,7 @@ GameObject:
   - component: {fileID: 1998465766}
   - component: {fileID: 1998465765}
   m_Layer: 0
-  m_Name: DialogueController
+  m_Name: DialogueInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

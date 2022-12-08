@@ -11,7 +11,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject enemy;
     public GameObject portal;
 
-    private DialogueController dialogueController;
+    private DialogueInteraction dialogueInteraction;
     private TutorialFragment currentTask;
     private Queue<TutorialFragment> tasks = new();
     private GameObject player;
@@ -20,8 +20,8 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         // start 
-        dialogueController = FindObjectOfType<DialogueController>();
-        dialogueController.autoStart = true;
+        dialogueInteraction = FindObjectOfType<DialogueInteraction>();
+        dialogueInteraction.autoStart = true;
 
         portal.SetActive(false);
 
@@ -32,7 +32,7 @@ public class TutorialManager : MonoBehaviour
         currentTask = tasks.Dequeue(); 
 
         // first part of the dialogue
-        dialogueController.dialogue = currentTask.dialogue;
+        dialogueInteraction.dialogue = currentTask.dialogue;
 
         player = GameObject.FindGameObjectWithTag(playerTag);
         if (player == null) Debug.Log("Tutorialmanager could not find the player!");
@@ -43,7 +43,7 @@ public class TutorialManager : MonoBehaviour
     void Update()
     {
         if (tasks == null) return;
-        if (dialogueController == null) return;
+        if (dialogueInteraction == null) return;
         if (currentTask == null) return;
 
         // start new task if the current one is completed
@@ -55,7 +55,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         // the player can move freely and do the task
-        if (!dialogueController.isActiveAndEnabled)
+        if (!dialogueInteraction.isActiveAndEnabled)
         {
             player.GetComponent<PlayerController>().Speed = 10f;
 
@@ -89,7 +89,7 @@ public class TutorialManager : MonoBehaviour
     void NewDialogue()
     {
         player.GetComponent<PlayerController>().Speed = 0f;
-        dialogueController.dialogue = currentTask.dialogue;
-        dialogueController.gameObject.SetActive(true);
+        dialogueInteraction.dialogue = currentTask.dialogue;
+        dialogueInteraction.gameObject.SetActive(true);
     }
 }
