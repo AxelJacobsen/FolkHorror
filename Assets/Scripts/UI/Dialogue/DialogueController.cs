@@ -12,6 +12,7 @@ public class DialogueController : MonoBehaviour
     public Image textBox;
     public TextMeshProUGUI infoText;
     public Dialogue dialogue;
+    public bool autoStart;
 
     private DialogueManagerNew manager;
     private int currentIndex;
@@ -38,17 +39,35 @@ public class DialogueController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // dialogue should start on its own, not by the player pressing E
+        if (autoStart && currentIndex == 0) 
+        {
+            ToggleTextBox(true);
+            ToggleInfoText(false);
+            manager.StartDialogue(dialogue.name, dialogue.sentences[0]);
+            currentIndex++;
+        }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             // reset the dialogue if the last sentence is completed
             if (currentIndex >= dialogue.sentences.Count && !manager.isRunning)
             {
+                // if the dialogue cannot be restarted
+                if (autoStart)
+                {
+                    ResetDialogue();
+                    this.gameObject.SetActive(false);
+                    return;
+                }
+
+                // ... or when it can be restarted
                 ResetDialogue();
                 return;
             };
 
             // open text box and turn off info text when the dialogue is started
-            if (currentIndex == 0 && !manager.isRunning)
+            if (!autoStart && (currentIndex == 0 && !manager.isRunning))
             {
                 ToggleTextBox(true);
                 ToggleInfoText(false);
