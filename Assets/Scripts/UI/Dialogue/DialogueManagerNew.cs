@@ -3,31 +3,53 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// Class <c>DialogueManagerNew</c> contains functionality to start, continue and complete a dialogue.
+/// </summary>
 public class DialogueManagerNew : MonoBehaviour
 {
     public TextMeshProUGUI title;
     public TextMeshProUGUI text;
-    public static bool isRunning;
+    public bool isRunning;
 
     private void Start()
     {
         isRunning = false;
     }
 
-    public void StartDialogue(string name, string sentence)
+    public void Reset()
     {
-        title.text = name;
+        title.text = "";
+        text.text = "";
+        isRunning = false;
+    }
+
+    /// <summary>
+    /// Starts a dialogue interaction.
+    /// </summary>
+    /// <param name="title">The title of the dialogue</param>
+    /// <param name="sentence">The first sentence in the dialogue</param>
+    public void StartDialogue(string title, string sentence)
+    {
+        this.title.text = title;
         ChangeSentence(sentence);
     }
 
+    /// <summary>
+    /// Finishes a sentence.
+    /// </summary>
+    /// <param name="sentence">The sentence to be finished</param>
     public void FinishSentence(string sentence)
     {
-        print("tihi");
         isRunning = false;
         StopAllCoroutines();
         text.text = sentence;
     }
 
+    /// <summary>
+    /// Starts typing out a new sentence.
+    /// </summary>
+    /// <param name="sentence">The sentence to be typed out</param>
     private void ChangeSentence(string sentence)
     {
         text.text = "";
@@ -40,7 +62,6 @@ public class DialogueManagerNew : MonoBehaviour
     private IEnumerator IterateSentence(string sentence)
     {
         isRunning = true;
-        print(isRunning);
         foreach (char c in sentence)
         {
             text.text += c;
@@ -48,6 +69,5 @@ public class DialogueManagerNew : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
         isRunning = false;
-        print(isRunning);
     }
 }
