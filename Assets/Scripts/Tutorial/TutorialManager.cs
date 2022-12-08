@@ -36,7 +36,12 @@ public class TutorialManager : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag(playerTag);
         if (player == null) Debug.Log("Tutorialmanager could not find the player!");
-        player.GetComponent<PlayerController>().Speed = 0f;
+        PauseController.PauseGame();
+    }
+
+    private void OnDisable()
+    {
+        PauseController.ResumeGame();
     }
 
     // Update is called once per frame
@@ -57,7 +62,7 @@ public class TutorialManager : MonoBehaviour
         // the player can move freely and do the task
         if (!dialogueInteraction.isActiveAndEnabled)
         {
-            player.GetComponent<PlayerController>().Speed = 10f;
+            PauseController.ResumeGame();
 
             switch (currentTask.taskType)
             {
@@ -72,7 +77,6 @@ public class TutorialManager : MonoBehaviour
                         break;
                     }
 
-                    enemy.GetComponent<Character>().Speed = 8f;
                     if (!enemy.GetComponent<Character>().enabled)
                         currentTask.isCompleted = true;
                     break;
@@ -88,7 +92,7 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     void NewDialogue()
     {
-        player.GetComponent<PlayerController>().Speed = 0f;
+        PauseController.PauseGame();
         dialogueInteraction.dialogue = currentTask.dialogue;
         dialogueInteraction.gameObject.SetActive(true);
     }

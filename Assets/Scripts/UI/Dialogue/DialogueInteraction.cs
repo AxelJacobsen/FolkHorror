@@ -16,22 +16,27 @@ public class DialogueInteraction : MonoBehaviour
 
     private DialogueController controller;
     private int currentIndex;
+    private bool isActive;
 
     // Start is called before the first frame update
     void Start()
     {
         controller = FindObjectOfType<DialogueController>();
         currentIndex = 0;
+        isActive = autoStart;
     }
 
     private void OnEnable()
     {
-        ToggleInfoText(true);
+        isActive = autoStart;
+        if (!autoStart) ToggleInfoText(true);
     }
 
     private void OnDisable()
     {
+        PauseController.ResumeGame();
         currentIndex = 0;
+        isActive = false;
         ToggleTextBox(false);
         ToggleInfoText(false);
     }
@@ -39,11 +44,14 @@ public class DialogueInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PauseController.isPaused) return;
+        // if the game is paused AND a dialogue is not currently happening
+        if (PauseController.isPaused && !isActive) return;
 
         // dialogue should start on its own, not by the player pressing E
         if (autoStart && currentIndex == 0) 
         {
+            isActive = true;
+            PauseController.PauseGame();
             ToggleTextBox(true);
             ToggleInfoText(false);
             controller.StartDialogue(dialogue.name, dialogue.sentences[0]);
@@ -55,16 +63,17 @@ public class DialogueInteraction : MonoBehaviour
             // reset the dialogue if the last sentence is completed
             if (currentIndex >= dialogue.sentences.Count && !controller.isRunning)
             {
+                PauseController.ResumeGame();
+                isActive = false;
+
+                ResetDialogue();
+
                 // if the dialogue cannot be restarted
                 if (autoStart)
                 {
-                    ResetDialogue();
                     this.gameObject.SetActive(false);
-                    return;
                 }
 
-                // ... or when it can be restarted
-                ResetDialogue();
                 return;
             };
 
@@ -73,6 +82,8 @@ public class DialogueInteraction : MonoBehaviour
             {
                 ToggleTextBox(true);
                 ToggleInfoText(false);
+                isActive = true;
+                PauseController.PauseGame();
             }
 
             // managing of the dialogue
