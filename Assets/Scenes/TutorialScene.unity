@@ -4007,6 +4007,7 @@ MonoBehaviour:
   filePath: Assets/Resources/Dialogue
   enemy: {fileID: 384566823}
   portal: {fileID: 1162964308}
+  buttonSkip: {fileID: 660198705}
 --- !u!4 &1784098789
 Transform:
   m_ObjectHideFlags: 0

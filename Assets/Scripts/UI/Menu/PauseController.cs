@@ -22,6 +22,7 @@ public class PauseController : MonoBehaviour
     {
         isPaused = true;
         Time.timeScale = 0f;
+        AudioListener.pause = true;
     }
 
     /// <summary>
@@ -31,5 +32,6 @@ public class PauseController : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = 1f;
+        AudioListener.pause = false;
     }
 }

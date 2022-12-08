@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,16 +12,19 @@ public class TutorialManager : MonoBehaviour
     public string filePath;
     public GameObject enemy;
     public GameObject portal;
+    public Button buttonSkip;
 
     private DialogueInteraction dialogueInteraction;
     private TutorialFragment currentTask;
     private Queue<TutorialFragment> tasks = new();
     private GameObject player;
-    
+    private bool menuIsOpen;
+
     // Start is called before the first frame update
     void Start()
     {
-        // start 
+        menuIsOpen = false;
+
         dialogueInteraction = FindObjectOfType<DialogueInteraction>();
         dialogueInteraction.autoStart = true;
 
@@ -42,12 +46,26 @@ public class TutorialManager : MonoBehaviour
 
     private void OnDisable()
     {
+        menuIsOpen = false;
         PauseController.ResumeGame();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (PauseController.isPaused)
+        {
+            buttonSkip.gameObject.SetActive(false);
+            menuIsOpen = true;
+            return;
+        }
+
+        if (menuIsOpen)
+        {
+            buttonSkip.gameObject.SetActive(true);
+            menuIsOpen = false;
+        }
+
         if (tasks == null) return;
         if (dialogueInteraction == null) return;
         if (currentTask == null) return;
