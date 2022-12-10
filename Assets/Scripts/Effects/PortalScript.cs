@@ -34,7 +34,7 @@ public class PortalScript : MonoBehaviour
             this.transform.parent.gameObject.SetActive(false);
             return; 
         }
-        else if (isEntrance || hit.transform.parent.tag != "Player") return;
+        else if (isEntrance || hit.transform.parent == null || !hit.transform.parent.gameObject.CompareTag("Player")) return;
         ChangeScene();
     }
 

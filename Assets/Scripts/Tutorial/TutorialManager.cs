@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Class <c>TutorialManager</c> controls the flow in the tutorial.
@@ -10,18 +12,23 @@ public class TutorialManager : MonoBehaviour
     public string filePath;
     public GameObject enemy;
     public GameObject portal;
-    public DialogueManager dialogueManager;
-    public GameObject textBox;
+    public Button buttonSkip;
 
+    private DialogueInteraction dialogueInteraction;
     private TutorialFragment currentTask;
     private Queue<TutorialFragment> tasks = new();
     private GameObject player;
-    
+    private bool menuIsOpen;
+
     // Start is called before the first frame update
     void Start()
     {
+        menuIsOpen = false;
+
+        dialogueInteraction = FindObjectOfType<DialogueInteraction>();
+        dialogueInteraction.autoStart = true;
+
         portal.SetActive(false);
-        // Set the player's speed to zero
 
         // create tasks for the player to complete
         tasks.Enqueue(new TutorialFragment(TaskType.sword, "Dialogue/tutorial-movement"));
@@ -30,39 +37,51 @@ public class TutorialManager : MonoBehaviour
         currentTask = tasks.Dequeue(); 
 
         // first part of the dialogue
-        dialogueManager.dialogue = currentTask.dialogue;
-        dialogueManager.onEnter = true;
-        dialogueManager.gameObject.SetActive(true);
+        dialogueInteraction.dialogue = currentTask.dialogue;
 
         player = GameObject.FindGameObjectWithTag(playerTag);
         if (player == null) Debug.Log("Tutorialmanager could not find the player!");
-        //player.GetComponent<Character>().Speed = 0f;
+        PauseController.PauseGame();
+    }
+
+    private void OnDisable()
+    {
+        menuIsOpen = false;
+        PauseController.ResumeGame();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (PauseController.isPaused)
+        {
+            buttonSkip.gameObject.SetActive(false);
+            menuIsOpen = true;
+            return;
+        }
+
+        if (menuIsOpen)
+        {
+            buttonSkip.gameObject.SetActive(true);
+            menuIsOpen = false;
+        }
+
         if (tasks == null) return;
-        if (dialogueManager == null) return;
+        if (dialogueInteraction == null) return;
         if (currentTask == null) return;
 
         // start new task if the current one is completed
         if (currentTask.isCompleted == true)
         {
             currentTask = tasks.Dequeue();
-        }
-
-        // the player is frozen while they go through the dialogue
-        if (!currentTask.isCompleted && !currentTask.isStarted)
-        {
             NewDialogue();
             currentTask.isStarted = true;
         }
 
         // the player can move freely and do the task
-        if (!dialogueManager.isActiveAndEnabled)
+        if (!dialogueInteraction.isActiveAndEnabled)
         {
-            player.GetComponent<Character>().Speed = 10f;
+            PauseController.ResumeGame();
 
             switch (currentTask.taskType)
             {
@@ -77,7 +96,6 @@ public class TutorialManager : MonoBehaviour
                         break;
                     }
 
-                    enemy.GetComponent<Character>().Speed = 8f;
                     if (!enemy.GetComponent<Character>().enabled)
                         currentTask.isCompleted = true;
                     break;
@@ -93,8 +111,8 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     void NewDialogue()
     {
-        player.GetComponent<Character>().Speed = 0f;
-        dialogueManager.dialogue = currentTask.dialogue;
-        dialogueManager.gameObject.SetActive(true);
+        PauseController.PauseGame();
+        dialogueInteraction.dialogue = currentTask.dialogue;
+        dialogueInteraction.gameObject.SetActive(true);
     }
 }

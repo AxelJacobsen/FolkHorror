@@ -424,9 +424,9 @@ public abstract class Character : CharacterStats
     public virtual void OnPlayerGetHit(GameObject hitBy, int amount){}
 
     // Sound triggers
-    protected virtual void OnRoll()  { if (onRollTimer <= 0f)   { SoundManager.Instance.PlaySound(RollSound); onRollTimer = 1f; } }
-    protected virtual void OnHurt()  { if (onHurtTimer <= 0f)   { SoundManager.Instance.PlaySound(HurtSound); onHurtTimer = 1f; }}
-    protected virtual void OnAttack(){ if (onAttackTimer <= 0f) { SoundManager.Instance.PlaySound(AttackSound); onAttackTimer = 1f; }}
-    protected virtual void OnDie()   { if (onDieTimer <= 0f)    { SoundManager.Instance.PlaySound(DeathSound); onDieTimer = 1f; }}
-    protected virtual void OnStun()  { if (onStunTimer <= 0f)   { SoundManager.Instance.PlaySound(StunSound); onStunTimer = 1f; }}
+    protected virtual void OnRoll()  { if (onRollTimer <= 0f)   { SoundManager.Instance.PlaySound(RollSound, gameObject.transform); onRollTimer = 1f; } }
+    protected virtual void OnHurt()  { if (onHurtTimer <= 0f)   { SoundManager.Instance.PlaySound(HurtSound, gameObject.transform); onHurtTimer = 1f; }}
+    protected virtual void OnAttack(){ if (onAttackTimer <= 0f) { SoundManager.Instance.PlaySound(AttackSound, gameObject.transform); onAttackTimer = 1f; }}
+    protected virtual void OnDie()   { if (onDieTimer <= 0f)    { SoundManager.Instance.PlaySound(DeathSound, gameObject.transform); onDieTimer = 1f; }}
+    protected virtual void OnStun()  { if (onStunTimer <= 0f)   { SoundManager.Instance.PlaySound(StunSound, gameObject.transform); onStunTimer = 1f; }}
 }

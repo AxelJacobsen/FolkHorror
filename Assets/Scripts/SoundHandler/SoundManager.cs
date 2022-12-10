@@ -20,12 +20,13 @@ public class SoundManager : MonoBehaviour
     /// A simple struct to keep track of a sound source's properties.
     /// </summary>
     private struct SoundSourceProperties {
-        public float Volume;
-        public bool  Muted;
+        public Transform    AttachedTo;
+        public float        Volume;
+        public bool         Muted;
     }
 
     const String MUSIC_MIXER = "MusicVolume";
-    private Dictionary<Audio, List<AudioSource>>     soundSources    = new Dictionary<Audio, List<AudioSource>>();
+    private Dictionary<Audio, List<Tuple<AudioSource, Transform>>> soundSources = new Dictionary<Audio, List<Tuple<AudioSource, Transform>>>();
     private Dictionary<Audio, SoundSourceProperties> soundProperites = new Dictionary<Audio, SoundSourceProperties>();
     private bool masterMuted = false;
 
@@ -44,7 +45,7 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     /// <param name="type">The type to initialize.</param>
     private void InitType(Audio type) {
-        soundSources.Add(type, new List<AudioSource>());
+        soundSources.Add(type, new List<Tuple<AudioSource, Transform>>());
         soundProperites.Add(type, new SoundSourceProperties{Volume = 0.5f, Muted = false});
     }
 
@@ -53,20 +54,24 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     /// <param name="clip">the clip to be played</param>
     /// <param name="type">Audio source, default is set to Effects</param> 
-    public AudioSource PlaySound(AudioClip clip, Audio type = Audio.Effects) {
+    public AudioSource PlaySound(AudioClip clip, Transform attachTo = null, Audio type = Audio.Effects) {
         // If key isn't initialized, initialize it with an empty list.
         if (!soundSources.ContainsKey(type)) InitType(type);
 
         // Create a new audiosource for the clip and set its properties.
-        AudioSource newSource = Instantiate(Resources.Load<GameObject>("Sounds/SoundSourcePrefab").GetComponent<AudioSource>());
+        GameObject  newSourceObj = Instantiate(Resources.Load<GameObject>("Sounds/SoundSourcePrefab"));
+        AudioSource newSource = newSourceObj.GetComponent<AudioSource>();
         newSource.volume      = soundProperites[type].Volume;
         newSource.mute        = soundProperites[type].Muted;
-
+        newSource.spatialBlend= 1.0f;
+        newSource.minDistance = 5f;
+        newSource.maxDistance = 40f;
+        
         // Lastly, play the sound and add it to the list.
         //newSource.PlayOneShot(clip);
         newSource.clip = clip;
         newSource.Play();
-        soundSources[type].Add(newSource);
+        soundSources[type].Add(new Tuple<AudioSource, Transform>(newSource, attachTo));
         return newSource;
     }
 
@@ -90,9 +95,8 @@ public class SoundManager : MonoBehaviour
         soundProperites[type] = tProp;
 
         // Otherwise, iterate all sources within the type and set volume.
-        foreach (AudioSource source in soundSources[type]) {
-            source.volume = val;
-        }
+        foreach (Tuple<AudioSource, Transform> data in soundSources[type]) 
+            data.Item1.volume = val;
     }
 
     /// <summary>
@@ -117,8 +121,8 @@ public class SoundManager : MonoBehaviour
         soundProperites[type] = tProp;
 
         // Otherwise, iterate all sources within the type and mute.
-        foreach (AudioSource source in soundSources[type])
-            source.mute = !source.mute;
+        foreach (Tuple<AudioSource, Transform> data in soundSources[type])
+            data.Item1.mute = !data.Item1.mute;
     }
 
     /// <summary>
@@ -138,8 +142,8 @@ public class SoundManager : MonoBehaviour
         if (!soundSources.ContainsKey(type)) return;
 
         // Otherwise, iterate all sources within the type and interrupt.
-        foreach (AudioSource source in soundSources[type])
-            source.Stop();
+        foreach (Tuple<AudioSource, Transform> data in soundSources[type])
+            data.Item1.Stop();
     }
 
     /// <summary>
@@ -158,18 +162,19 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     void FixedUpdate() {
         // Find sources to remove...
-        List<(AudioSource, Audio)> removeSources = new List<(AudioSource, Audio)>();
-        foreach (Audio type in soundSources.Keys) {
-            foreach (List<AudioSource> sources in soundSources.Values) {
-                foreach (AudioSource source in sources)
-                    if (!source.isPlaying) removeSources.Add((source, type));
-            }
-        }
+        List<(Tuple<AudioSource, Transform>, Audio)> removeSources = new List<(Tuple<AudioSource, Transform>, Audio)>();
+        foreach (Audio type in soundSources.Keys)
+            foreach (List<Tuple<AudioSource, Transform>> sources in soundSources.Values)
+                foreach (Tuple<AudioSource, Transform> source in sources)
+                {
+                    if      (!source.Item1.isPlaying)   removeSources.Add((source, type));
+                    else if (source.Item2 != null)      source.Item1.transform.position = source.Item2.position;
+                }
 
         // ...and remove them.
-        foreach ((AudioSource, Audio) removeSource in removeSources) {
+        foreach ((Tuple<AudioSource, Transform>, Audio) removeSource in removeSources) {
             soundSources[removeSource.Item2].Remove(removeSource.Item1);
-            Destroy(removeSource.Item1.gameObject);
+            Destroy(removeSource.Item1.Item1.gameObject);
         }
     }
 }

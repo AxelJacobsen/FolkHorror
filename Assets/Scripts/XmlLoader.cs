@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// Class <c>DialogueReader</c> reads dialogue from XML file.
 /// </summary>
-public class DialogueReader : MonoBehaviour
+public class XmlLoader : MonoBehaviour
 {
     /// <summary>
     /// Load XML files into an object.
@@ -16,7 +16,8 @@ public class DialogueReader : MonoBehaviour
     /// <returns>Object with values</returns>
     public static T LoadXML<T>(string fileName)
     {
-        TextAsset textAsset = (TextAsset)Resources.Load(fileName);
+        ResourceRequest r = Resources.LoadAsync(fileName);
+        TextAsset textAsset = (TextAsset)r.asset;
         XmlDocument doc = new XmlDocument();
         doc.LoadXml(textAsset.text);
         return DeserializeXmlDocument<T>(doc);

@@ -16,7 +16,7 @@ public class Dialogue
     public string name;
 
     [XmlArray("sentences"), XmlArrayItem("value")]
-    public string[] sentences;
+    public List<string> sentences;
 }
 
 

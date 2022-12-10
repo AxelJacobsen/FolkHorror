@@ -167,5 +167,5 @@ public abstract class Item : MonoBehaviour
     public virtual void OnPlayerAttack(Vector3 aimPosition, string targetTag){}
     public virtual void OnPlayerHit(GameObject target, float amount){}
     public virtual void OnPlayerGetHit(GameObject hitBy, float amount){}
-    public virtual void OnPickup(){SoundManager.Instance.PlaySound(PickupSound);}
+    public virtual void OnPickup(){SoundManager.Instance.PlaySound(PickupSound, user.transform);}
 }
