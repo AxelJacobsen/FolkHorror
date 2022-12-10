@@ -18,7 +18,6 @@ public class SceneLoader : MonoBehaviour
     /// <param name="sceneName">The name of the scene to change to.</param>
     public void ChangeScene(string sceneName) {
         // Unload all other scenes than "NeverUnload"
-        print(sceneName);
         for (int i = 0; i < SceneManager.sceneCount; i++)
         {
             Scene it = SceneManager.GetSceneAt(i);

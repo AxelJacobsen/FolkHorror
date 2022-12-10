@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 //[CreateAssetHeader(menu = "Item picker")]
 public class ItemSpawner : MonoBehaviour {
     [Header("Item Lists")]

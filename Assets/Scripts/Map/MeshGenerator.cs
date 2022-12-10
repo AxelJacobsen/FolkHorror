@@ -271,12 +271,14 @@ public class MeshGenerator : MonoBehaviour {
 			timeOut--;
 		} while (intersects && 0<timeOut);
 	}
-
+	/// <summary>
+    /// Creates a meshTriangle from squares corners depending on a squares neighbours
+    /// </summary>
+    /// <param name="square"></param>
 	void TriangulateSquare(Square square) {
 		switch (square.configuration) {
 			case 0:
 				break;
-
 			// 1 points:
 			case 1:
 				MeshFromPoints(square.centreLeft, square.centreBottom, square.bottomLeft);

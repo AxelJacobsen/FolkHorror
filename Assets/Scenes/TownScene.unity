@@ -5097,5 +5097,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1816414021725347954, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
+      propertyPath: BiomeName
+      value: forrest
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
