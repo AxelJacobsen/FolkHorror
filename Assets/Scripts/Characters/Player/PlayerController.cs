@@ -71,12 +71,10 @@ public class PlayerController : Character {
 		if (dead) return;
 		else dead = true;
 		dropAllItems();
-		
 		GameObject sceneLoaderObject = GameObject.FindGameObjectWithTag("SceneLoader");
 		SceneLoader sceneLoader = sceneLoaderObject.GetComponent<SceneLoader>();
 		sceneLoader.ChangeScene(respawnLocation);
-		
-		resetStats();
+		StartCoroutine(resetStats());
 		OnDie();
 	}
 
@@ -84,18 +82,21 @@ public class PlayerController : Character {
 	/// Drops and destroys all items a player has
 	/// </summary>
 	void dropAllItems() {
-		foreach (Item item in Items) {
-			item.Drop();
+		int j = 0;
+		for (int i = 0; i < Items.Count; i++) {
+			Items[i - j++].Drop();
 			//Destroy(item.GameObject);
 		}
 	}
 
 	/// <summary>
-	/// Resets player status
+	/// Resets player status, waits untill end of frame to avoid overkill
 	/// </summary>
-	void resetStats() {
+	IEnumerator resetStats() {
+		yield return new WaitForEndOfFrame();
 		UpdateStats();
 		//baseStats = base.Copy();
 		Health = MaxHealth;
+		dead = false;
 	}
 }

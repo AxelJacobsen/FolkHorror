@@ -164,7 +164,7 @@ public abstract class Character : CharacterStats
         foreach (Item item in Items) { item.OnPlayerGetHit(caller, amount); }
 
 		Health -= amount;
-		if (Health <= 0) {
+		if (Health <= 0 && !dead) {
 			Die();
 		}
 
