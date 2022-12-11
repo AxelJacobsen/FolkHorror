@@ -17,7 +17,19 @@ public class Quest : ScriptableObject
 {
     public string title;
     public string description;
-    public bool isRunning;
-    public bool isCompleted;
     public QuestType type;
+    public Dictionary<int, Dialogue> startDialogue;
+    public Dictionary<int, Dialogue> endDialogue;
+    public Quest nextQuest;
+    public bool hasParent;  // if quest is first quest in the line or not
+
+    private int status = -1;
+    public int Status { 
+        get { return status; }
+        set { status = value; } 
+    }
+
+    public virtual void Initialize()
+    {
+    }
 }

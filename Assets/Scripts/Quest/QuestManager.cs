@@ -122,7 +122,7 @@ public class QuestManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if a kill quest has been completed.
+    /// Checks if kill quest(s) has/have been completed.
     /// </summary>
     private void CheckComplete()
     {
@@ -130,16 +130,13 @@ public class QuestManager : MonoBehaviour
 
         // temporary list for storing the ones that should be deleted from the other list
         List<KillQuest> completedQuests = new();
-
         foreach (KillQuest quest in killQuests)
         {
             if (quest.IsCompleted())
             {
-                quest.isCompleted = true;
-                quest.isRunning = false;
+                quest.Status = 1;
                 ModifyQuest(quest);
                 completedQuests.Add(quest);
-                print("Quest " + quest.title + " is completed");
             }
         }
 
