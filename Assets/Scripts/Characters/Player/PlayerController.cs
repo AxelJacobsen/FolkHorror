@@ -71,9 +71,6 @@ public class PlayerController : Character {
 		if (dead) return;
 		else dead = true;
 		dropAllItems();
-		currentBiome = respawnLocation;
-		currentStage = 0;
-		
 		StartCoroutine(respawnDelay());
 
 		// display death screen
@@ -106,6 +103,8 @@ public class PlayerController : Character {
 	/// </summary>
 	IEnumerator resetStats() {
 		yield return new WaitForEndOfFrame();
+		currentBiome = respawnLocation;
+		currentStage = 0;
 		UpdateStats();
 		Health = MaxHealth;
 		dead = false;
