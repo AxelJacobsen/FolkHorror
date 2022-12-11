@@ -11,13 +11,23 @@ using UnityEngine.UI;
 public class DialogueTrigger : MonoBehaviour
 {
     public string filePath;
-    public DialogueInteraction dialogueInteraction;
 
+    private DialogueInteraction dialogueInteraction;
     private Dialogue dialogue;
 
     void Start()
     {
-        dialogueInteraction.gameObject.SetActive(false);
+        // get DialogueInteraction
+        GameObject dialogue = GameObject.Find("/Dialogue");
+        if (dialogue == null) Debug.Log(gameObject.name + " could not find Dialogue");
+
+        dialogueInteraction = dialogue.transform.Find("DialogueInteraction").GetComponent<DialogueInteraction>();
+        if (dialogueInteraction == null) Debug.Log(gameObject.name + " could not find DialogueInteraction");
+
+        dialogueInteraction.controller = GameObject.Find("/Dialogue/DialogueController").GetComponent<DialogueController>();
+        if (dialogueInteraction.controller == null) Debug.Log(gameObject.name + " could not find DialogueController");
+
+        dialogueInteraction.autoStart = false;
     }
 
     private void OnTriggerEnter(Collider other)
