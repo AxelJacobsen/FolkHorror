@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Xml.Serialization;
 using TMPro;
@@ -25,7 +26,6 @@ public static class ButtonExtension
 /// </summary>
 public class QuestManager : MonoBehaviour
 {
-    public static List<Quest> quests;
     public static List<Quest> changedQuests = new();    // used to indicate change in quests
 
     public Canvas questCanvas;
@@ -33,6 +33,8 @@ public class QuestManager : MonoBehaviour
     public GameObject questList;
     public GameObject questOverview;
 
+    private List<Quest> quests;
+    private List<KillQuest> killQuests = new();
     private List<GameObject> questPrefabs = new();
     private GameObject currentQuest;
     private bool isOpen;
@@ -58,6 +60,9 @@ public class QuestManager : MonoBehaviour
             changedQuests.Clear();
             return;
         }
+
+        // check for quest completion
+        CheckComplete();
 
         // menu is opened, which makes the quest UI close
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -102,12 +107,40 @@ public class QuestManager : MonoBehaviour
         {
             // if it is not, add it to the list and instantiate a new prefab
             quests.Add(changedQuest);
+            // add to its own list if it is a kill quest, used for checking if it has been completed
+            if (changedQuest.type == QuestType.Kill) killQuests.Add((KillQuest)changedQuest);
             GameObject obj;
             obj = Instantiate(questPrefab, questList.transform);
             obj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = quests[quests.Count - 1].title;
             obj.GetComponent<Button>().AddEventLIstener(quests.Count - 1, OnQuestClick);
             questPrefabs.Add(obj);
         }
+    }
+
+    /// <summary>
+    /// Checks if a kill quest has been completed.
+    /// </summary>
+    private void CheckComplete()
+    {
+        if (killQuests.Count <= 0) return;
+
+        // temporary list for storing the ones that should be deleted from the other list
+        List<KillQuest> completedQuests = new();
+
+        foreach (KillQuest quest in killQuests)
+        {
+            if (quest.IsCompleted())
+            {
+                quest.isCompleted = true;
+                quest.isRunning = false;
+                ModifyQuest(quest);
+                completedQuests.Add(quest);
+                print("Quest " + quest.title + " is completed");
+            }
+        }
+
+        // remove the completd ones from the "official" list
+        killQuests = killQuests.Except(completedQuests).ToList();
     }
 
     /// <summary>

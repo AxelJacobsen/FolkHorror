@@ -264,9 +264,6 @@ MonoBehaviour:
   questPrefab: {fileID: 2026078630689903373, guid: 41bb4ebbc1fa0d54d9438cf0a9568d14, type: 3}
   questList: {fileID: 724965421}
   questOverview: {fileID: 1803142867}
-  quests:
-  - {fileID: 11400000, guid: be92704cb5e47844dab88ef2d231a504, type: 2}
-  - {fileID: 11400000, guid: b845d22ff6f6f6c44be7c86415b1a0c4, type: 2}
 --- !u!4 &208625182
 Transform:
   m_ObjectHideFlags: 0
@@ -2091,7 +2088,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb798fb98473e574fa7c795d228f4d45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartSceneName: TownScene
+  StartSceneName: TutorialScene
 --- !u!4 &1767235275
 Transform:
   m_ObjectHideFlags: 0
