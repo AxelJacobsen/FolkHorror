@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -155,5 +156,10 @@ public class DialogueInteraction : MonoBehaviour
     {
         if (infoText == null) return;
         infoText.gameObject.SetActive(state);
+    }
+
+    public static implicit operator DialogueInteraction(GameObject v)
+    {
+        throw new NotImplementedException();
     }
 }
