@@ -1683,8 +1683,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Skip tutorial
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5f3fd3a1f67697c4bac71a7fa705f8be, type: 2}
+  m_sharedMaterial: {fileID: -7661462432139008788, guid: 5f3fd3a1f67697c4bac71a7fa705f8be, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3478,6 +3478,10 @@ MonoBehaviour:
   enemy: {fileID: 384566823}
   portal: {fileID: 1162964308}
   buttonSkip: {fileID: 660198705}
+  questsTest:
+  - {fileID: 11400000, guid: be92704cb5e47844dab88ef2d231a504, type: 2}
+  - {fileID: 11400000, guid: b845d22ff6f6f6c44be7c86415b1a0c4, type: 2}
+  - {fileID: 11400000, guid: a0e0d082c78787941bf8d33404e269c3, type: 2}
 --- !u!4 &1784098789
 Transform:
   m_ObjectHideFlags: 0
