@@ -50,6 +50,7 @@ public class DialogueInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(dialogue.name);
         // if the game is paused AND a dialogue is not currently happening
         if (PauseController.isPaused && !isActive) return;
 

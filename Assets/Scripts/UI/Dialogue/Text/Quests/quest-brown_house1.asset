@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f5bd421e2df93d4889f958af4ff10fd, type: 3}
-  m_Name: Quest1
+  m_Script: {fileID: 11500000, guid: 8634fde5faf815f458eaf8688e2f1075, type: 3}
+  m_Name: quest-brown_house1
   m_EditorClassIdentifier: 
-  title: Quest 1
-  description: Description 1
-  isRunning: 0
-  isCompleted: 0
+  name: Purple house
+  sentences:
+  - go talk to the person in the brown house
+  - they want to c u...
