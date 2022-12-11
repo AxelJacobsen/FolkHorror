@@ -16,16 +16,15 @@ public class DialogueInteraction : MonoBehaviour
     public Image textBox;
     public TextMeshProUGUI infoText;
     public Dialogue dialogue;
+    public DialogueController controller;
     public bool autoStart = false;
 
-    private DialogueController controller;
     private int currentIndex;
     private bool menuIsOpen;
 
     // Start is called before the first frame update
     void Start()
     {
-        controller = FindObjectOfType<DialogueController>();
         currentIndex = 0;
         isActive = autoStart;
         menuIsOpen = false;

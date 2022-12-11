@@ -21,9 +21,11 @@ public class DialogueTrigger : MonoBehaviour
         GameObject dialogue = GameObject.Find("/Dialogue");
         if (dialogue == null) Debug.Log(gameObject.name + " could not find Dialogue");
 
-        Transform interactionTransform = dialogue.transform.Find("DialogueInteraction");
-        dialogueInteraction = interactionTransform.GetComponent<DialogueInteraction>();
+        dialogueInteraction = dialogue.transform.Find("DialogueInteraction").GetComponent<DialogueInteraction>();
         if (dialogueInteraction == null) Debug.Log(gameObject.name + " could not find DialogueInteraction");
+
+        dialogueInteraction.controller = GameObject.Find("/Dialogue/DialogueController").GetComponent<DialogueController>();
+        if (dialogueInteraction.controller == null) Debug.Log(gameObject.name + " could not find DialogueController");
 
         dialogueInteraction.autoStart = false;
     }
