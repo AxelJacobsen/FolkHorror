@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class <c>QuestTrigger</c> starts and ends quests when the player enters a specific area.
+/// </summary>
 public class QuestTrigger : MonoBehaviour
 {
     public Quest quest;
