@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,13 +12,14 @@ public class PlayerController : Character
 	public LayerMask AimLayer;
 	public int currentStage = 0;
 	public string currentBiome = "";
-
+	
 
 	// Private vars
 	private int attackHeld = 0;
 	private PlayerControls playerControls;
     private bool tryRolling = false;
-
+	private int coinAmount = 100; 
+	
     private void Awake() {
 		playerControls = new PlayerControls();
 	}
@@ -34,6 +36,21 @@ public class PlayerController : Character
 	{
 		
 	}
+
+	public void tryIncrementCoinAmount() {
+		if (coinAmount < int.MaxValue) coinAmount++; 
+	}
+	public bool tryRemoveCoinAmount(int removeAmount) {
+		if (coinAmount > removeAmount && removeAmount > 0)
+		{
+			coinAmount--;
+            tryRemoveCoinAmount(removeAmount - 1);
+		}
+		else if (removeAmount <= 0) return true;
+		return false;
+	}
+	public int getCoinAmount() { return coinAmount; }
+
 
 	protected override void OnFixedUpdate()
 	{

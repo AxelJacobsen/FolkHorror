@@ -54,7 +54,7 @@ public class SoundManager : MonoBehaviour
     /// </summary>
     /// <param name="clip">the clip to be played</param>
     /// <param name="type">Audio source, default is set to Effects</param> 
-    public AudioSource PlaySound(AudioClip clip, Transform attachTo = null, Audio type = Audio.Effects) {
+    public AudioSource PlaySound(AudioClip clip, Transform attachTo = null, Audio type = Audio.Effects, bool isSpatial = true) {
         // If key isn't initialized, initialize it with an empty list.
         if (!soundSources.ContainsKey(type)) InitType(type);
 
@@ -63,9 +63,12 @@ public class SoundManager : MonoBehaviour
         AudioSource newSource = newSourceObj.GetComponent<AudioSource>();
         newSource.volume      = soundProperites[type].Volume;
         newSource.mute        = soundProperites[type].Muted;
-        newSource.spatialBlend= 1.0f;
-        newSource.minDistance = 5f;
-        newSource.maxDistance = 40f;
+        if (isSpatial) {
+            newSource.spatialBlend = 1.0f;
+            newSource.minDistance = 5f;
+            newSource.maxDistance = 40f;
+        }
+  
         
         // Lastly, play the sound and add it to the list.
         //newSource.PlayOneShot(clip);

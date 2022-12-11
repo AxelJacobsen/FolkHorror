@@ -51,8 +51,11 @@ public class Coin : Item
     /// </summary>
     protected override void PickUp()
     {
+        PlayerController userPlayerController = user.GetComponent<PlayerController>();
+        if (userPlayerController == null) Debug.LogError("Could not find playercontroller!");
+        userPlayerController.tryIncrementCoinAmount();
         OnPickup();
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     /// <summary>
