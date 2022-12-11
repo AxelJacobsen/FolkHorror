@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PortalScript : MonoBehaviour
 {
     public string SceneName;
+    public string BiomeName;
     public bool isEntrance = false;
     public bool resetSpeed = false;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// Start is called before the first frame update
+    /// </summary>
     void Start()
     {
         //Activates the portal, insurance for entrance to set player death state
@@ -27,14 +31,27 @@ public class PortalScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Triggers when you collide with a portal, removes entrances and teleports the player on exit
+    /// </summary>
+    /// <param name="hit"></param>
     void OnTriggerEnter (Collider hit) { 
         //If it its an exit then teleport the player to the next stage on touch
-        if (isEntrance && hit.transform.parent.tag == "Player") { 
-            //hit.transform.parent.GetComponent<PlayerController>().dead = false;
+        if (isEntrance && hit.transform.parent.tag == "Player") {
             this.transform.parent.gameObject.SetActive(false);
             return; 
         }
         else if (isEntrance || hit.transform.parent == null || !hit.transform.parent.gameObject.CompareTag("Player")) return;
+        
+        //Iterates open scenes to check where theplayer is, then updates biome and currentstage
+        Scene[] openScenes = SceneManager.GetAllScenes();
+        foreach (Scene sc in openScenes) {
+            if (sc.name == "TownScene") {
+                hit.transform.parent.GetComponent<PlayerController>().currentBiome = BiomeName;
+            } else if (sc.name == "MapGenScene") {
+                hit.transform.parent.GetComponent<PlayerController>().currentStage++;
+            }
+        }
         ChangeScene();
     }
 

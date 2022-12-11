@@ -71,6 +71,7 @@ public class PlayerController : Character {
 		if (dead) return;
 		else dead = true;
 		dropAllItems();
+		StartCoroutine(respawnDelay());
 
 		// display death screen
 		InfoScreen info = GameObject.Find("/InfoScreen").transform.GetComponent<InfoScreen>();
@@ -90,8 +91,10 @@ public class PlayerController : Character {
 	void dropAllItems() {
 		int j = 0;
 		for (int i = 0; i < Items.Count; i++) {
-			Items[i - j++].Drop();
-			//Destroy(item.GameObject);
+			if (!(Items[i - j] is Weapon)) {
+				Items[i - j].Drop();
+				Destroy(Items[i - j++].gameObject);
+			}
 		}
 	}
 
@@ -100,9 +103,20 @@ public class PlayerController : Character {
 	/// </summary>
 	IEnumerator resetStats() {
 		yield return new WaitForEndOfFrame();
+		currentBiome = respawnLocation;
+		currentStage = 0;
 		UpdateStats();
-		//baseStats = base.Copy();
 		Health = MaxHealth;
 		dead = false;
+	}
+
+	/// <summary>
+	/// Resets player status, waits untill end of frame to avoid overkill
+	/// </summary>
+	IEnumerator respawnDelay() {
+		yield return new WaitForEndOfFrame();
+		GameObject sceneLoaderObject = GameObject.FindGameObjectWithTag("SceneLoader");
+		SceneLoader sceneLoader = sceneLoaderObject.GetComponent<SceneLoader>();
+		sceneLoader.ChangeScene(respawnLocation);
 	}
 }
