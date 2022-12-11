@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class for rock fragment effects.
+/// </summary>
 public class Rockfragment : MonoBehaviour
 {
     // Public vars
@@ -14,7 +17,6 @@ public class Rockfragment : MonoBehaviour
 
     // Private vars
     private float   livedFor = 0f;
-
 
     void FixedUpdate()
     {

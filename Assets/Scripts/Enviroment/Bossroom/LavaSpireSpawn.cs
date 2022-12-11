@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class for a lava spire spawning from the ground, dealing damage.
+/// </summary>
 public class LavaSpireSpawn : MonoBehaviour
 {
     // Public vars
