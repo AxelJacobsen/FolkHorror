@@ -15,9 +15,9 @@ public class ItemSpawner : MonoBehaviour {
                upperThresh = 100;  // marks the highest number that can be generated,
                                    // could be increased for overall better items
 
-    public bool spawnItem = false;
     private int weightTest = 0;
     public bool isEnemyItem = false;
+    public bool ItemBias = true;
     private GameObject spawnedItem;
 
     void Start() {
@@ -32,17 +32,29 @@ public class ItemSpawner : MonoBehaviour {
     }
 
     // should be overwritten by seperate shops 
-    public virtual void HandleItem(int weight) { 
-        GameObject pickedItem = GetRandomItem(weight);
-        if (spawnItem) {
-            Destroy(spawnedItem);
-            spawnedItem = Instantiate(pickedItem, transform.position, Quaternion.Euler(45, 0, 0));
-            if (isEnemyItem) {
-                Weapon itemComp = spawnedItem.GetComponent<Weapon>();
-                itemComp.PickedUpByTag = "Enemy";
+    public virtual void HandleItem(int weight) {
+        GameObject pickedItem = GetRandomItem(weight); ;
+        //If an enemy item is to be spawned then force it to whatever bias the enemy has
+        if (ItemBias && isEnemyItem) {
+            GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+            foreach (GameObject enemy in allEnemies) {
+                if (enemy.transform.position == transform.position) {
+                    int bias = enemy.GetComponent<BaseEnemyAI>().ItemBias;
+                    if (bias <= -1) { return;  }
+                    else if (bias <= Common_Items.Count) {
+                        pickedItem = Common_Items[enemy.GetComponent<BaseEnemyAI>().ItemBias];
+                    }
+                }
             }
-            spawnedItem.SetActive(true);
         }
+        //Insurance
+        Destroy(spawnedItem);
+        spawnedItem = Instantiate(pickedItem, transform.position, Quaternion.Euler(45, 0, 0));
+        if (isEnemyItem) {
+            Weapon itemComp = spawnedItem.GetComponent<Weapon>();
+            itemComp.PickedUpByTag = "Enemy";
+        }
+        spawnedItem.SetActive(true);
     }
 
     /*

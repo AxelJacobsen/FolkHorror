@@ -76,7 +76,6 @@ public class MapGenerator : MonoBehaviour {
 		} else { mapData.Append(0 + "\n"); }
 		mapData.Append(smoothing + "\n" + smoothingStrictness + "\n" + borderSize + "\n");
 		mapData.Append(roomSizeThreshold + "\n" + wallSizeThreshold + "\n" + randomFillPercent);
-
 		System.IO.File.WriteAllText(string.Format("Assets/Resources/MapTemplates/{0}.txt", saveFileName), mapData.ToString());
 	}
 	
@@ -90,6 +89,7 @@ public class MapGenerator : MonoBehaviour {
 		int curStage = playerData.currentStage;
 		string curBiome = playerData.currentBiome;
 		string currentMap = curBiome + curStage;
+		
 		if (curStage == bossLevel){
 			//Swap to boss scene
 			binaryMapFileName = curBiome + "BossArena";
@@ -98,7 +98,8 @@ public class MapGenerator : MonoBehaviour {
 			sceneLoader.ChangeScene(binaryMapFileName);
 			return;
 		}
-		var mapData = Resources.Load<TextAsset>(string.Format("MapTemplates/{0}", currentMap));
+		PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+		var mapData = Resources.Load<TextAsset>(string.Format("MapTemplates/{0}{1}", currentMap, player.currentStage));
 
 		//If there isnt a template with the desired name, just use whatever is default atm
 		if (mapData == null) return;
