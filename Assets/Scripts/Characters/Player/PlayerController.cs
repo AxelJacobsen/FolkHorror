@@ -71,6 +71,12 @@ public class PlayerController : Character {
 		if (dead) return;
 		else dead = true;
 		dropAllItems();
+
+		// display death screen
+		InfoScreen info = GameObject.Find("/InfoScreen").transform.GetComponent<InfoScreen>();
+		if (info == null) Debug.Log(gameObject.name + " could not find InfoScreen");
+		info.ToggleInfoScreen(true);
+
 		GameObject sceneLoaderObject = GameObject.FindGameObjectWithTag("SceneLoader");
 		SceneLoader sceneLoader = sceneLoaderObject.GetComponent<SceneLoader>();
 		sceneLoader.ChangeScene(respawnLocation);
