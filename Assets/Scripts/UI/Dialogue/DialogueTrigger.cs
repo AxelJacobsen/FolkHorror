@@ -10,10 +10,9 @@ using UnityEngine.UI;
 /// </summary>
 public class DialogueTrigger : MonoBehaviour
 {
-    public string filePath;
+    public Dialogue dialogueObj;
 
     private DialogueInteraction dialogueInteraction;
-    private Dialogue dialogue;
 
     void Start()
     {
@@ -34,10 +33,8 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (other.transform.parent == null || !other.transform.parent.gameObject.CompareTag("Player")) return;
 
+        dialogueInteraction.dialogue = dialogueObj;
         dialogueInteraction.gameObject.SetActive(true);
-
-        dialogue = XmlLoader.LoadXML<Dialogue>(filePath);
-        dialogueInteraction.dialogue = dialogue;
     }
 
     private void OnTriggerExit(Collider other)

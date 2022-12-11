@@ -460,6 +460,7 @@ MonoBehaviour:
   canvas: {fileID: 1638065453}
   textBox: {fileID: 1809778787}
   infoText: {fileID: 0}
+  dialogue: {fileID: 0}
   controller: {fileID: 0}
   autoStart: 1
 --- !u!4 &240722171
@@ -1958,6 +1959,7 @@ MonoBehaviour:
   canvas: {fileID: 1239444115}
   textBox: {fileID: 1527968830}
   infoText: {fileID: 1699502063}
+  dialogue: {fileID: 0}
   controller: {fileID: 0}
   autoStart: 0
 --- !u!4 &983973796
@@ -2319,7 +2321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e47ad05ef00cc048b06f5d2e58d8e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: Dialogue/death-screen
+  dialogue: {fileID: 11400000, guid: 27ea83b827815c14cbd000c169fe9c63, type: 2}
   infoCanvas: {fileID: 1638065453}
   infoScreenInteraction: {fileID: 240722170}
   infoScreenController: {fileID: 426733584}

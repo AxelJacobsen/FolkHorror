@@ -3478,6 +3478,10 @@ MonoBehaviour:
   enemy: {fileID: 384566823}
   portal: {fileID: 1162964308}
   buttonSkip: {fileID: 660198705}
+  dialogues:
+  - {fileID: 11400000, guid: 9aae6540b3ecf704c99001c1a0788fad, type: 2}
+  - {fileID: 11400000, guid: ea7d87c9231b41e4eb2ec34923d46afd, type: 2}
+  - {fileID: 11400000, guid: 33d1895cc1fecbd47a59313abf436c86, type: 2}
 --- !u!4 &1784098789
 Transform:
   m_ObjectHideFlags: 0

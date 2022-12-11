@@ -2448,6 +2448,7 @@ GameObject:
   - component: {fileID: 1264424930}
   - component: {fileID: 1264424931}
   - component: {fileID: 1264424932}
+  - component: {fileID: 1264424933}
   m_Layer: 0
   m_Name: Building2Trigger
   m_TagString: Untagged
@@ -2495,7 +2496,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c570f723c37fbe4989a81133b04b079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: Dialogue/npc2
+  dialogueObj: {fileID: 11400000, guid: b03bd367162bb694b9e98da6ec32331b, type: 2}
+--- !u!114 &1264424933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264424929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1eeef33db7132f499ad244ba139314b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quest: {fileID: 11400000, guid: be92704cb5e47844dab88ef2d231a504, type: 2}
+  isStart: 0
 --- !u!1001 &1279480361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3553,6 +3568,7 @@ GameObject:
   - component: {fileID: 1704257745}
   - component: {fileID: 1704257747}
   - component: {fileID: 1704257749}
+  - component: {fileID: 1704257750}
   m_Layer: 0
   m_Name: BuildingTrigger
   m_TagString: Untagged
@@ -3600,7 +3616,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c570f723c37fbe4989a81133b04b079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: Dialogue/npc1
+  dialogueObj: {fileID: 11400000, guid: 5929df4df921a3844a30aa63718cdb4b, type: 2}
+--- !u!114 &1704257750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704257744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1eeef33db7132f499ad244ba139314b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  quest: {fileID: 11400000, guid: be92704cb5e47844dab88ef2d231a504, type: 2}
+  isStart: 1
 --- !u!1 &1754263356
 GameObject:
   m_ObjectHideFlags: 0

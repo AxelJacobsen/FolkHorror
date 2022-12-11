@@ -98,6 +98,8 @@ public class QuestManager : MonoBehaviour
         // check if the changed quest is already in the list of enabled quests
         if (quests.Contains(changedQuest))
         {
+            print("Quest " + changedQuest.title + " is completed");
+
             // if it is, make it inactive
             int index = quests.FindIndex(q => q.title.Equals(changedQuest.title));
             questPrefabs[index].GetComponent<Image>().color = new Color(76f / 255f, 82f / 255f, 81f / 255f);
@@ -105,6 +107,8 @@ public class QuestManager : MonoBehaviour
         }
         else
         {
+            print("Quest " + changedQuest.title + " is started");
+
             // if it is not, add it to the list and instantiate a new prefab
             quests.Add(changedQuest);
             // add to its own list if it is a kill quest, used for checking if it has been completed
