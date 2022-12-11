@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//[CreateAssetHeader(menu = "Item picker")]
 public class ItemSpawner : MonoBehaviour {
     [Header("Item Lists")]
     public List<GameObject> Common_Items;
@@ -32,7 +31,7 @@ public class ItemSpawner : MonoBehaviour {
     /// <param name="weight"></param>
     public virtual void HandleItem(int weight) {
         GameObject pickedItem = GetRandomItem(weight); ;
-        
+        if (pickedItem == null) { return; }
         //Insurance   
         Destroy(spawnedItem);
         spawnedItem = Instantiate(pickedItem, transform.position, Quaternion.Euler(45, 0, 0));
@@ -86,11 +85,13 @@ public class ItemSpawner : MonoBehaviour {
         }
     }
 
-    /*
-        Fetches item from specific list
-     */
+    /// <summary>
+    /// Fetches item from specific list
+    /// </summary>
+    /// <param name="itemList"></param>
+    /// <returns></returns>
     private GameObject GetRandomItemFromList(List<GameObject> itemList) {
-        if (itemList.Count == 0) { print("Item list empty"); return new GameObject { }; };
+        if (itemList.Count <= 0) { print("Item list empty"); return null; };
         return itemList[Random.Range(0, itemList.Count)];
     }
 }

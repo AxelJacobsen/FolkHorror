@@ -1416,6 +1416,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6448025216525411012, guid: 961bfe3a2af605c4f988c89b11dda88c, type: 3}
+      propertyPath: Common_Items.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448025216525411012, guid: 961bfe3a2af605c4f988c89b11dda88c, type: 3}
       propertyPath: Common_Items.Array.data[0]
       value: 
       objectReference: {fileID: 6733002034635403458, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
