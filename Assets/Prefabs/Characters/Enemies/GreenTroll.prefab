@@ -158,6 +158,7 @@ MonoBehaviour:
   TargetObjectsWithTag: Player
   VisionRange: 50
   ItemBias: 0
+  DesiredWeapon: {fileID: 6733002034635403458, guid: 87304d7d666aa9d469b863c814bf55f9, type: 3}
   behavior: 0
   AttackRange: 25
   RunAwaySpeedMult: 1.5

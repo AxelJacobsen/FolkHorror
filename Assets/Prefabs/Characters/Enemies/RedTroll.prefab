@@ -158,6 +158,7 @@ MonoBehaviour:
   TargetObjectsWithTag: Player
   VisionRange: 40
   ItemBias: 1
+  DesiredWeapon: {fileID: 4268143483448351366, guid: d70823903f97f964fb1fa84c39b13ecf, type: 3}
   behavior: 0
   StampedeWithinRange: 25
   StampedeMaxDamage: 0

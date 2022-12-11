@@ -14,52 +14,60 @@ public class ItemSpawner : MonoBehaviour {
     public int legendThresh = 95,  // numbers above will be legendary
                upperThresh = 100;  // marks the highest number that can be generated,
                                    // could be increased for overall better items
-
-    private int weightTest = 0;
     public bool isEnemyItem = false;
-    public bool ItemBias = true;
     private GameObject spawnedItem;
 
     void Start() {
-        HandleItem(weightTest);
-    }
-
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.F4)) {
-            weightTest++;
-            HandleItem(weightTest);
+        int pWeight = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>().currentStage;
+        if (isEnemyItem) {
+            GiveEnemyWeapon();
+        } else {
+            HandleItem(pWeight);
         }
     }
 
-    // should be overwritten by seperate shops 
+    /// <summary>
+    /// Handles spawning random items
+    /// </summary>
+    /// <param name="weight"></param>
     public virtual void HandleItem(int weight) {
         GameObject pickedItem = GetRandomItem(weight); ;
-        //If an enemy item is to be spawned then force it to whatever bias the enemy has
-        if (ItemBias && isEnemyItem) {
-            GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach (GameObject enemy in allEnemies) {
-                if (enemy.transform.position == transform.position) {
-                    int bias = enemy.GetComponent<BaseEnemyAI>().ItemBias;
-                    if (bias <= -1) { return;  }
-                    else if (bias <= Common_Items.Count) {
-                        pickedItem = Common_Items[enemy.GetComponent<BaseEnemyAI>().ItemBias];
-                    }
-                }
-            }
-        }
-        //Insurance
+        
+        //Insurance   
         Destroy(spawnedItem);
         spawnedItem = Instantiate(pickedItem, transform.position, Quaternion.Euler(45, 0, 0));
-        if (isEnemyItem) {
-            Weapon itemComp = spawnedItem.GetComponent<Weapon>();
-            itemComp.PickedUpByTag = "Enemy";
-        }
         spawnedItem.SetActive(true);
     }
 
-    /*
-        Handles fetching items from all lists
-     */
+    /// <summary>
+    /// Gives an enemy its weapon
+    /// </summary>
+    private void GiveEnemyWeapon() {
+        //If an enemy item is to be spawned then force it to whatever bias the enemy has
+        GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject pickedItem = null;
+        //Iterates all enemies and looks for the closest one 
+        foreach (GameObject enemy in allEnemies) {
+            if ((enemy.transform.position - transform.position).magnitude <= 5.0f) {
+                // Since they have diffrent heights, this compensates
+                GameObject bias = enemy.GetComponent<BaseEnemyAI>().DesiredWeapon;
+                if (bias == null) { return; }
+                pickedItem = bias;
+            }
+        }
+
+        if (pickedItem == null) { return; }
+        //Insurance
+        Destroy(spawnedItem);
+        spawnedItem = Instantiate(pickedItem, transform.position, Quaternion.Euler(45, 0, 0));
+        Weapon itemComp = spawnedItem.GetComponent<Weapon>();
+        itemComp.PickedUpByTag = "Enemy";
+        spawnedItem.SetActive(true);
+    }
+
+    /// <summary>
+    /// Handles fetching items from all lists
+    /// </summary>
     private GameObject GetRandomItem(int weight) {
         weight *= 10;
         if (weight < 0) { weight = 0; } else if (upperThresh<weight) { weight = legendThresh; };

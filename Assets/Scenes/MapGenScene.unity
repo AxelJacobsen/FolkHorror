@@ -1400,6 +1400,10 @@ PrefabInstance:
       value: itemSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 6448025216525411012, guid: 961bfe3a2af605c4f988c89b11dda88c, type: 3}
+      propertyPath: ItemBias
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448025216525411012, guid: 961bfe3a2af605c4f988c89b11dda88c, type: 3}
       propertyPath: isEnemyItem
       value: 1
       objectReference: {fileID: 0}

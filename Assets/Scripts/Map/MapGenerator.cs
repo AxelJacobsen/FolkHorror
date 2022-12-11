@@ -98,9 +98,7 @@ public class MapGenerator : MonoBehaviour {
 			sceneLoader.ChangeScene(binaryMapFileName);
 			return;
 		}
-		PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
-		var mapData = Resources.Load<TextAsset>(string.Format("MapTemplates/{0}{1}", currentMap, player.currentStage));
-
+		var mapData = Resources.Load<TextAsset>(string.Format("MapTemplates/{0}{1}", currentMap, playerData.currentStage));
 		//If there isnt a template with the desired name, just use whatever is default atm
 		if (mapData == null) return;
 		string[] splitData = mapData.text.Split("\n");
