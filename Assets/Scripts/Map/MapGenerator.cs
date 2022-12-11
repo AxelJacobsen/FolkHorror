@@ -123,9 +123,6 @@ public class MapGenerator : MonoBehaviour {
 		roomSizeThreshold	= parsedData[cur];	cur++;
 		wallSizeThreshold	= parsedData[cur];	cur++;
 		randomFillPercent	= parsedData[cur];	cur++;
-		/*width = parsedData[11]; //Spares incase we add more variables
-		width = parsedData[12];
-		width = parsedData[13];*/
 	}
 
 	/// <summary>
@@ -156,7 +153,7 @@ public class MapGenerator : MonoBehaviour {
 		for (int x = 0; x < borderedMap.GetLength(0); x++) {
 			for (int y = 0; y < borderedMap.GetLength(1); y++) {
 				invertedMap[x, y] = 1;
-				if (x >= borderSize && x < width && y >= borderSize && y < height) {
+				if (x >= borderSize && x < width+ borderSize && y >= borderSize && y < height+borderSize) {
 					borderedMap[x, y] = map[x - borderSize, y - borderSize];
 				}
 				else {

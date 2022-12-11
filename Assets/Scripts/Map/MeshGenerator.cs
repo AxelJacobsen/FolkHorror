@@ -93,7 +93,11 @@ public class MeshGenerator : MonoBehaviour {
 		switch (meshType) {
 			case 2: 
 				{
-					outerRoof.mesh = mesh; CreateWallMesh(map, squareSize, meshType); 
+					outerRoof.mesh = mesh;
+					//Necessary to save the mesh
+					MeshCollider outerRoofCollide  = outerRoof.gameObject.GetComponent<MeshCollider>();
+					outerRoofCollide.sharedMesh = mesh;
+					CreateWallMesh(map, squareSize, meshType); 
 				} break;
 			case 3: 
 				{
