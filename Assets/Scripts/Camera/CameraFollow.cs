@@ -5,22 +5,43 @@ using UnityEngine;
 public class CameraFollow : MonoBehaviour {
 
 	public Transform player;
-	public Vector3 offset;
+	public Vector3 	offset;
+	public float	ScreenshakeFrequency = 10f;
+
+	private float 	durationLeft = 0f,
+					intensity = 0f,
+					screenshakeC = 0f;
 
 	// Update is called once per frame
-	void Update()
+	void FixedUpdate()
 	{
-		transform.position = (player.position + offset);
+		Vector3 offsetExtra = Vector3.zero;
+		screenshakeC += Time.deltaTime * ScreenshakeFrequency;
 
-		if (Input.GetKeyDown ("q")) {
-		
+		// Screenshake
+		if (durationLeft > 0f)
+		{
+			durationLeft -= Time.deltaTime;
+			if ( screenshakeC >= 1f) 
+			{
+				screenshakeC = 0f;
+				float intensity0 = intensity;
+				if (durationLeft <= 0.1f) intensity0 *= durationLeft / 0.1f;
+				offsetExtra += new Vector3(Random.Range(-intensity0, intensity0), Random.Range(-intensity0, intensity0), Random.Range(-intensity0, intensity0));
+			}
 		}
-		if (Input.GetKeyDown ("e")) {
-		
-		}
+		transform.position = (player.position + offset + offsetExtra);
 	}
 
-	void rotateCamera(int dir){
-		
+	/**
+	 *	Applies a screenshake effect to the screen.
+	 *
+	 *	@param duration - The duration of the screenshake.
+	 *	@param intensity - The intensity of the screenshake.
+	 */
+	public void Screenshake(float duration, float intensity)
+	{
+		durationLeft = duration;
+		this.intensity = intensity;
 	}
 }
