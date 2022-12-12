@@ -2304,9 +2304,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cd4b9417c80a444bb9dfddf90a09016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 1239444115}
-  textBox: {fileID: 1527968830}
-  infoText: {fileID: 1699502063}
+  canvas: {fileID: 1085213059}
+  textBox: {fileID: 702735341}
+  infoText: {fileID: 1997162750}
   dialogue: {fileID: 0}
   controller: {fileID: 0}
   autoStart: 0
@@ -2473,7 +2473,7 @@ GameObject:
   - component: {fileID: 1085213058}
   - component: {fileID: 1085213057}
   m_Layer: 5
-  m_Name: DialogueCanvas (1)
+  m_Name: DialogueCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
