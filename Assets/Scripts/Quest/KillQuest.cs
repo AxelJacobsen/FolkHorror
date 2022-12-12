@@ -20,10 +20,16 @@ public class KillQuest : Quest
 {
     public List<int> killGoal;
     public List<Enemy> enemy;
+    public List<Dialogue> dialogue;
 
     private List<int> startNum = new();
     private List<int> killCount = new();
     private List<bool> killDone = new();
+    private bool isCompleted = false;
+    public bool IsCompleted
+    {
+        get { return isCompleted; }
+    }
 
     public override void Initialize()
     {
@@ -41,7 +47,7 @@ public class KillQuest : Quest
     /// Checks if the quest is completed.
     /// </summary>
     /// <returns></returns>
-    public bool IsCompleted()
+    public override bool CheckCompleted()
     {
         for (int i = 0; i < enemy.Count; i++)
         {

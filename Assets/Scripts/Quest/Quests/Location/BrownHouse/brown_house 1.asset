@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea374159f2f6e249a19189a36f978a6, type: 3}
+  m_Name: brown_house 1
+  m_EditorClassIdentifier: 
+  title: Brown house
+  description: The person living in the brown house in town wants to talk to you
+  type: 0
+  nextQuest: {fileID: 0}
+  hasParent: 0
+  startDialogue:
+  - {fileID: 11400000, guid: da93d19fb3bc4864fae9428b8cf1181d, type: 2}
+  - {fileID: 11400000, guid: ff484dc9b6d77f947a7dd7d23985c93f, type: 2}
+  - {fileID: 11400000, guid: e6aec38cc071e2345ac651b18d0be93d, type: 2}
+  endDialogue:
+  - {fileID: 11400000, guid: 8405b18c03980e648b1587e55b600ca4, type: 2}
+  - {fileID: 11400000, guid: 0fdf7a4d9fe6c2e43bc27d2bba73b9a9, type: 2}
+  - {fileID: 11400000, guid: 7f7f4c9c277c7984b87a8e05de81e168, type: 2}

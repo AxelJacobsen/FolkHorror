@@ -18,8 +18,6 @@ public class Quest : ScriptableObject
     public string title;
     public string description;
     public QuestType type;
-    public Dictionary<int, Dialogue> startDialogue;
-    public Dictionary<int, Dialogue> endDialogue;
     public Quest nextQuest;
     public bool hasParent;  // if quest is first quest in the line or not
 
@@ -31,5 +29,10 @@ public class Quest : ScriptableObject
 
     public virtual void Initialize()
     {
+    }
+
+    public virtual bool CheckCompleted()
+    {
+        return false;
     }
 }

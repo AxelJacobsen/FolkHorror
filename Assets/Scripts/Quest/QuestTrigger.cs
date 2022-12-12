@@ -8,7 +8,8 @@ using UnityEngine;
 /// </summary>
 public class QuestTrigger : MonoBehaviour
 {
-    public Quest quest;
+    public LocationQuest locQuest;
+    public KillQuest killQuest;
     public DialogueTrigger dialogueTrigger;
     public bool isStart;    // start quest or complete quest
 
@@ -22,53 +23,79 @@ public class QuestTrigger : MonoBehaviour
     {
         if (other.transform.parent == null || !other.transform.parent.gameObject.CompareTag("Player")) return;
 
+        if (killQuest != null)
+            KillQuest();
+        else if (locQuest != null)
+            LocationQuest();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.parent == null || !other.transform.parent.gameObject.CompareTag("Player")) return;
+
+        dialogueTrigger.ExitDialogue();
+    }
+
+    /// <summary>
+    /// Starts a dialogue.
+    /// </summary>
+    /// <param name="dialogue">The dialogue to be started</param>
+    private void StartDialogue(Dialogue dialogue)
+    {
+        dialogueTrigger.dialogueObj = dialogue;
+        dialogueTrigger.TriggerDialogue();
+    }
+
+    /// <summary>
+    /// Manages kill quests.
+    /// </summary>
+    private void KillQuest()
+    {
+        switch (killQuest.Status)
+        {
+            case -1:
+                // add starting variables
+                killQuest.Initialize();
+                killQuest.Status = 0;
+                QuestManager.changedQuests.Add(killQuest);
+                StartDialogue(killQuest.dialogue[0]);
+                break;
+            case 0:
+                if (killQuest.CheckCompleted())
+                {
+                    killQuest.Status = 1;
+                    StartDialogue(killQuest.dialogue[1]);
+                }
+                else
+                    StartDialogue(killQuest.dialogue[2]);
+                break;
+            case 1:
+                StartDialogue(killQuest.dialogue[3]);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Manages location quests.
+    /// </summary>
+    private void LocationQuest()
+    {
         if (isStart)
         {
-            print(quest.Status);
-            switch (quest.Status)
+            StartDialogue(locQuest.startDialogue[locQuest.Status + 1]);
+            if (locQuest.Status == -1)
             {
-                case -1:
-                    // add starting variables
-                    if (quest.type == QuestType.Kill)
-                        quest.Initialize();
-                    quest.Status = 0;
-                    QuestManager.changedQuests.Add(quest);
-                    break;
-            }
-        }
-
-        /*if (isStart)
-        {
-            switch(quest.status)
-            {
-                case -1:
-                    //dialogueTrigger.dialogueObj = quest.startDialogue[0];
-                    quest.status = 0;
-                    QuestManager.changedQuests.Add(quest);
-                    break;
-                case 0:
-                    //dialogueTrigger.dialogueObj = quest.startDialogue[1];
-                    break;
-                case 1:
-                    //dialogueTrigger.dialogueObj = quest.startDialogue[2];
-                    break;
+                locQuest.Status = 0;
+                QuestManager.changedQuests.Add(locQuest);
             }
         } else
         {
-            switch(quest.status)
+            StartDialogue(locQuest.endDialogue[locQuest.Status + 1]);
+            if (locQuest.Status == 0)
             {
-                case -1:
-                    //dialogueTrigger.dialogueObj = quest.endDialogue[0];
-                    break;
-                case 0:
-                    //dialogueTrigger.dialogueObj = quest.endDialogue[1];
-                    quest.status = 1;
-                    QuestManager.changedQuests.Add(quest);
-                    break;
-                case 1:
-                    //dialogueTrigger.dialogueObj = quest.endDialogue[2];
-                    break;
+                locQuest.Status = 1;
+                QuestManager.changedQuests.Add(locQuest);
             }
-        }*/
+        }
     }
 }

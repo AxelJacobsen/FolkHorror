@@ -33,14 +33,24 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (other.transform.parent == null || !other.transform.parent.gameObject.CompareTag("Player")) return;
 
-        dialogueInteraction.dialogue = dialogueObj;
-        dialogueInteraction.gameObject.SetActive(true);
+        TriggerDialogue();
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.transform.parent == null || !other.transform.parent.gameObject.CompareTag("Player")) return;
 
+        ExitDialogue();
+    }
+
+    public void TriggerDialogue()
+    {
+        dialogueInteraction.dialogue = dialogueObj;
+        dialogueInteraction.gameObject.SetActive(true);
+    }
+
+    public void ExitDialogue()
+    {
         dialogueInteraction.gameObject.SetActive(false);
     }
 }
