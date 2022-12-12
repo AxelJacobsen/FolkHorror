@@ -16,3 +16,4 @@ MonoBehaviour:
   sentences:
   - I'm warning you, this one will be hard
   - If you can kill 5 green trolls and 5 red ones, I'll pay you graciously
+  isQuest: 1

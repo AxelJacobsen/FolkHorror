@@ -16,3 +16,4 @@ MonoBehaviour:
   sentences:
   - Good job, here is your reward
   - Talk to me when you're ready to kill more trolls
+  isQuest: 1

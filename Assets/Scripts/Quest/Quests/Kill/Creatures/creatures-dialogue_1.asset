@@ -16,3 +16,4 @@ MonoBehaviour:
   sentences:
   - Amazing! I can't believe you did that
   - Here is your reward
+  isQuest: 1
