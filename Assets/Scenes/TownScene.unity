@@ -3106,11 +3106,29 @@ MonoBehaviour:
       material: {fileID: 2100000, guid: e6505fb63b735be46b2acac2ddd034a5, type: 2}
       hexadecimal: 
   - roof:
-      material: {fileID: 2100000, guid: 96e0f99cc4593c04791ea06f4caabfd7, type: 2}
-      hexadecimal: 
+      material: {fileID: 0}
+      hexadecimal: 354B40
     floor:
-      material: {fileID: 2100000, guid: 96e0f99cc4593c04791ea06f4caabfd7, type: 2}
+      material: {fileID: 2100000, guid: 07cc5a3fcbd18804d8b7ac20cb4b222a, type: 2}
       hexadecimal: 
     walls:
-      material: {fileID: 2100000, guid: 96e0f99cc4593c04791ea06f4caabfd7, type: 2}
+      material: {fileID: 0}
+      hexadecimal: 214D32
+  - roof:
+      material: {fileID: 0}
+      hexadecimal: 354B40
+    floor:
+      material: {fileID: 2100000, guid: 07cc5a3fcbd18804d8b7ac20cb4b222a, type: 2}
       hexadecimal: 
+    walls:
+      material: {fileID: 0}
+      hexadecimal: 214D32
+  - roof:
+      material: {fileID: 0}
+      hexadecimal: 56615B
+    floor:
+      material: {fileID: 2100000, guid: d8e3d7df0e1d68f408a67805aaef5d9c, type: 2}
+      hexadecimal: 
+    walls:
+      material: {fileID: 0}
+      hexadecimal: 4F5250
