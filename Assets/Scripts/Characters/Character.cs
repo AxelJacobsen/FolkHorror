@@ -55,7 +55,7 @@ public abstract class Character : CharacterStats
     protected BoxCollider   hitbox;
     protected EffectEmitter myDustEffectEmitter;
 
-    private bool    dead = false;
+    protected bool  dead = false;
     private float   onRollTimer = 0f,
                     onHurtTimer = 0f,
                     onAttackTimer = 0f,
