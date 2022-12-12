@@ -122,7 +122,7 @@ public class ShopManager : MonoBehaviour
         itemTransform.Find("ItemName").GetComponent<TextMeshProUGUI>().color = colorKvp.Value;
 
 
-        itemButton.onClick.AddListener(() => {
+        itemButton.onClick.AddListener(() => { // do whatever when buying items
             if (entityCharacterScript.getCoinAmount() >= price) {
                 entityCharacterScript.tryRemoveCoinAmount(price);
                 SoundManager.Instance.PlaySound(buySound, isSpatial:false);
