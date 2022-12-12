@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,8 +35,8 @@ public class ShopManager : MonoBehaviour
     public bool enableCustomColor;
     public Color commonBox, rareBox, legendaryBox, commonText, rareText, legendaryText;
     [Header("Testing shop item input")]
-    public bool debug;
-
+    public bool isActive;
+    public int amount;
 
     // Private
     [SerializeField] private AudioClip buySound;
@@ -49,21 +51,31 @@ public class ShopManager : MonoBehaviour
 
     void Awake()
     {
-        bool active = false;
-        if (debug) {
-            active = debug;
-        }
-        container = transform.Find("Container");
-        container.gameObject.SetActive(active);
+
+        updateView();
     }
 
+    private void FixedUpdate()
+    {
+        updateView();
+    }
+
+    public void toggleView() {
+        isActive = !isActive;
+        updateView();
+    }
+    private void updateView() {
+        container = transform.Find("Container");
+        container.gameObject.SetActive(isActive);
+        for (int i = 0; i < container.childCount; i++) container.GetChild(i).gameObject.SetActive(isActive);
+    }
     private void Start()
     {
         entityCharacterScript = Entity.GetComponent<PlayerController>();
         if (Entity.GetComponent<PlayerController>() == null)       // Debugs if failed to load Character component
             Debug.LogWarning("HealthBarScript could not find the Character Script belonging to the Entity");
 
-        createItems(2);
+        createItems();
 
     }
 
@@ -74,14 +86,22 @@ public class ShopManager : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
-    private void createItems(int amount)
+    private void createItems()
     {
         if (amount > items.Length || amount < 0) return;
+        int[] itemlist = new int[amount];
         setRarityPrice();
-        for (int i = 0; i < items.Length; i++)
-        {
-            CreateItemSelection(items[i].item, items[i].rarity, i);
-        }
+        for (int i = 0; i < amount; i++) itemlist[i] = i;
+
+
+     
+
+        var rng = new System.Random();
+        var keys = items.Select(e => rng.NextDouble()).ToArray();
+
+        Array.Sort(keys, items);
+
+        foreach (int index in itemlist) { print(index); CreateItemSelection(items[index].item, items[index].rarity, index); }
     }
 
     private void CreateItemSelection(GameObject item, Rarity rarity, int positionIndex)
@@ -91,7 +111,7 @@ public class ShopManager : MonoBehaviour
         Button itemButton = itemTransform.GetComponent<Button>();
         float itemHeight = 60f;
         int price = getRarityPrice(rarity);
-        itemRectTransform.anchoredPosition = new Vector2(0, -itemHeight * positionIndex);
+        itemRectTransform.anchoredPosition = new Vector2(0, -itemHeight * (positionIndex-2));
         
         itemTransform.Find("ItemName").GetComponent<TextMeshProUGUI>().SetText(item.name);
         itemTransform.Find("ItemPrice").GetComponent<TextMeshProUGUI>().SetText(price.ToString());
@@ -157,5 +177,6 @@ public class ShopManager : MonoBehaviour
         }
         return new KeyValuePair<Color, Color>(BGC, TC);
     }
+
 
 }
