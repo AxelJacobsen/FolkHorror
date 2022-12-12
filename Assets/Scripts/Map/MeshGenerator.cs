@@ -30,10 +30,10 @@ public class MeshGenerator : MonoBehaviour {
 	public int PortalRadius = 2;
 	public int NumberOfEnemies = 10;
 	public bool GenerateObjects = true;
+
 	private int wallHeight;
 	List<Vector3> vertices;
 	List<int> triangles;
-
 	Dictionary<int, List<Triangle>> triangleDictionary = new Dictionary<int, List<Triangle>>();
 	List<List<int>> outlines = new List<List<int>>();
 	HashSet<int> checkedVertices = new HashSet<int>();
@@ -108,6 +108,9 @@ public class MeshGenerator : MonoBehaviour {
 				} break;
 			default: CreateWallMesh(map, squareSize, meshType); break;
 		}
+		if (meshType == 3) {
+			grabTextureFromPlayer();
+		}
 	}
 
 	/// <summary>
@@ -148,10 +151,40 @@ public class MeshGenerator : MonoBehaviour {
 		wallMesh.vertices = wallVertices.ToArray();
 		wallMesh.triangles = wallTriangles.ToArray();
 		wallMesh.RecalculateNormals();
-		int tileAmount = wallHeight / 10;
+
+		//Thanks to Michael Greenhut for wall UV solution
 		/*
-		 *IN PROGRESS, MESH UVS ARE BROKEN ATM AND TEXTURES DONT PROPPERLY WRAP
-		 * 
+		int tileAmount = 20;
+		float textureScale = 0.0f;
+
+		switch (meshType) {
+			case 0: {   //treewalls
+					textureScale = treeWall.gameObject.GetComponent<MeshRenderer>().material.mainTextureScale.x;
+				}
+				break;
+			case 1: {   //spawnbushes
+					textureScale = bushCollide.gameObject.GetComponent<MeshRenderer>().material.mainTextureScale.x;
+				}
+				break;
+			case 2: {   //spawn outerwall 
+					textureScale = outerWall.gameObject.GetComponent<MeshRenderer>().material.mainTextureScale.x;
+				}
+				break;
+			default: Debug.Log("Escaped textureScale switch"); break;
+		}
+		/*
+		float increment = (textureScale / map.GetLength(0));
+		Vector2[] uvs = new Vector2[wallMesh.vertices.Length];
+		float[] uvEntries = new float[] { 0.5f, increment };
+
+		for (int i = 0; i < wallMesh.vertices.Length; i++) {
+			float percentX = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize, map.GetLength(0) / 2 * squareSize, wallVertices[i].x * squareSize);
+			float percentY = Mathf.InverseLerp((-wallHeight) * squareSize, 0, wallMesh.vertices[i].y) * tileAmount * (wallHeight / map.GetLength(0));
+			uvs[i] = new Vector2(percentX, percentY);
+		}
+
+		wallMesh.uv = uvs;
+				/*
 		Vector2[] uvs = new Vector2[wallVertices.Count];
 		for (int i = 0; i < wallVertices.Count; i++) {
 
@@ -175,10 +208,9 @@ public class MeshGenerator : MonoBehaviour {
 			float percentY = Mathf.InverseLerp(-map.GetLength(1) / 2 * squareSize, map.GetLength(1) / 2 * squareSize, wallVertices[i].y * squareSize);
 			//uvs[i] = new Vector2(percentX, percentY);
 			uvs[i] = new Vector2(localX, localY);
-			wallMesh.uv = uvs;
 		}
 		wallMesh.uv = uvs;
-		*/
+		*/ 
 		switch (meshType) {
 			case 0: {	//treewalls
 						treeWall.mesh = wallMesh;
@@ -521,6 +553,29 @@ public class MeshGenerator : MonoBehaviour {
 			}
 		}
 		return outMap;
+	}
+	
+	// maybe call with playerrefrence
+	void grabTextureFromPlayer() {
+		Material	roofMat,
+					floorMat,
+					wallMat;
+
+		GameObject player = GameObject.FindGameObjectWithTag("Player");
+		//Requests material data from
+		(roofMat, floorMat, wallMat) =	player.GetComponent<MapTextureHandler>().RequestMaterialFromPlayer(
+										player.GetComponent<PlayerController>().currentStage, 
+										transform.GetComponent<MapGenerator>().bossLevel);
+
+		if (floorMat == null || roofMat == null || wallMat == null) {
+			return;
+        }
+
+		//Assigns the texture to respective gameobject
+		floor.transform.GetComponent<Renderer>().material		= floorMat;
+		outerRoof.transform.GetComponent<Renderer>().material	= roofMat;
+		outerWall.transform.GetComponent<Renderer>().material	= wallMat;
+
 	}
 
 	/// <summary>

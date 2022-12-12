@@ -47,8 +47,13 @@ public class PortalScript : MonoBehaviour
         Scene[] openScenes = SceneManager.GetAllScenes();
         foreach (Scene sc in openScenes) {
             if (sc.name == "TownScene") {
+                //Upon portal entry from town
                 hit.transform.parent.GetComponent<PlayerController>().currentBiome = BiomeName;
+                //This should only trigger on a player enterying a stage
+                MapTextureHandler handshake = this.GetComponent<MapTextureHandler>();
+                handshake.TransferMaterialData(hit);
             } else if (sc.name == "MapGenScene") {
+                //Upon portal entry from map
                 hit.transform.parent.GetComponent<PlayerController>().currentStage++;
             }
         }

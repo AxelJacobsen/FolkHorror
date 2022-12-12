@@ -22,7 +22,7 @@ public class MapGenerator : MonoBehaviour {
 	public int smoothingStrictness = 4;
 	public int borderSize = 2;
 	public int roomSizeThreshold = 100;
-	public int wallSizeThreshold = 50;
+	public int bushSizeThreshold = 50;
 	public int bossLevel = 10;
 
 	[Header("Load specific binary map")]
@@ -38,6 +38,7 @@ public class MapGenerator : MonoBehaviour {
 	[Header("Map density")]
 	[Range(0, 100)]
 	public int randomFillPercent = 42;
+
 
 	int[,] map;
 
@@ -75,7 +76,7 @@ public class MapGenerator : MonoBehaviour {
 			mapData.Append(1 + "\n");
 		} else { mapData.Append(0 + "\n"); }
 		mapData.Append(smoothing + "\n" + smoothingStrictness + "\n" + borderSize + "\n");
-		mapData.Append(roomSizeThreshold + "\n" + wallSizeThreshold + "\n" + randomFillPercent);
+		mapData.Append(roomSizeThreshold + "\n" + bushSizeThreshold + "\n" + randomFillPercent);
 		System.IO.File.WriteAllText(string.Format("Assets/Resources/MapTemplates/{0}.txt", saveFileName), mapData.ToString());
 	}
 	
@@ -121,7 +122,7 @@ public class MapGenerator : MonoBehaviour {
 		smoothingStrictness = parsedData[cur];	cur++;
 		borderSize			= parsedData[cur];	cur++;
 		roomSizeThreshold	= parsedData[cur];	cur++;
-		wallSizeThreshold	= parsedData[cur];	cur++;
+		bushSizeThreshold	= parsedData[cur];	cur++;
 		randomFillPercent	= parsedData[cur];	cur++;
 	}
 
@@ -141,7 +142,7 @@ public class MapGenerator : MonoBehaviour {
 		//Initialize secondary maps
 		int[,] borderedMap = new int[width + borderSize * 2, height + borderSize * 2];
 		int[,] invertedMap = new int[width + borderSize * 2, height + borderSize * 2];
-		//Groups the map using neighbour algorythm, (Usable almost immediately)
+		//Groups the map using neighbour algorithm, (Usable almost immediately)
 		for (int i = 0; i < smoothing; i++) {
 			SmoothMap();
 		}
@@ -158,6 +159,7 @@ public class MapGenerator : MonoBehaviour {
 				}
 				else {
 					borderedMap[x, y] = 20;
+					invertedMap[x, y] = 0;
 				}
 			}
 		}
@@ -180,40 +182,44 @@ public class MapGenerator : MonoBehaviour {
 	/// Process map marks trees bushes as well as defining rooms and ensuring they are connected 
 	/// </summary>
 	void ProcessMap() {
+		if (!loadSpecificMapFromFile) { 
+			List<List<Coord>> roomRegions = GetRegions(0);
+			List<Room> survivingRooms = new List<Room>();
+
+			foreach (List<Coord> roomRegion in roomRegions) {
+				if (roomRegion.Count < roomSizeThreshold) {
+					foreach (Coord tile in roomRegion) {
+						map[tile.tileX, tile.tileY] = 1;
+					}
+				}
+				else {
+					survivingRooms.Add(new Room(roomRegion, map));
+				}
+			}
+
+			survivingRooms.Sort();
+			survivingRooms[0].isMainRoom = true;
+			survivingRooms[0].isAccessibleFromMainRoom = true;
+			ConnectClosestRooms(survivingRooms);
+		}
+
 		List<List<Coord>> wallRegions = GetRegions(1);
 		bool first = true;
 		foreach (List<Coord> wallRegion in wallRegions) {
 			if (first) {
 				first = false;
+				// Defines outer wall to ensure it doesnt get turned into objects
 				foreach (Coord tile in wallRegion) {
 					map[tile.tileX, tile.tileY] = 20;
 				}
 			}
-			if (wallRegion.Count < wallSizeThreshold) {
+			//Replaces everything smaller than the threshold with bushes
+			if (wallRegion.Count < bushSizeThreshold) {
 				foreach (Coord tile in wallRegion) {
 					map[tile.tileX, tile.tileY] = 10;
 				}
 			}
 		}
-		if (loadSpecificMapFromFile) return;
-		List<List<Coord>> roomRegions = GetRegions(0);
-		List<Room> survivingRooms = new List<Room>();
-
-		foreach (List<Coord> roomRegion in roomRegions) {
-			if (roomRegion.Count < roomSizeThreshold) {
-				foreach (Coord tile in roomRegion) {
-					map[tile.tileX, tile.tileY] = 1;
-				}
-			}
-			else {
-				survivingRooms.Add(new Room(roomRegion, map));
-			}
-		}
-		survivingRooms.Sort();
-		survivingRooms[0].isMainRoom = true;
-		survivingRooms[0].isAccessibleFromMainRoom = true;
-
-		ConnectClosestRooms(survivingRooms);
 	}
 
 	/// <summary>

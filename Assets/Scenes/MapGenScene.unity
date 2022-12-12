@@ -257,7 +257,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1be71d8253ef1d248b4834ba26631383, type: 2}
+  - {fileID: 2100000, guid: 90bb40af9ed2d8b44a4b52a2ceacd371, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -294,7 +294,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 538208511}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13d0034aef6495d428fd0eece5e01718, type: 3}
   m_Name: 
@@ -579,7 +579,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e6505fb63b735be46b2acac2ddd034a5, type: 2}
+  - {fileID: 2100000, guid: 68832f5236f936b4dbc44a3ae9e767dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -630,7 +630,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1518150448}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13d0034aef6495d428fd0eece5e01718, type: 3}
   m_Name: 
@@ -754,7 +754,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682062791}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13d0034aef6495d428fd0eece5e01718, type: 3}
   m_Name: 
@@ -952,7 +952,7 @@ MonoBehaviour:
   smoothingStrictness: 4
   borderSize: 20
   roomSizeThreshold: 200
-  wallSizeThreshold: 200
+  bushSizeThreshold: 50
   bossLevel: 10
   loadSpecificMapFromFile: 0
   saveAsPremade: 1
