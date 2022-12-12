@@ -231,6 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 2044029812}
   offset: {x: 0, y: 10, z: -10}
+  ScreenshakeFrequency: 10
 --- !u!1 &74278545
 GameObject:
   m_ObjectHideFlags: 0
@@ -3994,7 +3995,6 @@ MonoBehaviour:
   DeathSound: {fileID: 0}
   AttackSound: {fileID: 0}
   DropsOnDeath: []
-  dead: 0
   AimLayer:
     serializedVersion: 2
     m_Bits: 2147483647
