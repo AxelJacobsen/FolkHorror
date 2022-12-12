@@ -153,65 +153,6 @@ public class MeshGenerator : MonoBehaviour {
 		wallMesh.triangles = wallTriangles.ToArray();
 		wallMesh.RecalculateNormals();
 
-		//Thanks to Michael Greenhut for wall UV solution (Doesnt work :p)
-		/*
-		int tileAmount = 20;
-		float textureScale = 0.0f;
-
-		switch (meshType) {
-			case 0: {   //treewalls
-					textureScale = treeWall.gameObject.GetComponent<MeshRenderer>().material.mainTextureScale.x;
-				}
-				break;
-			case 1: {   //spawnbushes
-					textureScale = bushCollide.gameObject.GetComponent<MeshRenderer>().material.mainTextureScale.x;
-				}
-				break;
-			case 2: {   //spawn outerwall 
-					textureScale = outerWall.gameObject.GetComponent<MeshRenderer>().material.mainTextureScale.x;
-				}
-				break;
-			default: Debug.Log("Escaped textureScale switch"); break;
-		}
-		/*
-		float increment = (textureScale / map.GetLength(0));
-		Vector2[] uvs = new Vector2[wallMesh.vertices.Length];
-		float[] uvEntries = new float[] { 0.5f, increment };
-
-		for (int i = 0; i < wallMesh.vertices.Length; i++) {
-			float percentX = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize, map.GetLength(0) / 2 * squareSize, wallVertices[i].x * squareSize);
-			float percentY = Mathf.InverseLerp((-wallHeight) * squareSize, 0, wallMesh.vertices[i].y) * tileAmount * (wallHeight / map.GetLength(0));
-			uvs[i] = new Vector2(percentX, percentY);
-		}
-
-		wallMesh.uv = uvs;
-				/*
-		Vector2[] uvs = new Vector2[wallVertices.Count];
-		for (int i = 0; i < wallVertices.Count; i++) {
-
-			// Get current primitive and its corners
-			int curPrimitive = i / 4;
-			Vector3[] corners = new Vector3[4];
-			for (int j=0; j<4; j++) {
-				corners[j] = wallVertices[curPrimitive + j];
-            }
-
-			float	localX = Vector3.Dot(wallVertices[i] - corners[0], (corners[1] - corners[0]).normalized),
-					localY = Vector3.Dot(wallVertices[i] - corners[0], (corners[2] - corners[0]).normalized);
-
-			// Calculate which plane we're on
-			//Vector3 primitiveNormal = Vector3.Cross(corners[1] - corners[0], corners[2] - corners[0]).normalized;
-
-			// Get relative bounds
-
-
-			float percentX = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize, map.GetLength(0) / 2 * squareSize, wallVertices[i].x * squareSize);
-			float percentY = Mathf.InverseLerp(-map.GetLength(1) / 2 * squareSize, map.GetLength(1) / 2 * squareSize, wallVertices[i].y * squareSize);
-			//uvs[i] = new Vector2(percentX, percentY);
-			uvs[i] = new Vector2(localX, localY);
-		}
-		wallMesh.uv = uvs;
-		*/ 
 		switch (meshType) {
 			case 0: {	//treewalls
 						treeWall.mesh = wallMesh;
@@ -275,7 +216,8 @@ public class MeshGenerator : MonoBehaviour {
 
 				GameObject Enemy = objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), Enemies[enemyType]);
 				MoveObjectOutOfTrees(trees, Enemy, poly);
-				GameObject _ = objSpawner.SpawnObject(new Vector3(Enemy.transform.position.x, 0, Enemy.transform.position.y), EnemyWeapon);
+				GameObject EnemyWep = objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), EnemyWeapon);
+				MoveObjectOutOfTrees(trees, EnemyWep, poly);
 			}
 			return 0;
 		}
