@@ -110,7 +110,7 @@ public class BossTrollAI : BaseEnemyAI
             }
             else if (lavaSpireTimer <= 0f && Stamina > LavaSpireCost && breatheTimer <= 0f)
             {
-                Vector3 pos = enemy.transform.position - new Vector3(0,1.26f,0);
+                Vector3 pos = enemy.transform.position - new Vector3(0,1.1f,0);
                 Rigidbody enemyRB = enemy.GetComponent<Rigidbody>();
                 if (enemyRB != null) pos += enemyRB.velocity * 0.8f;
                 SpawnLavaSpire(pos);

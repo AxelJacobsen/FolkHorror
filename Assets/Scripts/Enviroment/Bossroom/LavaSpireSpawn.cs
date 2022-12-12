@@ -10,7 +10,9 @@ public class LavaSpireSpawn : MonoBehaviour
     // Public vars
     [Header("Stats")]
     public float    Damage    = 50f;
-    public float    Knockback = 15f;
+    public float    Knockup   = 25f;
+    public float    Stun      = 1f;
+    public float    Radius    = 5f;
     public float    Delay     = 2f;
     public float    Lifetime  = 5f;
     public float    RiseBy    = 2.7f;
@@ -20,6 +22,12 @@ public class LavaSpireSpawn : MonoBehaviour
     [SerializeField] private AudioClip RumblingSound;
     [SerializeField] private AudioClip EruptionSound;
 
+    [Header("Effects")]
+    public EffectData OnHitEffect;
+
+    [Header("Set by scripts")]
+    public string _TargetTag = "Player";
+
     // Private vars
     private float       livedFor = 0f,
                         rockfragmentsToSpawn = 0f;
@@ -27,6 +35,7 @@ public class LavaSpireSpawn : MonoBehaviour
                         hotfloor,
                         rockfragment;
     private Vector3     lavaspireSpawnPos;
+    private EffectData  myOnHitEffect;
 
     // Counters, etc
     private bool rumblingStarted = false;
@@ -45,6 +54,9 @@ public class LavaSpireSpawn : MonoBehaviour
 
         // Set vars
         lavaspireSpawnPos = lavaspire.transform.position;
+
+        // Clone scriptables
+        myOnHitEffect = Instantiate(OnHitEffect);
     }
 
     void FixedUpdate()
@@ -87,6 +99,23 @@ public class LavaSpireSpawn : MonoBehaviour
                     screenShakeStarted = true;
                     SoundManager.Instance.PlaySound(EruptionSound, gameObject.transform);
                     rumblingSoundSource.Stop();
+
+                    // Damage close enemies
+                    GameObject[] possibleTargets = GameObject.FindGameObjectsWithTag(_TargetTag);
+                    foreach (GameObject target in possibleTargets)
+                    {
+                        // Ignore anything else than characters
+                        Character targetCharacterScript = target.GetComponent<Character>();
+                        if (targetCharacterScript == null) return;
+
+                        if (Vector3.Distance(target.transform.position, transform.position) < Radius)
+                        {
+                            targetCharacterScript.Hurt(gameObject, Damage);
+                            Rigidbody targetRB = target.GetComponent<Rigidbody>();
+                            if (targetRB != null) targetRB.velocity += new Vector3(0,Knockup,0);
+                            targetCharacterScript.ApplyEffect(myOnHitEffect, gameObject);
+                        }
+                    }
                 }
 
                 rockfragmentsToSpawn += RockfragmentRate * Time.deltaTime;
@@ -106,31 +135,6 @@ public class LavaSpireSpawn : MonoBehaviour
                 }
             }
         }
-    }
-
-    void OnTriggerEnter(Collider hit) 
-    {
-        /*
-        // If the hit collider belongs to a hitbox, use its parent instead.
-        GameObject hitObj = hit.gameObject;
-        if (hitObj.tag == "Hitbox") { hitObj = hitObj.transform.parent.gameObject; }
-        else { return; } // Otherwise, return.
-
-        // Check if it hit a character. If not, return.
-        Character characterHit = hitObj.GetComponent<Character>();
-        if (characterHit == null) { return; }
-
-        // Check if that character has the correct tag. If not, return.
-        if (characterHit.tag != _TargetTag) { return; }
-
-        // Apply effects on target
-        characterHit.Knockback(_KnockbackDir * _KnockbackFromWeapon * KnockbackMultiplier);
-        characterHit.Hurt(_CreatedBy, _DamageFromWeapon * DamageMultiplier);
-
-        // Invoke items
-        Character createdByCharacterScript = _CreatedBy.GetComponent<Character>();
-        foreach (Item item in createdByCharacterScript.Items) { item.OnPlayerHit(hitObj, _DamageFromWeapon * DamageMultiplier); }
-        */
     }
 
     /**

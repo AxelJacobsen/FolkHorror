@@ -47,14 +47,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a85447043df5b6742a815bcc891f6bca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 50
-  Knockback: 15
+  Damage: 25
+  Knockup: 25
+  Stun: 1
+  Radius: 7
   Delay: 1
   Lifetime: 5
   RiseBy: 2.8
   RockfragmentRate: 150
   RumblingSound: {fileID: 8300000, guid: 98e145a68d46b274ea1d33289894d182, type: 3}
   EruptionSound: {fileID: 8300000, guid: 9952bae728d8f454cb4cc25b7dbe7aaa, type: 3}
+  OnHitEffect: {fileID: 11400000, guid: 18c4c2070f473f843982ee650bb6651b, type: 2}
+  _TargetTag: Player
 --- !u!1 &5948026218070568743
 GameObject:
   m_ObjectHideFlags: 0
