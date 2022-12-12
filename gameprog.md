@@ -26,7 +26,7 @@ We have not really used the document that much. It was great at the very beginni
 |Shop     |       |    |All   |     |
 |Tutorial |Touched|    |      |All  |
 |Audio    |Some   |    |Most  |     |
-|UI       |Touched|    |Some  |Some |
+|UI       |Touched|    |Some  |Most |
 |Art      |       |    |Most  |Some |
 
 ## Gameplay video
