@@ -62,30 +62,41 @@ public class MapTextureHandler : MonoBehaviour
             //Redundant insurance
             if (MaterialProgression.Count <= curTexture) { curTexture = 0; }
         }
-        //If all textures are in place, return them
-        if (MaterialProgression[curTexture].roof.material != null && 
-            MaterialProgression[curTexture].floor.material != null && 
-            MaterialProgression[curTexture].walls.material != null) {
-            
-            return (    MaterialProgression[curTexture].roof.material, 
-                        MaterialProgression[curTexture].floor.material, 
-                        MaterialProgression[curTexture].walls.material);
 
-            //Otherwise if we are also missing hexadeciamals, then return null
+        //Construct shaders and set colors
+        Shader basic = Shader.Find("Standard");
+        Material roofMaterial = GetMaterialFromMaterialAlt(MaterialProgression[curTexture].roof);
+        Material floorMaterial = GetMaterialFromMaterialAlt(MaterialProgression[curTexture].floor);
+        Material wallMaterial = GetMaterialFromMaterialAlt(MaterialProgression[curTexture].walls); 
 
-        } else if ( string.IsNullOrEmpty(MaterialProgression[curTexture].roof.hexadecimal) || 
-                    string.IsNullOrEmpty(MaterialProgression[curTexture].floor.hexadecimal) || 
-                    string.IsNullOrEmpty(MaterialProgression[curTexture].walls.hexadecimal)) {
-            return (null, null, null);
-        }
-
-        //We will only enter here if there are no textures, but there are hexadecimals
-        //ADD CODE TO TRANSLATE HEX INTO MATERIAL
-
-        //Texture equistion failed
-        return (null, null, null);
+        //Texture aquisition success
+        return (roofMaterial, floorMaterial, wallMaterial);
     }
-    
+
+    /// <summary>
+    /// Gets material from MaterialAlt or hexadecimal
+    /// </summary>
+    /// <param name="inAlt"></param>
+    /// <returns></returns>
+    private Material GetMaterialFromMaterialAlt(MaterialAlts inAlt) {
+        //If We have a material, then use that
+        if (inAlt.material != null) { return inAlt.material; }
+        //else if we are missing both hexadecimals, and texture, return empty
+        else if (string.IsNullOrEmpty(inAlt.hexadecimal)) {
+            return null;
+        };
+        //Enters her if we have hexadecimals
+        Color hexColor = new Color();
+        ColorUtility.TryParseHtmlString(inAlt.hexadecimal, out hexColor);
+        //Failed to parse
+        if (hexColor == null) { return null; }
+
+        //Construct shaders and set colors
+        Shader basic = Shader.Find("Standard");
+        Material outMat = new Material(basic) { color = hexColor };
+        return (outMat);
+    }
+
     /// <summary>
     /// This ensures that the player properly recieves textures regardless of unity
     /// </summary>

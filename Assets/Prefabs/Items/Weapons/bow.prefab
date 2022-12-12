@@ -143,7 +143,7 @@ MonoBehaviour:
   AttackDamage: 25
   Knockback: 25
   AttackSpeed: 1
-  ArrowsPerShot: 5
+  ArrowsPerShot: 1
   DegSpread: 15
   arrowPrototype: {fileID: 6733002034744747903}
 --- !u!1 &6733002034744747903
