@@ -6,6 +6,9 @@ List of group members:
 - Daniel Hao Huynh
 - Maren Skårestuen Grindal
 
+## Individual report
+Individual reports can be found here: [Reports](./Reports/)
+
 ## Game design document
 The game design document can be found here: [GDD](./game_design_document.pdf) 
 
