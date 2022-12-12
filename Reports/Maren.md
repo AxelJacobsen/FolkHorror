@@ -9,6 +9,9 @@
 |Reflection         |25   |
 
 ## Good code
+The code discussed in this part can be found here:
+- [Dialogue](../Assets/Scripts/UI/Dialogue/) 
+
 The code I have developed and is most satisfied with, is the dialogue system. One aspect I had in mind when developing it was that I wanted it to be modular and applicable for several use cases. This turned out to be hard, especially at the start of the project. This was the very first feature I developed, which means I had limited knowledge during the first iteration of the dialogue system. However, I ended up making both small and big improvements one the system during the project lifetime
 
 ![](./Images/maren_image1.PNG)
@@ -32,6 +35,10 @@ Pictured above is an excerpt from the interaction class. This handles both manua
 Of course, I do not think all of the code related to the dialogue system is good. However, I think this is the most refined feature I created during the project. The part I like the most about it is the fact that it can be used in various ways. I also do not think it will be too hard to expand if more use cases show up later.
 
 ## Bad code
+The code discussed in this section can be found here:
+- [Quest](../Assets/Scripts/Quest/) 
+- [Tutorial](../Assets/Scripts/Tutorial/) 
+
 I want to discuss two parts I developed that I think ended up bad. The main reason they ended up bad is because I did not get the chance to start developing the quest system until the very end. Other aspects of the game were deemed more important, and the whole quest system was therefore given a low priority.
 
 ![](./Images/maren_image3.png)
