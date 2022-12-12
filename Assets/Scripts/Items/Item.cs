@@ -140,6 +140,13 @@ public abstract class Item : MonoBehaviour
         transform.localRotation = Quaternion.Euler(Vector3.zero);
         transform.localScale    = Vector3.one;
 
+        //Handles item room
+        GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+        foreach (GameObject item in items) {
+            if (item.transform.parent == null) {
+                Destroy(item);
+            }
+        }
         OnPickup();
     }
 

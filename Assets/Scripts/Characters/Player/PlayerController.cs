@@ -87,6 +87,7 @@ public class PlayerController : Character {
 	/// </summary>
 	void dropAllItems() {
 		int j = 0;
+		if (Items.Count <= 0) { return; }
 		for (int i = 0; i < Items.Count; i++) {
 			if (!(Items[i - j] is Weapon)) {
 				Items[i - j].Drop();
