@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class InfoScreen : MonoBehaviour
 {
-    public string fileName;
+    public Dialogue dialogue;
     public Canvas infoCanvas;
     public DialogueInteraction infoScreenInteraction;
     public DialogueController infoScreenController;
@@ -17,7 +17,7 @@ public class InfoScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        infoScreenInteraction.dialogue = XmlLoader.LoadXML<Dialogue>(fileName);
+        infoScreenInteraction.dialogue = dialogue;
         infoScreenInteraction.autoStart = true;
         infoScreenInteraction.controller = infoScreenController;
         ToggleInfoScreen(false);
