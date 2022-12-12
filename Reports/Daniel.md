@@ -12,11 +12,11 @@
 - I have learned how to code in C#, and how to translate my existing knowledge to this language.
 - I learned key concepts related to UI design and anchoring. Adding components based on prefabs and how to communicate through scenes using tags.
 - I also learned how to make key scripts related to managing shop items and sound components for the game.
+- i have learned how to add simple elements to the UI, such as a Health bar and a Coin amount holder.
 - I have also learned that using one single canvas for all UI is considered bad practice. You should consider elements that are dynamic and static when using canvas.
 <br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_ui_structure.png)<br>
 *How our UI is currently setup in NeverUnload.Unity*
 - I have also learned that audioSources have a max allowed played sounds, therefore a handler for audioSources has to be implemented in order to manage sound.
-
 - I have also learned that assets such as character assets and such should be the last priority, this is because the major systems related to the assets are not developed yet, and should not be developed around existing assets, the assets should be created preferably for the system itself.
 
 #### What i consider to be good
