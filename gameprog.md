@@ -3,7 +3,7 @@
 List of group members:
 - Lars Lahlum Ruud
 - Axel
-- Daniel
+- Daniel Hao Huynh
 - Maren Skårestuen Grindal
 
 ## Game design document
