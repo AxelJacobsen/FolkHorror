@@ -6,12 +6,12 @@
 |Code video | 0 |
 |Good Code  | 25 |
 |Bad Code | 20 |
-|Development process | 25 |
+|Development process | 20 |
 |Reflection | 20 |
 #### What i've learned
+- I have learned how to code in C#, and how to translate my existing knowledge to this language.
 - I learned key concepts related to UI design and anchoring. Adding components based on prefabs and how to communicate through scenes using tags.
 - I also learned how to make key scripts related to managing shop items and sound components for the game.
-
 - I have also learned that using one single canvas for all UI is considered bad practice. You should consider elements that are dynamic and static when using canvas.
 <br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_ui_structure.png)<br>
 *How our UI is currently setup in NeverUnload.Unity*
@@ -28,6 +28,7 @@
 - ShopManager is simple and very customizable.
 - I consider the implementation of currency handling to be good aswell.
 	- very simple and clean.
+	- When it comes to the code quality, I've read Clean Code by Robert C. Martin, and one of his suggestions is to reduce large complex if statements into multiple variables with names according to their use case.
 <br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_coinhandler.png)<br>
 *Snippet from PlayerController.cs Script, it shows the simple implementaion of incrementing, removing and getting the amount of coins stored in the PlayerController Script* 
 - The custom assets. I'm a little proud as its the first assets ive made.
