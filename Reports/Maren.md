@@ -56,7 +56,7 @@ If I were to improve this feature, I would have utilized the quests system. Havi
 
 I also think this would be possible because of the type of quests that are currently available. There are three tasks in the tutorial: pick up a weapon, kill an enemy, and go through a portal. All of these tasks can be integrated with the quest system, as there are quest types for both killing and location. Picking up a weapon and going through the portal can be put into the location category, while killing an enemy can be put in the kill category.
 
-## Quest and dialogue
+### Quest and dialogue
 The second part I would like to discuss it the relationship between the dialogue system and the quest system. The thing that made this part tricky to develop, is the fact that each quest has dialogue for each state of the quest. In addition, when a quest is completed, a new one is sometimes supposed to start.
 
 In my current solution the quest is progressed even though the dialogue that belongs to the state has not been read yet. For example, the quest is started as soon as the player enters the quest trigger area. For the player to display the dialogue connected to the quest, they need to first press a button. As a result of this the player only needs to enter the area to start and finish quests, which is not optimal at all.  A way this could be solved is by adding checks that says whether or not the dialogue has been read. This can then be used as a condition for the quest to start.
