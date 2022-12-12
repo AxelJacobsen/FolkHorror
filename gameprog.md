@@ -14,7 +14,7 @@ We have not really used the document that much. It was great at the very beginni
 ## Work distribution
 |         |Lars   |Axel|Daniel|Maren|
 |---------|-------|----|------|-----|
-|Player   |All    |    |      |     |
+|Player   |All    |    |Touched|     |
 |Enemies  |All    |    |      |     |
 |Boss     |All    |    |      |     |
 |Effects  |All    |    |      |     |
@@ -23,11 +23,11 @@ We have not really used the document that much. It was great at the very beginni
 |Camera   |       |    |      |     |
 |Dialogue |       |    |      |All  |
 |Quest    |Touched|    |      |All  |
-|Shop     |       |    |      |     |
+|Shop     |       |    |All   |     |
 |Tutorial |Touched|    |      |All  |
-|Audio    |       |    |      |     |
-|UI       |Touched|    |      |Some |
-|Art      |       |    |      |Some |
+|Audio    |Some   |    |Most  |     |
+|UI       |Touched|    |Some  |Some |
+|Art      |       |    |Most  |Some |
 
 ## Gameplay video
 The gameplay video can be found here: [Gameplay]()
