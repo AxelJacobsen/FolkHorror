@@ -16,7 +16,7 @@ MonoBehaviour:
   _Active: 1
   ParticlePrefabs:
   - {fileID: 2302411892920357542, guid: e49ae0b3fd3d57b4f82d3c063c8013ce, type: 3}
-  Rate: 150
+  Rate: 250
   Wiggle: 0
   WiggleSpeed: 0
   SpinRadius: 0

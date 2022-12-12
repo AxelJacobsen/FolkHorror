@@ -50,6 +50,8 @@ public class DialogueInteraction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (dialogue == null) return;
+
         // if the game is paused AND a dialogue is not currently happening
         if (PauseController.isPaused && !isActive) return;
 
@@ -92,6 +94,9 @@ public class DialogueInteraction : MonoBehaviour
             // reset the dialogue if the last sentence is completed
             if (currentIndex >= dialogue.sentences.Count && !controller.isRunning)
             {
+                if (dialogue.isQuest)
+                    QuestTrigger.state = 1;
+
                 PauseController.ResumeGame();
                 isActive = false;
 
@@ -109,6 +114,9 @@ public class DialogueInteraction : MonoBehaviour
             // open text box and turn off info text when the dialogue is started
             if (!autoStart && (currentIndex == 0 && !controller.isRunning))
             {
+                if (dialogue.isQuest)
+                    QuestTrigger.state = 0;
+
                 ToggleTextBox(true);
                 ToggleInfoText(false);
                 isActive = true;
@@ -155,10 +163,5 @@ public class DialogueInteraction : MonoBehaviour
     {
         if (infoText == null) return;
         infoText.gameObject.SetActive(state);
-    }
-
-    public static implicit operator DialogueInteraction(GameObject v)
-    {
-        throw new NotImplementedException();
     }
 }

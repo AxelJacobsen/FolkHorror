@@ -59,7 +59,6 @@ public class SimpleProjectile : MonoBehaviour
         // If the hit collider belongs to a hitbox, use its parent instead.
         GameObject hitObj = hit.gameObject;
         if (hitObj.tag == "Hitbox") { hitObj = hitObj.transform.parent.gameObject; }
-        else { return; } // Otherwise, return.
 
         // Check if it hit a character. If not, return.
         Character characterHit = hitObj.GetComponent<Character>();

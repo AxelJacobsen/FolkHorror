@@ -44,7 +44,7 @@ public class BaseEnemyAI : Character
     /// </summary>
     /// <param name="newTargetTag">The new target tag.</param>
     /// <param name="duration">How long to wait before setting target tag back to original.</param>
-    public void Charm(string newTargetTag, float duration) 
+    public virtual void Charm(string newTargetTag, float duration) 
     {
         if (charmDuration <= 0f) 
             prevTargetTag = TargetObjectsWithTag;

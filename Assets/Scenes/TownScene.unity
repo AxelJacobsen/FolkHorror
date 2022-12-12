@@ -1604,7 +1604,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1264424930}
   - component: {fileID: 1264424931}
-  - component: {fileID: 1264424932}
+  - component: {fileID: 1264424935}
+  - component: {fileID: 1264424936}
   m_Layer: 0
   m_Name: Building2Trigger
   m_TagString: Untagged
@@ -1640,7 +1641,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1264424932
+--- !u!114 &1264424935
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1653,7 +1654,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   filePath: Dialogue/npc2
---- !u!1001 &1286146751
+  dialogueObj: {fileID: 0}
+  dialogueInteraction: {fileID: 0}
+--- !u!114 &1264424936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264424929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22360817c3d0c042ad41d068c453b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationQuest: {fileID: 11400000, guid: 47a7e1838e0e236468a206647f965696, type: 2}
+  killQuest: {fileID: 0}
+  isStart: 0
+--- !u!1001 &1279480361
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2348,6 +2366,7 @@ GameObject:
   - component: {fileID: 1704257745}
   - component: {fileID: 1704257747}
   - component: {fileID: 1704257749}
+  - component: {fileID: 1704257750}
   m_Layer: 0
   m_Name: BuildingTrigger
   m_TagString: Untagged
@@ -2395,7 +2414,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c570f723c37fbe4989a81133b04b079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  filePath: Dialogue/npc1
+  dialogueObj: {fileID: 0}
+  dialogueInteraction: {fileID: 0}
+--- !u!114 &1704257750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704257744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22360817c3d0c042ad41d068c453b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locationQuest: {fileID: 11400000, guid: 47a7e1838e0e236468a206647f965696, type: 2}
+  killQuest: {fileID: 0}
+  isStart: 1
 --- !u!1 &1754263356
 GameObject:
   m_ObjectHideFlags: 0
