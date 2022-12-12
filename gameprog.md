@@ -36,6 +36,11 @@ The gameplay video can be found here: [Gameplay]()
 The code video can be found here: [Code]()
 
 ## Game engine
+When discussing which game engine to use, we quickly agreed on Unity. We all had little to no experience with it, and most of us were not even familiar with C#, but for creating our little 2.5D game it seemed like the best option. Unreal Engine would be more suited for a completely 3D game and GoDot for a 2D game, while Unity fell somewhere in the middle. After a bit of searching we found multiple forum posts agreeing on Unity being the best choice for a 2.5D Indie game, as it’s easy to get into and set up both 2D and 3D elements in the same scene. It also has a large indie community, which makes finding tutorials and answers to questions often easy.
+
+When initially setting up unity for collaborative work, we quickly found multiple suggestions on how to do it. We experimented with using Unity Teams, but it had a limited number of cooperators. Secondly we tried to use Unity Collaborate, but it was outdated and replaced with Plastic SCM. At this point we found a forum post detailing how to set up your .gitignore for collaborative work in Unity, which we decided on using as we were well versed with GIT already.
+
+Using Unity was more bothersome than first suspected. Many forum posts and tutorials were outdated and unusable, as unity recently changed a lot of its systems. Unity’s official documentation was luckily easy to use and navigate, which made the process much easier. Merging scenes in Unity also proved to be a lot of work sometimes, but we mainly kept to our own scenes which kept it clean.
 
 ## Development process
 We followed an agile development process, where weekly meetings were held on tuesdays. During these meetings each team member showed what they had done since the last meeting, and problems encountered were discussed. This made it possible to give each other feedback and acquire new knowledge. As we all worked on separate parts of the project, it was interesting and educational to see how other aspects worked.
