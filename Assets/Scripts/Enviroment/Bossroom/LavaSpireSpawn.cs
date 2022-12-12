@@ -135,6 +135,11 @@ public class LavaSpireSpawn : MonoBehaviour
                 }
             }
         }
+        // lastly, destroy self.
+        else
+        {
+            DestroySelf();
+        }
     }
 
     /**
