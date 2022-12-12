@@ -15,3 +15,4 @@ MonoBehaviour:
   name: Old man
   sentences:
   - Thanks for killing that troll!
+  isQuest: 1

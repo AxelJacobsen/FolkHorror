@@ -18,13 +18,12 @@ public class Quest : ScriptableObject
     public string title;
     public string description;
     public QuestType type;
-    public Quest nextQuest;
-    public bool hasParent;  // if quest is first quest in the line or not
-    
-    private int status = -1;
-    public int Status { 
-        get { return status; }
-        set { status = value; } 
+    public Quest nextQuest;    
+    public int status;
+
+    private void OnEnable()
+    {
+        status = -1;
     }
 
     public virtual void Initialize()

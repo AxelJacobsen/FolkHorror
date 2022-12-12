@@ -16,3 +16,4 @@ MonoBehaviour:
   sentences:
   - Now that you've proved yourself, let's get into some real business
   - If you can kill 5 green trolls and 10 red ones, I'll pay you graciously
+  isQuest: 1

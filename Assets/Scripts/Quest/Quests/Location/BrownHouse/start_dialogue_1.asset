@@ -16,3 +16,4 @@ MonoBehaviour:
   sentences:
   - What are you still doing here?
   - Go find the man in the brown house!
+  isQuest: 1

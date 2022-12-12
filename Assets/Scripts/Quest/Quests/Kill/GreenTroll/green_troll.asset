@@ -17,6 +17,7 @@ MonoBehaviour:
   type: 1
   nextQuest: {fileID: 11400000, guid: d5c67a752f23ba243ac9de7f4210bcf5, type: 2}
   hasParent: 0
+  status: -1
   killGoal: 01000000
   enemy: 00000000
   dialogue:

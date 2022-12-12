@@ -15,3 +15,4 @@ MonoBehaviour:
   name: Mysterious man
   sentences:
   - What's up?
+  isQuest: 1

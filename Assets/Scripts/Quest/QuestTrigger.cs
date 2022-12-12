@@ -1,33 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Threading;
 using UnityEngine;
 
-/// <summary>
-/// Class <c>QuestTrigger</c> starts and ends quests when the player enters a specific area.
-/// </summary>
 public class QuestTrigger : MonoBehaviour
 {
-    public LocationQuest locQuest;
-    public KillQuest killQuest;
-    public DialogueTrigger dialogueTrigger;
-    public bool isStart;    // start quest or complete quest
+    // -1 if waiting for the user to go throug the current dialogue, 0 if the user is currently going through the current dialogue, 1 if the user needs a new dialogue
+    public static int state;
 
-    private void Start()
+    public LocationQuest locationQuest;
+    public KillQuest killQuest;
+    public bool isStart;                // starting point or end point of a location quest
+
+    private DialogueTrigger dialogueTrigger;
+
+    // Start is called before the first frame update
+    void Start()
     {
         dialogueTrigger = gameObject.GetComponent<DialogueTrigger>();
         if (dialogueTrigger == null) Debug.Log(gameObject.name + " could not find DialogueTrigger");
+
+        state = -1;
     }
 
     private void OnEnable()
     {
         if (QuestData.activeQuests.ContainsKey(gameObject.name))
         {
+            killQuest = null;
+            locationQuest = null;
+
             Quest quest = QuestData.activeQuests[gameObject.name];
             if (quest.type == QuestType.Location)
-                locQuest = (LocationQuest)quest;
+            {
+                locationQuest = (LocationQuest)quest;
+            }
             else if (quest.type == QuestType.Kill)
+            {
                 killQuest = (KillQuest)quest;
+            }
         }
     }
 
@@ -35,17 +46,39 @@ public class QuestTrigger : MonoBehaviour
     {
         if (other.transform.parent == null || !other.transform.parent.gameObject.CompareTag("Player")) return;
 
-        if (killQuest != null)
-            KillQuest();
-        else if (locQuest != null)
+        // first time the player enters the trigger in the current loop
+        if (locationQuest != null)
+        {
             LocationQuest();
+        }
+        else if (killQuest != null)
+        {
+            KillQuest();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.transform.parent == null || !other.transform.parent.gameObject.CompareTag("Player")) return;
+
+        // either waiting for user to start dialogue or for the current dialogue to finish
+        if (state == -1 && state == 0) return;
+
+        // new dialogue needs to be loaded
+        if (state == 1)
+        {
+            if (locationQuest != null)
+                LocationQuest();
+            else if (killQuest != null)
+                KillQuest();
+
+            state = -1;
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.parent == null || !other.transform.parent.gameObject.CompareTag("Player")) return;
-
-        dialogueTrigger.ExitDialogue();
+        state = -1;
     }
 
     /// <summary>
@@ -64,21 +97,50 @@ public class QuestTrigger : MonoBehaviour
     /// <param name="quest">The quest to be started</param>
     private void StartNewQuest(Quest quest)
     {
-        // calles når playeren er ferdig med en quest
-        locQuest = null;
+        locationQuest = null;
         killQuest = null;
 
-        // sjekk om den har en next quest
-        if (quest.nextQuest != null)
+        if(quest.nextQuest.type == QuestType.Location)
         {
-            if (quest.nextQuest.type == QuestType.Location)
+            locationQuest = (LocationQuest)quest.nextQuest;
+            QuestData.AddQuestData(gameObject.name, locationQuest);
+        }
+        else if (quest.nextQuest.type == QuestType.Kill)
+        {
+            killQuest = (KillQuest)quest.nextQuest;
+            QuestData.AddQuestData(gameObject.name, killQuest);
+        }
+    }
+
+    /// <summary>
+    /// Manages location quests.
+    /// </summary>
+    public void LocationQuest()
+    {
+        if (isStart)
+        {
+            StartDialogue(locationQuest.startDialogue[locationQuest.status + 1]);
+            
+            // start quest if it has not been started or completed
+            if (locationQuest.status == -1)
             {
-                locQuest = (LocationQuest)quest.nextQuest;
-                QuestData.AddQuestData(gameObject.name, locQuest);
+                locationQuest.status = 0;
+                QuestManager.changedQuests.Add(locationQuest);
+                QuestData.AddQuestData(gameObject.name, locationQuest);
             }
-            else if (quest.nextQuest.type == QuestType.Kill) { 
-                killQuest = (KillQuest)quest.nextQuest;
-                QuestData.AddQuestData(gameObject.name, killQuest);
+        } else
+        {
+            StartDialogue(locationQuest.endDialogue[locationQuest.status + 1]);
+
+            // end quest if it has been started and is not completed
+            if (locationQuest.status == 0)
+            {
+                locationQuest.status = 1;
+                QuestManager.changedQuests.Add(locationQuest);
+
+                // look for next quest in line
+                if (locationQuest.nextQuest != null)
+                    StartNewQuest(locationQuest);
             }
         }
     }
@@ -86,58 +148,37 @@ public class QuestTrigger : MonoBehaviour
     /// <summary>
     /// Manages kill quests.
     /// </summary>
-    private void KillQuest()
+    public void KillQuest()
     {
-        switch (killQuest.Status)
+        switch (killQuest.status)
         {
             case -1:
                 // add starting variables
                 killQuest.Initialize();
-                killQuest.Status = 0;
+                killQuest.status = 0;
                 QuestManager.changedQuests.Add(killQuest);
                 StartDialogue(killQuest.dialogue[0]);
-                QuestData.AddQuestData(gameObject.name, killQuest);
                 break;
             case 0:
+                // see if the quest has been completed
                 if (killQuest.CheckCompleted())
                 {
-                    killQuest.Status = 1;
                     StartDialogue(killQuest.dialogue[1]);
-                    StartNewQuest(killQuest);
+                    killQuest.status = 1;
+                    QuestManager.changedQuests.Add(killQuest);
+
+                    // look for next quest in line
+                    if (killQuest.nextQuest != null)
+                        StartNewQuest(killQuest);
                 }
                 else
+                    // still not completed dialogue
                     StartDialogue(killQuest.dialogue[2]);
                 break;
             case 1:
-                QuestManager.changedQuests.Add(killQuest);
+                // basic after quest dialogue
                 StartDialogue(killQuest.dialogue[3]);
                 break;
-        }
-    }
-
-    /// <summary>
-    /// Manages location quests.
-    /// </summary>
-    private void LocationQuest()
-    {
-        if (isStart)
-        {
-            StartDialogue(locQuest.startDialogue[locQuest.Status + 1]);
-            if (locQuest.Status == -1)
-            {
-                locQuest.Status = 0;
-                QuestManager.changedQuests.Add(locQuest);
-                QuestData.AddQuestData(gameObject.name, locQuest);
-            }
-        } else
-        {
-            StartDialogue(locQuest.endDialogue[locQuest.Status + 1]);
-            if (locQuest.Status == 0)
-            {
-                locQuest.Status = 1;
-                QuestManager.changedQuests.Add(locQuest);
-                StartNewQuest(locQuest);
-            }
         }
     }
 }

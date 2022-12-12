@@ -14,6 +14,5 @@ public class Dialogue : ScriptableObject
 {
     public string name;
     public List<string> sentences;
+    public bool isQuest;
 }
-
-
