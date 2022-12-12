@@ -142,7 +142,7 @@ public abstract class Character : CharacterStats
 	/// <summary>
     /// Kills the character.
     /// </summary>
-	void Die() 
+	public virtual void Die() 
 	{
         if (dead) return;
         else dead = true;
@@ -163,7 +163,7 @@ public abstract class Character : CharacterStats
     /// <param name="caller">The object which caused the player to be hurt.</param>
     /// <param name="amount">The amount of damage the player takes.</param>
     /// <return>The character's health after taking damage.</return>
-	public float Hurt(GameObject caller, float amount) 
+	public virtual float Hurt(GameObject caller, float amount) 
 	{
         anim.SetTrigger("Hurt");
 
@@ -171,7 +171,7 @@ public abstract class Character : CharacterStats
         foreach (Item item in Items) { item.OnPlayerGetHit(caller, amount); }
 
 		Health -= amount;
-		if (Health <= 0) {
+		if (Health <= 0 && !dead) {
 			Die();
 		}
 

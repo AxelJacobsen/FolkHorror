@@ -22,6 +22,7 @@ public class BaseEnemyAI : Character
     [Header("AI Settings")]
     public string       TargetObjectsWithTag = "Player";
     public float        VisionRange = 10f;
+    public GameObject   DesiredWeapon;
 
     // Private vars
     private string      prevTargetTag = "";

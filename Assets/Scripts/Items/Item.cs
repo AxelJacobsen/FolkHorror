@@ -112,7 +112,6 @@ public abstract class Item : MonoBehaviour
             // Pick up the pickup if the player is close enough
             if (dir_m < PickupRange) PickUp();
         }
-
         OnFixedUpdate();
     }
 

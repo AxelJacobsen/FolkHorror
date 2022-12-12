@@ -9,13 +9,10 @@ using UnityEngine;
 /// <summary>
 /// Class <c>Dialogue</c> stores information about a dialogue interaction.
 /// </summary>
-[XmlRoot(ElementName = "dialogue")]
-public class Dialogue
+[CreateAssetMenu]
+public class Dialogue : ScriptableObject
 {
-    [XmlElement(ElementName = "name")]
     public string name;
-
-    [XmlArray("sentences"), XmlArrayItem("value")]
     public List<string> sentences;
 }
 

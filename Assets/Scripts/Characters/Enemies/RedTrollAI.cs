@@ -67,6 +67,16 @@ public class RedTrollAI : BaseEnemyAI
         }
     }
 
+    /// <summary>
+    /// Add to kill stats.
+    /// </summary>
+    protected override void OnDie()
+    {
+        base.OnDie();
+
+        Statistics.RedTrollDied++;
+    }
+
     protected override void OnFixedUpdate()
     {
         base.OnFixedUpdate();
