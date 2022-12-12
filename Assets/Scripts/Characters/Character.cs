@@ -36,6 +36,7 @@ public abstract class Character : CharacterStats
     [Header("Drops")]
     public GameObject[]         DropsOnDeath;
 	protected float				Health;
+    protected GameObject        spriteObject;
 	protected Rigidbody 		rb;
 	protected Animator 		    anim;
 	protected SpriteRenderer    sr;
@@ -51,10 +52,10 @@ public abstract class Character : CharacterStats
     protected Vector3 walkDir = new Vector3(0,0,0);
 	protected Vector3 rollDir = new Vector3(0,0,0);
 
-    protected BoxCollider hitbox;
+    protected BoxCollider   hitbox;
     protected EffectEmitter myDustEffectEmitter;
 
-    private bool dead = false;
+    private bool    dead = false;
     private float   onRollTimer = 0f,
                     onHurtTimer = 0f,
                     onAttackTimer = 0f,
@@ -68,8 +69,14 @@ public abstract class Character : CharacterStats
         rb = GetComponent<Rigidbody>();
 		if (rb == null) 	Debug.LogError(gameObject.name + "(Character) could not find its rigidbody!");
 
-		anim = GetComponent<Animator>();
-		if (anim == null) 	Debug.LogError(gameObject.name + "(Character) could not find its animator!");
+        // Find sprite and its animator
+        foreach (Transform child in gameObject.transform)
+            if (child.gameObject.name == "sprite")
+                spriteObject = child.gameObject;
+        if (spriteObject == null) spriteObject = gameObject;
+
+		anim = spriteObject.GetComponent<Animator>();
+		if (anim == null) Debug.LogError(gameObject.name + "(Character) could not find its animator!");
 
 		sr = GetComponentInChildren<SpriteRenderer>();
 		if (sr == null) 	Debug.LogError(gameObject.name + "(Character) could not find its sprite renderer!");
@@ -358,7 +365,9 @@ public abstract class Character : CharacterStats
 		// Movement - walking
 		else
 		{
-            rb.velocity += (walkDir * Speed - rb.velocity) * WalkAcceleration * Time.deltaTime;
+            Vector3 v = (walkDir * Speed - rb.velocity) * WalkAcceleration * Time.deltaTime;
+            v.y = 0;
+            rb.velocity += v;
             walkDir = Vector3.zero;
         }
 

@@ -64,7 +64,7 @@ public class LavaSpireSpawn : MonoBehaviour
             float t = livedFor / Delay;
             t = t*t*(3 - 2*t); //sstep3
             hotfloor.transform.localScale = new Vector3(t, t, t) * 0.7f;
-            rumblingSoundSource.volume = t;
+            if (rumblingSoundSource != null) rumblingSoundSource.volume = t;
             if (screenShakeStarted) screenShakeStarted = false; //reset
         } 
         // Second phase, lava spire rises from the ground

@@ -13,6 +13,7 @@ public class RollingRock : MonoBehaviour
     public float            Knockback = 50f;
     public float            Rockfragments = 10f;
     public EffectEmitter    DustEffectEmitter;
+    public List<GameObject> IgnoreList = new();
 
     [Header("Sounds")]
     [SerializeField] private AudioClip RollingSound;
@@ -72,7 +73,11 @@ public class RollingRock : MonoBehaviour
         // ...and apply it.
         Quaternion ang = Quaternion.AngleAxis(angularVelocity * livedFor, new Vector3(0, 1, -1).normalized ) * Quaternion.Euler(45, 0, 0);
         spriteObject.transform.rotation = ang;
-        rb.velocity = Velocity;
+
+        // Set its velocity, but only x/z.
+        Vector3 v = rb.velocity;
+        v.x = Velocity.x; v.z = Velocity.z;
+        rb.velocity = v;
     }
 
     /// <summary>
@@ -83,6 +88,10 @@ public class RollingRock : MonoBehaviour
         // If the hit collider belongs to a hitbox, use its parent instead.
         GameObject hitObj = hit.gameObject;
         if (hitObj.tag == "Hitbox") { hitObj = hitObj.transform.parent.gameObject; }
+
+        // Check if the hit object is in the ignore list, if so, return
+        foreach(GameObject ignoreObj in IgnoreList)
+            if (ignoreObj == hitObj) return;
 
         // Check if it hit a character. If so, damage them.
         Character characterHit = hitObj.GetComponent<Character>();
@@ -107,7 +116,7 @@ public class RollingRock : MonoBehaviour
         CameraFollow cameraFollowScript = Camera.main.GetComponent<CameraFollow>();
         cameraFollowScript.Screenshake(0.5f, 0.5f);
         SoundManager.Instance.PlaySound(CollisionSound, gameObject.transform);
-        rollingSoundSource.Stop();
+        if (rollingSoundSource != null) rollingSoundSource.Stop();
 
         for (int i=0; i < Rockfragments; i++)
         {
