@@ -77,11 +77,8 @@ public class PlayerController : Character {
 		InfoScreen info = GameObject.Find("/InfoScreen").transform.GetComponent<InfoScreen>();
 		if (info == null) Debug.Log(gameObject.name + " could not find InfoScreen");
 		info.ToggleInfoScreen(true);
-
-		GameObject sceneLoaderObject = GameObject.FindGameObjectWithTag("SceneLoader");
-		SceneLoader sceneLoader = sceneLoaderObject.GetComponent<SceneLoader>();
-		sceneLoader.ChangeScene(respawnLocation);
 		StartCoroutine(resetStats());
+
 		OnDie();
 	}
 
@@ -90,6 +87,7 @@ public class PlayerController : Character {
 	/// </summary>
 	void dropAllItems() {
 		int j = 0;
+		if (Items.Count <= 0) { return; }
 		for (int i = 0; i < Items.Count; i++) {
 			if (!(Items[i - j] is Weapon)) {
 				Items[i - j].Drop();

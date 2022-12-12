@@ -27,13 +27,14 @@ public class MeshGenerator : MonoBehaviour {
 	public GameObject Entrance;
 	public GameObject Exit;
 
-	public int PortalRadius = 2;
+	public int PortalRadius = 10;
 	public int NumberOfEnemies = 10;
 	public bool GenerateObjects = true;
+	public bool GenerateEnemies = true;
+
 	private int wallHeight;
 	List<Vector3> vertices;
 	List<int> triangles;
-
 	Dictionary<int, List<Triangle>> triangleDictionary = new Dictionary<int, List<Triangle>>();
 	List<List<int>> outlines = new List<List<int>>();
 	HashSet<int> checkedVertices = new HashSet<int>();
@@ -93,7 +94,11 @@ public class MeshGenerator : MonoBehaviour {
 		switch (meshType) {
 			case 2: 
 				{
-					outerRoof.mesh = mesh; CreateWallMesh(map, squareSize, meshType); 
+					outerRoof.mesh = mesh;
+					//Necessary to save the mesh
+					MeshCollider outerRoofCollide  = outerRoof.gameObject.GetComponent<MeshCollider>();
+					outerRoofCollide.sharedMesh = mesh;
+					CreateWallMesh(map, squareSize, meshType); 
 				} break;
 			case 3: 
 				{
@@ -103,6 +108,9 @@ public class MeshGenerator : MonoBehaviour {
 					floorCollider.sharedMesh = mesh;
 				} break;
 			default: CreateWallMesh(map, squareSize, meshType); break;
+		}
+		if (meshType == 3) {
+			grabTextureFromPlayer();
 		}
 	}
 
@@ -144,37 +152,7 @@ public class MeshGenerator : MonoBehaviour {
 		wallMesh.vertices = wallVertices.ToArray();
 		wallMesh.triangles = wallTriangles.ToArray();
 		wallMesh.RecalculateNormals();
-		int tileAmount = wallHeight / 10;
-		/*
-		 *IN PROGRESS, MESH UVS ARE BROKEN ATM AND TEXTURES DONT PROPPERLY WRAP
-		 * 
-		Vector2[] uvs = new Vector2[wallVertices.Count];
-		for (int i = 0; i < wallVertices.Count; i++) {
 
-			// Get current primitive and its corners
-			int curPrimitive = i / 4;
-			Vector3[] corners = new Vector3[4];
-			for (int j=0; j<4; j++) {
-				corners[j] = wallVertices[curPrimitive + j];
-            }
-
-			float	localX = Vector3.Dot(wallVertices[i] - corners[0], (corners[1] - corners[0]).normalized),
-					localY = Vector3.Dot(wallVertices[i] - corners[0], (corners[2] - corners[0]).normalized);
-
-			// Calculate which plane we're on
-			//Vector3 primitiveNormal = Vector3.Cross(corners[1] - corners[0], corners[2] - corners[0]).normalized;
-
-			// Get relative bounds
-
-
-			float percentX = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize, map.GetLength(0) / 2 * squareSize, wallVertices[i].x * squareSize);
-			float percentY = Mathf.InverseLerp(-map.GetLength(1) / 2 * squareSize, map.GetLength(1) / 2 * squareSize, wallVertices[i].y * squareSize);
-			//uvs[i] = new Vector2(percentX, percentY);
-			uvs[i] = new Vector2(localX, localY);
-			wallMesh.uv = uvs;
-		}
-		wallMesh.uv = uvs;
-		*/
 		switch (meshType) {
 			case 0: {	//treewalls
 						treeWall.mesh = wallMesh;
@@ -211,28 +189,11 @@ public class MeshGenerator : MonoBehaviour {
     /// <returns></returns>
 	int SpawnObjectHandler(List<int> outline, int treeChance, int spawnObject, bool isFirst) {
 		List<Vector2> polyList = new List<Vector2>();
-
 		foreach (int vertex in outline) {
 			polyList.Add(new Vector2(vertices[vertex].x, vertices[vertex].z));
 		}
 		GameObject mapObject = Tree;
 		Vector2[] poly = polyList.ToArray();
-		if (spawnObject == 1) { mapObject = Bush; }
-		//Spawn along outline edge to secure border
-		for (int o = 0; o < polyList.Count; o++) {
-			if (isFirst) { break; }
-			treeChance += Random.Range(1, 3);
-			if (treeChance < 10) { continue; }
-			objSpawner.SpawnObject(new Vector3(polyList[o].x, 0, polyList[o].y), mapObject);
-			treeChance = 0;
-		}
-
-		//Spawn trees randomly inside border
-		for (int t = 0; t < outline.Count * 2 / 5; t++) {
-			if (isFirst) { break; }
-			Vector2 pos = Funcs.GetRandomPointInPolygon(poly);
-			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), mapObject);
-		}
 
 		//Spawns entrance and exit, but only in the main outline
 		if (isFirst) {
@@ -242,48 +203,92 @@ public class MeshGenerator : MonoBehaviour {
 					pUpBound = new Vector2(0, 0);
 			(pos1, pos2, pLowBound, pUpBound) = Funcs.ForceFarSpawn(poly);
 			GameObject[] trees = GameObject.FindGameObjectsWithTag("Solid Object");
-			
-			//Spawns exit
-			objSpawner.SpawnObject(new Vector3(pos1.x, 0, pos1.y), Exit);
-			//Moves a portal away if its stuck in trees
-			MovePortal(trees, "Exit");
-			//Spawns entrance
-			objSpawner.SpawnObject(new Vector3(pos2.x, 0, pos2.y), Entrance);
-			MovePortal(trees, "Entrance");
 
+			SpawnPortal(poly);
+			if (!GenerateEnemies) { return treeChance; }
+
+			PlayerController pCon = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
 			//Default to center to avoid dumb issues
 			Vector2 eSpawnPoint = new Vector2(0, 0);
-			for (int e = 0; e < NumberOfEnemies; e++) {
+			for (int e = 0; e < NumberOfEnemies + pCon.currentStage; e++) {
 				eSpawnPoint = Funcs.FindPointOutsidePlayerSpawn(pLowBound, pUpBound, poly);
 				int enemyType = Random.Range(0, Enemies.Count);
-				objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), Enemies[enemyType]);
-				objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), EnemyWeapon);
+
+				GameObject Enemy = objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), Enemies[enemyType]);
+				MoveObjectOutOfTrees(trees, Enemy, poly);
+				GameObject EnemyWep = objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), EnemyWeapon);
+				MoveObjectOutOfTrees(trees, EnemyWep, poly);
 			}
+			return 0;
 		}
+
+		if (spawnObject == 1) { mapObject = Bush; }
+		//Spawn along outline edge to secure border
+		for (int o = 0; o < polyList.Count; o++) {
+			treeChance += Random.Range(1, 3);
+			if (treeChance < 10) { continue; }
+			objSpawner.SpawnObject(new Vector3(polyList[o].x, 0, polyList[o].y), mapObject);
+			treeChance = 0;
+		}
+
+		//Spawn trees randomly inside border
+		for (int t = 0; t < outline.Count * 2 / 5; t++) {
+			Vector2 pos = Funcs.GetRandomPointInPolygon(poly);
+			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), mapObject);
+		}
+
+		
 		return treeChance;
 	}
 
 	/// <summary>
-    /// Checks for the nearest tree and moves the portal away if its too close
+    /// Handles spawning portals
+    /// </summary>
+    /// <param name="poly"></param>
+	private void SpawnPortal(Vector2[] poly) {
+		Vector2 pos1 = new Vector2(0, 0),
+		pos2 = new Vector2(0, 0),
+		pLowBound = new Vector2(0, 0),
+		pUpBound = new Vector2(0, 0);
+		(pos1, pos2, pLowBound, pUpBound) = Funcs.ForceFarSpawn(poly);
+		GameObject[] trees = GameObject.FindGameObjectsWithTag("Solid Object");
+
+		//Spawns exit
+		objSpawner.SpawnObject(new Vector3(pos1.x, 0, pos1.y), Exit);
+		//Moves a portal away if its stuck in trees
+		MoveObjectOutOfTrees(trees, Exit, poly);
+		//Spawns entrance
+		objSpawner.SpawnObject(new Vector3(pos2.x, 0, pos2.y), Entrance);
+		MoveObjectOutOfTrees(trees, Entrance, poly);
+	}
+
+	/// <summary>
+    /// Checks for the nearest tree and moves the object away
     /// </summary>
     /// <param name="trees">List of all trees</param>
     /// <param name="newName">The portals new name</param>
-	private void MovePortal(GameObject[] trees, string newName) {
-		GameObject portal = GameObject.Find("Portal(Clone)");
-		portal.name = newName;
+	private void MoveObjectOutOfTrees(GameObject[] trees, GameObject interObject, Vector2[] poly) {
+		//GameObject portal = GameObject.Find("Portal(Clone)");
 		Vector2 moveAwayVec = new Vector2(0,0);
 		bool intersects = true;
+		bool notInMap = false;
 		int timeOut = 100;
 		do {
-			(moveAwayVec, intersects) = Funcs.CheckForIntersect(trees, portal.transform.position, PortalRadius);
+			(moveAwayVec, intersects) = Funcs.CheckForIntersect(trees, interObject.transform.position, PortalRadius);
 			if (intersects) {
 				//Extend vector from nearest tree to be demanded radius
 				moveAwayVec = moveAwayVec.normalized * PortalRadius;
 				//Apply the new vector to the portal excluding the Y axis
-				portal.transform.position = new Vector3(portal.transform.position.x + moveAwayVec.x, portal.transform.position.y, portal.transform.position.z + moveAwayVec.y);
+				interObject.transform.position = new Vector3(interObject.transform.position.x + moveAwayVec.x*2, interObject.transform.position.y, interObject.transform.position.z + moveAwayVec.y*2);
+			}
+			if (timeOut%5 == 0) {
+				if (!Funcs.IsInPolygon(poly, interObject.transform.position)) {
+					notInMap = true; 
+					interObject.transform.position -= (interObject.transform.position / -10.0f); 
+				} else { notInMap = false; } 
 			}
 			timeOut--;
-		} while (intersects && 0<timeOut);
+		} while (intersects || notInMap && 0<timeOut);
 	}
 
 	/// <summary>
@@ -517,6 +522,29 @@ public class MeshGenerator : MonoBehaviour {
 			}
 		}
 		return outMap;
+	}
+	
+	// maybe call with playerrefrence
+	void grabTextureFromPlayer() {
+		Material	roofMat,
+					floorMat,
+					wallMat;
+
+		GameObject player = GameObject.FindGameObjectWithTag("Player");
+		//Requests material data from
+		(roofMat, floorMat, wallMat) =	player.GetComponent<MapTextureHandler>().RequestMaterialFromPlayer(
+										player.GetComponent<PlayerController>().currentStage, 
+										transform.GetComponent<MapGenerator>().bossLevel);
+
+		if (floorMat == null || roofMat == null || wallMat == null) {
+			return;
+        }
+
+		//Assigns the texture to respective gameobject
+		floor.transform.GetComponent<Renderer>().material		= floorMat;
+		outerRoof.transform.GetComponent<Renderer>().material	= roofMat;
+		outerWall.transform.GetComponent<Renderer>().material	= wallMat;
+
 	}
 
 	/// <summary>
