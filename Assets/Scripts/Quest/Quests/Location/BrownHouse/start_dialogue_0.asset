@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8634fde5faf815f458eaf8688e2f1075, type: 3}
-  m_Name: quest-brown_house3
+  m_Name: start_dialogue_0
   m_EditorClassIdentifier: 
-  name: Purple house
+  name: Mysterious man
   sentences:
-  - good job finding the brown house B)
+  - Hey, you!
+  - I heard a rumour that the man living in the brown house needs help with something...

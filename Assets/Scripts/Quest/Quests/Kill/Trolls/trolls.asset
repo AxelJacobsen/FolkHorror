@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5660f5a0cdea934d9314acc4a352f41, type: 3}
+  m_Name: trolls
+  m_EditorClassIdentifier: 
+  title: Trolls
+  description: Kill 5 green trolls and 10 red trolls
+  type: 1
+  nextQuest: {fileID: 11400000, guid: b5f84cf6b574efd40a5e8ee1f75cd603, type: 2}
+  killGoal: 050000000a000000
+  enemy: 0000000001000000
+  dialogue:
+  - {fileID: 11400000, guid: 972e5aac1d805a844a2bc6e9a7737a58, type: 2}
+  - {fileID: 11400000, guid: c4edcb07c4a44094a9a3d3b023f82655, type: 2}
+  - {fileID: 11400000, guid: 2863890bcbafd7148af89271b86b7855, type: 2}
+  - {fileID: 11400000, guid: b997a57a75a13ff44bb1cf55c9219f0a, type: 2}

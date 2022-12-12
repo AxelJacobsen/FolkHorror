@@ -9,15 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5660f5a0cdea934d9314acc4a352f41, type: 3}
-  m_Name: green-trolls
+  m_Script: {fileID: 11500000, guid: 8634fde5faf815f458eaf8688e2f1075, type: 3}
+  m_Name: start_dialogue_2
   m_EditorClassIdentifier: 
-  title: Green troll
-  description: Kill 1 green troll
-  isRunning: 0
-  isCompleted: 0
-  type: 1
-  startNum: 0
-  killGoal: 1
-  killCount: 0
-  enemy: 0
+  name: Mysterious man
+  sentences:
+  - What's up?

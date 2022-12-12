@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f5bd421e2df93d4889f958af4ff10fd, type: 3}
-  m_Name: Quest2
+  m_Script: {fileID: 11500000, guid: 8634fde5faf815f458eaf8688e2f1075, type: 3}
+  m_Name: trolls-dialogue_0
   m_EditorClassIdentifier: 
-  title: Quest 2
-  description: Description 2
-  isRunning: 0
-  isCompleted: 0
+  name: Old man
+  sentences:
+  - Now that you've proved yourself, let's get into some real business
+  - If you can kill 5 green trolls and 10 red ones, I'll pay you graciously

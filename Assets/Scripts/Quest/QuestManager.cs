@@ -98,7 +98,7 @@ public class QuestManager : MonoBehaviour
         // check if the changed quest is already in the list of enabled quests
         if (quests.Contains(changedQuest))
         {
-            print("Quest " + changedQuest.title + " is completed");
+            //print("Quest " + changedQuest.title + " is completed");
 
             // if it is, make it inactive
             int index = quests.FindIndex(q => q.title.Equals(changedQuest.title));
@@ -107,7 +107,7 @@ public class QuestManager : MonoBehaviour
         }
         else
         {
-            print("Quest " + changedQuest.title + " is started");
+            //print("Quest " + changedQuest.title + " is started");
 
             // if it is not, add it to the list and instantiate a new prefab
             quests.Add(changedQuest);
@@ -122,7 +122,7 @@ public class QuestManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if a kill quest has been completed.
+    /// Checks if kill quest(s) has/have been completed.
     /// </summary>
     private void CheckComplete()
     {
@@ -130,16 +130,13 @@ public class QuestManager : MonoBehaviour
 
         // temporary list for storing the ones that should be deleted from the other list
         List<KillQuest> completedQuests = new();
-
         foreach (KillQuest quest in killQuests)
         {
-            if (quest.IsCompleted())
+            if (quest.CheckCompleted())
             {
-                quest.isCompleted = true;
-                quest.isRunning = false;
-                ModifyQuest(quest);
+                //ModifyQuest(quest);
                 completedQuests.Add(quest);
-                print("Quest " + quest.title + " is completed");
+                print("All parts of quest " + quest.title + " are completed.\nReturn to quest giver for reward.");
             }
         }
 

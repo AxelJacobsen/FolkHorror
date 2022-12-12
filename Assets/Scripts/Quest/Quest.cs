@@ -17,7 +17,22 @@ public class Quest : ScriptableObject
 {
     public string title;
     public string description;
-    public bool isRunning;
-    public bool isCompleted;
     public QuestType type;
+    public Quest nextQuest;
+    public bool hasParent;  // if quest is first quest in the line or not
+    
+    private int status = -1;
+    public int Status { 
+        get { return status; }
+        set { status = value; } 
+    }
+
+    public virtual void Initialize()
+    {
+    }
+
+    public virtual bool CheckCompleted()
+    {
+        return false;
+    }
 }
