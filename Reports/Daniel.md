@@ -23,32 +23,32 @@
 - I consider the implementation of SoundManager and ShopManager to be good
 	- SoundManager is very modular and supports the implementation of sound settings sliders when needed.
 		- Has handling for when you want to play sound in 3d space or when you want to play sounds when handling UI.
-		![[soundmanager_example.png]]
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_soundmanager_example.png)<br>
 *Snippet from ShopManager.cs Script, it shows an example of how you would play a sound for UI* 
 - ShopManager is simple and very customizable.
 - I consider the implementation of currency handling to be good aswell.
 	- very simple and clean.
-![[coinhandler.png]]
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_coinhandler.png)<br>
 *Snippet from PlayerController.cs Script, it shows the simple implementaion of incrementing, removing and getting the amount of coins stored in the PlayerController Script* 
 - The custom assets. I'm a little proud as its the first assets ive made.
-![[idle_back.png]]
-![[idle_front.png]]
-![[side_left-sheet.png]]
-![[side_right-sheet.png]]
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_idle_back.png)<br>
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_idle_front.png)<br>
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_side_left-sheet.png)<br>
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_side_right-sheet.png)<br>
 *All character idle animations.*
-![[heartIcon.png]]
-![[heartSingle.png]]
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_heartIcon.png)<br>
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_heartSingle.png)<br>
 *Heart icons*
-![[border.png]]
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_border.png)<br>
 *Frames for HP and items*
-![[boreal.png]]
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_boreal.png)<br>
 *Custom trees, meant to be used with a color overlay*
-![[grass.png]]
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_grass.png)<br>
 *Grass texture, meant to be used with a color overlay*
 #### What i consider to be bad
 - I want to improve upon the selection of the item pool in the shop, now it just gets a specified random amount of items from the shop, however i want to implement a probability table, where it gives better options the further along the maps you come. The chance of getting rarer items should increase based on which level you are in. And a guaranteed stat item in addition to weapon item.
 - The Shop UI, it is very basic and needs improvement.
-![[shop_example.png]]
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_shop_example.png)<br>
 *Current Shop UI*
 - The item system, if i could remake something I would probably want to implement wider scale systems for items if i could.
 - The custom sprites i've made for the game are something i enjoyed making, however it took too much time in addition to other projects from other courses. And it was very time consuming making a different animation based on character orientation and form depiction. If i could do this again i would focus on implementation before asset creation.
