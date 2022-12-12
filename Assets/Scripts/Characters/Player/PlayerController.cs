@@ -77,11 +77,8 @@ public class PlayerController : Character {
 		InfoScreen info = GameObject.Find("/InfoScreen").transform.GetComponent<InfoScreen>();
 		if (info == null) Debug.Log(gameObject.name + " could not find InfoScreen");
 		info.ToggleInfoScreen(true);
-
-		GameObject sceneLoaderObject = GameObject.FindGameObjectWithTag("SceneLoader");
-		SceneLoader sceneLoader = sceneLoaderObject.GetComponent<SceneLoader>();
-		sceneLoader.ChangeScene(respawnLocation);
 		StartCoroutine(resetStats());
+
 		OnDie();
 	}
 
