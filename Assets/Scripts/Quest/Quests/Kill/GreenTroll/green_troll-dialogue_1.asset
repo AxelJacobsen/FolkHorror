@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8634fde5faf815f458eaf8688e2f1075, type: 3}
   m_Name: green_troll-dialogue_1
   m_EditorClassIdentifier: 
-  name: Brown house
+  name: Old man
   sentences:
-  - Good job! You completed the quest.
-  - Here is your reward<3
-  isQuest: 0
+  - Wow! You actually did it
+  - Here is your reward
+  - Talk to me when you're ready to kill more trolls

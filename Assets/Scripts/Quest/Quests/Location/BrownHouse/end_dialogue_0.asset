@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8634fde5faf815f458eaf8688e2f1075, type: 3}
   m_Name: end_dialogue_0
   m_EditorClassIdentifier: 
-  name: Brown house
+  name: Old man
   sentences:
   - ...
-  isQuest: 0

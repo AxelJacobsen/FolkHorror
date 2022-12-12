@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5660f5a0cdea934d9314acc4a352f41, type: 3}
-  m_Name: green_troll-
+  m_Name: green_troll
   m_EditorClassIdentifier: 
   title: Green troll
   description: Kill 1 green troll
   type: 1
-  nextQuest: {fileID: 0}
+  nextQuest: {fileID: 11400000, guid: d5c67a752f23ba243ac9de7f4210bcf5, type: 2}
   hasParent: 0
-  status: -1
   killGoal: 01000000
-  enemy: 01000000
+  enemy: 00000000
   dialogue:
   - {fileID: 11400000, guid: 80ebdcee908e76d4483d569cbc9deafd, type: 2}
   - {fileID: 11400000, guid: e5ed3afbb8ffc1246adce8bb10ffc59b, type: 2}
