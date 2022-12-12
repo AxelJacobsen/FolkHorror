@@ -1,4 +1,14 @@
-# Good code
+## Weighting
+|Description        |Score|
+|-------------------|-----|
+|Gameplay video     |5    |
+|Code video         |0    |
+|Good code          |20   |
+|Bad code           |25   |
+|Development process|25   |
+|Reflection         |25   |
+
+## Good code
 The code I have developed and is most satisfied with, is the dialogue system. One aspect I had in mind when developing it was that I wanted it to be modular and applicable for several use cases. This turned out to be hard, especially at the start of the project. This was the very first feature I developed, which means I had limited knowledge during the first iteration of the dialogue system. However, I ended up making both small and big improvements one the system during the project lifetime
 
 ![](./Images/maren_image1.PNG)
@@ -21,7 +31,7 @@ At first, I struggled with separating responsibility into different classes. I p
 Pictured above is an excerpt from the interaction class. This handles both manual and automatic start of the dialogue. Manual start means that the player needs to be inside a certain area where they can see the text “Press E to interact”, and press the key to activate the dialogue. The opposite of this is the automatic start. When this is enabled, the dialogue is started right after activation.
 Of course, I do not think all of the code related to the dialogue system is good. However, I think this is the most refined feature I created during the project. The part I like the most about it is the fact that it can be used in various ways. I also do not think it will be too hard to expand if more use cases show up later.
 
-# Bad code
+## Bad code
 I want to discuss two parts I developed that I think ended up bad. The main reason they ended up bad is because I did not get the chance to start developing the quest system until the very end. Other aspects of the game were deemed more important, and the whole quest system was therefore given a low priority.
 
 ![](./Images/maren_image3.png)
@@ -30,7 +40,7 @@ First, I need to explain how the quest system is put together. Shown above is an
 
 A script containing a class called QuestTrigger is used to change the state and dialogue of a quest when the player walks to a certain area. 
 
-## Tutorial
+### Tutorial
 The first part I want to discuss is the tutorial. The tutorial consists of two classes, TutorialManager and TutorialFragment. The TutorialManager’s job is to control the flow of the tutorial. The TutorialManager consists of multiple TutorialFragments. These are the tasks the player needs to complete to finish the tutorial. They are stored in a queue, and each one consists of a mark to signal which type of task it is, and a dialogue. 
 
 ![](./Images/maren_image4.PNG)
@@ -46,7 +56,7 @@ In my current solution the quest is progressed even though the dialogue that bel
 
 The dialogue is also being reassigned each time the player enters the trigger. This is not ideal as the dialogue to be displayed at a given moment does not change that often. I would fix this by adding a check to see if the state of the quest has changed, and only change the dialogue if it has.
 
-# Learning outcome
+## Reflection
 At the start of the course, I found myself quite overwhelmed. It was hard creating new features with limited knowledge. I looked at existing solutions, and they often had parts that was not necessary for our game. I learnt that it is wise to start small, and expand when needed. However, this was a bit challenging as I needed to make sure the small part was modular enough to easily expand upon later on. What I found helped me when things seemed too “big”, was drawing a draft of how the different components should interact with each other. I also created UML diagrams when I was more sure of how the feature should be built.
 
 When it comes to the game engine used, I feel learning Unity was a great experience. There is a lot of good documentation, and I found most things in the editor to be intuitive. Because of this, I could focus more on the (code) design and coding.
