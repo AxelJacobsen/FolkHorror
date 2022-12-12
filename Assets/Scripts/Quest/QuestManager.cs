@@ -34,7 +34,8 @@ public class QuestManager : MonoBehaviour
     public GameObject questOverview;
 
     private List<Quest> quests;
-    private List<KillQuest> killQuests = new();
+    private List<KillQuest> killQuests
+        = new();
     private List<GameObject> questPrefabs = new();
     private GameObject currentQuest;
     private bool isOpen;
@@ -98,13 +99,17 @@ public class QuestManager : MonoBehaviour
         // check if the changed quest is already in the list of enabled quests
         if (quests.Contains(changedQuest))
         {
+            //print("Quest " + changedQuest.title + " is completed");
+
             // if it is, make it inactive
             int index = quests.FindIndex(q => q.title.Equals(changedQuest.title));
-            questPrefabs[index].GetComponent<Image>().color = new Color(76f / 255f, 82f / 255f, 81f / 255f);
+            questPrefabs[index].GetComponent<Image>().color = new Color(186f / 255f, 186f / 255f, 186f / 255f);
             questPrefabs[index].GetComponent<Button>().onClick.RemoveAllListeners();
         }
         else
         {
+            //print("Quest " + changedQuest.title + " is started");
+
             // if it is not, add it to the list and instantiate a new prefab
             quests.Add(changedQuest);
             // add to its own list if it is a kill quest, used for checking if it has been completed
@@ -118,7 +123,7 @@ public class QuestManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks if a kill quest has been completed.
+    /// Checks if kill quest(s) has/have been completed.
     /// </summary>
     private void CheckComplete()
     {
@@ -126,16 +131,13 @@ public class QuestManager : MonoBehaviour
 
         // temporary list for storing the ones that should be deleted from the other list
         List<KillQuest> completedQuests = new();
-
         foreach (KillQuest quest in killQuests)
         {
-            if (quest.IsCompleted())
+            if (quest.CheckCompleted())
             {
-                quest.isCompleted = true;
-                quest.isRunning = false;
-                ModifyQuest(quest);
+                //ModifyQuest(quest);
                 completedQuests.Add(quest);
-                print("Quest " + quest.title + " is completed");
+                print("All parts of quest " + quest.title + " are completed.\nReturn to quest giver for reward.");
             }
         }
 
@@ -149,7 +151,7 @@ public class QuestManager : MonoBehaviour
     private void DeselectQuest()
     {
         if (currentQuest != null)
-            currentQuest.GetComponent<Image>().color = new Color(106f / 255f, 123f / 255f, 100f / 255f);
+            currentQuest.GetComponent<Image>().color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
         questOverview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
         questOverview.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
         currentQuest = null;
@@ -165,7 +167,7 @@ public class QuestManager : MonoBehaviour
 
         // set new current quest
         currentQuest = questPrefabs[index];
-        currentQuest.GetComponent<Image>().color = new Color(67f / 255f, 87f / 255f, 60f / 255f);
+        currentQuest.GetComponent<Image>().color = new Color(230f / 255f, 223f / 255f, 181f / 255f);
 
         // update the overview
         questOverview.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = quests[index].title;

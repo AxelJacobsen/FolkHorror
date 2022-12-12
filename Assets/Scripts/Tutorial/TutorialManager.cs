@@ -13,6 +13,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject enemy;
     public GameObject portal;
     public Button buttonSkip;
+    public List<Dialogue> dialogues = new();
 
     private DialogueInteraction dialogueInteraction;
     private TutorialFragment currentTask;
@@ -24,9 +25,9 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         // create tasks for the player to complete
-        tasks.Enqueue(new TutorialFragment(TaskType.sword, "Dialogue/tutorial-movement"));
-        tasks.Enqueue(new TutorialFragment(TaskType.enemy, "Dialogue/tutorial-combat"));
-        tasks.Enqueue(new TutorialFragment(TaskType.portal, "Dialogue/tutorial-portal"));
+        tasks.Enqueue(new TutorialFragment(TaskType.sword, dialogues[0]));
+        tasks.Enqueue(new TutorialFragment(TaskType.enemy, dialogues[1]));
+        tasks.Enqueue(new TutorialFragment(TaskType.portal, dialogues[2]));
         currentTask = tasks.Dequeue(); 
 
         // get DialogueInteraction
