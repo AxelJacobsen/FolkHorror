@@ -33,12 +33,11 @@ public class CameraFollow : MonoBehaviour {
 		transform.position = (player.position + offset + offsetExtra);
 	}
 
-	/**
-	 *	Applies a screenshake effect to the screen.
-	 *
-	 *	@param duration - The duration of the screenshake.
-	 *	@param intensity - The intensity of the screenshake.
-	 */
+	/// <summary>
+	/// Applies a screenshake effect to the screen.
+	/// </summary>
+	/// <param name="duration">The duration of the screenshake.</param>
+	/// <param name="intensity">The intensity of the screenshake.</param>
 	public void Screenshake(float duration, float intensity)
 	{
 		durationLeft = duration;
