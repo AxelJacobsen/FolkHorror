@@ -413,6 +413,63 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: a363c17bc288848428d3ff420e3f1d3e, type: 2}
+--- !u!1001 &872985879
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3155963225581792960, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155963225581792960, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.0555906
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155963225581792960, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155963225581792960, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 63.464615
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155963225581792960, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155963225581792960, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155963225581792960, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155963225581792960, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155963225581792960, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155963225581792960, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155963225581792960, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155963225581792984, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: m_Name
+      value: BossTroll
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
 --- !u!1 &943218275
 GameObject:
   m_ObjectHideFlags: 0
