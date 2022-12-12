@@ -6,21 +6,21 @@ using UnityEngine;
 /// <summary>
 /// The playercontroller.
 /// </summary>
-public class PlayerController : Character
-{
+public class PlayerController : Character {
 	// Public vars
 	public LayerMask AimLayer;
 	public int currentStage = 0;
 	public string currentBiome = "";
-	
+	public string respawnLocation = "TownScene";
 
 	// Private vars
 	private int attackHeld = 0;
 	private PlayerControls playerControls;
-    private bool tryRolling = false;
-	private int coinAmount = 100; 
-	
-    private void Awake() {
+
+  private bool tryRolling = false;
+	private int coinAmount = 0; 
+
+	private void Awake() {
 		playerControls = new PlayerControls();
 	}
 
@@ -31,10 +31,9 @@ public class PlayerController : Character
 	private void OnDisable() {
 		playerControls.Disable();
 	}
-	
-	protected override void OnStart()
-	{
-		
+
+	protected override void OnStart() {
+
 	}
 
 	public void tryIncrementCoinAmount() {
@@ -52,12 +51,12 @@ public class PlayerController : Character
 	public int getCoinAmount() { return coinAmount; }
 
 
-	protected override void OnFixedUpdate()
-	{
+	protected override void OnFixedUpdate() {
 		// Toggle spacebar
-		if ( playerControls.General.Attack.ReadValue<float>() == 1f ) {
+		if (playerControls.General.Attack.ReadValue<float>() == 1f) {
 			attackHeld++;
-        } else {
+		}
+		else {
 			attackHeld = 0;
 		}
 
@@ -73,15 +72,69 @@ public class PlayerController : Character
 
 		// Move
 		Vector2 joystick = playerControls.General.Move.ReadValue<Vector2>();
-		Vector3 dir = new Vector3 (joystick.x, 0, joystick.y).normalized;
+		Vector3 dir = new Vector3(joystick.x, 0, joystick.y).normalized;
 
-		if (playerControls.General.Roll.ReadValue<float>() == 1f || tryRolling) 
-		{
-            tryRolling = SteerableRoll(dir);
-        }
-		else 
-		{
-        	Move(dir);
+		if (playerControls.General.Roll.ReadValue<float>() == 1f || tryRolling) {
+			tryRolling = SteerableRoll(dir);
 		}
-    }
+		else {
+			Move(dir);
+		}
+	}
+
+	/// <summary>
+	/// Overrides death funciton and sends player to TownScene
+	/// </summary>
+	public override void Die() {
+		if (dead) return;
+		else dead = true;
+		dropAllItems();
+		StartCoroutine(respawnDelay());
+
+		// display death screen
+		InfoScreen info = GameObject.Find("/InfoScreen").transform.GetComponent<InfoScreen>();
+		if (info == null) Debug.Log(gameObject.name + " could not find InfoScreen");
+		info.ToggleInfoScreen(true);
+
+		GameObject sceneLoaderObject = GameObject.FindGameObjectWithTag("SceneLoader");
+		SceneLoader sceneLoader = sceneLoaderObject.GetComponent<SceneLoader>();
+		sceneLoader.ChangeScene(respawnLocation);
+		StartCoroutine(resetStats());
+		OnDie();
+	}
+
+	/// <summary>
+	/// Drops and destroys all items a player has
+	/// </summary>
+	void dropAllItems() {
+		int j = 0;
+		for (int i = 0; i < Items.Count; i++) {
+			if (!(Items[i - j] is Weapon)) {
+				Items[i - j].Drop();
+				Destroy(Items[i - j++].gameObject);
+			}
+		}
+	}
+
+	/// <summary>
+	/// Resets player status, waits untill end of frame to avoid overkill
+	/// </summary>
+	IEnumerator resetStats() {
+		yield return new WaitForEndOfFrame();
+		currentBiome = respawnLocation;
+		currentStage = 0;
+		UpdateStats();
+		Health = MaxHealth;
+		dead = false;
+	}
+
+	/// <summary>
+	/// Resets player status, waits untill end of frame to avoid overkill
+	/// </summary>
+	IEnumerator respawnDelay() {
+		yield return new WaitForEndOfFrame();
+		GameObject sceneLoaderObject = GameObject.FindGameObjectWithTag("SceneLoader");
+		SceneLoader sceneLoader = sceneLoaderObject.GetComponent<SceneLoader>();
+		sceneLoader.ChangeScene(respawnLocation);
+	}
 }

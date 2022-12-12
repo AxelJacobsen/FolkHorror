@@ -18,11 +18,10 @@ public class TutorialFragment
     public bool isCompleted;
     public bool isStarted;
 
-    // Start is called before the first frame update
-    public TutorialFragment(TaskType taskType, string fileName)
+    public TutorialFragment(TaskType taskType, Dialogue dialogue)
     {
         this.taskType = taskType;
-        dialogue = XmlLoader.LoadXML<Dialogue>(fileName);
+        this.dialogue = dialogue;
         isCompleted = false;
         isStarted = false;
     }

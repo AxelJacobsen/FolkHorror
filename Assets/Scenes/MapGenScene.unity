@@ -960,8 +960,9 @@ MonoBehaviour:
   EnemyWeapon: {fileID: 8339867062230742599}
   Entrance: {fileID: 2075966770}
   Exit: {fileID: 1755183135}
-  portalRadius: 2
-  generateObjects: 1
+  PortalRadius: 2
+  NumberOfEnemies: 4
+  GenerateObjects: 1
 --- !u!114 &1834882609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -994,13 +995,13 @@ MonoBehaviour:
   useRandomSeed: 1
   smoothing: 4
   smoothingStrictness: 4
-  borderSize: 2
+  borderSize: 20
   roomSizeThreshold: 50
   wallSizeThreshold: 50
   bossLevel: 10
   loadSpecificMapFromFile: 0
   saveAsPremade: 1
-  saveFileName: testForrest3
+  saveFileName: Forrest0
   binaryMapFileName: bossArena
   randomFillPercent: 44
 --- !u!114 &1834882611
@@ -1399,11 +1400,23 @@ PrefabInstance:
       value: itemSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 6448025216525411012, guid: 961bfe3a2af605c4f988c89b11dda88c, type: 3}
+      propertyPath: ItemBias
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448025216525411012, guid: 961bfe3a2af605c4f988c89b11dda88c, type: 3}
       propertyPath: isEnemyItem
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6448025216525411012, guid: 961bfe3a2af605c4f988c89b11dda88c, type: 3}
+      propertyPath: upperThresh
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448025216525411012, guid: 961bfe3a2af605c4f988c89b11dda88c, type: 3}
       propertyPath: Rare_Items.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6448025216525411012, guid: 961bfe3a2af605c4f988c89b11dda88c, type: 3}
+      propertyPath: Common_Items.Array.size
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6448025216525411012, guid: 961bfe3a2af605c4f988c89b11dda88c, type: 3}

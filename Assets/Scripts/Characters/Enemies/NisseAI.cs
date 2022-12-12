@@ -113,6 +113,16 @@ public class NisseAI : BaseEnemyAI
         }
     }
 
+    /// <summary>
+    /// Add to kill stats.
+    /// </summary>
+    protected override void OnDie()
+    {
+        base.OnDie();
+
+        Statistics.NisseDied++;
+    }
+
     protected override void OnFixedUpdate()
     {
         base.OnFixedUpdate();
