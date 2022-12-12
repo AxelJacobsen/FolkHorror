@@ -204,15 +204,16 @@ public class MapGenerator : MonoBehaviour {
 		}
 
 		List<List<Coord>> wallRegions = GetRegions(1);
-		bool first = true;
-		foreach (List<Coord> wallRegion in wallRegions) {
-			if (first) {
-				first = false;
-				// Defines outer wall to ensure it doesnt get turned into objects
-				foreach (Coord tile in wallRegion) {
-					map[tile.tileX, tile.tileY] = 20;
-				}
+		int buffer = (width + height) / 10;
+		// Defines outer wall to ensure it doesnt get turned into objects
+		foreach (Coord tile in wallRegions[0]) {
+			if (tile.tileX <= buffer || (width - buffer) <= tile.tileX || tile.tileY <= buffer || (height - buffer) <= tile.tileY) {
+				map[tile.tileX, tile.tileY] = 20;
 			}
+		}
+		//Refresh region list, since there might be residual wall segments
+		wallRegions = GetRegions(1);
+		foreach (List<Coord> wallRegion in wallRegions) {
 			//Replaces everything smaller than the threshold with bushes
 			if (wallRegion.Count < bushSizeThreshold) {
 				foreach (Coord tile in wallRegion) {
