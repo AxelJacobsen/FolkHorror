@@ -13,7 +13,7 @@
 - I also learned how to make key scripts related to managing shop items and sound components for the game.
 
 - I have also learned that using one single canvas for all UI is considered bad practice. You should consider elements that are dynamic and static when using canvas.
-![[ui_structure.png]]
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_ui_structure.png)<br>
 *How our UI is currently setup in NeverUnload.Unity*
 - I have also learned that audioSources have a max allowed played sounds, therefore a handler for audioSources has to be implemented in order to manage sound.
 
