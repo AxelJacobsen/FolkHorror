@@ -70,6 +70,16 @@ public class GreenTrollAI : BaseEnemyAI
         Move((directionToEnemy * Speed - rb.velocity) * WalkAcceleration * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Add to kill stats.
+    /// </summary>
+    protected override void OnDie()
+    {
+        base.OnDie();
+
+        Statistics.GreenTrollsDied++;
+    }
+
     protected override void OnFixedUpdate()
     {
         base.OnFixedUpdate();

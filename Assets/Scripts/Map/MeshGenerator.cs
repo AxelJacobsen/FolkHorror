@@ -27,8 +27,9 @@ public class MeshGenerator : MonoBehaviour {
 	public GameObject Entrance;
 	public GameObject Exit;
 
-	public int portalRadius = 2;
-	public bool generateObjects;
+	public int PortalRadius = 2;
+	public int NumberOfEnemies = 10;
+	public bool GenerateObjects = true;
 	private int wallHeight;
 	List<Vector3> vertices;
 	List<int> triangles;
@@ -64,6 +65,7 @@ public class MeshGenerator : MonoBehaviour {
 
 		vertices = new List<Vector3>();
 		triangles = new List<int>();
+		//Fills vertices and triangles lists with data
 		for (int x = 0; x < squareGrid.squares.GetLength(0); x++) {
 			for (int y = 0; y < squareGrid.squares.GetLength(1); y++) {
 				TriangulateSquare(squareGrid.squares[x, y]);
@@ -79,6 +81,8 @@ public class MeshGenerator : MonoBehaviour {
 		int tileAmountX = map.GetLength(0)/10,
 			tileAmountY = map.GetLength(1)/10;
 		Vector2[] uvs = new Vector2[vertices.Count];
+		
+		//Creates floor & roof UVs
 		for (int i = 0; i < vertices.Count; i++) {
 			float percentX = Mathf.InverseLerp(-map.GetLength(0) / 2 * squareSize, map.GetLength(0) / 2 * squareSize, vertices[i].x) * tileAmountX;
 			float percentY = Mathf.InverseLerp(-map.GetLength(1) / 2 * squareSize, map.GetLength(1) / 2 * squareSize, vertices[i].z) * tileAmountY;
@@ -93,6 +97,7 @@ public class MeshGenerator : MonoBehaviour {
 				} break;
 			case 3: 
 				{
+					// If floor is being generated, sets collider and 
 					floor.mesh = mesh;
 					MeshCollider floorCollider = floor.gameObject.GetComponent<MeshCollider>();
 					floorCollider.sharedMesh = mesh;
@@ -116,7 +121,7 @@ public class MeshGenerator : MonoBehaviour {
 		if (meshType == 2) { first = true; }
 
 		foreach (List<int> outline in outlines) {
-			if (generateObjects) {
+			if (GenerateObjects) {
 				treeChance = SpawnObjectHandler(outline, treeChance, meshType, first);
 				if (first) { first = false; }
 			}
@@ -141,6 +146,8 @@ public class MeshGenerator : MonoBehaviour {
 		wallMesh.RecalculateNormals();
 		int tileAmount = wallHeight / 10;
 		/*
+		 *IN PROGRESS, MESH UVS ARE BROKEN ATM AND TEXTURES DONT PROPPERLY WRAP
+		 * 
 		Vector2[] uvs = new Vector2[wallVertices.Count];
 		for (int i = 0; i < wallVertices.Count; i++) {
 
@@ -185,6 +192,7 @@ public class MeshGenerator : MonoBehaviour {
 						outerWallCollider.sharedMesh = wallMesh;
 					} break;
 			default: {
+						//Shouldnt occur
 						print("Uses default");
 						treeWall.mesh = wallMesh;
 						MeshCollider wallCollider = treeWall.gameObject.GetComponent<MeshCollider>();
@@ -193,6 +201,14 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+    /// Spawns objects within the bounds of diffrent polygons on the map
+    /// </summary>
+    /// <param name="outline"></param>
+    /// <param name="treeChance"></param>
+    /// <param name="spawnObject"></param>
+    /// <param name="isFirst"></param>
+    /// <returns></returns>
 	int SpawnObjectHandler(List<int> outline, int treeChance, int spawnObject, bool isFirst) {
 		List<Vector2> polyList = new List<Vector2>();
 
@@ -201,7 +217,6 @@ public class MeshGenerator : MonoBehaviour {
 		}
 		GameObject mapObject = Tree;
 		Vector2[] poly = polyList.ToArray();
-		int[] largestOutline = {0,0};
 		if (spawnObject == 1) { mapObject = Bush; }
 		//Spawn along outline edge to secure border
 		for (int o = 0; o < polyList.Count; o++) {
@@ -211,19 +226,15 @@ public class MeshGenerator : MonoBehaviour {
 			objSpawner.SpawnObject(new Vector3(polyList[o].x, 0, polyList[o].y), mapObject);
 			treeChance = 0;
 		}
+
 		//Spawn trees randomly inside border
 		for (int t = 0; t < outline.Count * 2 / 5; t++) {
-			//Stows largest Outline to spawn exit and entrance
-			if (largestOutline[0] < outline.Count) {
-				largestOutline[0] = outline.Count;
-				largestOutline[0] = t;
-			}
 			if (isFirst) { break; }
 			Vector2 pos = Funcs.GetRandomPointInPolygon(poly);
 			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), mapObject);
 		}
 
-		//Spawns entrance and exit
+		//Spawns entrance and exit, but only in the main outline
 		if (isFirst) {
 			Vector2 pos1 = new Vector2(0, 0),
 					pos2 = new Vector2(0, 0),
@@ -231,16 +242,18 @@ public class MeshGenerator : MonoBehaviour {
 					pUpBound = new Vector2(0, 0);
 			(pos1, pos2, pLowBound, pUpBound) = Funcs.ForceFarSpawn(poly);
 			GameObject[] trees = GameObject.FindGameObjectsWithTag("Solid Object");
+			
+			//Spawns exit
 			objSpawner.SpawnObject(new Vector3(pos1.x, 0, pos1.y), Exit);
 			//Moves a portal away if its stuck in trees
 			MovePortal(trees, "Exit");
-			
+			//Spawns entrance
 			objSpawner.SpawnObject(new Vector3(pos2.x, 0, pos2.y), Entrance);
 			MovePortal(trees, "Entrance");
 
 			//Default to center to avoid dumb issues
 			Vector2 eSpawnPoint = new Vector2(0, 0);
-			for (int e = 0; e < 10; e++) {
+			for (int e = 0; e < NumberOfEnemies; e++) {
 				eSpawnPoint = Funcs.FindPointOutsidePlayerSpawn(pLowBound, pUpBound, poly);
 				int enemyType = Random.Range(0, Enemies.Count);
 				objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), Enemies[enemyType]);
@@ -249,6 +262,7 @@ public class MeshGenerator : MonoBehaviour {
 		}
 		return treeChance;
 	}
+
 	/// <summary>
     /// Checks for the nearest tree and moves the portal away if its too close
     /// </summary>
@@ -261,10 +275,10 @@ public class MeshGenerator : MonoBehaviour {
 		bool intersects = true;
 		int timeOut = 100;
 		do {
-			(moveAwayVec, intersects) = Funcs.CheckForIntersect(trees, portal.transform.position, portalRadius);
+			(moveAwayVec, intersects) = Funcs.CheckForIntersect(trees, portal.transform.position, PortalRadius);
 			if (intersects) {
 				//Extend vector from nearest tree to be demanded radius
-				moveAwayVec = moveAwayVec.normalized * portalRadius;
+				moveAwayVec = moveAwayVec.normalized * PortalRadius;
 				//Apply the new vector to the portal excluding the Y axis
 				portal.transform.position = new Vector3(portal.transform.position.x + moveAwayVec.x, portal.transform.position.y, portal.transform.position.z + moveAwayVec.y);
 			}
@@ -272,11 +286,14 @@ public class MeshGenerator : MonoBehaviour {
 		} while (intersects && 0<timeOut);
 	}
 
+	/// <summary>
+    /// Creates a meshTriangle from squares corners depending on a squares neighbours
+    /// </summary>
+    /// <param name="square"></param>
 	void TriangulateSquare(Square square) {
 		switch (square.configuration) {
 			case 0:
 				break;
-
 			// 1 points:
 			case 1:
 				MeshFromPoints(square.centreLeft, square.centreBottom, square.bottomLeft);
@@ -339,6 +356,10 @@ public class MeshGenerator : MonoBehaviour {
 
 	}
 
+	/// <summary>
+    /// Creates Triangles with vertexIndex points depending on the amount of supplied nodes
+    /// </summary>
+    /// <param name="points"></param>
 	void MeshFromPoints(params Node[] points) {
 		AssignVertices(points);
 
@@ -353,6 +374,10 @@ public class MeshGenerator : MonoBehaviour {
 
 	}
 
+	/// <summary>
+    /// 
+    /// </summary>
+    /// <param name="points"></param>
 	void AssignVertices(Node[] points) {
 		for (int i = 0; i < points.Length; i++) {
 			if (points[i].vertexIndex == -1) {
@@ -362,6 +387,12 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+    /// Creates a triangle using its vertex Indexes, then adds it to the global dictionary
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <param name="c"></param>
 	void CreateTriangle(Node a, Node b, Node c) {
 		triangles.Add(a.vertexIndex);
 		triangles.Add(b.vertexIndex);
@@ -373,6 +404,11 @@ public class MeshGenerator : MonoBehaviour {
 		AddTriangleToDictionary(triangle.vertexIndexC, triangle);
 	}
 
+	/// <summary>
+    /// Adds a given triangle to a dictionary where all triangles are bound to a vertexIndex
+    /// </summary>
+    /// <param name="vertexIndexKey"></param>
+    /// <param name="triangle"></param>
 	void AddTriangleToDictionary(int vertexIndexKey, Triangle triangle) {
 		if (triangleDictionary.ContainsKey(vertexIndexKey)) {
 			triangleDictionary[vertexIndexKey].Add(triangle);
@@ -384,8 +420,10 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+    /// Creates a list containing all mesh outlines in the whole map
+    /// </summary>
 	void CalculateMeshOutlines() {
-
 		for (int vertexIndex = 0; vertexIndex < vertices.Count; vertexIndex++) {
 			if (!checkedVertices.Contains(vertexIndex)) {
 				int newOutlineVertex = GetConnectedOutlineVertex(vertexIndex);
@@ -402,6 +440,11 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+    /// Initiates iterating through an outline
+    /// </summary>
+    /// <param name="vertexIndex"></param>
+    /// <param name="outlineIndex"></param>
 	void FollowOutline(int vertexIndex, int outlineIndex) {
 		outlines[outlineIndex].Add(vertexIndex);
 		checkedVertices.Add(vertexIndex);
@@ -412,6 +455,11 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+    /// Finds vertexes that border the same outline 
+    /// </summary>
+    /// <param name="vertexIndex"></param>
+    /// <returns></returns>
 	int GetConnectedOutlineVertex(int vertexIndex) {
 		List<Triangle> trianglesContainingVertex = triangleDictionary[vertexIndex];
 
@@ -431,6 +479,12 @@ public class MeshGenerator : MonoBehaviour {
 		return -1;
 	}
 
+	/// <summary>
+	/// Used to check wether a given vertex "B" coordinate has neighbors
+	/// </summary>
+	/// <param name="vertexA"></param>
+	/// <param name="vertexB"></param>
+	/// <returns></returns>
 	bool IsOutlineEdge(int vertexA, int vertexB) {
 		List<Triangle> trianglesContainingVertexA = triangleDictionary[vertexA];
 		int sharedTriangleCount = 0;
@@ -446,6 +500,12 @@ public class MeshGenerator : MonoBehaviour {
 		return sharedTriangleCount == 1;
 	}
 
+	/// <summary>
+    /// Finds objects using their predetermined identifier then returns a map of 1s & 0s where the object lies
+    /// </summary>
+    /// <param name="inMap"></param>
+    /// <param name="objectIdentifier"></param>
+    /// <returns></returns>
 	int[,] IsolateMapObjects(int[,] inMap, int objectIdentifier) {
 		int[,] outMap = new int[inMap.GetLength(0), inMap.GetLength(1)];
 		for (int x = 0; x < inMap.GetLength(0); x++) {
@@ -459,6 +519,9 @@ public class MeshGenerator : MonoBehaviour {
 		return outMap;
 	}
 
+	/// <summary>
+    /// Struct containing custom Triangle data
+    /// </summary>
 	struct Triangle {
 		public int vertexIndexA;
 		public int vertexIndexB;
@@ -488,6 +551,9 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+    /// Square grid manages the coordinates of the whole mesh grid
+    /// </summary>
 	public class SquareGrid {
 		public Square[,] squares;
 
@@ -514,6 +580,9 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+    /// Square hold individual information for each square in the grid
+    /// </summary>
 	public class Square {
 
 		public ControlNode topLeft, topRight, bottomRight, bottomLeft;
@@ -543,6 +612,9 @@ public class MeshGenerator : MonoBehaviour {
 
 	}
 
+	/// <summary>
+    /// Node is the baseclass for Control Node, used to contain vertexIndex and xyz coordinate of a corner
+    /// </summary>
 	public class Node {
 		public Vector3 position;
 		public int vertexIndex = -1;
@@ -552,6 +624,9 @@ public class MeshGenerator : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+    /// Subclass of Node, holds xyz for a "square" side, also wether or not its connected to another square
+    /// </summary>
 	public class ControlNode : Node {
 
 		public bool active;

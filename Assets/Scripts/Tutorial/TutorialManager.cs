@@ -13,6 +13,7 @@ public class TutorialManager : MonoBehaviour
     public GameObject enemy;
     public GameObject portal;
     public Button buttonSkip;
+    public List<Dialogue> dialogues = new();
 
     private DialogueInteraction dialogueInteraction;
     private TutorialFragment currentTask;
@@ -23,24 +24,35 @@ public class TutorialManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        menuIsOpen = false;
-
-        dialogueInteraction = FindObjectOfType<DialogueInteraction>();
-        dialogueInteraction.autoStart = true;
-
-        portal.SetActive(false);
-
         // create tasks for the player to complete
-        tasks.Enqueue(new TutorialFragment(TaskType.sword, "Dialogue/tutorial-movement"));
-        tasks.Enqueue(new TutorialFragment(TaskType.enemy, "Dialogue/tutorial-combat"));
-        tasks.Enqueue(new TutorialFragment(TaskType.portal, "Dialogue/tutorial-portal"));
+        tasks.Enqueue(new TutorialFragment(TaskType.sword, dialogues[0]));
+        tasks.Enqueue(new TutorialFragment(TaskType.enemy, dialogues[1]));
+        tasks.Enqueue(new TutorialFragment(TaskType.portal, dialogues[2]));
         currentTask = tasks.Dequeue(); 
+
+        // get DialogueInteraction
+        GameObject dialogue = GameObject.Find("/Dialogue");
+        if (dialogue == null) Debug.Log(gameObject.name + " could not find Dialogue");
+
+        dialogueInteraction = dialogue.transform.Find("DialogueInteraction").GetComponent<DialogueInteraction>();
+        if (dialogueInteraction == null) Debug.Log(gameObject.name + " could not find DialogueInteraction");
+
+        dialogueInteraction.controller = GameObject.Find("/Dialogue/DialogueController").GetComponent<DialogueController>();
+        if (dialogueInteraction.controller == null) Debug.Log(gameObject.name + " could not find DialogueController");
+
+        dialogueInteraction.gameObject.SetActive(true);
+        dialogueInteraction.autoStart = true;
 
         // first part of the dialogue
         dialogueInteraction.dialogue = currentTask.dialogue;
 
+        // get Player
         player = GameObject.FindGameObjectWithTag(playerTag);
-        if (player == null) Debug.Log("Tutorialmanager could not find the player!");
+        if (player == null) Debug.Log(gameObject.name + " could not find Player");
+
+        menuIsOpen = false;
+        portal.SetActive(false);
+
         PauseController.PauseGame();
     }
 
