@@ -1,10 +1,23 @@
 # gameprog
 ## Group members
+List og group members:
 ## Game design document
-## Gameplay video
-## Code video
+The game design document can be found here: [GDD](./game_design_document.pdf) 
+
+We have not really used the document that much. It was great at the very beginning of the project, as it showed us what parts we had to think about. It also helped to make sure we were all on the same page about game design.
+
 ## Work distribution
+|   |Lars|Axel|Daniel|Maren|
+|---|----|----|------|-----|
+
+## Gameplay video
+The gameplay video can be found here: [Gameplay]()
+
+## Code video
+The code video can be found here: [Code]()
+
 ## Game engine
+
 ## Development process
 We followed an agile development process, where weekly meetings were held on tuesdays. During these meetings each team member showed what they had done since the last meeting, and problems encountered were discussed. This made it possible to give each other feedback and acquire new knowledge. As we all worked on separate parts of the project, it was interesting and educational to see how other aspects worked.
 
@@ -26,4 +39,4 @@ When a group member started working on a new issue, a branch was created. We did
 
 Before merging a feature branch to the main branch, we usually did a code review. The developer opened a pull request and another team member reviewed it. Some things the reviewer looked for were code documentation, big red flags and redundant code. As we all have different experiences and strengths, both the reviewer and the developer learned from each other.
 
-Link to the project: 
+Link to the project: https://github.com/users/AxelJacobsen/projects/3
