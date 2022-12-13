@@ -169,8 +169,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2627064ac7a7044beeff491bfd8ed6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 15
-  <MaxHealth>k__BackingField: 50
+  <Speed>k__BackingField: 10
+  <MaxHealth>k__BackingField: 60
+  <Bounces>k__BackingField: 0
+  <Pierces>k__BackingField: 0
+  <Chains>k__BackingField: 0
+  <ProjectileCountMult>k__BackingField: 1
+  <ProjectileDamageMult>k__BackingField: 1
   Weapon: {fileID: 0}
   Items: []
   WalkAcceleration: 10
@@ -190,12 +195,12 @@ MonoBehaviour:
   - {fileID: 1435871890072793254, guid: 898160b2ac796bf4ca19a21cec683a24, type: 3}
   DropOffset: {x: 0, y: 0, z: 0}
   TargetObjectsWithTag: Player
-  VisionRange: 50
+  VisionRange: 20
   DesiredWeapon: {fileID: 0}
   behavior: 0
-  RunSpeedMult: 2
+  RunSpeedMult: 1.5
   AlertEnemiesRangeWithinRange: 5
-  StopScreamingAfterSeconds: 10
+  StopScreamingAfterSeconds: 7
   onScreamClip: {fileID: 8300000, guid: 3b7c1ebb1ffbca446ab2f012fe555686, type: 3}
 --- !u!136 &8886281155529925467
 CapsuleCollider:

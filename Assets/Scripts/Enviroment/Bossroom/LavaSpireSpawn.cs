@@ -11,7 +11,6 @@ public class LavaSpireSpawn : MonoBehaviour
     [Header("Stats")]
     public float    Damage    = 50f;
     public float    Knockup   = 25f;
-    public float    Stun      = 1f;
     public float    Radius    = 5f;
     public float    Delay     = 2f;
     public float    Lifetime  = 5f;

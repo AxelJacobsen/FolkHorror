@@ -58,12 +58,8 @@ public class RedTrollAI : BaseEnemyAI
         {
             // Attack with weapon if possible
             if (Weapon != null && Weapon.InRangeOf(enemy) && Weapon.CanAttack()) 
-            {    
                 Attack(enemy.transform.position, TargetObjectsWithTag);
-
-            // Otherwise, just move towards the enemy
-            }
-            else Move((directionToEnemy * Speed - rb.velocity) * WalkAcceleration * Time.deltaTime);
+            Move((directionToEnemy * Speed - rb.velocity) * WalkAcceleration * Time.deltaTime);
         }
     }
 

@@ -520,6 +520,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenTroll
       objectReference: {fileID: 0}
+    - target: {fileID: 2967912978547419282, guid: 78d801083713bf244b2ac9e3d733c5ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 78d801083713bf244b2ac9e3d733c5ee, type: 3}
 --- !u!1 &384566823 stripped
