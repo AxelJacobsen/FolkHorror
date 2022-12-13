@@ -40,7 +40,7 @@ public class PlayerController : Character {
 		if (coinAmount < int.MaxValue) coinAmount++; 
 	}
 	public bool tryRemoveCoinAmount(int removeAmount) {
-		if (coinAmount > removeAmount && removeAmount > 0)
+		if (coinAmount >= removeAmount && removeAmount > 0)
 		{
 			coinAmount--;
             tryRemoveCoinAmount(removeAmount - 1);
