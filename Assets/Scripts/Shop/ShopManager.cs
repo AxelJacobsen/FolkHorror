@@ -110,7 +110,9 @@ public class ShopManager : MonoBehaviour
         RectTransform itemRectTransform = itemTransform.GetComponent<RectTransform>();
         Button itemButton = itemTransform.GetComponent<Button>();
         float itemHeight = 60f;
-        int price = getRarityPrice(rarity);
+        if (addRandomRange) numRange = range;
+        else numRange = 0;
+        int price = getRarityPrice(rarity) + new System.Random().Next(0, numRange);
         itemRectTransform.anchoredPosition = new Vector2(0, -itemHeight * (positionIndex-2));
         
         itemTransform.Find("ItemName").GetComponent<TextMeshProUGUI>().SetText(item.name);
@@ -133,11 +135,9 @@ public class ShopManager : MonoBehaviour
     }
     private void setRarityPrice()
     {
-        if (addRandomRange) numRange = range;
-        else numRange = 0;
-        price.Add(Rarity.Legendary, legendary + new System.Random().Next(0, numRange));
-        price.Add(Rarity.Rare, rare + new System.Random().Next(0, numRange));
-        price.Add(Rarity.Common, common + new System.Random().Next(0, numRange));
+        price.Add(Rarity.Legendary, legendary);
+        price.Add(Rarity.Rare, rare);
+        price.Add(Rarity.Common, common);
     }
     private int getRarityPrice(Rarity innKey)
     {
