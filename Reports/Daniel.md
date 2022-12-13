@@ -44,10 +44,6 @@
 	*Shows planned implementation of how the color overlay might look like using my grass texture, with a different biome*
 	<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_biome_concept_grass_2.jpg)<br>
 	*Shows planned implementation of how the color overlay might look like using my grass texture, with a different biome*
-
-<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_idle_back.png)<br>
-<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_idle_back.png)<br>
-<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_idle_back.png)<br>
 - The custom assets. I'm a little proud as its the first assets ive made.
 <br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_idle_back.png)<br>
 <br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_idle_front.png)<br>
