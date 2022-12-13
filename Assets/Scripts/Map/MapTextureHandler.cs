@@ -48,24 +48,6 @@ public class MapTextureHandler : MonoBehaviour
         if (MaterialProgression.Count <= curTexture) {
             curTexture = MaterialProgression.Count - 1;
         }
-        //print(curTexture);
-        /*//If the player is before the first segment, uses 0, saves on some procesing
-        if (pProgress <= matSegments) {
-            //Finds correct index depending on player progression
-            for (float textThreshold = 1.0f; 0.0f < textThreshold; textThreshold -= matSegments) {
-                if (textThreshold < pProgress) {
-                    break;
-                }
-                curTexture++;
-                //Preventing wierd bug
-                if ((bossStage*2) < curTexture) { print("Material aquisition timed out"); break; }
-            }
-            //Redundant insurance
-            if (MaterialProgression.Count <= curTexture) { curTexture = 0; }
-        }*/
-
-        //Construct shaders and set colors
-
 
         Shader basic = Shader.Find("Standard");
         Material roofMaterial = GetMaterialFromMaterialAlt(MaterialProgression[curTexture].roof);
