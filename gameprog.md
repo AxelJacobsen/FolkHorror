@@ -25,11 +25,11 @@ We have not really used the document that much. It was great at the very beginni
 |Map      |       |All    |       |     |
 |Meshes   |       |All    |       |     |
 |Scene Objects|Some|Most  |Some   |Some |
-|Prefabs  |Most   |       |Some   |     |
+|Prefabs  |Most   |Some   |Some   |     |
 |Camera   |       |Touched|       |     |
 |Dialogue |       |       |       |All  |
 |Quest    |Touched|       |       |All  |
-|Shop     |       |       |All    |     |
+|Shop     |       |Touched|All    |     |
 |Tutorial |Touched|       |       |All  |
 |Audio    |Some   |       |Most   |     |
 |UI       |Touched|       |Half   |Half |
