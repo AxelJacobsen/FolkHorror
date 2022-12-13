@@ -59,6 +59,12 @@
 *Custom trees, meant to be used with a color overlay*
 <br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_grass.png)<br>
 *Grass texture, meant to be used with a color overlay*
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/portal.png)<br>
+*Portal sprite, replaces old placeholder*
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/bush.png)<br>
+*Bush sprite, replaces old placeholder*
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/ItemPng.png)<br>
+*Shop sprite, replaces old placeholder*
 #### What i consider to be bad
 - I want to improve upon the selection of the item pool in the shop, now it just gets a specified random amount of items from the shop, however i want to implement a probability table, where it gives better options the further along the maps you come. The chance of getting rarer items should increase based on which level you are in. And a guaranteed stat item in addition to weapon item.
 - The Shop UI, it is very basic and needs improvement.
