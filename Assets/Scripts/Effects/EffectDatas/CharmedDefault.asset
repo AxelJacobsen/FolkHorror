@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CharmedDefault
   m_EditorClassIdentifier: 
   BaseIntensity: 1
-  BaseDuration: 1
+  BaseDuration: 3
   effectEmitter: {fileID: 11400000, guid: f5babcf9abbac2f4dacdb60b3370f029, type: 2}
   _Creator: {fileID: 0}
   _Target: {fileID: 0}

@@ -48,18 +48,22 @@ MonoBehaviour:
   Common_Items:
   - {fileID: 3165686296453501311, guid: 5a985d467e6b0d843b5745f08701b172, type: 3}
   - {fileID: 8877048252572463297, guid: 6c24b3f1340d1bb46905104dc34a3664, type: 3}
+  - {fileID: 2325920715294330397, guid: 26a875ca7f96a3845be18fbb392c80b0, type: 3}
   Rare_Items:
   - {fileID: 4887003815891267910, guid: 115fc84d39443294fa9fc508fe0989c1, type: 3}
   - {fileID: 7124016811412898775, guid: 43fcc7027d4cb484c9eb752ae240a33e, type: 3}
+  - {fileID: 625839843472144923, guid: 2556c4e2ec119ba43b2834c712c50f10, type: 3}
+  - {fileID: 116055526371263951, guid: 07c64590ddeda8046a2eacf95b196cf0, type: 3}
   Legendary_Items:
   - {fileID: 9092828178704464323, guid: d23e78bb0e1d8f3429feb6513dc54751, type: 3}
   - {fileID: 258046207110703855, guid: a72f6d5af27d1d944ab36f854754a4a5, type: 3}
   - {fileID: 2650040028985831907, guid: d0b808888f263064b975799938417bf9, type: 3}
   - {fileID: 4501754541437494343, guid: dbf9b9225d0877f42886f45dd6527fbb, type: 3}
-  rareThresh: 65
+  - {fileID: 524759034596187563, guid: bb033d532e406124eb27173ab9cd5a3f, type: 3}
+  - {fileID: 1963591656771786777, guid: 57ce96f3d2cf0c649b66cd9496d7c4dc, type: 3}
+  rareThresh: 75
   legendThresh: 95
   upperThresh: 100
-  spawnItem: 1
   isEnemyItem: 0
 --- !u!212 &-4286014938311122852
 SpriteRenderer:
@@ -110,6 +114,6 @@ SpriteRenderer:
   m_Size: {x: 5, y: 5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

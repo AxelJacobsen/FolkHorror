@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: BleedingDefault
   m_EditorClassIdentifier: 
   BaseIntensity: 1
-  BaseDuration: 3
-  DamagePerSecond: 0
-  PercentPerSecond: 5
+  BaseDuration: 2
   effectEmitter: {fileID: 11400000, guid: a2de87f1b18122b4fa69e9d0b631965e, type: 2}
   _Creator: {fileID: 0}
   _Target: {fileID: 0}
   _Intensity: 1
   _Duration: -0.019997705
+  DamagePerSecond: 0
+  PercentPerSecond: 2

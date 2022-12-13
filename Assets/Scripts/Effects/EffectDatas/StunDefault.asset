@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StunDefault
   m_EditorClassIdentifier: 
   BaseIntensity: 1
-  BaseDuration: 1
+  BaseDuration: 1.5
   effectEmitter: {fileID: 11400000, guid: 8d83d31b0eea7ab4196951ef274b925e, type: 2}
   _Creator: {fileID: 0}
   _Target: {fileID: 0}
