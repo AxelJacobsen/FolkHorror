@@ -31,6 +31,23 @@
 	- When it comes to the code quality, I've read Clean Code by Robert C. Martin, and one of his suggestions is to reduce large complex if statements into multiple variables with names according to their use case.
 <br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_coinhandler.png)<br>
 *Snippet from PlayerController.cs Script, it shows the simple implementaion of incrementing, removing and getting the amount of coins stored in the PlayerController Script* 
+- The conceptual planning of the product.
+	- Concept scene(note that this was before we began coding)
+	<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_concept_art.jpg)<br>
+	*Shows planned implementation of how a character might look like in an example scene*
+	- Color overlay
+	<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_grass_overlay_concept.png)<br>
+	*Shows planned implementation of how the color overlay might look like using my grass texture*
+	<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_grass_light_overlay_concept.png)<br>
+	*Shows planned implementation of how the color overlay might look like using my grass texture, with a lightoverlay*
+	<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_biome_concept_grass.jpg)<br>
+	*Shows planned implementation of how the color overlay might look like using my grass texture, with a different biome*
+	<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_biome_concept_grass_2.jpg)<br>
+	*Shows planned implementation of how the color overlay might look like using my grass texture, with a different biome*
+
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_idle_back.png)<br>
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_idle_back.png)<br>
+<br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_idle_back.png)<br>
 - The custom assets. I'm a little proud as its the first assets ive made.
 <br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_idle_back.png)<br>
 <br>![](https://github.com/AxelJacobsen/FolkHorror/blob/main/Reports/Images/daniel_idle_front.png)<br>
