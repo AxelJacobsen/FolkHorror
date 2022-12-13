@@ -3,19 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Enemy
-  - TextBox
-  - Projectile
-  - Hitbox
-  - MapGen
-  - EffectLoader
-  - SceneLoader
-  - Solid Object
-  - SoundManager
-  - Sound
-  - Shop
-  - Item
+  tags: []
   layers:
   - Default
   - TransparentFX

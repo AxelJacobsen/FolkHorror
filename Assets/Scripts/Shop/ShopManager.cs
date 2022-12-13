@@ -126,6 +126,7 @@ public class ShopManager : MonoBehaviour
             if (entityCharacterScript.getCoinAmount() >= price) {
                 entityCharacterScript.tryRemoveCoinAmount(price);
                 SoundManager.Instance.PlaySound(buySound, isSpatial:false);
+                Instantiate(item, Entity.transform.position, Quaternion.identity);
             }
         });
 
