@@ -1227,7 +1227,7 @@ GameObject:
   - component: {fileID: 1085037320}
   - component: {fileID: 1085037319}
   - component: {fileID: 1085037318}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: townFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1506,6 +1506,10 @@ PrefabInstance:
       propertyPath: BiomeName
       value: Forest
       objectReference: {fileID: 0}
+    - target: {fileID: 1816414021725347954, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
+      propertyPath: SceneName
+      value: MapGenScene
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
 --- !u!1 &1132739061 stripped
@@ -1537,22 +1541,22 @@ MonoBehaviour:
       hexadecimal: 
   - roof:
       material: {fileID: 0}
-      hexadecimal: 354B40
+      hexadecimal: '#354B40'
     floor:
       material: {fileID: 2100000, guid: 07cc5a3fcbd18804d8b7ac20cb4b222a, type: 2}
       hexadecimal: 
     walls:
       material: {fileID: 0}
-      hexadecimal: 214D32
+      hexadecimal: '#214D32'
   - roof:
       material: {fileID: 0}
-      hexadecimal: 354B40
+      hexadecimal: '#354B40'
     floor:
       material: {fileID: 2100000, guid: 07cc5a3fcbd18804d8b7ac20cb4b222a, type: 2}
       hexadecimal: 
     walls:
       material: {fileID: 0}
-      hexadecimal: 214D32
+      hexadecimal: '#214D32'
   - roof:
       material: {fileID: 0}
       hexadecimal: 56615B

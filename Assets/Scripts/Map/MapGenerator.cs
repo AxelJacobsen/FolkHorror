@@ -27,16 +27,18 @@ public class MapGenerator : MonoBehaviour {
 
 	[Header("Overrides automatic template loading")]
 	public bool dontLoadMap = false;
+	protected bool interruptMapGen = false;
 
 	[Header("Have checked to build")]
 	public bool buildControl = false;
+	
 	[Header("Map settings filename")]
 	public string saveFileName;
 
 	[Header("Map density")]
 	[Range(0, 100)]
 	public int randomFillPercent = 42;
-
+	
 
 	int[,] map;
 
@@ -65,6 +67,7 @@ public class MapGenerator : MonoBehaviour {
 		if (!dontLoadMap || buildControl) {
 			LoadMapSettings();
 		}
+		if (interruptMapGen) { return; } 
 		GenerateMap();
 	}
 	
@@ -101,6 +104,7 @@ public class MapGenerator : MonoBehaviour {
 
 		//Checks if player has arrived at the boss
 		if (bossLevel <= curStage) {
+			interruptMapGen = true;
 			//Swap to boss scene
 			GameObject sceneLoaderObject = GameObject.FindGameObjectWithTag("SceneLoader");
 			SceneLoader sceneLoader = sceneLoaderObject.GetComponent<SceneLoader>();
@@ -167,7 +171,6 @@ public class MapGenerator : MonoBehaviour {
 				}
 				else {
 					borderedMap[x, y] = 20;
-					invertedMap[x, y] = 0;
 				}
 			}
 		}
@@ -333,7 +336,6 @@ public class MapGenerator : MonoBehaviour {
 			DrawCircle(c, 10);
 		}
 	}
-
 
 	/// <summary>
 	/// Draws circles along a line to create a path

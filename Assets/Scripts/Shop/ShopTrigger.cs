@@ -15,8 +15,13 @@ public class ShopTrigger : MonoBehaviour
 
     private void Start()
     {
+        transform.parent.gameObject.SetActive(false);
+
         shopCanvas = GameObject.FindWithTag("Shop");
         shop = shopCanvas.GetComponent<ShopManager>();
+
+        PlayerController pCon = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        if ((pCon.currentStage+1) % 3 == 0) { transform.parent.gameObject.SetActive(true); }
     }
 
     private void OnTriggerEnter(Collider other)

@@ -1,4 +1,4 @@
-The included lisence is due to significant portions of the original map generation script being built upon Sebastian Lague's script.
+The included lisence is due to significant portions of the original MapGenerator & MeshGenerator script being built upon Sebastian Lague's script.
 We chose to use this as a foundaiton for our own map generation method since we had experience working with it since before development.
 Had we not utlized his script we wouldve in all likelyhood ended up with a strikingly similar method regardless, due to bias.
 

@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4049df75bb8b69b4e88e228b0a72bbd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SceneName: MapGenScene
+  SceneName: TownScene
+  BiomeName: 
   isEntrance: 0
   resetSpeed: 0

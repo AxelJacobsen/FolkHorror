@@ -35,6 +35,7 @@ public class ItemSpawner : MonoBehaviour {
         //Insurance   
         Destroy(spawnedItem);
         spawnedItem = Instantiate(pickedItem, transform.position, Quaternion.Euler(45, 0, 0));
+        spawnedItem.GetComponent<Item>().destructable = true;
         spawnedItem.SetActive(true);
     }
 
@@ -59,8 +60,8 @@ public class ItemSpawner : MonoBehaviour {
         //Insurance
         Destroy(spawnedItem);
         spawnedItem = Instantiate(pickedItem, transform.position, Quaternion.Euler(45, 0, 0));
-        Weapon itemComp = spawnedItem.GetComponent<Weapon>();
-        itemComp.PickedUpByTag = "Enemy";
+        Weapon eWeap = spawnedItem.GetComponent<Weapon>();
+        eWeap.PickedUpByTag = "Enemy";
         spawnedItem.SetActive(true);
     }
 

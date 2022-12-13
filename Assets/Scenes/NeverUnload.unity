@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -259,7 +259,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1.0984993, y: -0.13290024}
+  m_AnchoredPosition: {x: 1.0985107, y: -0.13293457}
   m_SizeDelta: {x: 4.3958, y: 5.2676}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &39026393
@@ -407,7 +407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2044029812}
-  offset: {x: 0, y: 10, z: -10}
+  offset: {x: 0, y: 12, z: -12}
   ScreenshakeFrequency: 10
 --- !u!1 &54483259
 GameObject:
@@ -829,8 +829,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -11.518738, y: 1.7000198}
-  m_SizeDelta: {x: 43.3284, y: 44.1728}
+  m_AnchoredPosition: {x: -41, y: 1.7000198}
+  m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &267811551
 MonoBehaviour:
@@ -1165,10 +1165,10 @@ RectTransform:
   m_Father: {fileID: 30755698}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.5, y: 70.6}
-  m_SizeDelta: {x: 94.2711, y: 21.6842}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 237, y: 62}
+  m_SizeDelta: {x: 270, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &409545583
 MonoBehaviour:
@@ -1815,7 +1815,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &611687854
 MonoBehaviour:
@@ -3557,7 +3557,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1237283383
 MonoBehaviour:
@@ -4761,7 +4761,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2035273370}
   m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0.09, z: 0.09}
+  m_LocalPosition: {x: 0, y: -0.3, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4791,8 +4791,8 @@ CapsuleCollider:
   m_Material: {fileID: 13400000, guid: ded831de9ae01f145a72ceeed78e8f5b, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1
-  m_Height: 4
+  m_Radius: 0.9
+  m_Height: 5
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2044029809
@@ -4950,9 +4950,10 @@ MonoBehaviour:
   DeathSound: {fileID: 0}
   AttackSound: {fileID: 0}
   DropsOnDeath: []
+  DropOffset: {x: 0, y: 0, z: 0}
   AimLayer:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 8
   currentStage: 0
   currentBiome: 
   respawnLocation: TownScene

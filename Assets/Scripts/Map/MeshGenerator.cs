@@ -182,10 +182,10 @@ public class MeshGenerator : MonoBehaviour {
 	/// <summary>
     /// Spawns objects within the bounds of diffrent polygons on the map
     /// </summary>
-    /// <param name="outline"></param>
-    /// <param name="treeChance"></param>
-    /// <param name="spawnObject"></param>
-    /// <param name="isFirst"></param>
+    /// <param name="outline">polygon to spawn objects within</param>
+    /// <param name="treeChance">wheight for treespawn randomization</param>
+    /// <param name="spawnObject">object index to spawn</param>
+    /// <param name="isFirst">tells the program if its the first time this is called</param>
     /// <returns></returns>
 	int SpawnObjectHandler(List<int> outline, int treeChance, int spawnObject, bool isFirst) {
 		List<Vector2> polyList = new List<Vector2>();
@@ -204,7 +204,7 @@ public class MeshGenerator : MonoBehaviour {
 			(pos1, pos2, pLowBound, pUpBound) = Funcs.ForceFarSpawn(poly);
 			GameObject[] trees = GameObject.FindGameObjectsWithTag("Solid Object");
 
-			SpawnPortal(poly);
+			SpawnPortal(trees, poly);
 			if (!GenerateEnemies) { return treeChance; }
 
 			PlayerController pCon = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
@@ -236,7 +236,6 @@ public class MeshGenerator : MonoBehaviour {
 			Vector2 pos = Funcs.GetRandomPointInPolygon(poly);
 			objSpawner.SpawnObject(new Vector3(pos.x, 0, pos.y), mapObject);
 		}
-
 		
 		return treeChance;
 	}
@@ -245,13 +244,12 @@ public class MeshGenerator : MonoBehaviour {
     /// Handles spawning portals
     /// </summary>
     /// <param name="poly"></param>
-	private void SpawnPortal(Vector2[] poly) {
+	private void SpawnPortal(GameObject[] trees, Vector2[] poly) {
 		Vector2 pos1 = new Vector2(0, 0),
 		pos2 = new Vector2(0, 0),
 		pLowBound = new Vector2(0, 0),
 		pUpBound = new Vector2(0, 0);
 		(pos1, pos2, pLowBound, pUpBound) = Funcs.ForceFarSpawn(poly);
-		GameObject[] trees = GameObject.FindGameObjectsWithTag("Solid Object");
 
 		//Spawns exit
 		objSpawner.SpawnObject(new Vector3(pos1.x, 0, pos1.y), Exit);
@@ -276,10 +274,10 @@ public class MeshGenerator : MonoBehaviour {
 		do {
 			(moveAwayVec, intersects) = Funcs.CheckForIntersect(trees, interObject.transform.position, PortalRadius);
 			if (intersects) {
-				//Extend vector from nearest tree to be demanded radius
-				moveAwayVec = moveAwayVec.normalized * PortalRadius;
+				//Extend vector from nearest tree to be demanded radius doubled to ensure removal from the trees
+				moveAwayVec = moveAwayVec.normalized * PortalRadius * 2;
 				//Apply the new vector to the portal excluding the Y axis
-				interObject.transform.position = new Vector3(interObject.transform.position.x + moveAwayVec.x*2, interObject.transform.position.y, interObject.transform.position.z + moveAwayVec.y*2);
+				interObject.transform.position = new Vector3(interObject.transform.position.x + moveAwayVec.x, interObject.transform.position.y, interObject.transform.position.z + moveAwayVec.y);
 			}
 			if (timeOut%5 == 0) {
 				if (!Funcs.IsInPolygon(poly, interObject.transform.position)) {
@@ -524,14 +522,16 @@ public class MeshGenerator : MonoBehaviour {
 		return outMap;
 	}
 	
-	// maybe call with playerrefrence
+	/// <summary>
+    /// Requests the textures for the current stage from the player
+    /// </summary>
 	void grabTextureFromPlayer() {
 		Material	roofMat,
 					floorMat,
 					wallMat;
 
 		GameObject player = GameObject.FindGameObjectWithTag("Player");
-		//Requests material data from
+		//Requests material data from player based on current stage and what level the boss is at
 		(roofMat, floorMat, wallMat) =	player.GetComponent<MapTextureHandler>().RequestMaterialFromPlayer(
 										player.GetComponent<PlayerController>().currentStage, 
 										transform.GetComponent<MapGenerator>().bossLevel);

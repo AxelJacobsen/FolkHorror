@@ -51,7 +51,6 @@ public class ShopManager : MonoBehaviour
 
     void Awake()
     {
-
         updateView();
     }
 
@@ -101,7 +100,7 @@ public class ShopManager : MonoBehaviour
 
         Array.Sort(keys, items);
 
-        foreach (int index in itemlist) { print(index); CreateItemSelection(items[index].item, items[index].rarity, index); }
+        foreach (int index in itemlist) { CreateItemSelection(items[index].item, items[index].rarity, index); }
     }
 
     private void CreateItemSelection(GameObject item, Rarity rarity, int positionIndex)

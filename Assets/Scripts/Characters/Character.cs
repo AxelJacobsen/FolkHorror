@@ -35,6 +35,7 @@ public abstract class Character : CharacterStats
 
     [Header("Drops")]
     public GameObject[]         DropsOnDeath;
+    public Vector3              DropOffset = new Vector3(0,0,0);
 	protected float				Health;
     protected GameObject        spriteObject;
 	protected Rigidbody 		rb;
@@ -139,17 +140,18 @@ public abstract class Character : CharacterStats
 		SetStats(newStats);
     }
 
-	/// <summary>
+    /// <summary>
     /// Kills the character.
     /// </summary>
-	public virtual void Die() 
-	{
+    public virtual void Die() {
         if (dead) return;
         else dead = true;
+        Vector3 dropPos = transform.position;
+        dropPos.y = 0.2f;
 
         foreach (GameObject obj in DropsOnDeath)
         {
-            GameObject drop = Instantiate(obj, transform.position, Quaternion.identity);
+            GameObject drop = Instantiate(obj, dropPos, Quaternion.identity);
         }
 
         OnDie();
@@ -297,7 +299,7 @@ public abstract class Character : CharacterStats
     }
 
 	/// <summary>
-    /// Rolls in a given direction.
+    /// Rolls in a given direction. 
     /// </summary>
     /// <param name="currentDirection">The direction we're trying to roll in now.</param>
     /// <returns>True if we're rolling, false otherwise.</returns>
@@ -310,7 +312,7 @@ public abstract class Character : CharacterStats
 		if (rollTimer <= 0f && CanRoll()) {
 			rollTimer = RollDuration;
             rollDir = currentDirection;
-
+           
             OnRoll();
         }
 

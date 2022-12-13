@@ -2,7 +2,7 @@
 ## Group members
 List of group members:
 - Lars Lahlum Ruud
-- Axel
+- Axel Elias Wollebekk Jacobsen
 - Daniel Hao Huynh
 - Maren Skårestuen Grindal
 
@@ -15,22 +15,25 @@ The game design document can be found here: [GDD](./game_design_document.pdf)
 We have not really used the document that much. It was great at the very beginning of the project, as it showed us what parts we had to think about. It also helped to make sure we were all on the same page about game design.
 
 ## Work distribution
-|         |Lars   |Axel|Daniel|Maren|
-|---------|-------|----|------|-----|
-|Player   |Most   |    |Some  |     |
-|Enemies  |All    |    |      |     |
-|Boss     |All    |    |      |     |
-|Effects  |All    |    |      |     |
-|Items    |All    |    |      |     |
-|Map      |       |    |      |     |
-|Camera   |       |    |      |     |
-|Dialogue |       |    |      |All  |
-|Quest    |Touched|    |      |All  |
-|Shop     |       |    |All   |     |
-|Tutorial |Touched|    |      |All  |
-|Audio    |Some   |    |Most  |     |
-|UI       |Touched|    |Some  |Most |
-|Art      |Some   |    |Most  |Some |
+|         |Lars   |Axel   |Daniel |Maren|
+|---------|-------|-------|-------|-----|
+|Player   |Most   |Touched|Touched|     |
+|Enemies  |All    |       |       |     |
+|Boss     |All    |       |       |     |
+|Effects  |All    |       |       |     |
+|Items    |All    |Touched|       |     |
+|Map      |       |All    |       |     |
+|Meshes   |       |All    |       |     |
+|Objects  |Touched|All    |       |     |
+|Camera   |       |Touched|       |     |
+|Dialogue |       |       |       |All  |
+|Quest    |Touched|       |       |All  |
+|Shop     |       |       |All    |     |
+|Tutorial |Touched|       |       |All  |
+|Audio    |Some   |       |Most   |     |
+|UI       |Touched|       |Some   |Most |
+|Art      |       |       |Most   |Some |
+|SceneMove|       |Touched|       |All  |
 
 ## Gameplay video
 The gameplay video can be found here: [Gameplay]()

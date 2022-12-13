@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/AllItemsScene.unity
     guid: c0265c0a30f6bcd48ab5765873dea905
+  - enabled: 1
+    path: Assets/Scenes/ForestBossArena.unity
+    guid: 3e18f8c1af290934e96c89f5a05d5d2b
   m_configObjects: {}

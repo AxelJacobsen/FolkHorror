@@ -63,11 +63,13 @@ public class PlayerController : Character {
 		// Attack
 		if (attackHeld == 1 && Weapon != null && Weapon.CanAttack()) {
 			// Cast ray to find where the player wants to hit
+			float distance;
+			Vector3 worldPosition = Vector3.zero;
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hitData;
-			Vector3 hitPoint = Vector3.zero;
-			if (Physics.Raycast(ray, out hitData, 1000, AimLayer)) hitPoint = hitData.point;
-			Attack(hitPoint, "Enemy");
+			if (new Plane(Vector3.up, 0).Raycast(ray, out distance)) {
+				worldPosition = ray.GetPoint(distance);
+			}
+			Attack(worldPosition, "Enemy");
 		}
 
 		// Move
@@ -109,8 +111,8 @@ public class PlayerController : Character {
 		if (Items.Count <= 0) { yield break; }
 		for (int i = 0; i < Items.Count; i++) {
 			if (!(Items[i - j] is Weapon)) {
-				Items[i - j].Drop();
-				Destroy(Items[i - j++].gameObject);
+				Destroy(Items[i - j].gameObject);
+				Items[i - j++].Drop();
 			}
 		}
 	}

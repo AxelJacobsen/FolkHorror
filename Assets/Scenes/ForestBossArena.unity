@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 175832646}
   - component: {fileID: 175832645}
   - component: {fileID: 175832648}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MapbossFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,6 +464,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3155963225581792961, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: DropsOnDeath.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3155963225581792961, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
+      propertyPath: DropsOnDeath.Array.data[0]
+      value: 
+      objectReference: {fileID: 1816414021243991409, guid: a351d91a025ff9c41845593da8c39dfa, type: 3}
     - target: {fileID: 3155963225581792984, guid: 66e2a70301e41a948a5f20eb04952412, type: 3}
       propertyPath: m_Name
       value: BossTroll

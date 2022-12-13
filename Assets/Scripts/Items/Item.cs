@@ -12,6 +12,7 @@ public abstract class Item : MonoBehaviour
     public string       PickedUpByTag;
     public float        MagnetRange = 10f,
                         PickupRange = 3f;
+    public bool destructable = false;
 
     [Header("Sounds")]
     [SerializeField] protected AudioClip PickupSound;
@@ -129,6 +130,7 @@ public abstract class Item : MonoBehaviour
     protected virtual void PickUp() {
         // Mark the pickup as picked up
         equipped = true;
+        destructable = false;
         userCharScript.Items.Add(this);
         userCharScript.UpdateStats();
 
@@ -143,7 +145,10 @@ public abstract class Item : MonoBehaviour
         //Handles item room
         GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
         foreach (GameObject item in items) {
-            if (item.transform.parent == null) {
+            if (item.transform.parent != null) {
+                continue;
+            }
+            if (item.GetComponent<Item>().destructable) {
                 Destroy(item);
             }
         }

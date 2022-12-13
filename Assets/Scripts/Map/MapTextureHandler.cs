@@ -44,11 +44,12 @@ public class MapTextureHandler : MonoBehaviour
     public (Material, Material, Material) RequestMaterialFromPlayer(int currentStage, int bossStage) {
         if (MaterialProgression.Count <= 0) { return (null, null, null); }
 
-        float matSegments = (1.0f / MaterialProgression.Count);
-        float pProgress = currentStage / bossStage;
-        int curTexture = 0;
-
-        //If the player is before the first segment, uses 0, saves on some procesing
+        int curTexture = (currentStage * MaterialProgression.Count) / bossStage;
+        if (MaterialProgression.Count <= curTexture) {
+            curTexture = MaterialProgression.Count - 1;
+        }
+        print(curTexture);
+        /*//If the player is before the first segment, uses 0, saves on some procesing
         if (pProgress <= matSegments) {
             //Finds correct index depending on player progression
             for (float textThreshold = 1.0f; 0.0f < textThreshold; textThreshold -= matSegments) {
@@ -61,13 +62,16 @@ public class MapTextureHandler : MonoBehaviour
             }
             //Redundant insurance
             if (MaterialProgression.Count <= curTexture) { curTexture = 0; }
-        }
+        }*/
 
         //Construct shaders and set colors
+
+
         Shader basic = Shader.Find("Standard");
         Material roofMaterial = GetMaterialFromMaterialAlt(MaterialProgression[curTexture].roof);
         Material floorMaterial = GetMaterialFromMaterialAlt(MaterialProgression[curTexture].floor);
-        Material wallMaterial = GetMaterialFromMaterialAlt(MaterialProgression[curTexture].walls); 
+        Material wallMaterial = GetMaterialFromMaterialAlt(MaterialProgression[curTexture].walls);
+
 
         //Texture aquisition success
         return (roofMaterial, floorMaterial, wallMaterial);
