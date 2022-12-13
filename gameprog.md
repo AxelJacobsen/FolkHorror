@@ -50,6 +50,7 @@ When initially setting up unity for collaborative work, we quickly found multipl
 Using Unity was more bothersome than first suspected. Many forum posts and tutorials were outdated and unusable, as unity recently changed a lot of its systems. Unity’s official documentation was luckily easy to use and navigate, which made the process much easier. Merging scenes in Unity also proved to be a lot of work sometimes, but we mainly kept to our own scenes which kept it clean.
 
 ## Development process
+[Development Moodboard](https://github.com/AxelJacobsen/FolkHorror/blob/main/Dev_Moodboard.pdf)<br>
 We followed an agile development process, where weekly meetings were held on tuesdays. During these meetings each team member showed what they had done since the last meeting, and problems encountered were discussed. This made it possible to give each other feedback and acquire new knowledge. As we all worked on separate parts of the project, it was interesting and educational to see how other aspects worked.
 
 After we had gone through everyone's work, it was time for planning work for the next week. We picked issues from the backlog, and assigned them to a team member. We made sure to not assign too many tasks to each person, as they were mostly only worked on for a week at a time.
