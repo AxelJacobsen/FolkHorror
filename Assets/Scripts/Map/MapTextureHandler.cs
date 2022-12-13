@@ -48,7 +48,7 @@ public class MapTextureHandler : MonoBehaviour
         if (MaterialProgression.Count <= curTexture) {
             curTexture = MaterialProgression.Count - 1;
         }
-        print(curTexture);
+        //print(curTexture);
         /*//If the player is before the first segment, uses 0, saves on some procesing
         if (pProgress <= matSegments) {
             //Finds correct index depending on player progression

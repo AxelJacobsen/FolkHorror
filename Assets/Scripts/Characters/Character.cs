@@ -22,6 +22,8 @@ public abstract class Character : CharacterStats
 	public float 				RollAcceleration = 3f;
 	public EffectEmitter		DustEffectEmitter;
 
+    [HideInInspector] public GameObject spriteObject;
+
     [Header("Sounds")]
     [SerializeField] protected AudioClip WalkSound;
     [SerializeField] protected AudioClip RollSound;
@@ -37,7 +39,6 @@ public abstract class Character : CharacterStats
     public GameObject[]         DropsOnDeath;
     public Vector3              DropOffset = new Vector3(0,0,0);
 	protected float				Health;
-    protected GameObject        spriteObject;
 	protected Rigidbody 		rb;
 	protected Animator 		    anim;
 	protected SpriteRenderer    sr;

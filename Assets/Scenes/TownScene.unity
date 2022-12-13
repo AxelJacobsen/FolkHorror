@@ -1227,6 +1227,7 @@ GameObject:
   - component: {fileID: 1085037320}
   - component: {fileID: 1085037319}
   - component: {fileID: 1085037318}
+  - component: {fileID: 1085037321}
   m_Layer: 3
   m_Name: townFloor
   m_TagString: Untagged
@@ -1299,6 +1300,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &1085037321
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1085037317}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 67a1ccbed02116146bdf322bc871b39f, type: 2}
 --- !u!1001 &1105896480
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -20,6 +20,7 @@ public class DamageOverTime : EffectData
     public override void During(float deltaTime) 
     {
         base.During(deltaTime);
+        if (_Target == null) return;
 
         Character targetCharacterScript = _Target.GetComponent<Character>();
         if (targetCharacterScript != null) 

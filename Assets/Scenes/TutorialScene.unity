@@ -490,11 +490,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1987270519146795273, guid: 78d801083713bf244b2ac9e3d733c5ee, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.92387956
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1987270519146795273, guid: 78d801083713bf244b2ac9e3d733c5ee, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.38268343
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1987270519146795273, guid: 78d801083713bf244b2ac9e3d733c5ee, type: 3}
       propertyPath: m_LocalRotation.y
@@ -506,7 +506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1987270519146795273, guid: 78d801083713bf244b2ac9e3d733c5ee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 45
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1987270519146795273, guid: 78d801083713bf244b2ac9e3d733c5ee, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -3331,6 +3331,7 @@ GameObject:
   - component: {fileID: 2046524117}
   - component: {fileID: 2046524116}
   - component: {fileID: 2046524115}
+  - component: {fileID: 2046524118}
   m_Layer: 3
   m_Name: tutorialFloor
   m_TagString: Untagged
@@ -3403,6 +3404,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &2046524118
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046524114}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 836b70249d31f0d4ca9c578794fa7e19, type: 2}
 --- !u!1 &2136648524
 GameObject:
   m_ObjectHideFlags: 0

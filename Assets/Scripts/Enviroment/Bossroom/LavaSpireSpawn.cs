@@ -147,6 +147,7 @@ public class LavaSpireSpawn : MonoBehaviour
      */
     void DestroySelf()
     {
+        if (rumblingSoundSource != null) rumblingSoundSource.Stop();
         Destroy(gameObject);
     }
 }

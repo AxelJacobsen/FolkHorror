@@ -126,7 +126,8 @@ public class ShopManager : MonoBehaviour
         itemButton.onClick.AddListener(() => { // do whatever when buying items
             if (entityCharacterScript.getCoinAmount() >= price) {
                 entityCharacterScript.tryRemoveCoinAmount(price);
-                SoundManager.Instance.PlaySound(buySound, isSpatial:false);
+                SoundManager.Instance.PlaySound(buySound, Entity.transform, isSpatial:false);
+                print(Entity);
                 Instantiate(item, Entity.transform.position, Quaternion.identity);
             }
         });

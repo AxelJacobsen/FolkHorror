@@ -86,17 +86,17 @@ public class NisseAI : BaseEnemyAI
                     runAndScreamTowards = null;
                     runTowardsDist = Mathf.Infinity;
                 }
+
+                Vector3 dir;
+                // If there's no new allies to alert, run away from the enemy
+                if (runTowardsDist == Mathf.Infinity) { dir = transform.position - enemyLastSeen; dir.y = 0; StartCoroutine(SoundManager.Instance.InterruptAfter(.2f)); }
+
+                // Otherwise, run towards allies to alert
+                else { dir = runAndScreamTowards.transform.position - transform.position; dir.y = 0; }
+
+                // Run and return
+                Move((dir.normalized * Speed * RunSpeedMult - rb.velocity) * WalkAcceleration * Time.deltaTime);
             }
-
-            Vector3 dir;
-            // If there's no new allies to alert, run away from the enemy
-            if (runTowardsDist == Mathf.Infinity) { dir = transform.position - enemyLastSeen; dir.y = 0; StartCoroutine(SoundManager.Instance.InterruptAfter(.2f)); }
-
-            // Otherwise, run towards allies to alert
-            else { dir = runAndScreamTowards.transform.position - transform.position; dir.y = 0; }
-
-            // Run and return
-            Move((dir.normalized * Speed * RunSpeedMult - rb.velocity) * WalkAcceleration * Time.deltaTime);
             return;
         }
 

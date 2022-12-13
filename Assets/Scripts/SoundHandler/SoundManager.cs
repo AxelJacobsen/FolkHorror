@@ -147,7 +147,10 @@ public class SoundManager : MonoBehaviour
 
         // Otherwise, iterate all sources within the type and interrupt.
         foreach (Tuple<AudioSource, Transform> data in soundSources[type])
+        {
+            if (data.Item1 == null) continue;
             data.Item1.Stop();
+        }
     }
 
     /// <summary>
@@ -171,6 +174,7 @@ public class SoundManager : MonoBehaviour
             foreach (List<Tuple<AudioSource, Transform>> sources in soundSources.Values)
                 foreach (Tuple<AudioSource, Transform> source in sources)
                 {
+                    if      (source.Item1 == null)      continue;
                     if      (!source.Item1.isPlaying)   removeSources.Add((source, type));
                     else if (source.Item2 != null)      source.Item1.transform.position = source.Item2.position;
                 }

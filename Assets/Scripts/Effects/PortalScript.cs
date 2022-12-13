@@ -36,6 +36,8 @@ public class PortalScript : MonoBehaviour
     /// </summary>
     /// <param name="hit"></param>
     void OnTriggerEnter (Collider hit) { 
+        if (hit.transform.parent == null) return;
+
         //If it its an exit then teleport the player to the next stage on touch
         if (isEntrance && hit.transform.parent.tag == "Player") {
             this.transform.parent.gameObject.SetActive(false);

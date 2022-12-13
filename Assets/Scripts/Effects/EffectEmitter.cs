@@ -39,7 +39,7 @@ public class EffectEmitter : ScriptableObject
     public void Emit(float deltaTime)
     {
         // Don't do anything if set to inactive
-        if (!_Active) return;
+        if (!_Active || _Hitbox == null) return;
 
         // Increment timer
         timeSinceLastSpawn += deltaTime;
