@@ -17,6 +17,7 @@ MonoBehaviour:
   type: 0
   nextQuest: {fileID: 11400000, guid: db0f580e966c3db48997b84616082350, type: 2}
   hasParent: 0
+  status: -1
   startDialogue:
   - {fileID: 11400000, guid: da93d19fb3bc4864fae9428b8cf1181d, type: 2}
   - {fileID: 11400000, guid: ff484dc9b6d77f947a7dd7d23985c93f, type: 2}

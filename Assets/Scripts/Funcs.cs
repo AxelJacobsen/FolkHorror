@@ -168,7 +168,7 @@ public class Funcs : MonoBehaviour
                 upperbounds = new Vector2(0, 0);
         (lowerbounds, upperbounds) = GetPolyBounds(poly);
         //Bring in outer limit to reduce chance of hitting outerwall
-        lowerbounds -= lowerbounds / 10;
+        lowerbounds += lowerbounds / 10;
         upperbounds -= upperbounds / 10;
         int corner = Random.Range(0, 3);
         Vector2 newLowBound, newUpBound;

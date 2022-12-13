@@ -22,22 +22,21 @@ public class MapGenerator : MonoBehaviour {
 	public int smoothingStrictness = 4;
 	public int borderSize = 2;
 	public int roomSizeThreshold = 100;
-	public int wallSizeThreshold = 50;
+	public int bushSizeThreshold = 50;
 	public int bossLevel = 10;
 
-	[Header("Load specific binary map")]
-	public bool loadSpecificMapFromFile = false;
+	[Header("Overrides automatic template loading")]
+	public bool dontLoadMap = false;
 
-	[Header("Save current map settings, or load from file")]
-	public bool saveAsPremade = false;
-
-	[Header("Map settings file")]
+	[Header("Have checked to build")]
+	public bool buildControl = false;
+	[Header("Map settings filename")]
 	public string saveFileName;
-	public string binaryMapFileName;
 
 	[Header("Map density")]
 	[Range(0, 100)]
 	public int randomFillPercent = 42;
+
 
 	int[,] map;
 
@@ -48,8 +47,13 @@ public class MapGenerator : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Input.GetKeyDown(KeyCode.F5)) {
-			PreMapGen();
+		if (!buildControl) { 
+			if (Input.GetKeyDown(KeyCode.F5)) {
+				PreMapGen();
+			}
+			if (Input.GetKeyDown(KeyCode.F8)) {
+				SaveMapSettings();
+			}
 		}
 	}
 
@@ -58,16 +62,20 @@ public class MapGenerator : MonoBehaviour {
 		Finished project will always load from file
 	 */
 	void PreMapGen() {
-		if (saveAsPremade) {
-			SaveMapSettings();
-		} else { LoadMapSettings(); }
+		if (!dontLoadMap || buildControl) {
+			LoadMapSettings();
+		}
 		GenerateMap();
 	}
 	
 	/// <summary>
+    /// DEVELOPER FUNCTION
     /// Stores current map settings to txt file with publicly set variable
     /// </summary>
 	void SaveMapSettings() {
+		GameObject player = GameObject.FindGameObjectWithTag("Player");
+		PlayerController playerData = player.GetComponent<PlayerController>();
+		int curStage = playerData.currentStage;
 		StringBuilder mapData = new StringBuilder();
 		mapData.Append(width + "\n" + height + "\n" + depth + "\n" + bushSize + "\n");
 		mapData.Append(seed + "\n");
@@ -75,8 +83,8 @@ public class MapGenerator : MonoBehaviour {
 			mapData.Append(1 + "\n");
 		} else { mapData.Append(0 + "\n"); }
 		mapData.Append(smoothing + "\n" + smoothingStrictness + "\n" + borderSize + "\n");
-		mapData.Append(roomSizeThreshold + "\n" + wallSizeThreshold + "\n" + randomFillPercent);
-		System.IO.File.WriteAllText(string.Format("Assets/Resources/MapTemplates/{0}.txt", saveFileName), mapData.ToString());
+		mapData.Append(roomSizeThreshold + "\n" + bushSizeThreshold + "\n" + randomFillPercent);
+		System.IO.File.WriteAllText(string.Format("Assets/Resources/MapTemplates/{0}{1}.txt", saveFileName, curStage), mapData.ToString());
 	}
 	
 	/// <summary>
@@ -86,26 +94,32 @@ public class MapGenerator : MonoBehaviour {
 		//Grabs current stage depth and mapType from player
 		GameObject player = GameObject.FindGameObjectWithTag("Player");
 		PlayerController playerData = player.GetComponent<PlayerController>();
+		
 		int curStage = playerData.currentStage;
 		string curBiome = playerData.currentBiome;
 		string currentMap = curBiome + curStage;
-		
-		if (curStage == bossLevel){
+
+		//Checks if player has arrived at the boss
+		if (bossLevel <= curStage) {
 			//Swap to boss scene
-			binaryMapFileName = curBiome + "BossArena";
 			GameObject sceneLoaderObject = GameObject.FindGameObjectWithTag("SceneLoader");
 			SceneLoader sceneLoader = sceneLoaderObject.GetComponent<SceneLoader>();
-			sceneLoader.ChangeScene(binaryMapFileName);
+			sceneLoader.ChangeScene(curBiome + "BossArena");
 			return;
 		}
-		var mapData = Resources.Load<TextAsset>(string.Format("MapTemplates/{0}{1}", currentMap, playerData.currentStage));
+
+		var mapData = Resources.Load<TextAsset>(string.Format("MapTemplates/{0}", currentMap));
 		//If there isnt a template with the desired name, just use whatever is default atm
-		if (mapData == null) return;
+		if (mapData == null) { return; }
 		string[] splitData = mapData.text.Split("\n");
 		int[] parsedData = new int[splitData.Length];
 		for (int i = 0; i < splitData.Length; i++) {
 			if (splitData[i] != "") {
-				parsedData[i] = Int32.Parse(splitData[i]);
+				if (int.TryParse(splitData[i], out parsedData[i])) {
+					parsedData[i] = Int32.Parse(splitData[i]);
+				}
+				
+
 			} else { parsedData[i] = 0; }
 		}
 		//Sets all data after reading it
@@ -115,36 +129,28 @@ public class MapGenerator : MonoBehaviour {
 		depth				= parsedData[cur];	cur++;
 		bushSize			= parsedData[cur];	cur++;
 		seed				= splitData[cur];	cur++;
-		if (parsedData[cur] == 0) { useRandomSeed = false; cur++; } 
+		if (splitData[cur] == "0") { useRandomSeed = false; cur++; } 
 		else { useRandomSeed = true; cur++; }
 		smoothing			= parsedData[cur];	cur++;
 		smoothingStrictness = parsedData[cur];	cur++;
 		borderSize			= parsedData[cur];	cur++;
 		roomSizeThreshold	= parsedData[cur];	cur++;
-		wallSizeThreshold	= parsedData[cur];	cur++;
+		bushSizeThreshold	= parsedData[cur];	cur++;
 		randomFillPercent	= parsedData[cur];	cur++;
-		/*width = parsedData[11]; //Spares incase we add more variables
-		width = parsedData[12];
-		width = parsedData[13];*/
 	}
 
 	/// <summary>
     /// Handles all map generation
     /// </summary>
 	void GenerateMap() {
-		if (loadSpecificMapFromFile) {
-			//Loads the map from file
-			LoadMapFromFile();
-		} else {
-			//Original map initialized here
-			map = new int[width, height];
-			//Create initial noisemap (Big ol mess, unsusable)
-			RandomFillMap();        
-		}
+		//Original map initialized here
+		map = new int[width, height];
+		//Create initial noisemap (Big ol mess, unsusable)
+		RandomFillMap();        
 		//Initialize secondary maps
 		int[,] borderedMap = new int[width + borderSize * 2, height + borderSize * 2];
 		int[,] invertedMap = new int[width + borderSize * 2, height + borderSize * 2];
-		//Groups the map using neighbour algorythm, (Usable almost immediately)
+		//Groups the map using neighbour algorithm, (Usable almost immediately)
 		for (int i = 0; i < smoothing; i++) {
 			SmoothMap();
 		}
@@ -156,11 +162,12 @@ public class MapGenerator : MonoBehaviour {
 		for (int x = 0; x < borderedMap.GetLength(0); x++) {
 			for (int y = 0; y < borderedMap.GetLength(1); y++) {
 				invertedMap[x, y] = 1;
-				if (x >= borderSize && x < width && y >= borderSize && y < height) {
+				if (x >= borderSize && x < width+ borderSize && y >= borderSize && y < height+borderSize) {
 					borderedMap[x, y] = map[x - borderSize, y - borderSize];
 				}
 				else {
 					borderedMap[x, y] = 20;
+					invertedMap[x, y] = 0;
 				}
 			}
 		}
@@ -183,25 +190,38 @@ public class MapGenerator : MonoBehaviour {
 	/// Process map marks trees bushes as well as defining rooms and ensuring they are connected 
 	/// </summary>
 	void ProcessMap() {
-		List<List<Coord>> wallRegions = GetRegions(1);
-		bool first = true;
-		foreach (List<Coord> wallRegion in wallRegions) {
-			if (first) {
-				first = false;
-				foreach (Coord tile in wallRegion) {
-					map[tile.tileX, tile.tileY] = 20;
+		List<List<Coord>> roomRegions = GetRegions(0);
+		List<Room> survivingRooms = new List<Room>();
+
+		foreach (List<Coord> roomRegion in roomRegions) {
+			if (roomRegion.Count < roomSizeThreshold) {
+				foreach (Coord tile in roomRegion) {
+					map[tile.tileX, tile.tileY] = 1;
 				}
 			}
-			if (wallRegion.Count < wallSizeThreshold) {
+		}
+
+		List<List<Coord>> wallRegions = GetRegions(1);
+		int buffer = (width + height) / 12;
+		// Defines outer wall to ensure it doesnt get turned into objects
+		foreach (Coord tile in wallRegions[0]) {
+			if (tile.tileX <= buffer || (width - buffer) <= tile.tileX || tile.tileY <= buffer || (height - buffer) <= tile.tileY) {
+				map[tile.tileX, tile.tileY] = 20;
+			}
+		}
+		//Refresh region list, since there might be residual wall segments
+		wallRegions = GetRegions(1);
+		wallRegions.AddRange(GetRegions(20));
+		foreach (List<Coord> wallRegion in wallRegions) {
+			//Replaces everything smaller than the threshold with bushes
+			if (wallRegion.Count < bushSizeThreshold) {
 				foreach (Coord tile in wallRegion) {
 					map[tile.tileX, tile.tileY] = 10;
 				}
 			}
 		}
-		if (loadSpecificMapFromFile) return;
-		List<List<Coord>> roomRegions = GetRegions(0);
-		List<Room> survivingRooms = new List<Room>();
 
+		roomRegions = GetRegions(0);
 		foreach (List<Coord> roomRegion in roomRegions) {
 			if (roomRegion.Count < roomSizeThreshold) {
 				foreach (Coord tile in roomRegion) {
@@ -212,10 +232,10 @@ public class MapGenerator : MonoBehaviour {
 				survivingRooms.Add(new Room(roomRegion, map));
 			}
 		}
+
 		survivingRooms.Sort();
 		survivingRooms[0].isMainRoom = true;
 		survivingRooms[0].isAccessibleFromMainRoom = true;
-
 		ConnectClosestRooms(survivingRooms);
 	}
 
@@ -310,7 +330,7 @@ public class MapGenerator : MonoBehaviour {
 
 		List<Coord> line = GetLine(tileA, tileB);
 		foreach (Coord c in line) {
-			DrawCircle(c, 5);
+			DrawCircle(c, 10);
 		}
 	}
 
@@ -538,11 +558,13 @@ public class MapGenerator : MonoBehaviour {
 		return wallCount;
 	}
 
+
 	/// <summary>
 	/// Loads the map from a custom binary file, only used to create then export specific meshes
 	/// </summary>
+	[Obsolete("This is used to load a specific binary textfile as a map, no longer used, instead generate map and save mesh")]
 	void LoadMapFromFile() {
-		var inMap = Resources.Load<TextAsset>("Text/"+binaryMapFileName);
+		var inMap = Resources.Load<TextAsset>("Text/"+"BINARYFILENAME");
 		if (inMap == null) return;
 		string[] processedMap = inMap.text.Split("\n");
 		int yCount = 0;

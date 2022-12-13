@@ -15,3 +15,4 @@ MonoBehaviour:
   name: Old man
   sentences:
   - I'm glad we finally get some help around here
+  isQuest: 1

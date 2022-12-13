@@ -15,6 +15,7 @@ TagManager:
   - SoundManager
   - Sound
   - Shop
+  - Item
   layers:
   - Default
   - TransparentFX

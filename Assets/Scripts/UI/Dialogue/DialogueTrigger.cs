@@ -11,8 +11,7 @@ using UnityEngine.UI;
 public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogueObj;
-
-    private DialogueInteraction dialogueInteraction;
+    public DialogueInteraction dialogueInteraction;
 
     void Start()
     {

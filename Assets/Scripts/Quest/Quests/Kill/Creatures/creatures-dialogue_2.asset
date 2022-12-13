@@ -15,3 +15,4 @@ MonoBehaviour:
   name: Old man
   sentences:
   - You still have some things left to do...
+  isQuest: 1

@@ -16,3 +16,4 @@ MonoBehaviour:
   sentences:
   - Hey, you!
   - I heard a rumour that the man living in the brown house needs help with something...
+  isQuest: 1

@@ -74,6 +74,7 @@ public class SoundManager : MonoBehaviour
         //newSource.PlayOneShot(clip);
         newSource.clip = clip;
         newSource.Play();
+        newSource.transform.position = attachTo.position;
         soundSources[type].Add(new Tuple<AudioSource, Transform>(newSource, attachTo));
         return newSource;
     }
