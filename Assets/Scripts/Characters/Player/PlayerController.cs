@@ -79,9 +79,7 @@ public class PlayerController : Character {
 		if (playerControls.General.Roll.ReadValue<float>() == 1f || tryRolling) {
 			tryRolling = SteerableRoll(dir);
 		}
-		else {
-			Move(dir);
-		}
+		Move(dir);
 	}
 
 	/// <summary>
