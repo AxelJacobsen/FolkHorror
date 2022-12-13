@@ -20,7 +20,7 @@ public class Bow : Weapon
         float   ang = Mathf.Atan2(dir.x, dir.z);
 
         // Instantiate arrow(s)
-        for (int i = 0; i < ArrowsPerShot; i++) 
+        for (int i = 0; i < ArrowsPerShot * userCharScript.ProjectileCountMult; i++) 
         {
             float   myAng = ang + Random.Range(-DegSpread/2f, DegSpread/2f) * Mathf.Deg2Rad;
             Vector3 myDir = new Vector3(Mathf.Sin(myAng), 0, Mathf.Cos(myAng));
@@ -30,8 +30,12 @@ public class Bow : Weapon
             SimpleProjectile script = newArrow.GetComponent<SimpleProjectile>();
             script._TargetTag           = targetTag;
             script._CreatedBy           = user;
-            script._DamageFromWeapon    = AttackDamage;
+            script._DamageFromWeapon    = AttackDamage * userCharScript.ProjectileDamageMult;
             script._KnockbackFromWeapon = Knockback;
+
+            script.Bounces  = userCharScript.Bounces;
+            script.Pierces  = userCharScript.Pierces;
+            script.Chains   = userCharScript.Chains;
 
             // Set physical properties and activate
             newArrow.transform.localScale = new Vector3(10, 10, 10);

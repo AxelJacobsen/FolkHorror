@@ -26,7 +26,7 @@ public class Sword : Weapon
         script._KnockbackDir        = dir;
         script._TargetTag           = targetTag;
         script._CreatedBy           = user;
-        script._DamageFromWeapon    = AttackDamage;
+        script._DamageFromWeapon    = AttackDamage * userCharScript.ProjectileDamageMult;
         script._KnockbackFromWeapon = Knockback;
 
         // Set physical properties and activate
