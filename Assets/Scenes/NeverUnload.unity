@@ -2794,7 +2794,7 @@ MonoBehaviour:
   Entity: {fileID: 2044029809}
   Heal:
     item: {fileID: 311919352863610144, guid: 0150fbfedbf564b40a245147b944b0a7, type: 3}
-    rarity: 2
+    rarity: 1
   addRandomRange: 1
   common: 20
   rare: 40
