@@ -15,23 +15,24 @@ The game design document can be found here: [GDD](./game_design_document.pdf)
 We have not really used the document that much. It was great at the very beginning of the project, as it showed us what parts we had to think about. It also helped to make sure we were all on the same page about game design.
 
 ## Work distribution
-|         |Lars   |Axel   |Daniel |Maren|
+|-        |Lars   |Axel   |Daniel |Maren|
 |---------|-------|-------|-------|-----|
-|Player   |Most   |Touched|Touched|     |
+|Player   |Most   |Some   |Some   |     |
 |Enemies  |All    |       |       |     |
 |Boss     |All    |       |       |     |
 |Effects  |All    |       |       |     |
 |Items    |All    |Touched|       |     |
 |Map      |       |All    |       |     |
 |Meshes   |       |All    |       |     |
-|Objects  |Touched|All    |       |     |
+|Scene Objects|Some|Most  |Some   |Some |
+|Prefabs  |Most   |       |Some   |     |
 |Camera   |       |Touched|       |     |
 |Dialogue |       |       |       |All  |
 |Quest    |Touched|       |       |All  |
 |Shop     |       |       |All    |     |
 |Tutorial |Touched|       |       |All  |
 |Audio    |Some   |       |Most   |     |
-|UI       |Touched|       |Some   |Most |
+|UI       |Touched|       |Half   |Half |
 |Art      |       |       |Most   |Some |
 |SceneMove|       |Touched|       |All  |
 
