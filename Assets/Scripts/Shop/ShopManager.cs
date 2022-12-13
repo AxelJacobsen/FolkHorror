@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Security.Cryptography;
 using TMPro;
 using Unity.VisualScripting;
@@ -13,7 +14,6 @@ public class ShopManager : MonoBehaviour
 {
 
     // Public
-   
     public GameObject Entity;                   // the temp holder for Character Script component loading
     public enum Rarity
     {
@@ -21,7 +21,7 @@ public class ShopManager : MonoBehaviour
         Rare,
         Legendary
     }
-   
+    [SerializeField] private itemProperties Heal;
     [Serializable]
     public struct itemProperties 
     {
@@ -73,34 +73,35 @@ public class ShopManager : MonoBehaviour
         entityCharacterScript = Entity.GetComponent<PlayerController>();
         if (Entity.GetComponent<PlayerController>() == null)       // Debugs if failed to load Character component
             Debug.LogWarning("HealthBarScript could not find the Character Script belonging to the Entity");
-
+        setRarityPrice();
         createItems();
-
     }
-
+    public void reconstructShop() {
+    destroyItems();
+    createItems();
+    }
     private void destroyItems()
     {
         foreach (Transform child in container)
         {
-            Destroy(child.gameObject);
+            if (child.tag == "ShopElement") {
+                Destroy(child.gameObject);
+            }
+           
         }
     }
     private void createItems()
     {
         if (amount > items.Length || amount < 0) return;
         int[] itemlist = new int[amount];
-        setRarityPrice();
+        
         for (int i = 0; i < amount; i++) itemlist[i] = i;
-
-
-     
-
         var rng = new System.Random();
         var keys = items.Select(e => rng.NextDouble()).ToArray();
 
         Array.Sort(keys, items);
-
-        foreach (int index in itemlist) { CreateItemSelection(items[index].item, items[index].rarity, index); }
+        CreateItemSelection(Heal.item, Heal.rarity, 0);
+        foreach (int index in itemlist) { CreateItemSelection(items[index].item, items[index].rarity, index+1); }
     }
 
     private void CreateItemSelection(GameObject item, Rarity rarity, int positionIndex)
@@ -113,7 +114,7 @@ public class ShopManager : MonoBehaviour
         else numRange = 0;
         int price = getRarityPrice(rarity) + new System.Random().Next(0, numRange);
         itemRectTransform.anchoredPosition = new Vector2(0, -itemHeight * (positionIndex-2));
-        
+        itemTransform.tag = "ShopElement";
         itemTransform.Find("ItemName").GetComponent<TextMeshProUGUI>().SetText(item.name);
         itemTransform.Find("ItemPrice").GetComponent<TextMeshProUGUI>().SetText(price.ToString());
         itemTransform.Find("ItemImage").GetComponent<Image>().sprite = item.GetComponent<SpriteRenderer>().sprite;

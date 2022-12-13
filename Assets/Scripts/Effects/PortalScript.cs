@@ -9,7 +9,9 @@ public class PortalScript : MonoBehaviour
     public string BiomeName;
     public bool isEntrance = false;
     public bool resetSpeed = false;
-
+    // private
+    private GameObject shopCanvas;
+    private ShopManager shop;
     /// <summary>
     /// Start is called before the first frame update
     /// </summary>
@@ -29,6 +31,9 @@ public class PortalScript : MonoBehaviour
             GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
             playerObject.GetComponent<PlayerController>().Speed = 10f;
         }
+        // gets shop
+        shopCanvas = GameObject.FindWithTag("Shop");
+        shop = shopCanvas.GetComponent<ShopManager>();
     }
 
     /// <summary>
@@ -41,6 +46,7 @@ public class PortalScript : MonoBehaviour
         //If it its an exit then teleport the player to the next stage on touch
         if (isEntrance && hit.transform.parent.tag == "Player") {
             this.transform.parent.gameObject.SetActive(false);
+            shop.reconstructShop();
             return; 
         }
         else if (isEntrance || hit.transform.parent == null || !hit.transform.parent.gameObject.CompareTag("Player")) return;
