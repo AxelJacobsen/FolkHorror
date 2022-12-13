@@ -93,7 +93,14 @@ public class SimpleProjectile : MonoBehaviour
             {
                 // Fetch new chain list if there aren't any
                 if (chainTargets == null || chainTargets.Count == 0) {
-                    chainTargets = GameObject.FindGameObjectsWithTag(_TargetTag).ToList();
+                    chainTargets = new List<GameObject>();
+
+                    // Add targets within range
+                    GameObject[] targets = GameObject.FindGameObjectsWithTag(_TargetTag);
+                    foreach (GameObject obj in targets)
+                        if (Vector3.Distance(obj.transform.position, transform.position) < 50f)
+                            chainTargets.Add(obj);
+                    
                     chainTargets.Remove(hitObj);
                 }
 
