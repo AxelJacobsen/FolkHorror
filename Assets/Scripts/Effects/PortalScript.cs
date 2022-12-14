@@ -9,6 +9,7 @@ public class PortalScript : MonoBehaviour
     public string BiomeName;
     public bool isEntrance = false;
     public bool resetSpeed = false;
+    public bool destroyOnEnter = false;
     // private
     private GameObject shopCanvas;
     private ShopManager shop;
@@ -64,6 +65,11 @@ public class PortalScript : MonoBehaviour
                 //Upon portal entry from map
                 hit.transform.parent.GetComponent<PlayerController>().currentStage++;
             }
+        }
+        if (destroyOnEnter)
+        {
+            this.transform.parent.gameObject.SetActive(false);
+            Destroy(this.transform.parent.gameObject);
         }
         ChangeScene();
     }
