@@ -2,7 +2,7 @@
 ### Score weighting
 |Description | My Weight |
 |----|----|
-|Gameplay video | 10 |
+|Gameplay video | 20 |
 |Code video | 0 |
 |Good Code  | 25 |
 |Bad Code | 20 |
