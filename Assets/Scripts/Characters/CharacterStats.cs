@@ -17,6 +17,11 @@ public class CharacterStats : MonoBehaviour
 
     [field: SerializeField] public float Speed      { get; set; }
     [field: SerializeField] public float MaxHealth  { get; set; }
+    [field: SerializeField] public int   Bounces    { get; set; }
+    [field: SerializeField] public int   Pierces    { get; set; }
+    [field: SerializeField] public int   Chains     { get; set; }
+    [field: SerializeField] public int   ProjectileCountMult  { get; set; } = 1;
+    [field: SerializeField] public int   ProjectileDamageMult { get; set; } = 1;
 
     /// <summary>
     /// Gets the class' properties (fields).

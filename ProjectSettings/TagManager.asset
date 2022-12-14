@@ -11,6 +11,7 @@ TagManager:
   - Solid Object
   - Enemy
   - MapGen
+  - ShopElement
   layers:
   - Default
   - TransparentFX

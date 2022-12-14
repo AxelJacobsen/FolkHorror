@@ -13,8 +13,8 @@ public class Feather : Passiveitem
 
         alterStats = charstats =>
         {
-            charstats.Speed *= 2f;
-            charstats.MaxHealth /= 1.5f;
+            charstats.Speed *= 1.35f;
+            charstats.MaxHealth /= 1.35f;
             return charstats;
         };
     }

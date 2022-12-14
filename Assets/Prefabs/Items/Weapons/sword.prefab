@@ -98,7 +98,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.61, y: 0.67, z: 0.54}
+  m_Size: {x: 1.01, y: 0.73, z: 1.56}
   m_Center: {x: 0.06, y: 0.03, z: 0}
 --- !u!114 &4268143481791810938
 MonoBehaviour:
@@ -273,8 +273,9 @@ MonoBehaviour:
   PickedUpByTag: Player
   MagnetRange: 10
   PickupRange: 3
+  destructable: 0
   PickupSound: {fileID: 0}
-  AttackDamage: 25
-  Knockback: 25
+  AttackDamage: 15
+  Knockback: 40
   AttackSpeed: 0.5
   archPrototype: {fileID: 4268143481791810177}

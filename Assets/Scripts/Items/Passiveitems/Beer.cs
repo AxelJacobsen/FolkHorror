@@ -13,7 +13,7 @@ public class Beer : Passiveitem
 
         alterStats = charstats =>
         {
-            charstats.Speed /= 1.5f;
+            charstats.Speed /= 1.25f;
             charstats.MaxHealth *= 2f;
             return charstats;
         };

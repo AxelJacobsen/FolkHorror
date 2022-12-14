@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: BurningDefault
   m_EditorClassIdentifier: 
   BaseIntensity: 1
-  BaseDuration: 3
+  BaseDuration: 4
   effectEmitter: {fileID: 11400000, guid: 4e32713956265864aafe53745284b50b, type: 2}
   _Creator: {fileID: 0}
   _Target: {fileID: 0}
   _Intensity: 1
   _Duration: 7.9999547
   DamagePerSecond: 5
+  PercentPerSecond: 0

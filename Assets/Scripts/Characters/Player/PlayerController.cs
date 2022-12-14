@@ -40,7 +40,7 @@ public class PlayerController : Character {
 		if (coinAmount < int.MaxValue) coinAmount++; 
 	}
 	public bool tryRemoveCoinAmount(int removeAmount) {
-		if (coinAmount > removeAmount && removeAmount > 0)
+		if (coinAmount >= removeAmount && removeAmount > 0)
 		{
 			coinAmount--;
             tryRemoveCoinAmount(removeAmount - 1);
@@ -79,9 +79,7 @@ public class PlayerController : Character {
 		if (playerControls.General.Roll.ReadValue<float>() == 1f || tryRolling) {
 			tryRolling = SteerableRoll(dir);
 		}
-		else {
-			Move(dir);
-		}
+		Move(dir);
 	}
 
 	/// <summary>

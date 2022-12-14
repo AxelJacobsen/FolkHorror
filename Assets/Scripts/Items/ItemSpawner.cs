@@ -48,7 +48,7 @@ public class ItemSpawner : MonoBehaviour {
         GameObject pickedItem = null;
         //Iterates all enemies and looks for the closest one 
         foreach (GameObject enemy in allEnemies) {
-            if ((enemy.transform.position - transform.position).magnitude <= 5.0f) {
+            if ((enemy.transform.position - transform.position).magnitude <= 15.0f) {
                 // Since they have diffrent heights, this compensates
                 GameObject bias = enemy.GetComponent<BaseEnemyAI>().DesiredWeapon;
                 if (bias == null) { return; }
@@ -59,10 +59,10 @@ public class ItemSpawner : MonoBehaviour {
         if (pickedItem == null) { return; }
         //Insurance
         Destroy(spawnedItem);
-        spawnedItem = Instantiate(pickedItem, transform.position, Quaternion.Euler(45, 0, 0));
+        /*spawnedItem = Instantiate(pickedItem, transform.position, Quaternion.Euler(45, 0, 0));
         Weapon eWeap = spawnedItem.GetComponent<Weapon>();
         eWeap.PickedUpByTag = "Enemy";
-        spawnedItem.SetActive(true);
+        spawnedItem.SetActive(true);*/
     }
 
     /// <summary>

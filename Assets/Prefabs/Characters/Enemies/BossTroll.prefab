@@ -63,8 +63,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e6c3e597ab298d4e9dd5a1b722b221e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 5
+  <Speed>k__BackingField: 7
   <MaxHealth>k__BackingField: 1000
+  <Bounces>k__BackingField: 0
+  <Pierces>k__BackingField: 0
+  <Chains>k__BackingField: 0
+  <ProjectileCountMult>k__BackingField: 1
+  <ProjectileDamageMult>k__BackingField: 1
   Weapon: {fileID: 0}
   Items: []
   WalkAcceleration: 10
@@ -83,7 +88,7 @@ MonoBehaviour:
   DropsOnDeath: []
   DropOffset: {x: 0, y: 0, z: 0}
   TargetObjectsWithTag: Player
-  VisionRange: 100
+  VisionRange: 60
   DesiredWeapon: {fileID: 0}
   behavior: 0
   LavaSpirePrefab: {fileID: 5948026217240869564, guid: 9c52db7166de17a42b1bcc22a23983da, type: 3}
@@ -112,8 +117,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 13.9, y: 15.6, z: 11.6}
-  m_Center: {x: 0.055928707, y: -0.14772877, z: -2.17}
+  m_Size: {x: 13.9, y: 15.486492, z: 11.6}
+  m_Center: {x: 0.055928707, y: -0.09097457, z: -2.17}
 --- !u!1 &3155963225597689440
 GameObject:
   m_ObjectHideFlags: 0
