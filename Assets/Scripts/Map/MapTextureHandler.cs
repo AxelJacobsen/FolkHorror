@@ -49,11 +49,9 @@ public class MapTextureHandler : MonoBehaviour
             curTexture = MaterialProgression.Count - 1;
         }
 
-        Shader basic = Shader.Find("Standard");
         Material roofMaterial = GetMaterialFromMaterialAlt(MaterialProgression[curTexture].roof);
         Material floorMaterial = GetMaterialFromMaterialAlt(MaterialProgression[curTexture].floor);
         Material wallMaterial = GetMaterialFromMaterialAlt(MaterialProgression[curTexture].walls);
-
 
         //Texture aquisition success
         return (roofMaterial, floorMaterial, wallMaterial);

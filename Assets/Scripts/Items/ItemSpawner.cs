@@ -34,8 +34,8 @@ public class ItemSpawner : MonoBehaviour {
         if (pickedItem == null) { return; }
         //Insurance   
         Destroy(spawnedItem);
+        pickedItem.GetComponent<Item>().destructable = true;
         spawnedItem = Instantiate(pickedItem, transform.position, Quaternion.Euler(45, 0, 0));
-        spawnedItem.GetComponent<Item>().destructable = true;
         spawnedItem.SetActive(true);
     }
 

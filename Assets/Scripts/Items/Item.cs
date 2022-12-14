@@ -130,7 +130,6 @@ public abstract class Item : MonoBehaviour
     protected virtual void PickUp() {
         // Mark the pickup as picked up
         equipped = true;
-        destructable = false;
         userCharScript.Items.Add(this);
         userCharScript.UpdateStats();
 
@@ -143,13 +142,16 @@ public abstract class Item : MonoBehaviour
         transform.localScale    = Vector3.one;
 
         //Handles item room
-        GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
-        foreach (GameObject item in items) {
-            if (item.transform.parent != null) {
-                continue;
-            }
-            if (item.GetComponent<Item>().destructable) {
-                Destroy(item);
+        if (destructable) {
+            destructable = false;
+            GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+            foreach (GameObject item in items) {
+                if (item.transform.parent != null) {
+                    continue;
+                }
+                if (item.GetComponent<Item>().destructable) {
+                    Destroy(item);
+                }
             }
         }
         OnPickup();
