@@ -38,7 +38,7 @@ We have not really used the document that much. It was great at the very beginni
 
 ## Gameplay video
 The gameplay video can be found here: [Gameplay](https://www.youtube.com/watch?v=F-kSJ7kDnZo)<br>
-Note: After uploading this video, items were balanced and additional ambience was added to the final boss.
+Note: After uploading this video, items were rebalanced and snow+wind added to the final boss.
 
 ## Code video
 We decided to not make a code video.
