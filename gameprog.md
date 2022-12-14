@@ -21,26 +21,26 @@ We have not really used the document that much. It was great at the very beginni
 |Enemies  |All    |       |       |     |
 |Boss     |All    |       |       |     |
 |Effects  |All    |       |       |     |
-|Items    |All    |Touched|       |     |
+|Items    |All    |       |       |     |
 |Map      |       |All    |       |     |
 |Meshes   |       |All    |       |     |
-|Scene Objects|Some|Most  |Some   |Some |
-|Prefabs  |Most   |       |Some   |     |
-|Camera   |       |Touched|       |     |
+|Scene composition||Most  |Some   |Some |
+|Prefabs  |Most   |Some   |Some   |Touched     |
+|Camera   |All    |Touched|       |     |
 |Dialogue |       |       |       |All  |
 |Quest    |Touched|       |       |All  |
 |Shop     |       |       |All    |     |
 |Tutorial |Touched|       |       |All  |
 |Audio    |Some   |       |Most   |     |
 |UI       |Touched|       |Half   |Half |
-|Art      |       |       |Most   |Some |
-|SceneMove|       |Touched|       |All  |
+|Art      |Half   |       |Half   |Some |
+|SceneMove|All    |Touched|       |     |
 
 ## Gameplay video
-The gameplay video can be found here: [Gameplay]()
+The gameplay video can be found here: [Gameplay](https://www.youtube.com/watch?v=F-kSJ7kDnZo)
 
 ## Code video
-The code video can be found here: [Code]()
+We decided to not make a code video.
 
 ## Game engine
 When discussing which game engine to use, we quickly agreed on Unity. We all had little to no experience with it, and most of us were not even familiar with C#, but for creating our little 2.5D game it seemed like the best option. Unreal Engine would be more suited for a completely 3D game and GoDot for a 2D game, while Unity fell somewhere in the middle. After a bit of searching we found multiple forum posts agreeing on Unity being the best choice for a 2.5D Indie game, as it’s easy to get into and set up both 2D and 3D elements in the same scene. It also has a large indie community, which makes finding tutorials and answers to questions often easy.
