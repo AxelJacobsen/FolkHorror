@@ -171,6 +171,9 @@ public class MapGenerator : MonoBehaviour {
 				}
 				else {
 					borderedMap[x, y] = 20;
+					//Including this would remove all mesh underneeth the outer roof,
+					//However, raycasting demands there to be a floor to cast to, so the mesh has been kept
+					//invertedMap[x, y] = 0;
 				}
 			}
 		}

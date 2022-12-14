@@ -96,6 +96,8 @@ public class ShopManager : MonoBehaviour
         int[] itemlist = new int[amount];
         
         for (int i = 0; i < amount; i++) itemlist[i] = i;
+     
+
         var rng = new System.Random();
         var keys = items.Select(e => rng.NextDouble()).ToArray();
 
@@ -123,12 +125,11 @@ public class ShopManager : MonoBehaviour
         itemTransform.Find("Background").GetComponent<Image>().color = colorKvp.Key;
         itemTransform.Find("ItemName").GetComponent<TextMeshProUGUI>().color = colorKvp.Value;
 
-
         itemButton.onClick.AddListener(() => { // do whatever when buying items
             if (entityCharacterScript.getCoinAmount() >= price) {
                 entityCharacterScript.tryRemoveCoinAmount(price);
                 SoundManager.Instance.PlaySound(buySound, Entity.transform, isSpatial:false);
-                print(Entity);
+                item.GetComponent<Item>().destructable = false;
                 Instantiate(item, Entity.transform.position, Quaternion.identity);
             }
         });

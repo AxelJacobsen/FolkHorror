@@ -98,7 +98,7 @@ public class MeshGenerator : MonoBehaviour {
 					//Necessary to save the mesh
 					MeshCollider outerRoofCollide  = outerRoof.gameObject.GetComponent<MeshCollider>();
 					outerRoofCollide.sharedMesh = mesh;
-					CreateWallMesh(map, squareSize, meshType); 
+					CreateWallMesh(map, squareSize, meshType);
 				} break;
 			case 3: 
 				{
@@ -216,8 +216,8 @@ public class MeshGenerator : MonoBehaviour {
 
 				GameObject Enemy = objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), Enemies[enemyType]);
 				MoveObjectOutOfTrees(trees, Enemy, poly);
-				GameObject EnemyWep = objSpawner.SpawnObject(new Vector3(eSpawnPoint.x, 0, eSpawnPoint.y), EnemyWeapon);
-				MoveObjectOutOfTrees(trees, EnemyWep, poly);
+				//Item has later been added to the prefabs to ensure stability when building, this permits modularity
+				//objSpawner.SpawnObject(Enemy.transform.position), EnemyWeapon);
 			}
 			return 0;
 		}
