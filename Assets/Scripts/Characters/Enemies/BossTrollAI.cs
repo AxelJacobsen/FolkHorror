@@ -189,6 +189,28 @@ public class BossTrollAI : BaseEnemyAI
     }
 
     /// <summary>
+    /// Kills the character.
+    /// </summary>
+    public override void Die()
+    {
+        if (dead) return;
+        else dead = true;
+        Vector3 dropPos = transform.position;
+        dropPos.y = 3.4f;
+
+        foreach (GameObject obj in DropsOnDeath)
+        {
+            GameObject drop = Instantiate(obj, dropPos, Quaternion.identity);
+            drop.SetActive(true);
+        }
+        PlayerController pCon = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
+        pCon.currentStage = 0;
+
+        OnDie();
+        Destroy(gameObject);
+    }
+
+    /// <summary>
     /// When the boss hits the ground (or player) while stomping, go boom.
     /// </summary>
     /// <param name="hit">Collision data.</param>

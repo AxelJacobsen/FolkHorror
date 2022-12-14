@@ -152,6 +152,7 @@ public abstract class Character : CharacterStats
 
         foreach (GameObject obj in DropsOnDeath)
         {
+            obj.SetActive(true);
             GameObject drop = Instantiate(obj, dropPos, Quaternion.identity);
         }
 

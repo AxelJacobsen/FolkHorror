@@ -1574,13 +1574,13 @@ MonoBehaviour:
       hexadecimal: '#214D32'
   - roof:
       material: {fileID: 0}
-      hexadecimal: 56615B
+      hexadecimal: '#56615B'
     floor:
       material: {fileID: 2100000, guid: d8e3d7df0e1d68f408a67805aaef5d9c, type: 2}
       hexadecimal: 
     walls:
       material: {fileID: 0}
-      hexadecimal: 4F5250
+      hexadecimal: '#4F5250'
 --- !u!1001 &1213527065
 PrefabInstance:
   m_ObjectHideFlags: 0
